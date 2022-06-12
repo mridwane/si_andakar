@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 10, 2022 at 03:50 PM
+-- Generation Time: Jun 12, 2022 at 11:23 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `pbh_db`
+-- Database: `andakar`
 --
 
 -- --------------------------------------------------------
@@ -52,7 +52,7 @@ CREATE TABLE `tblautonumber` (
 --
 
 INSERT INTO `tblautonumber` (`id`, `start`, `end`, `increment`, `desc`) VALUES
-(1, 1000, 53, 1, 'PROD');
+(1, 1000, 55, 1, 'PROD');
 
 -- --------------------------------------------------------
 
@@ -70,9 +70,18 @@ CREATE TABLE `tblcategory` (
 --
 
 INSERT INTO `tblcategory` (`category_id`, `category`) VALUES
-(1, 'Tanaman Gantung'),
-(2, 'Tanaman Standar'),
-(3, 'Tanaman Koleksi');
+(1, 'Steak'),
+(2, 'Ribs'),
+(3, 'Lamb'),
+(5, 'Chicken'),
+(6, 'Seafood'),
+(7, 'Side Dish'),
+(8, 'Pie & Pasta'),
+(9, 'Starter'),
+(10, 'Regular Drink'),
+(11, 'Squash'),
+(12, 'Tea & Coffee & Blend'),
+(13, 'Juice');
 
 -- --------------------------------------------------------
 
@@ -199,50 +208,22 @@ INSERT INTO `tblpot` (`id`, `size`, `transac_code`) VALUES
 CREATE TABLE `tblproducts` (
   `product_id` int(11) NOT NULL,
   `product_name` varchar(50) NOT NULL,
-  `quantity` int(11) NOT NULL DEFAULT 1,
   `date_in` varchar(50) NOT NULL,
   `category_id` int(11) NOT NULL,
-  `supplier_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `product_code` varchar(25) NOT NULL,
   `status` varchar(200) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `Description` varchar(255) NOT NULL
+  `type` varchar(10) NOT NULL,
+  `price` int(50) NOT NULL,
+  `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblproducts`
 --
 
-INSERT INTO `tblproducts` (`product_id`, `product_name`, `quantity`, `date_in`, `category_id`, `supplier_id`, `user_id`, `product_code`, `status`, `image`, `Description`) VALUES
-(1, 'Gelombang Love', 49, '2020-06-24', 2, 1, 2, '1023', 'Available', '1023Kembang cinta.png', ''),
-(2, 'Red Kongo', 25, '2020-06-24', 1, 1, 2, '1024', 'Available', '1024red koongo.png', ''),
-(3, 'Kaktus Koboi', 11, '2020-06-24', 3, 1, 2, '1026', 'Available', '1026Kaktus Koboi.png', ''),
-(4, 'Bromelia Gede', 22, '2020-06-24', 1, 1, 2, '1027', 'Available', '1027Bromelia Gede.png', ''),
-(5, 'Sensiveira', 20, '2020-06-24', 1, 1, 2, '1028', 'Available', '1028Sensiveira.png', ''),
-(6, 'Suji', 20, '2020-06-24', 1, 1, 2, '1029', 'Available', '1029Suji.png', ''),
-(7, 'Roten/Hortensiah', 33, '2020-06-24', 1, 1, 2, '1030', 'Available', '1030Roten atau Hortensiah.png', ''),
-(8, 'Wijaya Kusuma Kepiting', 32, '2020-06-24', 1, 1, 2, '1031', 'Available', '1031Wijaya Kusuma Kepiting.png', ''),
-(9, 'Wijaya Kusuma Californian Dream', 23, '2020-06-24', 1, 1, 2, '1032', 'Available', '1032Wijaya Kusuma Californian Dream.png', ''),
-(10, 'Lavender', 25, '2020-06-24', 1, 1, 2, '1033', 'Available', '1033Lavender.png', ''),
-(11, 'Lipstik', 35, '2020-06-24', 1, 1, 2, '1034', 'Available', '1034Lipstik.png', ''),
-(12, 'Pilo Katak', 30, '2020-06-24', 1, 1, 2, '1035', 'Available', '1035Pilo Katak.png', ''),
-(13, 'Gewor', 25, '2020-06-24', 1, 1, 2, '1036', 'Available', '1036Gewor.png', ''),
-(14, 'Janda Bolong/Monstera Obliqua', 22, '2020-06-24', 1, 1, 2, '1037', 'Available', '1037Janda Bolong.png', ''),
-(15, 'Dianthus/Anyelir', 55, '2020-06-24', 1, 1, 2, '1038', 'Available', '1038Diantus atau anyelir.png', ''),
-(16, 'Peplan/Peperonia Merah', 45, '2020-06-24', 1, 1, 2, '1039', 'Available', '1039Peplan atau peperonia merah.png', ''),
-(17, 'Peplan/Peperonia', 45, '2020-06-24', 1, 1, 2, '1040', 'Available', '1040Peplan atau peperonia.png', ''),
-(18, 'Keladi Daun Kecil', 6, '2020-06-24', 1, 1, 2, '1041', 'Available', '1041Keladi daun kecil.png', ''),
-(19, 'Kuping Gajah', 10, '2020-06-24', 1, 1, 2, '1042', 'Available', '1042Kuping gajah.png', ''),
-(20, 'Kribo', 66, '2020-06-24', 1, 1, 2, '1043', 'Available', '1043Kribo.png', ''),
-(21, 'Hebras Rambat/Baby Sun Rose', 52, '2020-06-24', 1, 1, 2, '1044', 'Available', '1044Hebras Rambat atau baby sun rose.png', ''),
-(22, 'Petunia', 40, '2020-06-24', 1, 1, 2, '1045', 'Available', '1045Petunia.png', ''),
-(23, 'Pakis Haji', 65, '2020-06-24', 1, 1, 2, '1046', 'Available', '1046Pakis Haji.png', ''),
-(24, 'Sri Rezeki', 32, '2020-06-24', 1, 1, 2, '1048', 'Available', '1048sri rejeki.png', ''),
-(25, 'Bromelia Three Color', 50, '2020-06-24', 1, 1, 2, '1049', 'Available', '1049Bromelia Three Color.png', ''),
-(42, 'Bunga Test', 35, '2020-07-04', 1, 1, 2, '1050', 'Available', '1050career.jpg', ''),
-(43, 'Tanaman Koleksi test', 25, '2020-07-11', 3, 1, 2, '1051', 'Available', '1051Wijaya Kusuma Kepiting.png', ''),
-(44, 'Janda Kembang', 23, '2022-06-06', 2, 1, 2, '1052', 'Available', '1052wallpaperflare.com_wallpaper_2.jpg', '');
+INSERT INTO `tblproducts` (`product_id`, `product_name`, `date_in`, `category_id`, `user_id`, `status`, `type`, `price`, `image`) VALUES
+(45, 'Iga Bakar', '2022-06-12', 2, 2, 'Habis', 'Minuman', 80000, '1053bbq-chicken-wings2.jpg'),
+(46, 'Iga Barbar', '2022-06-12', 2, 2, 'Tersedia', 'Minuman', 200000, '1054boneless-chicken2.jpg');
 
 -- --------------------------------------------------------
 
@@ -420,8 +401,7 @@ CREATE TABLE `tblusers` (
 --
 
 INSERT INTO `tblusers` (`user_id`, `fname`, `lname`, `email`, `contact`, `address`, `position`, `username`, `pass`) VALUES
-(2, 'Tasya', 'Pratama', 'caren@yahoo.com', 0, '', 'Admin', 'admin', '$2y$10$ds1gqSSjIHq/I7c.Ly/w9eF.OPgcXyeG09wL71loBGy0qLkNzUZlS'),
-(4, 'adi', 'a', 'Adi@gmail.com', 0, '', 'Kurir', 'kurir', '$2y$10$uYGNuUtZm0hTEnX88Jof/unW0PY.etrQ3hR6xWwtTxKZ4V941jBpe');
+(2, 'Regi', 'Sacarisa', 'caren@yahoo.com', 0, '', 'Admin', 'admin', '$2y$10$ds1gqSSjIHq/I7c.Ly/w9eF.OPgcXyeG09wL71loBGy0qLkNzUZlS');
 
 --
 -- Indexes for dumped tables
@@ -474,7 +454,7 @@ ALTER TABLE `tblpot`
 --
 ALTER TABLE `tblproducts`
   ADD PRIMARY KEY (`product_id`),
-  ADD KEY `FK_tblproducts_tblsupplier` (`supplier_id`,`user_id`);
+  ADD KEY `FK_tblproducts_tblsupplier` (`user_id`);
 
 --
 -- Indexes for table `tblreq`
@@ -539,7 +519,7 @@ ALTER TABLE `tblautonumber`
 -- AUTO_INCREMENT for table `tblcategory`
 --
 ALTER TABLE `tblcategory`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tblcustomer`
@@ -569,7 +549,7 @@ ALTER TABLE `tblpot`
 -- AUTO_INCREMENT for table `tblproducts`
 --
 ALTER TABLE `tblproducts`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `tblreqdetail`
