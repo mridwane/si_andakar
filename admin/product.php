@@ -11,7 +11,7 @@ include 'theme/sidebar.php';
 
 <div class="card mb-3">
     <div class="card-header">
-        <h3>Daftar Barang <a href="productadd.php" type="button" class="btn btn-info fas fa-plus"> Tambah Barang</a>
+        <h3>Daftar Menu <a href="productadd.php" type="button" class="btn btn-info fas fa-plus"> Tambah Menu</a>
         </h3>
         <div class="card-body">
             <div class="table-responsive">
@@ -20,34 +20,45 @@ include 'theme/sidebar.php';
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Nama Produk</th>
-                            <th>Jumlah</th>
-                            <th>Tanggal Masuk</th>
+                            <th>Nama Menu</th>
+                            <th>Jenis</th>
+                            <th>Kategori</th>
                             <th>Oleh</th>
+                            <th>Harga</th>
                             <th>Status</th>
-                            <th>Perbaharui</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php                  
-                $query = 'SELECT *,category,supplier_name,concat(d.`fname`," ",d.`lname`)as name FROM tblproducts a inner join tblcategory b inner join tblsupplier c inner join tblusers d on a.`category_id` = b.`category_id` and a.`supplier_id` = c.`supplier_id` and a.`user_id` = d.`user_id`';
+                $query = 'SELECT *, concat(c.`fname`," ",c.`lname`)as name FROM tblproducts a inner join tblcategory b inner join tblusers c on a.`category_id` = b.`category_id`  and a.`user_id` = c.`user_id`';
                     $result = mysqli_query($db, $query) or die (mysqli_error($db));
-                  
+                    $no = 1;
                         while ($row = mysqli_fetch_assoc($result)) {
                                              
                             echo '<tr>';
-                            echo '<td>'. $row['product_id'].'</td>';
+                            echo '<td>'. $no++.'</td>';
                             echo '<td> '.$row['product_name'].'</td>';
-                            echo '<td><a title="Update Quantity" href="updatequantity.php?id='. $row['product_code'].'" style="color: blue;font-size: 21px">'. $row['quantity'].' </a></td>';  
-                            echo '<td>'. $row['date_in'].'</td>';
+                            echo '<td> '.$row['type'].'</td>';
+                            echo '<td>'. $row['category'].'</td>';
                             echo '<td>'. $row['name'].'</td>';
-                            echo '<td>'. $row['status'].'</td>';
-                            echo '<td class="bungkus-tombol">  ';
-                            echo ' <a title="Update Product" type="button" class="btn-detail" href="productupdate.php?action=view & id='.$row['product_code'] . '">
+                            echo '<td>'. $row['price'].'</td>';
+                            if($row['status'] == "Tersedia") {
+                                echo '<td><a title="Update Product" type="button" class="btn btn-success"
+                                        href="productupdate.php?action=view & id='.$row['product_id'] . '">
+                                        '. $row['status'].'
+                                    </a></td>';
+                            }else {
+                                echo '<td><a title="Update Product" type="button" class="btn btn-danger"
+                                        href="productupdate.php?action=view & id='.$row['product_id'] . '">
+                                        '. $row['status'].'
+                                    </a></td>';
+                            }                            
+                            echo '<td><a title="Update Product" type="button" class="btn-detail" href="productupdate.php?action=view & id='.$row['product_id'] . '">
                                     <span class="material-icons">
-                                        visibility
+                                       edit
                                     </span>                              
-                                    </a> ';
+                                    </a></td>';
                             echo '</tr> ';
                 }
             ?>

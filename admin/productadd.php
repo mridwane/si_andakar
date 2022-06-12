@@ -7,8 +7,6 @@ include('../includes/connection.php');
 include 'theme/header.php';
 include 'theme/sidebar.php';
 
-$query = "SELECT * FROM tblsupplier";
-$result = mysqli_query($db,$query);
 $query3 = "SELECT * FROM tblcategory";
 $result3 = mysqli_query($db,$query3);
 
@@ -43,21 +41,24 @@ $autonum = $r['autonum'];
           if (isset($_GET['required'])) {
             if ($_GET["required"]=="product") {
               echo '<p class="error-msg text-danger">Nama Produk Harus Diisi</p>';
-            }elseif ($_GET["required"]=="quantity") {
-               echo '<p class="error-msg text-danger">Invalid quantity</p>';
             }elseif ($_GET["required"]=="category") {
                 echo '<p class="error-msg text-danger">Kategori Harus Diisi</p>';
+            }elseif ($_GET["required"]=="type") {
+                echo '<p class="error-msg text-danger">Jenis Harus Diisi</p>';
+            }elseif ($_GET["required"]=="price") {
+                echo '<p class="error-msg text-danger">Harga Harus Diisi</p>';
             }elseif ($_GET["required"]=="producttaken") {
                echo '<p class="error-msg text-danger">Nama produk sudah ada.</p>';
             }
-            }      ?>
+          }
+        ?>
         <div class="form-group">
-          <label>Kode Barang</label>
+          <label>Kode Menu</label>
           <input class="form-control" readonly value="<?php echo $autonum; ?>" name="code" id="code">
         </div>
         <div class="form-group">
-          <label>Nama Barang</label>
-          <input class="form-control" placeholder="Product Name" name="product" autofocus="autofocus">
+          <label>Nama Menu</label>
+          <input class="form-control" placeholder="Menu Name" name="product" autofocus="autofocus">
         </div>
         <div class="form-group" type="hidden">
           <label>Kategori</label>
@@ -68,9 +69,17 @@ $autonum = $r['autonum'];
             <?php endwhile; ?>
           </select>
         </div>
+        <div class="form-group" type="hidden">
+          <label>Jenis</label>
+          <select class="form-control" name="type" id="type">
+            <option selected disabled>Pilih Jenis</option>
+            <option value="Makanan">Makanan</option>
+            <option value="Minuman">Minuman</option>
+          </select>
+        </div>
         <div class="form-group">
-          <label>Jumlah</label>
-          <input type="number" class="form-control" placeholder="Jumlah" name="quantity">
+          <label>Harga Menu</label>
+          <input type="number" class="form-control" placeholder="Harga Menu" name="price">
         </div>
         <div class="form-group">
           <input class="form-control" type="hidden" name="user" value="<?php echo $_SESSION['userid']; ?>">
@@ -80,19 +89,8 @@ $autonum = $r['autonum'];
             value="<?php echo $date ?>">
         </div>
         <div class="form-group">
-          <label>Foto Barang</label>
+          <label>Foto Menu</label>
           <input name="foto" type="file" id="foto" class="form-control">
-        </div>
-        <div style="display:none">
-
-          <div class="form-group">
-            <select class="form-control" name="supplier">
-              <option selected disabled>Pemasok</option>
-              <?php while($row = mysqli_fetch_array($result)):; ?>
-              <option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
-              <?php endwhile; ?>
-            </select>
-          </div>
         </div>
 
         <button type="submit" name="submit" class="btn btn-info">Simpan</button>
