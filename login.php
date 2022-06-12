@@ -1,129 +1,92 @@
-<?php 
-include 'koneksi.php';   
-?>
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-	<title>Andakar</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/vendor/bootstrap/css/bootstrap.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/fonts/iconic/css/material-design-iconic-font.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/vendor/animate/animate.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/vendor/css-hamburgers/hamburgers.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/vendor/animsition/css/animsition.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/vendor/select2/select2.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/vendor/daterangepicker/daterangepicker.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/css/util.css">
-	<link rel="stylesheet" type="text/css" href="asset/login/css/main.css">
-	<!--===============================================================================================-->
-</head>
+  <head>
 
-<body>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-				<form class="login100-form validate-form" method="POST">
-					<span class="login100-form-title p-b-26">
-						E-DEL : User Login
-					</span>
-					<div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
-						<input class="input100" type="text" name="email">
-						<span class="focus-input100" data-placeholder="Insert Your Email"></span>
-					</div>
+    <title>Login</title>
 
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<span class="btn-show-pass">
-							<i class="zmdi zmdi-eye"></i>
-						</span>
-						<input class="input100" type="password" name="password">
-						<span class="focus-input100" data-placeholder="Insert Your Password"></span>
-					</div>
+    <!-- Bootstrap core CSS-->
+    <link rel="stylesheet" href="css/tambahan.css">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-					<div class="container-login100-form-btn">
-						<div class="wrap-login100-form-btn">
-							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn" name="submit">
-								Login
-							</button>
-						</div>
-					</div>
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-					<div class="text-center p-t-115">
-						<span class="txt1">
-							Don’t have an account?
-						</span>
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin.css" rel="stylesheet">
 
-						<a class="txt2" href="register.php">
-							Sign Up
-						</a><br>
-						<span class="txt1">
-							Login as Admin?
-						</span>
+    <link rel="stylesheet" type="text/css" href="css/sb-new.css">
+  </head>
 
-						<a class="txt2" href="admin/login.php">
-							Click here
-						</a>
-					</div>
-				</form>
-				<?php 
-				if (isset($_POST['submit'])) {
-					$email = mysqli_escape_string($conn,$_POST['email']);
-					$password = mysqli_escape_string($conn,$_POST['password']);
+  <body class="login">
 
-					$password = md5($password);
-					$query=$conn->query("SELECT * FROM pelanggan WHERE email_pelanggan='$email' AND password_pelanggan='$password'");
-					$result=$query->num_rows;
-					if ($result==1) {
-						session_start();
-						$_SESSION['login']=$query->fetch_assoc();
-						echo "<br>";
-						echo "<div class='alert alert-info'><center>Login Succeeded</center></div>";
-						echo "<meta http-equiv='refresh' content='1;url=index.php'>";
-					}
-					else{
-						echo "<br>";
-						echo "<div class='alert alert-danger'><center>Login Failed</center></div>";
-						echo "<meta http-equiv='refresh' content='1;url=login.php'>";
-					}
-				}
-				?>
-			</div>
-		</div>
-	</div>
+   <div class="container">
+     <div class="row">
+       <div class="col-6">
+          <div class="container">
+            <div class="card card-login mx-auto mt-5">
+              <div class="card-header text-dark"><h3> Masuk</h3></div>
+              <div class="card-body">
+              <?php session_start();
+                if (isset($_GET['error'])) {
+                  if ($_GET["error"]=="wrongpwd") {
+                    echo '<p class="signuperror">Username/Password Salah!</p>';
+                  }
+                  
+                  } 
+                  
+              
+                ?>
+                <form action="includes/signin.php" method="post">
+                  <div class="form-group">
+                    <div class="form-label-group">
+                      <input type="text" id="inputEmail" name="mailuid" class="form-control" placeholder="Email/Username" required autofocus="autofocus">
+                      <label for="inputEmail">Email/Nama Pengguna</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-label-group">
+                      <input type="password" id="inputPassword" name="pwd" class="form-control" placeholder="Password" >
+                      <label for="inputPassword">Kata Sandi</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="remember-me">
+                        Ingat Kata Sandi
+                      </label>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary btn-block" name="login-submit">Masuk</button>
+                </form>
+                <div class="text-center">
+                  <a class="d-block small mt-3" href="register.php">Registrasi</a>
+                  <a class="d-block small mt-3" href="index.php">Beranda</a>
+                </div>
+              </div>
+            </div>
+          </div>
+       </div>
+       <div class="col-6 center-position">
+         <img src="images/login.svg" alt="" width="300px">
+       </div>
+     </div>
+   </div>
 
+ <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-	<div id="dropDownSelect1"></div>
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-	<!--===============================================================================================-->
-	<script src="asset/login/vendor/jquery/jquery-3.2.1.min.js"></script>
-	<!--===============================================================================================-->
-	<script src="asset/login/vendor/animsition/js/animsition.min.js"></script>
-	<!--===============================================================================================-->
-	<script src="asset/login/vendor/bootstrap/js/popper.js"></script>
-	<script src="asset/login/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<!--===============================================================================================-->
-	<script src="asset/login/vendor/select2/select2.min.js"></script>
-	<!--===============================================================================================-->
-	<script src="asset/login/vendor/daterangepicker/moment.min.js"></script>
-	<script src="asset/login/vendor/daterangepicker/daterangepicker.js"></script>
-	<!--===============================================================================================-->
-	<script src="asset/login/vendor/countdowntime/countdowntime.js"></script>
-	<!--===============================================================================================-->
-	<script src="asset/login/js/main.js"></script>
-
-</body>
+  </body>
 
 </html>

@@ -1,141 +1,165 @@
-<?php 
-	include 'koneksi.php';
-?>
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<title>Login E-DEL</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="logo.png"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/fonts/iconic/css/material-design-iconic-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/vendor/animate/animate.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="asset/login/vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/vendor/select2/select2.min.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="asset/login/vendor/daterangepicker/daterangepicker.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="asset/login/css/util.css">
-	<link rel="stylesheet" type="text/css" href="asset/login/css/main.css">
-<!--===============================================================================================-->
-</head>
-<body>
-	
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-				<form class="login100-form validate-form" method="POST">
-					<span class="login100-form-title p-b-26">
-						Create Account
-					</span>
 
-					<div class="wrap-input100 validate-input" data-validate="Enter Name">
-						<input class="input100" type="text" name="nama">
-						<span class="focus-input100" data-placeholder="Insert Your Name"></span>
-					</div>
+  <head>
 
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
-						<input class="input100" type="text" name="email">
-						<span class="focus-input100" data-placeholder="Insert Your Email"></span>
-					</div>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<span class="btn-show-pass">
-							<i class="zmdi zmdi-eye"></i>
-						</span>
-						<input class="input100" type="password" name="password">
-						<span class="focus-input100" data-placeholder="Insert Your Password"></span>
-					</div>
+    <title>Register</title>
 
-					<div class="wrap-input100 validate-input" data-validate="Enter Phone Number">
-						<input class="input100" type="tel" name="phone">
-						<span class="focus-input100" data-placeholder="Insert Your Phone Number"></span>
-					</div>
+    <!-- Bootstrap core CSS-->
+    <link rel="stylesheet" href="css/tambahan.css">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-					<div class="wrap-input100 validate-input" data-validate="Enter Address">
-						<input class="input100" type="text" name="alamat">
-						<span class="focus-input100" data-placeholder="Insert Your Address"></span>
-					</div>
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-					<div class="container-login100-form-btn">
-						<div class="wrap-login100-form-btn">
-							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn" name="submit">
-								Sign Up
-							</button>
-						</div>
-					</div>
-				</form>
-				<?php 
-				if (isset($_POST['submit'])) {
-					$nama = mysqli_escape_string($conn,$_POST['nama']);
-					$email = mysqli_escape_string($conn,$_POST['email']);
-					$password = mysqli_escape_string($conn,$_POST['password']);
-					$phone = mysqli_escape_string($conn,$_POST['phone']);
-					$alamat = mysqli_escape_string($conn,$_POST['alamat']);
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin.css" rel="stylesheet">
 
-					$password = md5($password);
-					$validasi=$conn->query("SELECT * FROM pelanggan WHERE email_pelanggan='$email'");
-					$q_validasi=$validasi->fetch_assoc();
-					if ($nama == '' || $email == '' || $password == '' || $phone == '' || $alamat == '') {
-						echo "<script>alert('Harap isi semua data');</script>";
-					}
-					else if ($q_validasi==TRUE) {
-						echo "<script>alert('Email telah terdaftar');</script>";
-					}
-					else if ($q_validasi != TRUE){
-						$query=$conn->query("INSERT INTO pelanggan(email_pelanggan,password_pelanggan,nama_pelanggan,telepon_pelanggan,alamat_pelanggan) VALUES('$email','$password','$nama','$phone','$alamat')");
-						if ($query) {
-							echo "<br>";
-							echo "<div class='alert alert-info'>Sign Up Succeeded</div>";
-							echo "<meta http-equiv='refresh' content='1;url=index.php'>";
-							// echo "<script>alert('Registrasi Sukses');</script>";
-							// header("refresh: 0.1, url=login.php");
-						}
-						else{
-							// echo "<script>alert('Registrasi Gagal');</script>";
-							// header("refresh: 0.1, url=login.php");
-							echo "<br>";
-							echo "<div class='alert alert-danger'>Sign Up Failed</div>";
-							echo "<meta http-equiv='refresh' content='1;url=login.php'>";
-						}
-					}
-				}
-				?>
-			</div>
-		</div>
-	</div>
-	
+    <link rel="stylesheet" type="text/css" href="css/sb-new.css">
+  </head>
 
-	<div id="dropDownSelect1"></div>
-	
-<!--===============================================================================================-->
-	<script src="asset/login/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="asset/login/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script src="asset/login/vendor/bootstrap/js/popper.js"></script>
-	<script src="asset/login/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="asset/login/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="asset/login/vendor/daterangepicker/moment.min.js"></script>
-	<script src="asset/login/vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-	<script src="asset/login/vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-	<script src="asset/login/js/main.js"></script>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-6 center-position">
+          <img src="images/register.svg" alt="" width="500px">
+        </div>
+        <div class="col-6">
+          <div class="container">
+            <div class="card card-register mx-auto mt-5">
+              <div class="card-header">Registrasi</div>
+              <div class="card-body">
+                <?php 
+                session_start();
+                if (isset($_GET['error'])) {
+                  if ($_GET["error"]=="emptyfields") {
+                    echo '<p class="signuperror">Silahkan isi semua field</p>';
+                  }
+                  elseif ($_GET["error"]=="invalidmail") {
+                    echo '<p class="signuperror">Email Tidak Valid</p>';
+                  }
+                  elseif ($_GET["error"]=="invaliduid") {
+                    echo '<p class="signuperror">Username Tidak Valid</p>';
+                  }
+                  elseif ($_GET["error"]=="passwordcheck") {
+                    echo '<p class="signuperror">Password anda tidak cocok</p>';
+                  }
+                  elseif ($_GET["error"]=="usertaken") {
+                    echo '<p class="signuperror">Username sudah ada</p>';
+                  }
+                  elseif ($_GET["error"]=="emailtaken") {
+                    echo '<p class="signuperror">Email/Username sudah ada</p>';
+                  }
+                  } 
+                  if (isset($_GET['register'])) {
+                    if ($_GET["register"]=="success") {
+                    echo '<p class="signupsuccess">Register Berhasil</p>';
+                  }
+              }
+              
+                ?>
+                <form action="includes/signup.php" method="post">
+                  <div class="form-group">
+                    <div class="form-row">
+                      <div class="col-md-6">
+                        <div class="form-label-group">
+                          <input type="text" id="firstName" name="C_FNAME" class="form-control" placeholder="First name" autofocus="autofocus">
+                          <label for="firstName">Nama Pertama</label>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-label-group">
+                          <input type="text" id="lastName" name="C_LNAME" class="form-control" placeholder="Last name">
+                          <label for="lastName">Nama Terakhir</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-label-group">
+                      <input type="number" id="inputage" name="C_AGE" class="form-control" placeholder="Age">
+                      <label for="inputage"> Umur</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-label-group">
+                      <input type="text"  id="inputAddress" name="C_ADDRESS" class="form-control" placeholder="address">
+                      <label for="inputAddress">Alamat</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-label-group">
+                      <input type="number" maxlength="11" id="inputpnumber" name="C_PNUMBER" class="form-control input-sm" placeholder="Phone Number">
+                      <label for="inputpnumber">Nomor HP</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-label-group">
+                      <select type="text" id="inputGender" name="C_GENDER" class="form-control" placeholder="Gender">
+                        <option>Laki-Laki</option>
+                        <option>Perempuan</option>
+                        <option>Lainnya</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <div class="form-label-group">
+                      <input type="text" id="inputEmail" name="C_EMAILADD" class="form-control" placeholder="Email Address">
+                      <label for="inputEmail">Email</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-label-group">
+                      <input type="text" id="inputuser" name="username" class="form-control" placeholder="Username">
+                      <label for="inputuser">Nama Pengguna</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-row">
+                      <div class="col-md-6">
+                        <div class="form-label-group">
+                          <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password">
+                          <label for="inputPassword">Kata Sandi</label>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-label-group">
+                          <input type="password" id="confirmPassword" name="pwdcon" class="form-control" placeholder="Confirm password">
+                          <label for="confirmPassword">Konfirmasi Kata Sandi</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block" name="signups-submit">Registrasi</button>
+                </form>
+                <div class="text-center">
+                <!--   <a class="d-block small mt-3" href="login.php">Login</a> -->
+                  <a class="d-block small mt-3" href="admin.php">Kembali</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-</body>
+    
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  </body>
+
 </html>
