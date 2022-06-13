@@ -1,71 +1,108 @@
-  </div>
-  </div>
-  <!-- /.container-fluid -->
+ <!-- footer section -->
+ <footer class="footer_section">
+     <div class="container">
+         <div class="row">
+             <div class="col-md-4 footer-col">
+                 <div class="footer_contact">
+                     <h4>
+                         Contact Us
+                     </h4>
+                     <div class="contact_link_box">
+                         <a href="">
+                             <i class="fa fa-map-marker" aria-hidden="true"></i>
+                             <span>
+                                 Location
+                             </span>
+                         </a>
+                         <a href="">
+                             <i class="fa fa-phone" aria-hidden="true"></i>
+                             <span>
+                                 Call +01 1234567890
+                             </span>
+                         </a>
+                         <a href="">
+                             <i class="fa fa-envelope" aria-hidden="true"></i>
+                             <span>
+                                 demo@gmail.com
+                             </span>
+                         </a>
+                     </div>
+                 </div>
+             </div>
+             <div class="col-md-4 footer-col">
+                 <div class="footer_detail">
+                     <a href="" class="footer-logo">
+                         Feane
+                     </a>
+                     <p>
+                         Necessary, making this the first true generator on the Internet. It uses a dictionary of over
+                         200 Latin words, combined with
+                     </p>
+                     <div class="footer_social">
+                         <a href="">
+                             <i class="fa fa-facebook" aria-hidden="true"></i>
+                         </a>
+                         <a href="">
+                             <i class="fa fa-twitter" aria-hidden="true"></i>
+                         </a>
+                         <a href="">
+                             <i class="fa fa-linkedin" aria-hidden="true"></i>
+                         </a>
+                         <a href="">
+                             <i class="fa fa-instagram" aria-hidden="true"></i>
+                         </a>
+                         <a href="">
+                             <i class="fa fa-pinterest" aria-hidden="true"></i>
+                         </a>
+                     </div>
+                 </div>
+             </div>
+             <div class="col-md-4 footer-col">
+                 <h4>
+                     Opening Hours
+                 </h4>
+                 <p>
+                     Everyday
+                 </p>
+                 <p>
+                     10.00 Am -10.00 Pm
+                 </p>
+             </div>
+         </div>
+         <div class="footer-info">
+             <p>
+                 &copy; <span id="displayYear"></span> All Rights Reserved By
+                 <a href="https://html.design/">Free Html Templates</a><br><br>
+                 &copy; <span id="displayYear"></span> Distributed By
+                 <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+             </p>
+         </div>
+     </div>
+ </footer>
+ <!-- footer section -->
 
-  <!-- Sticky Footer -->
-  <footer class="sticky-footer" style="width:100%; background-color: transparent;">
-    <div class="container my-auto">
-      <div class="copyright text-center my-auto">
-        <span>Copyright © Purna Baja Harsco 2022</span>
-      </div>
-    </div>
-  </footer>
+ <!-- jQery -->
+ <script src="assets/js/jquery-3.4.1.min.js"></script>
+ <!-- popper js -->
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+ </script>
+ <!-- bootstrap js -->
+ <script src="assets/js/bootstrap.js"></script>
+ <!-- owl slider -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+ </script>
+ <!-- isotope js -->
+ <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+ <!-- nice select -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+ <!-- custom js -->
+ <script src="assets/js/custom.js"></script>
+ <!-- Google Map -->
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+ </script>
+ <!-- End Google Map -->
 
-  </div>
-  <!-- /.content-wrapper -->
+ </body>
 
-  </div>
-  <!-- /#wrapper -->
-
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <span class="material-icons md-36">
-      keyboard_arrow_up
-    </span>
-  </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="includes/logout.php">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Page level plugin JavaScript-->
-  <script src="vendor/chart.js/Chart.min.js"></script>
-  <script src="vendor/datatables/jquery.dataTables.js"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <!-- <script src="js/sb-admin.min.js"></script> -->
-  <script src="js/script.js"></script>
-
-  <!-- Demo scripts for this page-->
-  <script src="js/demo/datatables-demo.js"></script>
-  <script src="js/demo/chart-area-demo.js"></script>
-
-  </body>
-
-  </html>
+ </html>

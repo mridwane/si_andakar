@@ -10,5 +10,5 @@ session_unset($_SESSION['address']);
 session_unset($_SESSION['contact']);
 session_unset($_SESSION['cart']);
 session_destroy();
-header("Location: ../login.php");
+header("Location: ../index.php");
 ?>
