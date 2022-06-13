@@ -1,22 +1,20 @@
 <?php if (isset($_SESSION['C_ID']))?>
-
-
-<?php include('includes/connection.php');?>  
+<?php include('includes/connection.php');?>
 <!--header area-->
 <?php include 'includes/header.php'; ?>
 <!--sidebar area-->
-<?php include 'includes/sidebar2.php'; ?>
+<?php include 'includes/hero.php'; ?>
 
 
- <?php include 'includes/cakes.php'; ?>
+<!-- <?php include 'includes/cakes.php'; ?> -->
 
-          <!-- Icon Cards-->       
-          
-         <!--Icon Card area-->
+<!-- Icon Cards-->
+
+<!--Icon Card area-->
 <?php /*include 'includes/iconcards.php'*/; ?>
-          <!-- Area Chart Example-->
+<!-- Area Chart Example-->
 
-          <!-- DataTables Example -->
+<!-- DataTables Example -->
 
-      <!--footer area-->
+<!--footer area-->
 <?php include 'includes/footer.php'; ?>
