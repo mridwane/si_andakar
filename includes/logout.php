@@ -1,5 +1,4 @@
  <?php 
-
 session_start();
 session_unset($_SESSION['cid']);
 session_unset($_SESSION['cuser']);
