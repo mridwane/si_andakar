@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Jul 2021 pada 00.56
--- Versi server: 10.4.6-MariaDB
--- Versi PHP: 7.3.9
+-- Generation Time: Jun 15, 2022 at 01:44 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,466 +18,577 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `fun`
+-- Database: `andakar`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `category`
+-- Table structure for table `history`
 --
 
-CREATE TABLE `category` (
-  `CATEGORY_ID` int(11) NOT NULL,
-  `CNAME` varchar(50) DEFAULT NULL
+CREATE TABLE `history` (
+  `h_id` int(50) NOT NULL,
+  `NAME` varchar(50) NOT NULL,
+  `USERNAME` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `category`
---
-
-INSERT INTO `category` (`CATEGORY_ID`, `CNAME`) VALUES
-(0, 'Food'),
-(1, 'Ice'),
-(2, 'Combo'),
-(3, 'Other'),
-(6, 'Hot'),
-(7, 'Snack');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `customer`
+-- Table structure for table `tblautonumber`
 --
 
-CREATE TABLE `customer` (
-  `CUST_ID` int(11) NOT NULL,
-  `FIRST_NAME` varchar(50) DEFAULT NULL,
-  `LAST_NAME` varchar(50) DEFAULT NULL,
-  `PHONE_NUMBER` varchar(11) DEFAULT NULL
+CREATE TABLE `tblautonumber` (
+  `id` int(11) NOT NULL,
+  `start` int(11) NOT NULL,
+  `end` int(11) NOT NULL,
+  `increment` int(11) NOT NULL,
+  `desc` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `customer`
+-- Dumping data for table `tblautonumber`
 --
 
-INSERT INTO `customer` (`CUST_ID`, `FIRST_NAME`, `LAST_NAME`, `PHONE_NUMBER`) VALUES
-(17, 'Table 01', 'VIP Room', '4'),
-(18, 'Table 02', 'VIP Room', '6'),
-(19, 'Table 03', 'VIP Room', '3'),
-(20, 'Table 04', 'VIP Room', '4'),
-(21, 'Table 05', 'VIP Room', '4'),
-(22, 'VIP', 'VIP Room', '12'),
-(23, 'Table 10', 'Outdoor', '4');
+INSERT INTO `tblautonumber` (`id`, `start`, `end`, `increment`, `desc`) VALUES
+(1, 1000, 57, 1, 'PROD');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `employee`
+-- Table structure for table `tblcategory`
 --
 
-CREATE TABLE `employee` (
-  `EMPLOYEE_ID` int(11) NOT NULL,
-  `FIRST_NAME` varchar(50) DEFAULT NULL,
-  `LAST_NAME` varchar(50) DEFAULT NULL,
-  `GENDER` varchar(50) DEFAULT NULL,
-  `EMAIL` varchar(100) DEFAULT NULL,
-  `PHONE_NUMBER` varchar(50) DEFAULT NULL,
-  `JOB_ID` int(11) DEFAULT NULL,
-  `HIRED_DATE` varchar(50) NOT NULL,
-  `LOCATION_ID` int(11) DEFAULT NULL
+CREATE TABLE `tblcategory` (
+  `category_id` int(11) NOT NULL,
+  `category` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `employee`
+-- Dumping data for table `tblcategory`
 --
 
-INSERT INTO `employee` (`EMPLOYEE_ID`, `FIRST_NAME`, `LAST_NAME`, `GENDER`, `EMAIL`, `PHONE_NUMBER`, `JOB_ID`, `HIRED_DATE`, `LOCATION_ID`) VALUES
-(1, 'admin', 'admin', 'Male', 'admin@admin.com', '+6287819355589', 1, '', 113),
-(2, 'manager', 'app', 'Male', 'manager@manager.com', '+6285646104747', 1, '2019-01-28', 156),
-(4, 'kasir', 'kasir', 'Female', 'kasir@kasir.com', '+62895339403223', 2, '', 158);
+INSERT INTO `tblcategory` (`category_id`, `category`) VALUES
+(1, 'Steak'),
+(2, 'Ribs'),
+(3, 'Lamb'),
+(5, 'Chicken'),
+(6, 'Seafood'),
+(7, 'Side Dish'),
+(8, 'Pie & Pasta'),
+(9, 'Starter'),
+(10, 'Regular Drink'),
+(11, 'Squash'),
+(12, 'Tea & Coffee & Blend'),
+(13, 'Juice'),
+(14, 'Saus');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `job`
+-- Table structure for table `tblcustomer`
 --
 
-CREATE TABLE `job` (
-  `JOB_ID` int(11) NOT NULL,
-  `JOB_TITLE` varchar(50) DEFAULT NULL
+CREATE TABLE `tblcustomer` (
+  `C_ID` int(50) NOT NULL,
+  `C_FNAME` varchar(50) NOT NULL,
+  `C_LNAME` varchar(50) NOT NULL,
+  `C_AGE` int(2) NOT NULL,
+  `C_ADDRESS` text NOT NULL,
+  `C_PNUMBER` varchar(50) NOT NULL,
+  `C_GENDER` varchar(50) NOT NULL,
+  `C_EMAILADD` varchar(50) NOT NULL,
+  `ZIPCODE` varchar(50) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `job`
+-- Dumping data for table `tblcustomer`
 --
 
-INSERT INTO `job` (`JOB_ID`, `JOB_TITLE`) VALUES
-(1, 'Manager'),
-(2, 'Cashier');
+INSERT INTO `tblcustomer` (`C_ID`, `C_FNAME`, `C_LNAME`, `C_AGE`, `C_ADDRESS`, `C_PNUMBER`, `C_GENDER`, `C_EMAILADD`, `ZIPCODE`, `username`, `password`) VALUES
+(4, 'Nadya', 'Minerva', 25, 'Jalanin aja dulu', '082346578910', 'Perempuan', 'emak@gmail.com', 'asd', 'admin', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
+(5, 'sumail', 'cofeen', 20, 'Jl Lembang', '0823123123', 'Laki-Laki', 'sumail@gmail.com', '40222', 'sumail', '$2y$10$U2TzhLkk5CXnAC/BgCo13uExQlFl9Nyc6CVs1LcSlbHef92KAzUXm'),
+(6, 'ridwan', 'remin', 21, 'Jl asd', '312312', 'Laki-Laki', '123@gmail.com', '4321', 'ridwan12', '$2y$10$XZw1u9HtZtDpLXMsUtbHUe4m0ztA8kUttAhXpVxD71cFb9GFnkpn2');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `location`
+-- Table structure for table `tbldelivery`
 --
 
-CREATE TABLE `location` (
-  `LOCATION_ID` int(11) NOT NULL,
-  `PROVINCE` varchar(100) DEFAULT NULL,
-  `CITY` varchar(100) DEFAULT NULL
+CREATE TABLE `tbldelivery` (
+  `id` int(50) NOT NULL,
+  `transac_code` int(100) NOT NULL,
+  `receiver` varchar(200) NOT NULL,
+  `dated` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `location`
+-- Dumping data for table `tbldelivery`
 --
 
-INSERT INTO `location` (`LOCATION_ID`, `PROVINCE`, `CITY`) VALUES
-(111, 'mesinkasir.asia', 'hockeycomputindo.com'),
-(112, 'https://fb.com/mesinkasircomplete', 'youtube bakoel rak supermarket mesin kasir'),
-(113, '', ''),
-(116, 'fun resto app', 'modern web app'),
-(150, 'Negros Occidental', 'Himamaylan'),
-(151, 'Masbate', 'Mandaon'),
-(152, 'Aklanas', 'Madalagsasa'),
-(153, 'Batangas', 'Mabini'),
-(154, 'Bataan', 'Morong'),
-(155, 'Capiz', 'Pillar'),
-(156, '', ''),
-(157, 'Camarines Norte', 'Labo'),
-(158, 'mesinkasironline.web.app', 'mesinkasir.github.io'),
-(159, '', ''),
-(160, '', ''),
-(161, '', '');
+INSERT INTO `tbldelivery` (`id`, `transac_code`, `receiver`, `dated`) VALUES
+(1, 1593533066, 'Ridwan', '0000-00-00'),
+(2, 1595246871, 'Cahadi', '2020-07-22'),
+(3, 1654487872, 'asd asd', '2022-06-06');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `manager`
+-- Table structure for table `tblemployee`
 --
 
-CREATE TABLE `manager` (
-  `FIRST_NAME` varchar(50) DEFAULT NULL,
-  `LAST_NAME` varchar(50) DEFAULT NULL,
-  `LOCATION_ID` int(11) NOT NULL,
-  `EMAIL` varchar(50) DEFAULT NULL,
-  `PHONE_NUMBER` varchar(11) DEFAULT NULL
+CREATE TABLE `tblemployee` (
+  `emp_id` int(50) NOT NULL,
+  `fname` varchar(50) NOT NULL,
+  `lname` varchar(50) NOT NULL,
+  `contact` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `address` text NOT NULL,
+  `gender` varchar(50) NOT NULL,
+  `age` int(2) NOT NULL,
+  `position` varchar(50) NOT NULL,
+  `hire_date` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `manager`
+-- Dumping data for table `tblemployee`
 --
 
-INSERT INTO `manager` (`FIRST_NAME`, `LAST_NAME`, `LOCATION_ID`, `EMAIL`, `PHONE_NUMBER`) VALUES
-('Admin', 'admin', 113, 'admin@', '09124033805'),
-('kasir', 'kasir', 116, 'kasir', '09123346576');
+INSERT INTO `tblemployee` (`emp_id`, `fname`, `lname`, `contact`, `email`, `address`, `gender`, `age`, `position`, `hire_date`) VALUES
+(1, 'Caren', 'Bautista', '09098591074', 'caren@yahoo.com', 'Kabankalan', 'Female', 23, 'Manager', '2019-11-30'),
+(2, 'Jahzel', 'Alarcon', '09509827365', 'jahiam07@gmail.com', 'Isabela', 'Female', 22, 'Manager', '2019-12-01'),
+(3, 'Ryan', 'Mana-ay', '09786534342', 'Ryan@yahoo.com', 'Himamaylan ', 'Male', 21, 'Supervisor', '2019-12-02');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `product`
+-- Table structure for table `tblinventory`
 --
 
-CREATE TABLE `product` (
-  `PRODUCT_ID` int(11) NOT NULL,
-  `PRODUCT_CODE` varchar(20) NOT NULL,
-  `NAME` varchar(50) DEFAULT NULL,
-  `DESCRIPTION` varchar(250) NOT NULL,
-  `QTY_STOCK` int(50) DEFAULT NULL,
-  `ON_HAND` int(250) NOT NULL,
-  `PRICE` int(50) DEFAULT NULL,
-  `CATEGORY_ID` int(11) DEFAULT NULL,
-  `SUPPLIER_ID` int(11) DEFAULT NULL,
-  `DATE_STOCK_IN` varchar(50) NOT NULL
+CREATE TABLE `tblinventory` (
+  `transac_id` int(50) NOT NULL,
+  `product_id` int(50) NOT NULL,
+  `quantity` int(50) NOT NULL,
+  `date_in` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `product`
---
-
-INSERT INTO `product` (`PRODUCT_ID`, `PRODUCT_CODE`, `NAME`, `DESCRIPTION`, `QTY_STOCK`, `ON_HAND`, `PRICE`, `CATEGORY_ID`, `SUPPLIER_ID`, `DATE_STOCK_IN`) VALUES
-(28, '123156568', 'Pecel', 'Yo pecel tok ae bro', 1, 1, 15000, 0, 12, '2019-01-31'),
-(29, '789', 'Nasi Goreng', 'Nasi Goreng ini enak maknyuss broo', NULL, 0, 30000, 0, NULL, ''),
-(30, 'esteh', 'Ice Tea', 'Ice tea baby', NULL, 0, 5000, 1, NULL, ''),
-(31, 'orange', 'Orange Juice', 'Orange Juice', NULL, 0, 25000, 1, NULL, ''),
-(32, 'Kopi', 'Black Coffee', 'Black Coffee', NULL, 0, 20000, 6, NULL, '');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaction`
+-- Table structure for table `tblpot`
 --
 
-CREATE TABLE `transaction` (
-  `TRANS_ID` int(50) NOT NULL,
-  `CUST_ID` int(11) DEFAULT NULL,
-  `NUMOFITEMS` varchar(250) NOT NULL,
-  `SUBTOTAL` varchar(50) NOT NULL,
-  `LESSVAT` varchar(50) NOT NULL,
-  `NETVAT` varchar(50) NOT NULL,
-  `ADDVAT` varchar(50) NOT NULL,
-  `GRANDTOTAL` varchar(250) NOT NULL,
-  `CASH` varchar(250) NOT NULL,
-  `DATE` varchar(50) NOT NULL,
-  `TRANS_D_ID` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `tblpot` (
+  `id` int(11) NOT NULL,
+  `size` varchar(10) NOT NULL,
+  `transac_code` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `transaction`
+-- Dumping data for table `tblpot`
 --
 
-INSERT INTO `transaction` (`TRANS_ID`, `CUST_ID`, `NUMOFITEMS`, `SUBTOTAL`, `LESSVAT`, `NETVAT`, `ADDVAT`, `GRANDTOTAL`, `CASH`, `DATE`, `TRANS_D_ID`) VALUES
-(1, 17, '1', '', '', '', '', '25,000', '25000', '2020-06-09 04:59 am', '060945958'),
-(2, 21, '5', '', '', '', '', '125,000', '250000', '2020-06-09 06:30 am', '060963044'),
-(3, 18, '2', '', '', '', '', '55,000', '55000', '2020-06-09 06:58 am', '060965929'),
-(4, 18, '3', '', '', '', '', '70,000', '70000', '2020-06-09 07:09 am', '060971000'),
-(5, 18, '3', '', '', '', '', '70,000', '70000', '2020-06-09 07:19 am', '060972040'),
-(6, 23, '2', '', '', '', '', '40000', '40000', '2021-07-15 00:03 am', '071500433');
+INSERT INTO `tblpot` (`id`, `size`, `transac_code`) VALUES
+(1, '17', ''),
+(2, '21', ''),
+(3, '30', ''),
+(6, '17', '1598178883'),
+(7, '17', '1598178883'),
+(8, '17', '1598178932');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaction_details`
+-- Table structure for table `tblproducts`
 --
 
-CREATE TABLE `transaction_details` (
-  `ID` int(11) NOT NULL,
-  `TRANS_D_ID` varchar(250) NOT NULL,
-  `PRODUCTS` varchar(250) NOT NULL,
-  `QTY` varchar(250) NOT NULL,
-  `PRICE` varchar(250) NOT NULL,
-  `EMPLOYEE` varchar(250) NOT NULL,
-  `ROLE` varchar(250) NOT NULL
+CREATE TABLE `tblproducts` (
+  `product_id` int(11) NOT NULL,
+  `product_name` varchar(50) NOT NULL,
+  `date_in` varchar(50) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` varchar(200) NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `price` int(50) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `detail_product` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `transaction_details`
+-- Dumping data for table `tblproducts`
 --
 
-INSERT INTO `transaction_details` (`ID`, `TRANS_D_ID`, `PRODUCTS`, `QTY`, `PRICE`, `EMPLOYEE`, `ROLE`) VALUES
-(36, '060945958', 'Mie goreng', '1', '25000', 'admin', 'Manager'),
-(37, '060963044', 'Burger Killer', '1', '15000', 'admin', 'Manager'),
-(38, '060963044', 'Fanta', '1', '10000', 'admin', 'Manager'),
-(39, '060963044', 'Hot Tea', '1', '10000', 'admin', 'Manager'),
-(40, '060963044', 'Capucino', '1', '25000', 'admin', 'Manager'),
-(41, '060963044', 'Combo 2', '1', '65000', 'admin', 'Manager'),
-(42, '060965929', 'Ayam Goreng', '1', '25000', 'admin', 'Manager'),
-(43, '060965929', 'Apple juice', '2', '15000', 'admin', 'Manager'),
-(44, '060971000', 'Ayam Goreng', '1', '25000', 'admin', 'Manager'),
-(45, '060971000', 'Burger Killer', '1', '15000', 'admin', 'Manager'),
-(46, '060971000', 'Apple juice', '2', '15000', 'admin', 'Manager'),
-(47, '060972040', 'Ayam Goreng', '1', '25000', 'admin', 'Manager'),
-(48, '060972040', 'Burger Killer', '1', '15000', 'admin', 'Manager'),
-(49, '060972040', 'Apple juice', '2', '15000', 'admin', 'Manager'),
-(50, '071500433', 'Pecel', '2', '15000', 'admin', 'Manager'),
-(51, '071500433', 'Ice Tea', '2', '5000', 'admin', 'Manager');
+INSERT INTO `tblproducts` (`product_id`, `product_name`, `date_in`, `category_id`, `user_id`, `status`, `type`, `price`, `image`, `detail_product`) VALUES
+(45, 'Iga Bakar', '2022-06-12', 2, 2, 'Habis', 'Makanan', 80000, '1053bbq-chicken-wings2.jpg', ''),
+(46, 'Iga Barbar', '2022-06-12', 2, 2, 'Tersedia', 'Makanan', 200000, '1054boneless-chicken2.jpg', ''),
+(48, 'BBQ Sauce', '2022-06-15', 14, 2, 'Tersedia', 'Saus', 9000, '10562.jpg', 'Saus hanya bisa dipesan ketika anda membeli makanan Steak');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `type`
+-- Table structure for table `tblreq`
 --
 
-CREATE TABLE `type` (
-  `TYPE_ID` int(11) NOT NULL,
-  `TYPE` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `tblreq` (
+  `no_permintaan` varchar(50) NOT NULL,
+  `user_id` int(50) NOT NULL,
+  `tgl_input` date NOT NULL,
+  `jml_barang` int(20) NOT NULL,
+  `jml_qty` int(20) NOT NULL,
+  `status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `type`
+-- Dumping data for table `tblreq`
 --
 
-INSERT INTO `type` (`TYPE_ID`, `TYPE`) VALUES
-(1, 'Admin'),
-(2, 'User');
+INSERT INTO `tblreq` (`no_permintaan`, `user_id`, `tgl_input`, `jml_barang`, `jml_qty`, `status`) VALUES
+('0906202203404422', 2, '2022-06-09', 6, 10, 2),
+('0906202203413488', 2, '2022-06-09', 7, 13, 1),
+('0906202203415089', 2, '2022-06-09', 7, 13, 0),
+('0906202203421889', 2, '2022-06-09', 7, 13, 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `tblreqdetail`
 --
 
-CREATE TABLE `users` (
-  `ID` int(11) NOT NULL,
-  `EMPLOYEE_ID` int(11) DEFAULT NULL,
-  `USERNAME` varchar(50) DEFAULT NULL,
-  `PASSWORD` varchar(50) DEFAULT NULL,
-  `TYPE_ID` int(11) DEFAULT NULL
+CREATE TABLE `tblreqdetail` (
+  `id` int(100) NOT NULL,
+  `no_permintaan` varchar(100) NOT NULL,
+  `product_code` varchar(25) NOT NULL,
+  `qty` int(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tblreqdetail`
+--
+
+INSERT INTO `tblreqdetail` (`id`, `no_permintaan`, `product_code`, `qty`) VALUES
+(1, '0906202203404422', '1023', 2),
+(2, '0906202203404422', '1024', 2),
+(3, '0906202203404422', '1026', 1),
+(4, '0906202203404422', '1027', 1),
+(5, '0906202203404422', '1028', 1),
+(6, '0906202203404422', '1029', 3),
+(7, '0906202203413488', '1023', 2),
+(8, '0906202203413488', '1024', 2),
+(9, '0906202203413488', '1027', 1),
+(10, '0906202203413488', '1033', 2),
+(11, '0906202203413488', '1042', 2),
+(12, '0906202203413488', '1041', 1),
+(13, '0906202203413488', '1051', 3),
+(14, '0906202203415089', '1023', 2),
+(15, '0906202203415089', '1024', 2),
+(16, '0906202203415089', '1027', 1),
+(17, '0906202203415089', '1033', 2),
+(18, '0906202203415089', '1042', 2),
+(19, '0906202203415089', '1041', 1),
+(20, '0906202203415089', '1051', 3),
+(21, '0906202203421889', '1023', 2),
+(22, '0906202203421889', '1024', 2),
+(23, '0906202203421889', '1027', 1),
+(24, '0906202203421889', '1033', 2),
+(25, '0906202203421889', '1042', 2),
+(26, '0906202203421889', '1041', 1),
+(27, '0906202203421889', '1051', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblstockhistory`
+--
+
+CREATE TABLE `tblstockhistory` (
+  `id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `qty` int(5) NOT NULL,
+  `user_id` varchar(5) NOT NULL,
+  `product_code` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tblstockhistory`
+--
+
+INSERT INTO `tblstockhistory` (`id`, `date`, `qty`, `user_id`, `product_code`) VALUES
+(1, '2020-07-22', 1, '2', '1023'),
+(2, '2020-07-22', 2, '2', '1023'),
+(3, '2020-08-22', 5, '2', '1023'),
+(4, '2020-08-22', 6, '2', '1023'),
+(5, '2020-08-22', 3, '2', '1023'),
+(6, '2022-06-07', 2, '2', '1023'),
+(7, '2022-06-07', 3, '2', '1023'),
+(8, '2022-06-07', 4, '2', '1023');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblsupplier`
+--
+
+CREATE TABLE `tblsupplier` (
+  `supplier_id` int(11) NOT NULL,
+  `supplier_name` varchar(30) NOT NULL,
+  `contact` varchar(50) NOT NULL,
+  `email` varchar(20) NOT NULL,
+  `address` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `tblsupplier`
 --
 
-INSERT INTO `users` (`ID`, `EMPLOYEE_ID`, `USERNAME`, `PASSWORD`, `TYPE_ID`) VALUES
-(1, 1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1),
-(7, 2, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1),
-(9, 4, 'kasir', '8691e4fc53b99da544ce86e22acba62d13352eff', 2);
+INSERT INTO `tblsupplier` (`supplier_id`, `supplier_name`, `contact`, `email`, `address`) VALUES
+(1, 'Harvester', '9095643236', 'Harvester@yahoo.com', 'Brgy.Sum-ag, Bacolod City'),
+(2, 'Amigo', '9786534213', 'Amigo@yahoo.com', 'Bgry.Singkang Bacolod City'),
+(3, 'Atlas', '9096547321', 'Atlas@yahoo.com', 'Brgy.Poblacion, Bacolod City');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbltransac`
+--
+
+CREATE TABLE `tbltransac` (
+  `transac_id` int(11) NOT NULL,
+  `transac_code` int(100) NOT NULL,
+  `date` varchar(50) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `product_code` varchar(200) NOT NULL,
+  `qty` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbltransacdetail`
+--
+
+CREATE TABLE `tbltransacdetail` (
+  `detail_id` int(11) NOT NULL,
+  `transac_code` int(11) NOT NULL,
+  `date` datetime(6) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `status` varchar(200) NOT NULL,
+  `remarks` text NOT NULL,
+  `delivery_date` datetime(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblusers`
+--
+
+CREATE TABLE `tblusers` (
+  `user_id` int(11) NOT NULL,
+  `fname` varchar(20) NOT NULL,
+  `lname` varchar(20) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `contact` int(11) NOT NULL,
+  `address` text NOT NULL,
+  `position` varchar(50) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `pass` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblusers`
+--
+
+INSERT INTO `tblusers` (`user_id`, `fname`, `lname`, `email`, `contact`, `address`, `position`, `username`, `pass`) VALUES
+(2, 'Regi', 'Sacarisa', 'caren@yahoo.com', 0, '', 'Admin', 'admin', '$2y$10$ds1gqSSjIHq/I7c.Ly/w9eF.OPgcXyeG09wL71loBGy0qLkNzUZlS');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `category`
+-- Indexes for table `history`
 --
-ALTER TABLE `category`
-  ADD PRIMARY KEY (`CATEGORY_ID`);
+ALTER TABLE `history`
+  ADD PRIMARY KEY (`h_id`);
 
 --
--- Indeks untuk tabel `customer`
+-- Indexes for table `tblautonumber`
 --
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`CUST_ID`);
+ALTER TABLE `tblautonumber`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `employee`
+-- Indexes for table `tblcategory`
 --
-ALTER TABLE `employee`
-  ADD PRIMARY KEY (`EMPLOYEE_ID`),
-  ADD UNIQUE KEY `EMPLOYEE_ID` (`EMPLOYEE_ID`),
-  ADD UNIQUE KEY `PHONE_NUMBER` (`PHONE_NUMBER`),
-  ADD KEY `LOCATION_ID` (`LOCATION_ID`),
-  ADD KEY `JOB_ID` (`JOB_ID`);
+ALTER TABLE `tblcategory`
+  ADD PRIMARY KEY (`category_id`);
 
 --
--- Indeks untuk tabel `job`
+-- Indexes for table `tblcustomer`
 --
-ALTER TABLE `job`
-  ADD PRIMARY KEY (`JOB_ID`);
+ALTER TABLE `tblcustomer`
+  ADD PRIMARY KEY (`C_ID`);
 
 --
--- Indeks untuk tabel `location`
+-- Indexes for table `tbldelivery`
 --
-ALTER TABLE `location`
-  ADD PRIMARY KEY (`LOCATION_ID`);
+ALTER TABLE `tbldelivery`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `manager`
+-- Indexes for table `tblemployee`
 --
-ALTER TABLE `manager`
-  ADD UNIQUE KEY `PHONE_NUMBER` (`PHONE_NUMBER`),
-  ADD KEY `LOCATION_ID` (`LOCATION_ID`);
+ALTER TABLE `tblemployee`
+  ADD PRIMARY KEY (`emp_id`);
 
 --
--- Indeks untuk tabel `product`
+-- Indexes for table `tblpot`
 --
-ALTER TABLE `product`
-  ADD PRIMARY KEY (`PRODUCT_ID`),
-  ADD KEY `CATEGORY_ID` (`CATEGORY_ID`),
-  ADD KEY `SUPPLIER_ID` (`SUPPLIER_ID`);
+ALTER TABLE `tblpot`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `transaction`
+-- Indexes for table `tblproducts`
 --
-ALTER TABLE `transaction`
-  ADD PRIMARY KEY (`TRANS_ID`),
-  ADD KEY `TRANS_DETAIL_ID` (`TRANS_D_ID`),
-  ADD KEY `CUST_ID` (`CUST_ID`);
+ALTER TABLE `tblproducts`
+  ADD PRIMARY KEY (`product_id`),
+  ADD KEY `FK_tblproducts_tblsupplier` (`user_id`);
 
 --
--- Indeks untuk tabel `transaction_details`
+-- Indexes for table `tblreq`
 --
-ALTER TABLE `transaction_details`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `TRANS_D_ID` (`TRANS_D_ID`) USING BTREE;
+ALTER TABLE `tblreq`
+  ADD PRIMARY KEY (`no_permintaan`);
 
 --
--- Indeks untuk tabel `type`
+-- Indexes for table `tblreqdetail`
 --
-ALTER TABLE `type`
-  ADD PRIMARY KEY (`TYPE_ID`);
+ALTER TABLE `tblreqdetail`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `tblstockhistory`
 --
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `TYPE_ID` (`TYPE_ID`),
-  ADD KEY `EMPLOYEE_ID` (`EMPLOYEE_ID`);
+ALTER TABLE `tblstockhistory`
+  ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- Indexes for table `tblsupplier`
 --
+ALTER TABLE `tblsupplier`
+  ADD PRIMARY KEY (`supplier_id`);
 
 --
--- AUTO_INCREMENT untuk tabel `category`
+-- Indexes for table `tbltransac`
 --
-ALTER TABLE `category`
-  MODIFY `CATEGORY_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+ALTER TABLE `tbltransac`
+  ADD PRIMARY KEY (`transac_id`),
+  ADD KEY `FK_tbltransac_details_tblcustomer` (`customer_id`);
 
 --
--- AUTO_INCREMENT untuk tabel `customer`
+-- Indexes for table `tbltransacdetail`
 --
-ALTER TABLE `customer`
-  MODIFY `CUST_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+ALTER TABLE `tbltransacdetail`
+  ADD PRIMARY KEY (`detail_id`);
 
 --
--- AUTO_INCREMENT untuk tabel `employee`
+-- Indexes for table `tblusers`
 --
-ALTER TABLE `employee`
-  MODIFY `EMPLOYEE_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+ALTER TABLE `tblusers`
+  ADD PRIMARY KEY (`user_id`);
 
 --
--- AUTO_INCREMENT untuk tabel `location`
---
-ALTER TABLE `location`
-  MODIFY `LOCATION_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
-
---
--- AUTO_INCREMENT untuk tabel `product`
---
-ALTER TABLE `product`
-  MODIFY `PRODUCT_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
-
---
--- AUTO_INCREMENT untuk tabel `transaction`
---
-ALTER TABLE `transaction`
-  MODIFY `TRANS_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT untuk tabel `transaction_details`
---
-ALTER TABLE `transaction_details`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
-
---
--- AUTO_INCREMENT untuk tabel `users`
---
-ALTER TABLE `users`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `employee`
+-- AUTO_INCREMENT for table `history`
 --
-ALTER TABLE `employee`
-  ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`LOCATION_ID`) REFERENCES `location` (`LOCATION_ID`),
-  ADD CONSTRAINT `employee_ibfk_2` FOREIGN KEY (`JOB_ID`) REFERENCES `job` (`JOB_ID`);
+ALTER TABLE `history`
+  MODIFY `h_id` int(50) NOT NULL AUTO_INCREMENT;
 
 --
--- Ketidakleluasaan untuk tabel `manager`
+-- AUTO_INCREMENT for table `tblautonumber`
 --
-ALTER TABLE `manager`
-  ADD CONSTRAINT `manager_ibfk_1` FOREIGN KEY (`LOCATION_ID`) REFERENCES `location` (`LOCATION_ID`);
+ALTER TABLE `tblautonumber`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- Ketidakleluasaan untuk tabel `transaction`
+-- AUTO_INCREMENT for table `tblcategory`
 --
-ALTER TABLE `transaction`
-  ADD CONSTRAINT `transaction_ibfk_3` FOREIGN KEY (`CUST_ID`) REFERENCES `customer` (`CUST_ID`),
-  ADD CONSTRAINT `transaction_ibfk_4` FOREIGN KEY (`TRANS_D_ID`) REFERENCES `transaction_details` (`TRANS_D_ID`);
+ALTER TABLE `tblcategory`
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- Ketidakleluasaan untuk tabel `users`
+-- AUTO_INCREMENT for table `tblcustomer`
 --
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_3` FOREIGN KEY (`TYPE_ID`) REFERENCES `type` (`TYPE_ID`),
-  ADD CONSTRAINT `users_ibfk_4` FOREIGN KEY (`EMPLOYEE_ID`) REFERENCES `employee` (`EMPLOYEE_ID`);
+ALTER TABLE `tblcustomer`
+  MODIFY `C_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `tbldelivery`
+--
+ALTER TABLE `tbldelivery`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tblemployee`
+--
+ALTER TABLE `tblemployee`
+  MODIFY `emp_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tblpot`
+--
+ALTER TABLE `tblpot`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `tblproducts`
+--
+ALTER TABLE `tblproducts`
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+
+--
+-- AUTO_INCREMENT for table `tblreqdetail`
+--
+ALTER TABLE `tblreqdetail`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `tblstockhistory`
+--
+ALTER TABLE `tblstockhistory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `tblsupplier`
+--
+ALTER TABLE `tblsupplier`
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbltransac`
+--
+ALTER TABLE `tbltransac`
+  MODIFY `transac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+
+--
+-- AUTO_INCREMENT for table `tbltransacdetail`
+--
+ALTER TABLE `tbltransacdetail`
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `tblusers`
+--
+ALTER TABLE `tblusers`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
