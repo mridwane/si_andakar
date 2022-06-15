@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2022 at 11:23 AM
+-- Generation Time: Jun 15, 2022 at 01:44 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -52,7 +52,7 @@ CREATE TABLE `tblautonumber` (
 --
 
 INSERT INTO `tblautonumber` (`id`, `start`, `end`, `increment`, `desc`) VALUES
-(1, 1000, 55, 1, 'PROD');
+(1, 1000, 57, 1, 'PROD');
 
 -- --------------------------------------------------------
 
@@ -81,7 +81,8 @@ INSERT INTO `tblcategory` (`category_id`, `category`) VALUES
 (10, 'Regular Drink'),
 (11, 'Squash'),
 (12, 'Tea & Coffee & Blend'),
-(13, 'Juice');
+(13, 'Juice'),
+(14, 'Saus');
 
 -- --------------------------------------------------------
 
@@ -108,8 +109,8 @@ CREATE TABLE `tblcustomer` (
 --
 
 INSERT INTO `tblcustomer` (`C_ID`, `C_FNAME`, `C_LNAME`, `C_AGE`, `C_ADDRESS`, `C_PNUMBER`, `C_GENDER`, `C_EMAILADD`, `ZIPCODE`, `username`, `password`) VALUES
-(4, 'asd', 'asd', 12, '12', '12', 'Male', 'san@gmail.com', 'asd', 'admin', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
-(5, 'sumail', 'cofeen', 20, 'Jl Lembang', '0823123123', 'Male', 'sumail@gmail.com', '40222', 'sumail', '$2y$10$U2TzhLkk5CXnAC/BgCo13uExQlFl9Nyc6CVs1LcSlbHef92KAzUXm'),
+(4, 'Nadya', 'Minerva', 25, 'Jalanin aja dulu', '082346578910', 'Perempuan', 'emak@gmail.com', 'asd', 'admin', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
+(5, 'sumail', 'cofeen', 20, 'Jl Lembang', '0823123123', 'Laki-Laki', 'sumail@gmail.com', '40222', 'sumail', '$2y$10$U2TzhLkk5CXnAC/BgCo13uExQlFl9Nyc6CVs1LcSlbHef92KAzUXm'),
 (6, 'ridwan', 'remin', 21, 'Jl asd', '312312', 'Laki-Laki', '123@gmail.com', '4321', 'ridwan12', '$2y$10$XZw1u9HtZtDpLXMsUtbHUe4m0ztA8kUttAhXpVxD71cFb9GFnkpn2');
 
 -- --------------------------------------------------------
@@ -214,16 +215,18 @@ CREATE TABLE `tblproducts` (
   `status` varchar(200) NOT NULL,
   `type` varchar(10) NOT NULL,
   `price` int(50) NOT NULL,
-  `image` varchar(255) NOT NULL
+  `image` varchar(255) NOT NULL,
+  `detail_product` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblproducts`
 --
 
-INSERT INTO `tblproducts` (`product_id`, `product_name`, `date_in`, `category_id`, `user_id`, `status`, `type`, `price`, `image`) VALUES
-(45, 'Iga Bakar', '2022-06-12', 2, 2, 'Habis', 'Minuman', 80000, '1053bbq-chicken-wings2.jpg'),
-(46, 'Iga Barbar', '2022-06-12', 2, 2, 'Tersedia', 'Minuman', 200000, '1054boneless-chicken2.jpg');
+INSERT INTO `tblproducts` (`product_id`, `product_name`, `date_in`, `category_id`, `user_id`, `status`, `type`, `price`, `image`, `detail_product`) VALUES
+(45, 'Iga Bakar', '2022-06-12', 2, 2, 'Habis', 'Makanan', 80000, '1053bbq-chicken-wings2.jpg', ''),
+(46, 'Iga Barbar', '2022-06-12', 2, 2, 'Tersedia', 'Makanan', 200000, '1054boneless-chicken2.jpg', ''),
+(48, 'BBQ Sauce', '2022-06-15', 14, 2, 'Tersedia', 'Saus', 9000, '10562.jpg', 'Saus hanya bisa dipesan ketika anda membeli makanan Steak');
 
 -- --------------------------------------------------------
 
@@ -519,7 +522,7 @@ ALTER TABLE `tblautonumber`
 -- AUTO_INCREMENT for table `tblcategory`
 --
 ALTER TABLE `tblcategory`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tblcustomer`
@@ -549,7 +552,7 @@ ALTER TABLE `tblpot`
 -- AUTO_INCREMENT for table `tblproducts`
 --
 ALTER TABLE `tblproducts`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `tblreqdetail`
