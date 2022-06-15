@@ -12,6 +12,7 @@
 			$price = $_POST['price'];
 			$foto= $_FILES['foto']['name'];
 			$tmp = $_FILES['foto']['tmp_name'];
+			$detail_product = $_POST['detail_product'];
 			// Rename nama fotonya dengan menambahkan tanggal dan jam upload
 			$fotobaru = $code2.$foto;
 			// Set path folder tempat menyimpan fotonya
@@ -35,8 +36,9 @@
 					$date = $_POST['date'];
 					$user = $_POST['user'];
 
-					$query = "INSERT INTO `tblproducts`(`product_name`, `price`, `date_in`, `category_id`, `user_id`, `type`, `status`,`image`)
-					VALUES ('".$product."','".$price."','".$date."','".$category."','".$user."','".$type."','Tersedia','".$fotobaru."')";
+					$query = "INSERT INTO `tblproducts`(`product_name`, `price`, `date_in`, `category_id`, `user_id`, `type`, `status`,`image`,`detail_product`)
+					VALUES
+					('".$product."','".$price."','".$date."','".$category."','".$user."','".$type."','Tersedia','".$fotobaru."','".$detail_product."')";
 					mysqli_query($db,$query)or die (mysqli_error($db));
 					$sql = "UPDATE `tblautonumber` SET `end`=`end`+`increment` WHERE `desc` = 'PROD'";
 					mysqli_query($db,$sql)or die (mysqli_error($db));

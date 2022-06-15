@@ -32,7 +32,7 @@ $autonum = $r['autonum'];
   <div class="card card-register mx-auto mt-3">
     <div class="card-header">
       <center>
-        <h3>Tambah Barang</h3>
+        <h3>Tambah Menu</h3>
       </center>
     </div>
     <div class="card-body">
@@ -61,20 +61,21 @@ $autonum = $r['autonum'];
           <input class="form-control" placeholder="Menu Name" name="product" autofocus="autofocus">
         </div>
         <div class="form-group" type="hidden">
+          <label>Jenis</label>
+          <select class="form-control" name="type" id="type">
+            <option selected disabled>Pilih Jenis</option>
+            <option value="Makanan">Makanan</option>
+            <option value="Saus">Saus</option>
+            <option value="Minuman">Minuman</option>
+          </select>
+        </div>
+        <div class="form-group" type="hidden">
           <label>Kategori</label>
           <select class="form-control" name="category" id="category">
             <option selected disabled>Pilih Kategori</option>
             <?php while($row3 = mysqli_fetch_array($result3)):; ?>
             <option value="<?php echo $row3[0]; ?>"><?php echo $row3[1]; ?></option>
             <?php endwhile; ?>
-          </select>
-        </div>
-        <div class="form-group" type="hidden">
-          <label>Jenis</label>
-          <select class="form-control" name="type" id="type">
-            <option selected disabled>Pilih Jenis</option>
-            <option value="Makanan">Makanan</option>
-            <option value="Minuman">Minuman</option>
           </select>
         </div>
         <div class="form-group">
@@ -91,6 +92,10 @@ $autonum = $r['autonum'];
         <div class="form-group">
           <label>Foto Menu</label>
           <input name="foto" type="file" id="foto" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Detail Produk / Keterangan</label>
+          <textarea class="form-control" rows="4" cols="50" maxlength="200" name="detail_product"></textarea>
         </div>
 
         <button type="submit" name="submit" class="btn btn-info">Simpan</button>
