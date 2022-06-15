@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +15,7 @@
     <meta name="author" content="" />
     <link rel="shortcut icon" href="images/favicon.png" type="">
 
-    <title> Andakar </title>
+    <title> Andakar - <?= $page ?></title>
 
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css" />
@@ -40,5 +39,3 @@
   </head>
 
 </head>
-
-<body>
