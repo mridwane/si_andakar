@@ -19,6 +19,7 @@ var shoppingCart = (function () {
     // Save cart
     function saveCart() {
         sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
+        toastr.success('Keranjang Berhasil di update');
     }
 
     // Load cart
