@@ -9,7 +9,8 @@ var shoppingCart = (function () {
     cart = [];
 
     // Constructor
-    function Item(name, price, count) {
+    function Item(kode, name, price, count) {
+        this.kode = kode;
         this.name = name;
         this.price = price;
         this.count = count;
@@ -35,31 +36,31 @@ var shoppingCart = (function () {
     var obj = {};
 
     // Add to cart
-    obj.addItemToCart = function (name, price, count) {
+    obj.addItemToCart = function (kode, name, price, count) {
         for (var item in cart) {
-            if (cart[item].name === name) {
+            if (cart[item].kode === kode) {
                 cart[item].count++;
                 saveCart();
                 return;
             }
         }
-        var item = new Item(name, price, count);
+        var item = new Item(kode, name, price, count);
         cart.push(item);
         saveCart();
     }
     // Set count from item
-    obj.setCountForItem = function (name, count) {
+    obj.setCountForItem = function (kode, count) {
         for (var i in cart) {
-            if (cart[i].name === name) {
+            if (cart[i].kode === kode) {
                 cart[i].count = count;
                 break;
             }
         }
     };
     // Remove item from cart
-    obj.removeItemFromCart = function (name) {
+    obj.removeItemFromCart = function (kode) {
         for (var item in cart) {
-            if (cart[item].name === name) {
+            if (cart[item].kode === kode) {
                 cart[item].count--;
                 if (cart[item].count === 0) {
                     cart.splice(item, 1);
@@ -71,9 +72,9 @@ var shoppingCart = (function () {
     }
 
     // Remove all items from cart
-    obj.removeItemFromCartAll = function (name) {
+    obj.removeItemFromCartAll = function (kode) {
         for (var item in cart) {
-            if (cart[item].name === name) {
+            if (cart[item].kode === kode) {
                 cart.splice(item, 1);
                 break;
             }
@@ -102,7 +103,17 @@ var shoppingCart = (function () {
         for (var item in cart) {
             totalCart += cart[item].price * cart[item].count;
         }
-        return Number(totalCart.toFixed(2));
+        // return Number(totalCart.toFixed(2));
+        var number_string = Number(totalCart.toFixed(2)).toString(),
+            sisa = number_string.length % 3,
+            totalcart = number_string.substr(0, sisa),
+            ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            totalcart += separator + ribuan.join('.');
+        }
+        return totalcart;
     }
 
     // List cart
@@ -142,9 +153,10 @@ var shoppingCart = (function () {
 // Add item
 $('.add-to-cart').click(function (event) {
     event.preventDefault();
+    var kode = $(this).data('kode');
     var name = $(this).data('name');
     var price = Number($(this).data('price'));
-    shoppingCart.addItemToCart(name, price, 1);
+    shoppingCart.addItemToCart(kode, name, price, 1);
     displayCart();
 });
 
@@ -155,19 +167,44 @@ $('.clear-cart').click(function () {
 });
 
 
+
 function displayCart() {
+
     var cartArray = shoppingCart.listCart();
     var output = "";
     for (var i in cartArray) {
+        // konversi ke rupiah
+        // price
+        var total = cartArray[i].price
+        var number_string = total.toString(),
+            sisa = number_string.length % 3,
+            price = number_string.substr(0, sisa),
+            ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            price += separator + ribuan.join('.');
+        }
+        // Total jumlah
+        var total = cartArray[i].total
+        var number_string = total.toString(),
+            sisa = number_string.length % 3,
+            total = number_string.substr(0, sisa),
+            ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            total += separator + ribuan.join('.');
+        }
         output += "<tr>" +
             "<td>" + cartArray[i].name + "</td>" +
-            "<td>(" + cartArray[i].price + ")</td>" +
-            "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-name=" + cartArray[i].name + ">-</button>" +
-            "<input type='number' class='item-count form-control' data-name='" + cartArray[i].name + "' value='" + cartArray[i].count + "'>" +
-            "<button class='plus-item btn btn-primary input-group-addon' data-name=" + cartArray[i].name + ">+</button></div></td>" +
-            "<td><button class='delete-item btn btn-danger' data-name=" + cartArray[i].name + ">X</button></td>" +
+            "<td>Rp. " + price + "</td>" +
+            "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-kode=" + cartArray[i].kode + ">-</button>" +
+            "<input type='number' class='item-count form-control' data-kode='" + cartArray[i].kode + "' value='" + cartArray[i].count + "'>" +
+            "<button class='plus-item btn btn-primary input-group-addon' data-kode=" + cartArray[i].kode + ">+</button></div></td>" +
+            "<td><button class='delete-item btn btn-danger' data-kode=" + cartArray[i].kode + ">X</button></td>" +
             " = " +
-            "<td>" + cartArray[i].total + "</td>" +
+            "<td>Rp. " + total + "</td>" +
             "</tr>";
     }
     $('.show-cart').html(output);
@@ -178,30 +215,30 @@ function displayCart() {
 // Delete item button
 
 $('.show-cart').on("click", ".delete-item", function (event) {
-    var name = $(this).data('name')
-    shoppingCart.removeItemFromCartAll(name);
+    var kode = $(this).data('kode')
+    shoppingCart.removeItemFromCartAll(kode);
     displayCart();
 })
 
 
 // -1
 $('.show-cart').on("click", ".minus-item", function (event) {
-    var name = $(this).data('name')
-    shoppingCart.removeItemFromCart(name);
+    var kode = $(this).data('kode')
+    shoppingCart.removeItemFromCart(kode);
     displayCart();
 })
 // +1
 $('.show-cart').on("click", ".plus-item", function (event) {
-    var name = $(this).data('name')
-    shoppingCart.addItemToCart(name);
+    var kode = $(this).data('kode')
+    shoppingCart.addItemToCart(kode);
     displayCart();
 })
 
 // Item count input
 $('.show-cart').on("change", ".item-count", function (event) {
-    var name = $(this).data('name');
+    var kode = $(this).data('kode');
     var count = Number($(this).val());
-    shoppingCart.setCountForItem(name, count);
+    shoppingCart.setCountForItem(kode, count);
     displayCart();
 });
 

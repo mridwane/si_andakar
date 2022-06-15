@@ -19,7 +19,6 @@ $(window).on('load', function () {
             filter: data
         })
     });
-
     var $grid = $(".grid").isotope({
         itemSelector: ".all",
         percentPosition: false,
@@ -27,12 +26,13 @@ $(window).on('load', function () {
             columnWidth: ".all"
         }
     })
+
 });
 
 // nice select
-$(document).ready(function() {
+$(document).ready(function () {
     $('select').niceSelect();
-  });
+});
 
 /** google_map js **/
 function myMap() {
