@@ -54,9 +54,10 @@
                                 <div class="detail-box">
                                     <h5> <?= $row['product_name'] ?> </h5>
                                     <p> <?= $row['detail_product'] ?> </p>
+                                    <?php if($row['type'] == "Makanan Utama") {?>
                                     <div class="options">
                                         <select name="" id="" class="form-control nice-select wide">
-                                            <option value="" disabled>
+                                            <option value="" disabled selected>
                                                 Pilih Saus
                                             </option>
                                             <?php   
@@ -70,6 +71,7 @@
                                             <?php } ?>
                                         </select>
                                     </div>
+                                    <?php } ?>
                                     <div class="options">
                                         <h3> <b> Rp. <?=  number_format($row['price'],0,',','.'); ?> </b> </h3>
                                         <?php if($row['category'] == "Saus") {?>
