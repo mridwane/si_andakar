@@ -521,7 +521,6 @@ a:focus {
   border-radius: 10px;
   color: #ffffff;
   border-radius: 15px;
-  overflow: hidden;
   background: linear-gradient(to bottom, #f1f2f3 25px, #222831 25px);
 }
 
@@ -571,6 +570,7 @@ a:focus {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .food_section .box .options a {
@@ -714,6 +714,7 @@ a:focus {
 
 .book_section .form_container .nice-select .current {
   font-size: 16px;
+  z-index: 50 !important;
 }
 
 .book_section .form_container button {
