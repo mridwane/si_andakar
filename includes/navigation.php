@@ -12,21 +12,29 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav  mx-auto">
-                    <li class="nav-item <?php if ($page == "Home"){ echo "active"; }?>">
+                    <li class="nav-item <?php if ($page == "Home") {
+                                            echo "active";
+                                        } ?>">
                         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item <?php if ($page == "Menu"){ echo "active"; }?>">
+                    <li class="nav-item <?php if ($page == "Menu") {
+                                            echo "active";
+                                        } ?>">
                         <a class="nav-link" href="menu.php">Menu</a>
                     </li>
-                    <li class="nav-item <?php if ($page == "Tentang"){ echo "active"; }?>">
-                        <a class="nav-link" href="about.php">About</a>
+                    <li class="nav-item <?php if ($page == "Reservasi") {
+                                            echo "active";
+                                        } ?>">
+                        <a class="nav-link" href="reservasi.php?action=reservasi">Reservasi</a>
                     </li>
-                    <li class="nav-item <?php if ($page == "Reservasi"){ echo "active"; }?>">
-                        <a class="nav-link" href="reservasi.php">Reservasi</a>
+                    <li class="nav-item <?php if ($page == "Kemitraan") {
+                                            echo "active";
+                                        } ?>">
+                        <a class="nav-link" href="kemitraan.php">Kemitraan</a>
                     </li>
                 </ul>
                 <div class="user_option">
-                    <?php if($page == "Reservasi"){ ?>
+                    <?php if ($page == "Reservasi") { ?>
                     <a class="cart_link" href="#" data-toggle="modal" data-target="#cartReservasi">
                         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
@@ -85,7 +93,7 @@
                         </svg>
                         <p class="text-yellow total-count"></p>
                     </a>
-                    <?php }else { ?>
+                    <?php } else { ?>
                     <a class="cart_link" href="#" data-toggle="modal" data-target="#cartMenu">
                         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                             xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029"
@@ -145,19 +153,19 @@
                         <p class="text-yellow total-count"></p>
                     </a>
                     <?php } ?>
-                    <?php 
-                        if (isset($_SESSION['cid'])) {
-                            echo '<a href="" class="user_link"><span>'.$_SESSION['C_FNAME'].'
-                                        '.$_SESSION['C_LNAME'].' </span></a>';
-                            echo '<a href="#" class="order_online" data-toggle="modal" data-target="#logoutModal">
+                    <?php
+                    if (isset($_SESSION['cid'])) {
+                        echo '<a href="" class="user_link"><span>' . $_SESSION['C_FNAME'] . '
+                                        ' . $_SESSION['C_LNAME'] . ' </span></a>';
+                        echo '<a href="#" class="order_online" data-toggle="modal" data-target="#logoutModal">
                                 Keluar
-                            </a>';                            
-                        }else{
-                            echo '<a href="register.php" class="user_link"><span>Register</span></a>';
-                            echo '<a href="login.php" class="order_online">
+                            </a>';
+                    } else {
+                        echo '<a href="register.php" class="user_link"><span>Register</span></a>';
+                        echo '<a href="login.php" class="order_online">
                                 Masuk
                             </a>';
-                        }                        
+                    }
                     ?>
 
                 </div>
