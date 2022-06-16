@@ -64,7 +64,9 @@ $autonum = $r['autonum'];
           <label>Jenis</label>
           <select class="form-control" name="type" id="type">
             <option selected disabled>Pilih Jenis</option>
-            <option value="Makanan">Makanan</option>
+            <option value="Makanan Utama">Makanan Utama</option>
+            <option value="Makanan Pendamping">Makanan Pendamping</option>
+            <option value="Makanan Penutup">Makanan Penutup</option>
             <option value="Saus">Saus</option>
             <option value="Minuman">Minuman</option>
           </select>
