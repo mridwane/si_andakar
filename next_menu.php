@@ -29,26 +29,44 @@ if (isset($_SESSION['C_ID'])) ?>
                     <div class="form_container">
 
                         <div>
-                            <input type="text" class="form-control" placeholder="Your Name" value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" disabled />
+                            <input type="text" class="form-control" placeholder="Your Name"
+                                value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" disabled />
                         </div>
                         <div>
-                            <input type="text" class="form-control" placeholder="Phone Number" value="<?= $_SESSION['contact'] ?>" disabled />
+                            <input type="text" class="form-control" placeholder="Phone Number"
+                                value="<?= $_SESSION['contact'] ?>" disabled />
                         </div>
                         <div>
-                            <input type="email" class="form-control" placeholder="Your Email" value="<?= $_SESSION['email'] ?>" disabled />
+                            <input type="email" class="form-control" placeholder="Your Email"
+                                value="<?= $_SESSION['email'] ?>" disabled />
                         </div>
                     </div>
                 </div>
                 <!-- Pengaturan reservasi -->
-                <form action="controller/reservasi_controller.php?action=update" method="POST">
-                    <div class="col-md-6">
-                        <div class="form_container">
+
+                <div class="col-md-6">
+                    <div class="form_container">
+                        <form action="controller/reservasi_controller.php?action=update" method="POST">
                             <div>
-                                <input type="text" class="form-control" name="transac_code" value="<?= $_GET['nt'] ?>" readonly />
+                                <input type="text" class="form-control" name="transac_code" value="<?= $_GET['nt'] ?>"
+                                    readonly />
                             </div>
                             <div>
-                                <label for="person_count">Untuk Berapa Orang?</label>
-                                <input type="text" class="form-control" id="person_count" name="person_count">
+                                <!-- <label for="person_count">Untuk Berapa Orang?</label> -->
+                                <select class="form-control nice-select wide" id="person_count" name="person_count">
+                                    <option value="" selected disabled>Untuk Berapa Orang?</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                                <!-- <input type="text" class="form-control" id="person_count" name="person_count"> -->
                             </div>
                             <div>
                                 <label for="date">Tanggal Reservasi?</label>
@@ -63,34 +81,37 @@ if (isset($_SESSION['C_ID'])) ?>
                                 Pilih Menu
                             </button>
                         </div> -->
-                        </div>
+                            <button type="submit" id="update_reservasi" name="update_reservasi"
+                                class="btn btn-primary">Simpan</button>
+                        </form>
                     </div>
-                    <button type="submit" id="update_reservasi" name="update_reservasi" class="btn btn-primary">Simpan</button>
-                </form>
+                </div>
+
             </div>
         </div>
     </section>
     <section class="food_section layout_padding">
-        < <!-- Product Tables -->
-            <div class="card mb-3">
-                <div class="card-header">
-                    <Center>
-                        <h3>Makanan/Minuman yang dipilih</h3>
-                    </Center>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Qty</th>
-                                        <th>Jenis</th>
-                                        <th>Edit</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
+        <!-- Product Tables -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <Center>
+                    <h3>Makanan/Minuman yang dipilih</h3>
+                </Center>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%"
+                            cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Qty</th>
+                                    <th>Jenis</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
                                     $query = 'SELECT * FROM `tbltransacdetail` a inner join `tblproducts` b on a.`product_code` = b.`product_id` WHERE a.`transac_code` = "' . $_GET['nt'] . '"';
                                     $result = mysqli_query($db, $query) or die(mysqli_error($db));
                                     // membuat nomer otomatis untuk di tabel
@@ -120,12 +141,12 @@ if (isset($_SESSION['C_ID'])) ?>
                                     }
                                     ?>
 
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+        </div>
 
     </section>
 
