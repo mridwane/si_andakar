@@ -1,0 +1,429 @@
+body {
+    font-family: "Montserrat", sans-serif;
+}
+
+.tinggi-sidebar {
+    top: 100px;
+    width: auto;
+    position: fixed;
+}
+
+.sdbr {
+    background-color: white;
+    margin-top: 20px;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+}
+
+.menu-bar {
+    height: 100px;
+}
+
+.icon-new {
+    color: #343a40;
+}
+
+.color-logo {
+    color: #00bf20;
+    font-weight: bold;
+    padding: 20px;
+}
+
+.tombol {
+    border-radius: 2px;
+    margin-left: 10px;
+    margin-right: 10px;
+    /* padding: 10px; */
+}
+
+.tombol a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    color: #343a40;
+    font-size: 14px;
+}
+
+.tombol a:hover {
+    background-color: #00bf20;
+    color: white;
+    transition: 1s;
+    border-radius: 20px;
+}
+
+.material-icons.md-18 {
+    font-size: 18px;
+}
+
+.material-icons.md-24 {
+    font-size: 24px;
+}
+
+.material-icons.md-36 {
+    font-size: 36px;
+}
+
+.material-icons.md-48 {
+    font-size: 48px;
+}
+
+.text-menu {
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.jarak-nav {
+    height: 50px;
+    /* padding-left: 30px; */
+    border-radius: 20px;
+}
+
+.jarak-nav a {
+    padding-left: 20px;
+}
+
+.aktif {
+    background-color: #aff6cb;
+    transition: 1s;
+}
+
+.jarak-konten {
+    padding: 0 80px;
+    margin-left: 170px;
+}
+
+.style-jumbotron {
+    background-color: #aff6cb;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.style-jumbotron img {
+    border-radius: 20px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.bg-navbar {
+    background-color: white;
+    height: 80px;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.img-sidebar {
+    margin-top: 100px;
+    width: 170px;
+}
+
+.bungkus-produk {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+.pencarian {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.pencarian input {
+    width: 300px;
+    height: 40px;
+    padding-left: 20px;
+    margin-right: 20px;
+    color: #343a40;
+    border: 0px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.pencarian input::placeholder {
+    color: #aaaaaa;
+}
+
+.pencarian input:focus {
+    outline: none;
+}
+
+.pencarian a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #00bf20;
+    border: 0px;
+    border-radius: 10px;
+    padding: 5px;
+    color: white;
+    text-decoration: none;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.pencarian a:hover {
+    background-color: #aff6cb;
+    color: #00bf20;
+    transition: 1s;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.kategori {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.kaktif {
+    background-color: #00bf20;
+    color: white;
+}
+
+.kategori a {
+    text-decoration: none;
+    font-size: 12px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    margin: 10px;
+    color: #00bf20;
+}
+
+.kategori a:hover {
+    background-color: #00bf20;
+    color: white;
+    transition: 1s;
+}
+
+.judul {
+    margin-top: 60px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* .warna {
+    background-color: #aff6cb;
+} */
+
+.size-gambar {
+    width: 150px;
+    size: 100px;
+}
+
+.green {
+    background-color: #00bf20;
+    color: azure;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.text-dark {
+    color: #343a40;
+}
+
+.text-keunggulan {
+    width: 100%;
+    padding: 40px;
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+.center-position {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login {
+    margin: 50px;
+}
+
+.gambar-reg {
+    margin-top: 100px;
+}
+
+.kartu-produk {
+    display: flex;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    word-wrap: break-word;
+}
+
+.kartu-produk img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+}
+
+.spesifikasi {
+    /* position: absolute; */
+    display: flex;
+    flex-direction: column;
+    top: 250px;
+    width: 250px;
+    height: auto;
+    padding: 24px;
+    background-color: white;
+    border-radius: 20px;
+    color: #343a40;
+}
+
+.spesifikasi h1 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 30px;
+    text-align: left;
+}
+
+.spesifikasi h2 {
+    font-size: 12px;
+    font-weight: normal;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.spesifikasi h3 {
+    font-size: 14px;
+    font-weight: Bold;
+    margin-top: 30px;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.aksi {
+    display: flex;
+    padding: 12px;
+    gap: 12px;
+}
+
+.aksi button {
+    width: 65%;
+    height: 35px;
+    border-radius: 10px;
+    border: 0;
+    color: white;
+    background-color: #00bf20;
+}
+
+.aksi button:hover {
+    color: #00bf20;
+    background-color: #aff6cb;
+    transition: 1s;
+}
+
+.jumlah {
+    font-size: 14px;
+    width: 60px;
+    height: 35px;
+    text-align: center;
+    border: 0px;
+    border-radius: 5px;
+    background-color: #aff6cb;
+}
+
+.danger {
+    display: flex;
+    width: 50px;
+    justify-content: center;
+    background-color: #d92027;
+    padding: 10px;
+    color: white;
+    border-radius: 10px;
+}
+
+.danger:hover {
+    background-color: red;
+    color: white;
+    text-decoration: none;
+    transition: 1s;
+}
+
+.tombol-hijau {
+    display: flex;
+    justify-content: center;
+    background-color: #00bf20;
+    padding: 10px;
+    color: white;
+    border-radius: 10px;
+    font-size: smaller;
+}
+
+.tombol-hijau:hover {
+    background-color: #aff6cb;
+    color: #343a40;
+    text-decoration: none;
+    transition: 1s;
+}
+
+.detail-pemesan {
+    padding: 20px;
+    font-size: 14px;
+    border-radius: 20px;
+    background-color: #00BF20;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.detail-pemesan h2 {
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.ringkasan {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #00BF20;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.ringkasan h5 {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 14px;
+}
+
+.ringkasan h2 {
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.tombol {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    padding: 10px;
+
+    border-radius: 10px;
+
+    font-size: smaller;
+}
+
+.tombol:hover {
+    background-color: #AFF6CB;
+    color: #343A40;
+    text-decoration: none;
+    transition: 1s;
+}

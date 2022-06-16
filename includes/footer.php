@@ -1,190 +1,110 @@
-</div>
-</div>
-<footer class="sticky-footer bg-white">
-  <div class="container my-auto">
-    <div class="copyright text-center my-auto">
-      <span>Andakar © 2022</span>
-    </div>
-  </div>
-</footer>
-</div>
-</div><a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Where You Go Dude ??</h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
-            aria-hidden="true">×</span></button>
-      </div>
-      <div class="modal-body">
-        <?php echo  $_SESSION['FIRST_NAME']; ?> Logout ?? </div>
-      <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button><a
-          class="btn btn-primary" href="logout.php">Logout</a></div>
-    </div>
-  </div>
-</div>
-<div id="overlay" onclick="off()">
-  <div id="text"> <?php echo  $_SESSION['FIRST_NAME']. ' '.$_SESSION['LAST_NAME'] ;?></div>
-</div>
-<div class="col-12 text-center fixed-bottom">
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-  <script src="../js/sb-admin-2.min.js"></script>
-  <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-  <script src="../js/demo/datatables-demo.js"></script>
-  <!-- <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script> -->
-  <!-- <script src='https://mesinkasir.github.io/larapos/pos/gallerya.js'></script> -->
-</div>
-<script>
-  function on() {
-    document.getElementById("overlay").style.display = "block";
-  }
+ <!-- footer section -->
+ <footer class="footer_section">
+     <div class="container">
+         <div class="row">
+             <div class="col-md-4 footer-col">
+                 <div class="footer_contact">
+                     <h4>
+                         Contact Us
+                     </h4>
+                     <div class="contact_link_box">
+                         <a href="">
+                             <i class="fa fa-map-marker" aria-hidden="true"></i>
+                             <span>
+                                 Location
+                             </span>
+                         </a>
+                         <a href="">
+                             <i class="fa fa-phone" aria-hidden="true"></i>
+                             <span>
+                                 Call +01 1234567890
+                             </span>
+                         </a>
+                         <a href="">
+                             <i class="fa fa-envelope" aria-hidden="true"></i>
+                             <span>
+                                 demo@gmail.com
+                             </span>
+                         </a>
+                     </div>
+                 </div>
+             </div>
+             <div class="col-md-4 footer-col">
+                 <div class="footer_detail">
+                     <a href="" class="footer-logo">
+                         Feane
+                     </a>
+                     <p>
+                         Necessary, making this the first true generator on the Internet. It uses a dictionary of over
+                         200 Latin words, combined with
+                     </p>
+                     <div class="footer_social">
+                         <a href="">
+                             <i class="fa fa-facebook" aria-hidden="true"></i>
+                         </a>
+                         <a href="">
+                             <i class="fa fa-twitter" aria-hidden="true"></i>
+                         </a>
+                         <a href="">
+                             <i class="fa fa-linkedin" aria-hidden="true"></i>
+                         </a>
+                         <a href="">
+                             <i class="fa fa-instagram" aria-hidden="true"></i>
+                         </a>
+                         <a href="">
+                             <i class="fa fa-pinterest" aria-hidden="true"></i>
+                         </a>
+                     </div>
+                 </div>
+             </div>
+             <div class="col-md-4 footer-col">
+                 <h4>
+                     Opening Hours
+                 </h4>
+                 <p>
+                     Everyday
+                 </p>
+                 <p>
+                     10.00 Am -10.00 Pm
+                 </p>
+             </div>
+         </div>
+         <div class="footer-info">
+             <p>
+                 &copy; <span id="displayYear"></span> All Rights Reserved By
+                 <a href="https://html.design/">Free Html Templates</a><br><br>
+                 &copy; <span id="displayYear"></span> Distributed By
+                 <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+             </p>
+         </div>
+     </div>
+ </footer>
+ <!-- footer section -->
 
-  function off() {
-    document.getElementById("overlay").style.display = "none";
-  }
+ <!-- jQery -->
+ <script src="assets/js/jquery-3.4.1.min.js"></script>
+ <!-- popper js -->
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+ </script>
+ <!-- bootstrap js -->
+ <script src="assets/js/bootstrap.js"></script>
+ <!-- owl slider -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+ </script>
+ <!-- isotope js -->
+ <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+ <!-- nice select -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+ <!-- custom js -->
+ <script src="assets/js/custom.js"></script>
+ <!-- Google Map -->
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+ </script>
+ <!-- End Google Map -->
+ <!-- cart js -->
+ <script src="assets/js/cart.js"></script>
 
-  function isNumberKey(evt) {
-    var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode != 46 && charCode > 31 &&
-      (charCode < 48 || charCode > 57))
-      return false;
-    return true;
-  }
-</script>
-<?php
-  include 'modal.php';
-$sql = "SELECT DISTINCT TYPE, TYPE_ID FROM type";
-$result = mysqli_query($db, $sql) or die ("Bad SQL: $sql");
-$opt = "<select class='form-control' name='type'>";
-  while ($row = mysqli_fetch_assoc($result)) {
-    $opt .= "<option value='".$row['TYPE_ID']."'>".$row['TYPE']."</option>";
-  }
-$opt .= "</select>";
-        $query = "SELECT ID, e.FIRST_NAME, e.LAST_NAME, e.GENDER, USERNAME, PASSWORD, e.EMAIL, PHONE_NUMBER, j.JOB_TITLE, t.TYPE
-                      FROM users u
-                      join employee e on u.EMPLOYEE_ID = e.EMPLOYEE_ID
-                      join job j on e.JOB_ID=j.JOB_ID
-                      join type t on u.TYPE_ID=t.TYPE_ID
-                      WHERE ID =".$_SESSION['MEMBER_ID'];
-        $result = mysqli_query($db, $query) or die(mysqli_error($db));
-          while($row = mysqli_fetch_array($result))
-          {  
-                $zz= $row['ID'];
-                $a= $row['FIRST_NAME'];
-                $b=$row['LAST_NAME'];
-                $c=$row['GENDER'];
-                $d=$row['USERNAME'];
-                $e=$row['PASSWORD'];
-                $f=$row['EMAIL'];
-                $g=$row['PHONE_NUMBER'];
-                $h=$row['JOB_TITLE'];
-                $l=$row['TYPE'];
-          }
-      ?>
-<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit User Info</h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form role="form" method="post" action="settings_edit.php">
-          <input type="hidden" name="id" value="<?php echo $zz; ?>" />
+ </body>
 
-          <div class="form-group row text-left text-primary">
-            <div class="col-sm-3" style="padding-top: 5px;">
-              First Name:
-            </div>
-            <div class="col-sm-9">
-              <input class="form-control" placeholder="First Name" name="firstname" value="<?php echo $a; ?>" required>
-            </div>
-          </div>
-          <div class="form-group row text-left text-primary">
-            <div class="col-sm-3" style="padding-top: 5px;">
-              Last Name:
-            </div>
-            <div class="col-sm-9">
-              <input class="form-control" placeholder="Last Name" name="lastname" value="<?php echo $b; ?>" required>
-            </div>
-          </div>
-          <div class="form-group row text-left text-primary">
-            <div class="col-sm-3" style="padding-top: 5px;">
-              Gender:
-            </div>
-            <div class="col-sm-9">
-              <select class='form-control' name='gender' required>
-                <option value="" disabled selected hidden>Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group row text-left text-primary">
-            <div class="col-sm-3" style="padding-top: 5px;">
-              Username:
-            </div>
-            <div class="col-sm-9">
-              <input class="form-control" placeholder="Username" name="username" value="<?php echo $d; ?>" required>
-            </div>
-          </div>
-          <div class="form-group row text-left text-primary">
-            <div class="col-sm-3" style="padding-top: 5px;">
-              Password:
-            </div>
-            <div class="col-sm-9">
-              <input type="password" class="form-control" placeholder="Password" name="password" value="" required>
-            </div>
-          </div>
-          <div class="form-group row text-left text-primary">
-            <div class="col-sm-3" style="padding-top: 5px;">
-              Email:
-            </div>
-            <div class="col-sm-9">
-              <input class="form-control" placeholder="Email" name="email" value="<?php echo $f; ?>" required>
-            </div>
-          </div>
-          <div class="form-group row text-left text-primary">
-            <div class="col-sm-3" style="padding-top: 5px;">
-              Contact #:
-            </div>
-            <div class="col-sm-9">
-              <input class="form-control" placeholder="Contact #" name="phone" value="<?php echo $g; ?>" required>
-            </div>
-          </div>
-          <div class="form-group row text-left text-primary">
-            <div class="col-sm-3" style="padding-top: 5px;">
-              Role:
-            </div>
-            <div class="col-sm-9">
-              <input class="form-control" placeholder="Role" name="role" value="<?php echo $h; ?>" readonly>
-            </div>
-          </div>
-
-          <div class="form-group row text-left text-primary">
-            <div class="col-sm-3" style="padding-top: 5px;">
-              Account Type:
-            </div>
-            <div class="col-sm-9">
-              <input class="form-control" placeholder="Account Type" name="type" value="<?php echo $l; ?>" readonly>
-            </div>
-          </div>
-          <hr>
-          <button type="submit" class="btn btn-success"><i class="fa fa-check fa-fw"></i>Save</button>
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-</body>
-
-</html>
+ </html>

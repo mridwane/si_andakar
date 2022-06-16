@@ -1,9 +1,0 @@
-login
-
-admin
-user : admin
-pass : admin
-
-staff 
-user : kasir
-pass : kasir
