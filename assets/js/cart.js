@@ -172,6 +172,8 @@ function displayCart() {
 
     var cartArray = shoppingCart.listCart();
     var output = "";
+    var output2 = "";
+    var no = 1;
     for (var i in cartArray) {
         // konversi ke rupiah
         // price
@@ -206,11 +208,24 @@ function displayCart() {
             " = " +
             "<td>Rp. " + total + "</td>" +
             "</tr>";
+
+        output2 += "<tr>" +
+            "<td>" + no++ + "</td>" +
+            "<td>" + cartArray[i].name + "</td>" +
+            "<td></td>" +
+            "<td>Rp. " + price + "</td>" +
+            "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-kode=" + cartArray[i].kode + ">-</button>" +
+            "<input type='number' class='item-count form-control' data-kode='" + cartArray[i].kode + "' value='" + cartArray[i].count + "'>" +
+            "<button class='plus-item btn btn-primary input-group-addon' data-kode=" + cartArray[i].kode + ">+</button></div></td>" +
+            "<td><button class='delete-item btn btn-danger' data-kode=" + cartArray[i].kode + ">X</button></td>" +
+            "</tr>";
     }
     $('.show-cart').html(output);
+    $('.show-list').html(output2);
     $('.total-cart').html(shoppingCart.totalCart());
     $('.total-count').html(shoppingCart.totalCount());
 }
+
 
 // Delete item button
 
