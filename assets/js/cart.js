@@ -199,9 +199,10 @@ function displayCart() {
         }
         output += "<tr>" +
             "<td>" + cartArray[i].name + "</td>" +
+            "<td><input type='text' name='product_code[]' id='product_code' style='display:none' value='" + cartArray[i].kode + "'></td>" +
             "<td>Rp. " + price + "</td>" +
             "<td><div class='input-group'><button class='minus-item input-group-addon btn btn-primary' data-kode=" + cartArray[i].kode + ">-</button>" +
-            "<input type='number' class='item-count form-control' data-kode='" + cartArray[i].kode + "' value='" + cartArray[i].count + "'>" +
+            "<input type='number' name='qty[]' id='qty' class='item-count form-control' data-kode='" + cartArray[i].kode + "' value='" + cartArray[i].count + "'>" +
             "<button class='plus-item btn btn-primary input-group-addon' data-kode=" + cartArray[i].kode + ">+</button></div></td>" +
             "<td><button class='delete-item btn btn-danger' data-kode=" + cartArray[i].kode + ">X</button></td>" +
             " = " +

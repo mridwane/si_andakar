@@ -20,66 +20,7 @@ if (!isset($_SESSION["cid"])) {
             <!-- end navigation-->
         </div>
 
-        <section class="book_section layout_padding">
-            <div class="container">
-                <div class="heading_container heading_center">
-                    <h2>
-                        Reservasi
-                    </h2>
-                </div>
-                <div class="row">
-                    <!-- Informasi personal -->
-                    <div class="col-md-6">
-                        <div class="form_container">
-                            <div>
-                                <input type="text" class="form-control" placeholder="Your Name" value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" disabled />
-                            </div>
-                            <div>
-                                <input type="text" class="form-control" placeholder="Phone Number" value="<?= $_SESSION['contact'] ?>" disabled />
-                            </div>
-                            <div>
-                                <input type="email" class="form-control" placeholder="Your Email" value="<?= $_SESSION['email'] ?>" disabled />
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Pengaturan reservasi -->
-                    <div class="col-md-6">
-                        <div class="form_container">
-                            <div>
-                                <select class="form-control nice-select wide">
-                                    <option value="" disabled selected>
-                                        Untuk Berapa Orang?
-                                    </option>
-                                    <option value="1"> 1 </option>
-                                    <option value="2"> 2 </option>
-                                    <option value="3"> 3 </option>
-                                    <option value="4"> 4 </option>
-                                    <option value="5"> 5 </option>
-                                    <option value="6"> 6 </option>
-                                    <option value="7"> 7 </option>
-                                    <option value="8"> 8 </option>
-                                    <option value="9"> 9 </option>
-                                    <option value="10"> 10 </option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="date">Tanggal Reservasi?</label>
-                                <input type="date" class="form-control" id="date">
-                            </div>
-                            <div>
-                                <label for="time">Waktu Reservasi?</label>
-                                <input type="time" class="form-control" id="time">
-                            </div>
-                            <!-- <div class="btn_box" data-target="pilihMenu">
-                            <button>
-                                Pilih Menu
-                            </button>
-                        </div> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
         <section class="food_section layout_padding" id="pilihMenu">
             <div class="container">
                 <div class="heading_container heading_center">
@@ -146,17 +87,20 @@ if (!isset($_SESSION["cid"])) {
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <table class="show-cart table">
+                    <form action="controller/reservasi_controller.php?action=save" method="POST">
+                        <div class="modal-body">
+                            <table class="show-cart table">
 
-                        </table>
-                        <div>Total price: Rp.<span class="total-cart"></span></div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="clear-cart btn btn-danger">Hapus List Menu</button>
-                        <a href="next_menu.php" type="button" class="btn btn-primary">Lanjutkan Pesanan</a>
-                    </div>
+                            </table>
+                            <div>Total price: Rp.<span class="total-cart" id="total_chart"></span></div>
+                            <input type="text" class="total-count" name="jml_total" id="jml_total" hidden>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button class="clear-cart btn btn-danger">Hapus List Menu</button>
+                            <button type="submit" id="next_reservasi" name="next_reservasi" class="btn btn-primary">Lanjutkan Pesanan</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -170,3 +114,20 @@ if (!isset($_SESSION["cid"])) {
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+    <script>
+        // fungsi untuk menonaktifkan tombol lanjutkan pesanan ketika jumlah order kurang dari 500
+        $("#total_chart").on('DOMSubtreeModified', function() {
+            var total = $(this).html().replaceAll('.', '');;
+
+            if (parseInt(total) < 500000) {
+                $('#next_reservasi').prop('disabled', true);
+
+            }
+            if (parseInt(total) >= 500000) {
+                $('#next_reservasi').prop('disabled', false);
+
+            }
+
+        });
+    </script>
