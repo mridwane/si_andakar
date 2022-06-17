@@ -161,6 +161,43 @@ $('.add-to-cart').click(function (event) {
     displayCart();
 });
 
+// function selectSaus() {
+//     var tes = document.getElementById("saus").value;
+//     console.log(tes)
+// }
+// const iconBtn = document.querySelectorAll('.nice-select');
+// for (var i = 0; i < iconBtn.length; i++) {
+//     iconBtn[i].addEventListener("change", function (e) {
+//         e.preventDefault();
+//         // let password = this.childNodes[1];
+//         // const iconSvg = this.childNodes[1];
+//         // if (password.type === "password") {
+//         //     password.type = "text";
+//         // } else {
+//         //     password.type = "password";
+//         // }
+//         // iconSvg.classList.toggle('icon-show');
+//         // const price = $('select option:selected').data('prices');
+//         var tes = document.getElementById("saus").value;
+//         // const data = document.querySelector('#saus').dataset.prices.
+//         console.log(tes);
+//     });
+// }
+
+// $('#saus').on('change', function () {
+//     // ambil data dari elemen option yang dipilih
+//     const price = $('select option:selected').data('prices');
+//     const name = $('select option:selected').data('names');
+
+//     // tampilkan data ke element
+//     // $('[name=price]').val(price);
+//     // $('[name=discount]').val(totalDiscount);
+
+//     // $('#total').text(`Rp ${total}`);
+//     console.log(price);
+//     console.log(name);
+// });
+
 // Clear items
 $('.clear-cart').click(function () {
     shoppingCart.clearCart();

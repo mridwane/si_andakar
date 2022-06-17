@@ -24,7 +24,7 @@
         <div class="container">
             <div class="heading_container heading_center">
                 <h2>
-                    Menu Steak
+                    Menu Minuman
                 </h2>
             </div>
             <ul class="filters_menu">
@@ -39,7 +39,7 @@
             <div class="filters-content">
                 <div class="row grid">
                     <?php 
-                        $query = "SELECT * FROM tblproducts a Join tblcategory b WHERE a.category_id = b.category_id AND type = 'Makanan Utama'";
+                        $query = "SELECT * FROM tblproducts a Join tblcategory b WHERE a.category_id = b.category_id AND type = 'Minuman'";
                         $result = mysqli_query($db, $query) or die (mysqli_error($db));                        
                         $no = 1;
                         while ($row = mysqli_fetch_assoc($result)) {
@@ -212,17 +212,21 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <table class="show-cart table">
+                <form action="controller/reservasi_controller.php?action=save" method="POST">
+                    <div class="modal-body">
+                        <table class="show-cart table">
 
-                    </table>
-                    <div>Total price: Rp.<span class="total-cart"></span></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button class="clear-cart btn btn-danger">Hapus List Menu</button>
-                    <a href="menu_saus.php" type="button" class="btn btn-primary">Pilih Saus</a>
-                </div>
+                        </table>
+                        <div>Total price: Rp.<span class="total-cart" id="total_chart"></span></div>
+                        <input type="text" class="total-count" name="jml_total" id="jml_total" hidden>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button class="clear-cart btn btn-danger">Hapus List Menu</button>
+                        <button type="submit" id="next_reservasi" name="next_reservasi"
+                            class="btn btn-primary">Lanjutkan Pesanan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

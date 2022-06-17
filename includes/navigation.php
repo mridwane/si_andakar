@@ -25,7 +25,7 @@
                     <li class="nav-item <?php if ($page == "Reservasi") {
                                             echo "active";
                                         } ?>">
-                        <a class="nav-link" href="reservasi.php?action=reservasi">Reservasi</a>
+                        <a class="nav-link" href="menu.php">Reservasi</a>
                     </li>
                     <li class="nav-item <?php if ($page == "Kemitraan") {
                                             echo "active";

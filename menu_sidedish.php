@@ -24,8 +24,9 @@
         <div class="container">
             <div class="heading_container heading_center">
                 <h2>
-                    Menu Steak
+                    Menu Pendamping
                 </h2>
+                <span>*menu pendamping bisa dipesan dan juga bisa tidak dipesan (optional)</span>
             </div>
             <ul class="filters_menu">
                 <li class="active" data-filter="*">All</li>
@@ -39,7 +40,7 @@
             <div class="filters-content">
                 <div class="row grid">
                     <?php 
-                        $query = "SELECT * FROM tblproducts a Join tblcategory b WHERE a.category_id = b.category_id AND type = 'Makanan Utama'";
+                        $query = "SELECT * FROM tblproducts a Join tblcategory b WHERE a.category_id = b.category_id AND type = 'Makanan Pendamping'";
                         $result = mysqli_query($db, $query) or die (mysqli_error($db));                        
                         $no = 1;
                         while ($row = mysqli_fetch_assoc($result)) {
@@ -221,7 +222,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button class="clear-cart btn btn-danger">Hapus List Menu</button>
-                    <a href="menu_saus.php" type="button" class="btn btn-primary">Pilih Saus</a>
+                    <a href="menu_minuman.php" type="button" class="btn btn-primary">Pilih Minuman</a>
                 </div>
             </div>
         </div>
