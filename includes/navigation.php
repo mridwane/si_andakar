@@ -153,21 +153,23 @@
                         <p class="text-yellow total-count"></p>
                     </a>
                     <?php } ?>
-                    <?php
-                    if (isset($_SESSION['cid'])) {
-                        echo '<a href="" class="user_link"><span>' . $_SESSION['C_FNAME'] . '
-                                        ' . $_SESSION['C_LNAME'] . ' </span></a>';
-                        echo '<a href="#" class="order_online" data-toggle="modal" data-target="#logoutModal">
-                                Keluar
-                            </a>';
-                    } else {
-                        echo '<a href="register.php" class="user_link"><span>Register</span></a>';
-                        echo '<a href="login.php" class="order_online">
-                                Masuk
-                            </a>';
-                    }
-                    ?>
-
+                    <?php if (isset($_SESSION['cid'])) { ?>
+                    <div class="dropdown show">
+                        <a class="user_link dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?= $_SESSION['C_FNAME'].' '. $_SESSION['C_LNAME'] ?>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="detail_order.php">Pesanan Kamu</a>
+                        </div>
+                    </div>
+                    <a href="#" class="order_online" data-toggle="modal" data-target="#logoutModal">
+                        Keluar
+                    </a>
+                    <?php } else{ ?>
+                    <a href="register.php" class="user_link"><span>Register</span></a>
+                    <a href="login.php" class="order_online"> Masuk </a>
+                    <?php } ?>
                 </div>
             </div>
         </nav>
