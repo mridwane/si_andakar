@@ -160,7 +160,7 @@
                             <?= $_SESSION['C_FNAME'].' '. $_SESSION['C_LNAME'] ?>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="detail_order.php">Pesanan Kamu</a>
+                            <a class="dropdown-item" href="order.php">Pesanan Kamu</a>
                         </div>
                     </div>
                     <a href="#" class="order_online" data-toggle="modal" data-target="#logoutModal">
