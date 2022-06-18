@@ -30,7 +30,8 @@ if (isset($_SESSION['C_ID'])) ?>
                                             Untuk format persyaratan kemtiraan dengan kami bisa didownload disini.
                                         </p>
                                         <div class="btn-box">
-                                            <a href="" class="btn1">
+                                            <a href="assets/file/FORM PENDAFTARAN KEMITRAAN.pdf" class="btn1"
+                                                target="_blank">
                                                 Download Format Persyaratan
                                             </a>
                                         </div>
