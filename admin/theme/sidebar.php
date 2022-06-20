@@ -36,6 +36,11 @@
         </a>
       </li> -->
       <li class="nav-item">
+        <a title="Kemitraan" class="nav-link" href="list_kemitraan_admin.php">
+          <i class="fas fa-fw fa-shopping-cart"></i>
+          <span>Kemitraan</span></a>
+      </li>
+      <li class="nav-item">
         <a title="Transaction" class="nav-link" href="detail.php">
           <i class="fas fa-fw fa-table"></i>
           <span>Transaksi</span></a>
