@@ -7,16 +7,17 @@ include('../includes/connection.php');
 include 'theme/header.php';
 include 'theme/sidebar.php';
  
-$query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name,`C_PNUMBER`,`C_ADDRESS` FROM `tbltransacdetail` a INNER JOIN `tblcustomer` b on a.`customer_id`=b.`C_ID`
-              WHERE transac_code ='.$_GET['id'];
+$query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name,`C_PNUMBER`,`C_ADDRESS` FROM `tbltransac` a INNER JOIN
+`tblcustomer` b on a.customer_id=b.C_ID WHERE a.transac_code ="'.$_GET['id'].'"';
             $result = mysqli_query($db, $query) or die(mysqli_error($db));
               while($row = mysqli_fetch_array($result))
               {   
-               $stats = $row['status'];
-               $name = $row['name'];
-               $contact = $row['C_PNUMBER'];
-               $address = $row['C_ADDRESS'];
-               $cd = $row['transac_code'];
+                $stats = $row['status'];
+                $name = $row['name'];
+                $contact = $row['C_PNUMBER'];
+                $address = $row['C_ADDRESS'];
+                $tgl_reservasi = $row['reservation_date_time'];
+                $cd = $row['transac_code'];
               }
          
 ?>
@@ -25,10 +26,11 @@ $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name,`C_PNUMBER`,`C_ADDRESS
 <div class="card">
   <div class="card-header">
     <div style="margin-bottom: 30px">
-      <h5>No. Pemesanan : 0<?php echo $cd; ?></h5>
+      <h5>No. Pemesanan : <?php echo $cd; ?></h5>
       <h5>Nama : <?php echo $name; ?></h5>
       <h5>Kontak : 0<?php echo $contact; ?></h5>
       <h5>Alamat : <?php echo $address; ?></h5>
+      <h5>Tanggal Reservasi : <?php echo $tgl_reservasi; ?></h5>
     </div>
     <div class="card-body">
       <h4 style="color: blue">Informasi Pemesanan</h4>
@@ -43,23 +45,27 @@ $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name,`C_PNUMBER`,`C_ADDRESS
           </thead>
           <tbody style="font-size: 20px">
             <?php                  
-                $query = "SELECT b.product_name,a.date,a.qty FROM tbltransac a,tblproducts b WHERE a.product_code=b.product_code AND a.transac_code='".$_GET['id']."' GROUP BY a.product_code";
-                    $result = mysqli_query($db, $query) or die (mysqli_error($db));
-                  
-                      while ($row = mysqli_fetch_assoc($result)) {                                             
-                        echo '<tr>';
-                        echo '<td>'. $row['product_name'].'</td>';                     
-                        echo '<td>'. $row['date'].'</td>';
-                        echo '<td>'. $row['qty'].'</td>';
-                        echo '<td>  ';
-                        /*echo '<center> <a  type="button" class="btn btn-lg btn-info fas fa-cart-plus" href="addtransacdetail.php?action=edit & id='.$row['transac_id'] . '"></a> </td></center>';*/
-                        echo '</tr> ';
-                      }
+                // $query = 'SELECT * FROM `tbltransac` a, `tblproducts` b, `tbltransacdetail` c WHERE
+                // c.product_code=b.product_id AND a.transac_code="'.$_GET['id'].'"';
+                $query = 'SELECT * FROM `tbltransac` a
+                INNER JOIN `tbltransacdetail` b on a.transac_code=b.transac_code INNER JOIN `tblproducts` c on
+                b.product_code=c.product_id WHERE a.transac_code ="'.$_GET['id'].'"';
+                $result = mysqli_query($db, $query) or die (mysqli_error($db));
+              
+                  while ($row = mysqli_fetch_assoc($result)) {                                             
+                    echo '<tr>';
+                    echo '<td>'. $row['product_name'].'</td>';                     
+                    echo '<td>'. $row['date'].'</td>';
+                    echo '<td>'. $row['qty'].'</td>';
+                    echo '<td>  ';
+                    /*echo '<center> <a  type="button" class="btn btn-lg btn-info fas fa-cart-plus" href="addtransacdetail.php?action=edit & id='.$row['transac_id'] . '"></a> </td></center>';*/
+                    echo '</tr> ';
+                  }
             ?>
             <?php 
-              $query = 'SELECT * FROM tbltransacdetail
+              $query = 'SELECT * FROM tbltransac
                 WHERE
-                transac_code ='.$_GET['id'];
+                transac_code ="'.$_GET['id'].'"';
                 $result = mysqli_query($db, $query) or die(mysqli_error($db));
                 while($row = mysqli_fetch_array($result))
                 {   
@@ -95,8 +101,7 @@ $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name,`C_PNUMBER`,`C_ADDRESS
           </tbody>
         </table>
         <br>
-        <?php      
-        if ($row['status']=='Pending') {?>
+        <?php if ($row['status']=='0') {?>
         <a title="Cancel" type="button" class="btn btn-xs btn-danger "
           onclick="return confirm('Apakah Anda ingin membatalkan transaksi?')"
           href="confirm.php?action=edit & cancel=<?php echo $row['transac_code']; ?> "><i
@@ -106,24 +111,25 @@ $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name,`C_PNUMBER`,`C_ADDRESS
           href="confirm.php?action=edit & confirm=<?php echo $row['transac_code']; ?>"><i
             class="fas fa-check"></i>Konfirmasi</a>
         <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
-        <?php
-                             }elseif ($row['status']=='Confirmed') {?>
-        <a title="Cancel" type="button" class="btn btn-xs btn-danger "
+
+        <?php }elseif ($row['status']=='1') {?>
+        <!-- <a title="Cancel" type="button" class="btn btn-xs btn-danger "
           onclick="return confirm('Apakah Anda ingin membatalkan transaksi?')"
           href="confirm.php?action=edit & cancel=<?php echo $row['transac_code']; ?> "><i
-            class="fas fa-minus-circle"></i>Batal</a>
+            class="fas fa-minus-circle"></i>Batal</a> -->
         <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
-
-        <?php echo '<a href="delivery_letter.php?id='.$cd.'" class="btn btn-xs btn-info"><i class="fas fa-sign-out-alt"></i>Surat Jalan</a>' ?>
-        <a title="confirmdelivery" type="button" class="btn btn-xs btn-success "
+        <!-- <?php echo '<a href="delivery_letter.php?id='.$cd.'" class="btn btn-xs btn-info"><i class="fas fa-sign-out-alt"></i>Surat Jalan</a>' ?>
+        <a title="confirmdelivery" type="button" class="btn btn-xs btn-success"
           onclick="confirmf(<?php echo $row['transac_code']; ?>)"><i class="fas fa-minus-circle"></i>Konfirmasi telah
-          dikirim</a>
-        <?php }elseif ($row['status']=='Cancelled') {?>
-        <a title="Confirm" type="button" class="btn btn-xs btn-info "
+          dikirim</a> -->
+
+        <?php }elseif ($row['status']=='2') {?>
+        <!-- <a title="Confirm" type="button" class="btn btn-xs btn-info "
           onclick="return confirm('Apakah Anda ingin mengkonfirmasi transaksi?')"><i
-            class="fas fa-check"></i>Konfirmasi</a>
+            class="fas fa-check"></i>Konfirmasi</a> -->
         <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
         <?php } }  ?>
+
         <script>
           function confirmf(transacid) {
             var person = prompt("Masukan Penerima Barang");
@@ -147,7 +153,7 @@ $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name,`C_PNUMBER`,`C_ADDRESS
     <?php
            $query = 'SELECT * FROM tbltransacdetail
               WHERE
-              transac_code ='.$_GET['id'];
+              transac_code ="'.$_GET['id'].'"';
             $result = mysqli_query($db, $query) or die(mysqli_error($db));
               while($row = mysqli_fetch_array($result))
               {   

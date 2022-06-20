@@ -35,6 +35,7 @@
     <link href="assets/css/style.css" rel="stylesheet" />
     <!-- responsive style -->
     <link href="assets/css/responsive.css" rel="stylesheet" />
+    <link href="assets/css/toastr.min.css" rel="stylesheet" />
 
   </head>
 
