@@ -74,13 +74,13 @@ if (!isset($_SESSION['email'])) {
 
                     <div class="col-md-6">
                         <div class="form_container">
-                            <form action="" method="POST">
+                            <form action="controller/kemitraan_controller.php" method="POST" enctype="multipart/form-data">
                                 <div>
                                     <label for="upload">Upload Portofolio</label>
-                                    <input type="file" class="form-control" id="upload" name="upload" accept=".pdf, .docx, .doc">
-                                    <span>*File harus PDF/Word </span>
+                                    <input type="file" class="form-control" id="upload" name="upload" onchange="validasifile2()" accept=".pdf, .docx, .doc">
+                                    <span>*File harus PDF/Word, max 5 MB </span>
                                 </div>
-                                <button type="submit" id="update_reservasi" name="update_reservasi" class="btn btn-primary">Simpan</button>
+                                <button type="submit" id="submit" name="submit" class="btn btn-primary">Simpan</button>
                             </form>
                         </div>
                     </div>
@@ -92,3 +92,24 @@ if (!isset($_SESSION['email'])) {
 
     <!--footer area-->
     <?php include 'includes/footer.php'; ?>
+
+    <script>
+        function validasifile2() {
+            var file2 = document.getElementById("upload").files;
+            var docx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            var doc = "application/msword";
+            for (var i = 0; i < file2.length; i++) {
+                if (file2[i].type != 'application/pdf' && file2[i].type != docx && file2[i].type != doc) {
+                    alert("format file hanya dapat .pdf, .doc dan .docx");
+                    // document.getElementById("submit").disabled = true;
+                    document.getElementById("upload").value = "";
+                }
+                if (file2[i].size > 5000000) {
+                    alert("Ukuran file terlalu besar, anda tidak dapat mengupload file melebihi 5 MB");
+                    document.getElementById("upload").value = "";
+                }
+            }
+
+
+        }
+    </script>
