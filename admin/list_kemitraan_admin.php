@@ -49,7 +49,7 @@ if (!isset($_SESSION["userid"])) {
                                 echo '<td> <a href="controller/download_file_kemitraan.php?file_name=' . $row['file'] . '&no_regis=' . $row['regis_no'] . '">' . $row['file'] . '</a></td>';
                                 echo '<td> ' . $row['status'] . '</td>';
                                 echo '<td><a type="button" class="btn-detail"
-                                        href="detail_list_permintaan.php?&no_regis=' . $row['regis_no'] . '">
+                                        href="detail_list_kemitraan.php?&no_regis=' . $row['regis_no'] . '">
                         <span class="material-icons">
                             visibility
                         </span>
