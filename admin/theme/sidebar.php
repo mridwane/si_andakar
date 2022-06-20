@@ -24,37 +24,37 @@
           <i class="fas fa-fw fa-shopping-cart"></i>
           <span>Menu</span></a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a title="Products" class="nav-link" href="permintaan_barang.php">
           <i class="fas fa-fw fa-shopping-cart"></i>
           <span>Buat Permintaan Barang</span></a>
-      </li>
-      <li class="nav-item">
+      </li> -->
+      <!-- <li class="nav-item">
         <a title="Products" class="nav-link" href="list_permintaan_barang.php">
           <i class="fas fa-fw fa-shopping-cart"></i>
           <span>List Permintaan Barang</span>
         </a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a title="Transaction" class="nav-link" href="detail.php">
           <i class="fas fa-fw fa-table"></i>
           <span>Transaksi</span></a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a title="Reports" class="nav-link" href="reportpage.php">
           <i class="fas fa-fw fa-user-tie"></i>
           <span>Laporan Penjualan</span></a>
-      </li>
-      <li class="nav-item">
+      </li> -->
+      <!-- <li class="nav-item">
         <a title="Reports" class="nav-link" href="reportstock.php">
           <i class="fas fa-fw fa-user-tie"></i>
           <span>Laporan Penyetokan</span></a>
-      </li>
-      <li class="nav-item">
+      </li> -->
+      <!-- <li class="nav-item">
         <a title="Reports" class="nav-link" href="reportdelivery.php">
           <i class="fas fa-fw fa-user-tie"></i>
           <span>Laporan Pengiriman</span></a>
-      </li>
+      </li> -->
     </ul>
     <?php }} ?>
     <div id="content-wrapper">
