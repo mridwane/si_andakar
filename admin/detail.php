@@ -20,33 +20,39 @@ include 'theme/sidebar.php';
               <th>No. Pemesanan</th>
               <th>Pelanggan</th>
               <th>Tanggal Pemesanan</th>
-              <th>Tanggal Pengiriman</th>
+              <th>Tanggal Reservasi</th>
               <th>Status</th>
               <th>Pilihan</th>
             </tr>
           </thead>
           <tbody>
             <?php                  
-                $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name FROM tbltransacdetail a, tblcustomer b WHERE a.`customer_id`=b.`C_ID` ';
-                    $result = mysqli_query($db, $query) or die (mysqli_error($db));
+                $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name FROM tbltransac a, tblcustomer b WHERE a.`customer_id`=b.`C_ID` ';
+                $result = mysqli_query($db, $query) or die (mysqli_error($db));
+                
+                while ($row = mysqli_fetch_assoc($result)) {
+                  if ($row['status'] == "0") {
+                  $status = "Pending";
+                  } elseif ($row['status'] == "1") {
+                  $status = "Disetujui";
+                  } else {
+                  $status = "Dibatalkan";
+                  }
+                  echo '<tr>';
+                  echo '<td>'. $row['transac_code'].'</td>';                     
+                  echo '<td>'. $row['name'].'</td>';
+                  echo '<td>'. $row['date'].'</td>';
+                  echo '<td>'. $row['reservation_date_time'].'</td>';
+                  echo '<td>'. $status.'</td>';
+                  echo '<td class="bungkus-tombol"><a title="View list Of Ordered" type="button" class="btn-detail" href="detailtransac.php?id='. $row['transac_code'].'" >
+                          <span class="material-icons">
+                            visibility
+                          </span>
+                        </a></td>';
+                
+              
                   
-                        while ($row = mysqli_fetch_assoc($result)) {
-                                          
-                            echo '<tr>';
-                            echo '<td>'. $row['transac_code'].'</td>';                     
-                            echo '<td>'. $row['name'].'</td>';
-                            echo '<td>'. $row['date'].'</td>';
-                             echo '<td>'. $row['delivery_date'].'</td>';
-                            echo '<td>'. $row['status'].'</td>';
-                            echo '<td class="bungkus-tombol"><a title="View list Of Ordered" type="button" class="btn-detail" href="detailtransac.php?id='. $row['transac_code'].'" >
-                                    <span class="material-icons">
-                                      visibility
-                                    </span>
-                                  </a></td>';
-                         
-                       
-                           
-                            echo '</tr> ';
+                  echo '</tr> ';
                 }
             ?>
 
