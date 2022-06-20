@@ -74,7 +74,15 @@ if (isset($_SESSION['C_ID'])) ?>
                                 <input type="time" class="form-control" id="time" name="time">
                             </div>
                             <button type="submit" id="update_reservasi" name="update_reservasi"
-                                class="btn btn-primary">Simpan</button>
+                                class="btn btn-primary">Simpan
+                            </button>
+                        </form>
+                        <form action="controller/reservasi_controller.php?action=hapus" method="POST">
+                            <input type="text" class="form-control" name="transac_code" value="<?= $_GET['nt'] ?>"
+                                hidden />
+                            <div class="btn-red">
+                                <button type="submit">Tidak Jadi Pesan</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -123,7 +131,8 @@ if (isset($_SESSION['C_ID'])) ?>
                                         echo '<td>' . $row['product_name'] . '</td>';
                                         echo '<td>' . $row['qty'] . '</td>';
                                         echo '<td>' . $row['type'] . '</td>';
-                                        echo '<td><a type="button" class="btn-detail"
+                                        echo '<td><a type="button" class="btn-detail" data-toggle="modal"
+                                                data-target="#cartReservasi"
                                         href="detail_list_permintaan.php?&no_permintaan=' . $row['transac_code'] . '">
                                             <span class="material-icons">
                                                 Edit
@@ -133,15 +142,43 @@ if (isset($_SESSION['C_ID'])) ?>
                                         echo '</tr> ';
                                     }
                                     ?>
-
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-
     </section>
+
+    <div class="modal fade" id="cartReservasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Makanan Yang Dipesan Untuk Reservasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="controller/reservasi_controller.php?action=updatePesanan" method="POST">
+                    <div class="modal-body">
+                        <input type="text" class="form-control" name="transac_code" value="<?= $_GET['nt'] ?>" hidden />
+                        <table class="show-cart table">
+
+                        </table>
+                        <div>Total price: Rp.<span class="total-cart" id="total_chart"></span></div>
+                        <input type="text" class="jml_total" name="jml_total" id="jml_total" hidden>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button class="clear-cart btn btn-danger">Hapus List Menu</button>
+                        <button type="submit" id="next_reservasi" name="next_reservasi" class="btn btn-primary">Update
+                            Pesanan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!--footer area-->
     <?php include 'includes/footer.php'; ?>

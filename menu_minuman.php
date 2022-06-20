@@ -217,14 +217,15 @@
                         <table class="show-cart table">
 
                         </table>
-                        <div>Total price: Rp.<span class="total-cart" id="total_chart"></span></div>
-                        <input type="text" class="total-count" name="jml_total" id="jml_total" hidden>
+                        <div>Total price: Rp. <span class="total-cart" id="total_cart"> </span></div>
+                        <input type="text" class="jml_total" name="jml_total" id="jml_total" hidden>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button class="clear-cart btn btn-danger">Hapus List Menu</button>
                         <button type="submit" id="next_reservasi" name="next_reservasi"
-                            class="btn btn-primary">Lanjutkan Pesanan</button>
+                            class="btn btn-primary">Lanjutkan
+                            Pesanan</button>
                     </div>
                 </form>
             </div>

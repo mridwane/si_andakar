@@ -38,7 +38,7 @@ if ($_GET['action'] == 'save') {
        </script>");
 }
 
-if ($_GET['action'] == 'update') {
+elseif ($_GET['action'] == 'update') {
   $transac_code = $_POST['transac_code'];
   $person_count = $_POST['person_count'];
   $date = $_POST['date'];
@@ -53,5 +53,63 @@ if ($_GET['action'] == 'update') {
          window.alert('Data Reservasi berhasil disimpan. Mohon Tunggu Konfirmasi dari kami yaa')
        </script>");
 }
+
+elseif ($_GET['action'] == 'updatePesanan') {
+  $transac_code = $_POST['transac_code'];
+  $kode_produk = $_POST['product_code'];
+  $jml = $_POST['qty'];
+  $jml_total = $_POST['jml_total'];
+
+  // jika berhasil eksekusi
+  $data = array([
+  'kode_produk' => $_POST['product_code'],
+  'jml' => $_POST['qty']
+  ]);
+
+  // query 1 untuk memasukan ke table tblreq
+  $query1 = "UPDATE tbltransac SET total_price = '" . $jml_total . "'
+  WHERE transac_code='" . $transac_code . "'";
+  mysqli_query($db, $query1) or die('Error, gagal menyimpan data reservasi');
+
+  // query 2 untuk memasukan ke table tblreqdetail
+  foreach ($data as $key => $value) {
+    for ($i = 0; $i < count($value['kode_produk']); $i++) { 
+      $query2="UPDATE tbltransacdetail SET qty = '" . $value['jml'][$i] . "' WHERE
+      product_code='".$value['kode_produk'][$i]."'";
+      mysqli_query($db, $query2) or die('Error, gagal menyimpan data reservasi'); 
+    } 
+  }
+  echo ("<script language='JavaScript'>
+    window.location.href = '../next_menu.php?nt=".$transac_code."';
+    window.alert('Data Pesanan berhasil diupdate.')
+  </script>");
+}
+
+elseif ($_GET['action'] == 'batal') {
+  $transac_code = $_POST['transac_code'];
+  //Update table transac
+  $query3 = "UPDATE tbltransac SET status = '2'
+  WHERE transac_code='" . $transac_code . "'";
+  mysqli_query($db, $query3) or die(mysqli_error($db));
+  echo ("<script language='JavaScript'>
+    window.location.href = '../order.php';
+    window.alert('Data Reservasi telah anda batalkan')
+  </script>");
+}
+
+elseif ($_GET['action'] == 'hapus') {
+  $transac_code = $_POST['transac_code'];
+  //Update table transac
+  $query1 = "DELETE FROM tbltransac WHERE transac_code='" . $transac_code . "'";
+  mysqli_query($db, $query1) or die(mysqli_error($db));
+  $query2 = "DELETE FROM tbltransacdetail WHERE transac_code='" . $transac_code . "'";
+  mysqli_query($db, $query2) or die(mysqli_error($db));
+
+  echo ("<script language='JavaScript'>
+    window.location.href = '../index.php';
+    window.alert('Pesanan anda telah dihapus.')
+  </script>");
+}
+
 ?>
 <script src="../assets/js/cart.js"></script>

@@ -36,6 +36,7 @@
                                 <th>No</th>
                                 <th>No Transaksi</th>
                                 <th>Jenis Transaksi</th>
+                                <th>Status</th>
                                 <th>Tanggal dan Waktu</th>
                                 <th>Aksi</th>
                             </tr>
@@ -48,22 +49,23 @@
                                     $no = 1;
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         // cek Status Pending atau disetujui
-                                        // if ($row['status'] == "0") {
-                                        //     $status = "Pending";
-                                        // } elseif ($row['status'] == "1") {
-                                        //     $status = "Disetujui";
-                                        // } else {
-                                        //     $status = "Dibatalkan";
-                                        // }
+                                        if ($row['status'] == "0") {
+                                            $status = "Pending";
+                                        } elseif ($row['status'] == "1") {
+                                            $status = "Disetujui";
+                                        } else {
+                                            $status = "Dibatalkan";
+                                        }
                                         echo '<tr>';
                                         echo '<td>' . $no++ . '</td>';
                                         echo '<td>' . $row['transac_code'] . '</td>';
                                         echo '<td>' . $row['transac_type'] . '</td>';
+                                        echo '<td>' . $status . '</td>';
                                         echo '<td>' . $row['reservation_date_time'] . '</td>';
                                         echo '<td><a type="button" class="btn-detail"
                                         href="order_detail.php?&no_transaksi=' . $row['transac_code'] . '">
                                             <span class="material-icons">
-                                                Edit
+                                                Detail
                                             </span>
                                             </a>
                                             </td>';

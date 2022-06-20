@@ -48,10 +48,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form_container">
-                        <form action="">
+                        <form action="controller/reservasi_controller.php?action=batal" method="POST">
                             <div>
                                 <label for="">No Transaksi</label>
-                                <input type="text" class="form-control" value="<?= $_GET['no_transaksi'] ?>" readonly />
+                                <input type="text" class="form-control" name="transac_code"
+                                    value="<?= $_GET['no_transaksi'] ?>" readonly />
                             </div>
                             <div>
                                 <label for="">Jenis Pesanan</label>
@@ -63,14 +64,27 @@
                             </div>
                             <div>
                                 <label for="">Total Pesanan</label>
-                                <input type="text" class="form-control" value="<?= $total ?>" readonly />
+                                <input type="text" class="form-control"
+                                    value="Rp. <?= number_format($total,0,',','.'); ?>" readonly />
                             </div>
-                            <!-- <div class="btn_box">
-                                <button>
-                                    Book Now
+                            <?php if ($status == "Dibatalkan") { ?>
+                            <span>*Pesanan Anda Telah Dibatalkan</span>
+                            <?php }elseif($status == "Pending") {?>
+                            <div class="btn-red">
+                                <button type="submit">
+                                    Batalkan Pesanan
                                 </button>
-                            </div> -->
+                            </div>
+                            <?php }elseif($status == "Disetujui") {?>
+                            <h4>Terimakasih sudah melakukan reservasi</h4>
+                            <p>*Kami tunggu kedatangan anda.</p>
+                            <?php } ?>
                         </form>
+                        <div class="btn-black">
+                            <button onclick="history.back()">
+                                Kembali
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">

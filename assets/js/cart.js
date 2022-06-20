@@ -104,17 +104,9 @@ var shoppingCart = (function () {
         for (var item in cart) {
             totalCart += cart[item].price * cart[item].count;
         }
-        // return Number(totalCart.toFixed(2));
-        var number_string = Number(totalCart.toFixed(2)).toString(),
-            sisa = number_string.length % 3,
-            totalcart = number_string.substr(0, sisa),
-            ribuan = number_string.substr(sisa).match(/\d{3}/g);
+        return Number(totalCart.toFixed(2));
 
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            totalcart += separator + ribuan.join('.');
-        }
-        return totalcart;
+        // return totalcart;
     }
 
     // List cart
@@ -259,9 +251,23 @@ function displayCart() {
             "<td><button class='delete-item btn btn-danger' data-kode=" + cartArray[i].kode + ">X</button></td>" +
             "</tr>";
     }
+
+    // konversi ke rupiah
+    var total_pesanan = shoppingCart.totalCart();
+    var number_string = Number(total_pesanan.toFixed(2)).toString(),
+        sisa = number_string.length % 3,
+        total_pesanan = number_string.substr(0, sisa),
+        ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+    if (ribuan) {
+        separator = sisa ? '.' : '';
+        total_pesanan += separator + ribuan.join('.');
+    }
+
     $('.show-cart').html(output);
     $('.show-list').html(output2);
-    $('.total-cart').html(shoppingCart.totalCart());
+    $('.total-cart').html(total_pesanan);
+    $('.jml_total').val(shoppingCart.totalCart());
     $('.total-count').html(shoppingCart.totalCount());
 }
 
