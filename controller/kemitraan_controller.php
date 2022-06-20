@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
             }
 
             $query = "INSERT INTO `tblrequestmitra`(`regis_no`, `date_req`, `file`, `status`, `c_id`)
-            VALUES ('" . $no_regis . "','" . $tanggal . "','" . $nama . "','pengajuan','" . $user_id . "')";
+            VALUES ('" . $no_regis . "','" . $tanggal . "','" . $nama . "','unconfirmed','" . $user_id . "')";
             mysqli_query($db, $query) or die(mysqli_error($db));
 
 ?>
