@@ -5,7 +5,7 @@
     }else{
     include('includes/connection.php');
     // if (isset($_SESSION['C_ID']))
-    $page = "Menu"; 
+    $page = "Delivery"; 
     include 'includes/header.php';
     }
 ?>
