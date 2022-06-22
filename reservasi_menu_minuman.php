@@ -5,7 +5,7 @@
     }else{
     include('includes/connection.php');
     // if (isset($_SESSION['C_ID']))
-    $page = "Menu"; 
+    $page = "Reservasi"; 
     include 'includes/header.php';
     }
 ?>
@@ -207,7 +207,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Daftar Pesanan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Daftar Pesanan Reservasi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

@@ -17,15 +17,15 @@
                                         } ?>">
                         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item <?php if ($page == "Menu") {
+                    <li class="nav-item <?php if ($page == "Delivery") {
                                             echo "active";
                                         } ?>">
-                        <a class="nav-link" href="menu.php">Menu</a>
+                        <a class="nav-link" href="delivery_menu_utama.php">Delivery</a>
                     </li>
                     <li class="nav-item <?php if ($page == "Reservasi") {
                                             echo "active";
                                         } ?>">
-                        <a class="nav-link" href="menu.php">Reservasi</a>
+                        <a class="nav-link" href="reservasi_menu_utama.php">Reservasi</a>
                     </li>
                     <li class="nav-item <?php if ($page == "Kemitraan") {
                                             echo "active";
@@ -33,6 +33,20 @@
                         <a class="nav-link" href="kemitraan.php">Kemitraan</a>
                     </li>
                 </ul>
+                <!-- <ul class="navbar-nav  mx-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="menu_utama.php">Delivery</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="menu_utama.php">Reservasi</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="kemitraan.php">Kemitraan</a>
+                    </li>
+                </ul> -->
                 <div class="user_option">
                     <?php if ($page == "Reservasi") { ?>
                     <a class="cart_link" href="#" data-toggle="modal" data-target="#cartReservasi">
@@ -160,7 +174,9 @@
                             <?= $_SESSION['C_FNAME'].' '. $_SESSION['C_LNAME'] ?>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="profil.php">Profil</a>
                             <a class="dropdown-item" href="order.php">Pesanan Kamu</a>
+                            <a class="dropdown-item" href="status_kemitraan.php">Status Kemitraan</a>
                         </div>
                     </div>
                     <a href="#" class="order_online" data-toggle="modal" data-target="#logoutModal">

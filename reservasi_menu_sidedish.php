@@ -5,7 +5,7 @@
     }else{
     include('includes/connection.php');
     // if (isset($_SESSION['C_ID']))
-    $page = "Menu"; 
+    $page = "Reservasi"; 
     include 'includes/header.php';
     }
 ?>
@@ -24,15 +24,23 @@
         <div class="container">
             <div class="heading_container heading_center">
                 <h2>
-                    Pilih Saus
+                    Menu Pendamping
                 </h2>
-                <span>*Satu steak hanya akan mendapatkan satu saus</span>
+                <span>*menu pendamping bisa dipesan dan juga bisa tidak dipesan (optional)</span>
             </div>
+            <ul class="filters_menu">
+                <li class="active" data-filter="*">All</li>
+                <li data-filter=".Steak">Steak</li>
+                <li data-filter=".Ribs">Ribs</li>
+                <li data-filter=".pasta">Pasta</li>
+                <li data-filter=".fries">Fries</li>
+                <li data-filter=".Saus">Saus</li>
+            </ul>
 
             <div class="filters-content">
                 <div class="row grid">
                     <?php 
-                        $query = "SELECT * FROM tblproducts a Join tblcategory b WHERE a.category_id = b.category_id AND type = 'Saus'";
+                        $query = "SELECT * FROM tblproducts a Join tblcategory b WHERE a.category_id = b.category_id AND type = 'Makanan Pendamping'";
                         $result = mysqli_query($db, $query) or die (mysqli_error($db));                        
                         $no = 1;
                         while ($row = mysqli_fetch_assoc($result)) {
@@ -200,7 +208,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Daftar Pesanan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Daftar Pesanan Reservasi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -214,7 +222,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button class="clear-cart btn btn-danger">Hapus List Menu</button>
-                    <a href="menu_sidedish.php" type="button" class="btn btn-primary">Pilih Makanan Pendamping</a>
+                    <a href="menu_minuman.php" type="button" class="btn btn-primary">Pilih Minuman</a>
                 </div>
             </div>
         </div>

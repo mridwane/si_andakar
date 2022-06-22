@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Jun 2022 pada 14.53
+-- Waktu pembuatan: 22 Jun 2022 pada 03.58
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -24,18 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `history`
---
-
-CREATE TABLE `history` (
-  `h_id` int(50) NOT NULL,
-  `NAME` varchar(50) NOT NULL,
-  `USERNAME` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `tblautonumber`
 --
 
@@ -52,7 +40,7 @@ CREATE TABLE `tblautonumber` (
 --
 
 INSERT INTO `tblautonumber` (`id`, `start`, `end`, `increment`, `desc`) VALUES
-(1, 1000, 61, 1, 'PROD');
+(1, 1000, 62, 1, 'PROD');
 
 -- --------------------------------------------------------
 
@@ -138,67 +126,24 @@ INSERT INTO `tbldelivery` (`id`, `transac_code`, `receiver`, `dated`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblemployee`
+-- Struktur dari tabel `tbldetailrequestmitra`
 --
 
-CREATE TABLE `tblemployee` (
-  `emp_id` int(50) NOT NULL,
-  `fname` varchar(50) NOT NULL,
-  `lname` varchar(50) NOT NULL,
-  `contact` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `address` text NOT NULL,
-  `gender` varchar(50) NOT NULL,
-  `age` int(2) NOT NULL,
-  `position` varchar(50) NOT NULL,
-  `hire_date` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tblemployee`
---
-
-INSERT INTO `tblemployee` (`emp_id`, `fname`, `lname`, `contact`, `email`, `address`, `gender`, `age`, `position`, `hire_date`) VALUES
-(1, 'Caren', 'Bautista', '09098591074', 'caren@yahoo.com', 'Kabankalan', 'Female', 23, 'Manager', '2019-11-30'),
-(2, 'Jahzel', 'Alarcon', '09509827365', 'jahiam07@gmail.com', 'Isabela', 'Female', 22, 'Manager', '2019-12-01'),
-(3, 'Ryan', 'Mana-ay', '09786534342', 'Ryan@yahoo.com', 'Himamaylan ', 'Male', 21, 'Supervisor', '2019-12-02');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tblinventory`
---
-
-CREATE TABLE `tblinventory` (
-  `transac_id` int(50) NOT NULL,
-  `product_id` int(50) NOT NULL,
-  `quantity` int(50) NOT NULL,
-  `date_in` datetime(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tblpot`
---
-
-CREATE TABLE `tblpot` (
+CREATE TABLE `tbldetailrequestmitra` (
   `id` int(11) NOT NULL,
-  `size` varchar(10) NOT NULL,
-  `transac_code` varchar(255) NOT NULL
+  `date` datetime NOT NULL,
+  `note` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `user_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tblpot`
+-- Dumping data untuk tabel `tbldetailrequestmitra`
 --
 
-INSERT INTO `tblpot` (`id`, `size`, `transac_code`) VALUES
-(1, '17', ''),
-(2, '21', ''),
-(3, '30', ''),
-(6, '17', '1598178883'),
-(7, '17', '1598178883'),
-(8, '17', '1598178932');
+INSERT INTO `tbldetailrequestmitra` (`id`, `date`, `note`, `status`, `user_id`) VALUES
+(2, '2022-06-20 16:39:35', 'Masih ada dokumen yang belum lengkap', 'denied', '4'),
+(3, '2022-06-21 16:45:30', '-', 'accepted', '4');
 
 -- --------------------------------------------------------
 
@@ -231,7 +176,8 @@ INSERT INTO `tblproducts` (`product_id`, `product_name`, `date_in`, `category_id
 (50, 'keju', '2022-06-17', 14, 2, 'Tersedia', 'Saus', 7000, '10574.jpg', ''),
 (51, 'ikan bakar', '2022-06-17', 6, 2, 'Tersedia', 'Makanan Utama', 120000, '10587.jpg', ''),
 (52, 'Jus Melon', '2022-06-17', 13, 2, 'Tersedia', 'Minuman', 10000, '10598.jpg', ''),
-(53, 'Nasi Lengko', '2022-06-17', 7, 2, 'Tersedia', 'Makanan Pendamping', 12000, '106011.jpg', '');
+(53, 'Nasi Lengko', '2022-06-17', 7, 2, 'Tersedia', 'Makanan Pendamping', 12000, '106011.jpg', ''),
+(54, 'pizza', '2022-06-20', 9, 2, 'Tersedia', 'Makanan Utama', 190000, '1061boneless-chicken2.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -324,9 +270,7 @@ CREATE TABLE `tblrequestmitra` (
 --
 
 INSERT INTO `tblrequestmitra` (`id`, `regis_no`, `date_req`, `file`, `status`, `C_ID`) VALUES
-(1, 'MITREG2006202212123146', '2022-06-20', 'MITREG2006202212123146_4_kemitraan.docx', 'pengajuan', 4),
-(2, 'MITREG2006202212153454', '2022-06-20', 'MITREG2006202212153454_4_kemitraan.docx', 'pengajuan', 4),
-(3, 'MITREG2006202202504649', '2022-06-20', 'MITREG2006202202504649_4_kemitraan.docx', 'pengajuan', 4);
+(4, 'MITREG2006202203225689', '2022-06-20', 'MITREG2006202203225689_4_kemitraan.docx', 'unconfirmed', 4);
 
 -- --------------------------------------------------------
 
@@ -359,29 +303,6 @@ INSERT INTO `tblstockhistory` (`id`, `date`, `qty`, `user_id`, `product_code`) V
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblsupplier`
---
-
-CREATE TABLE `tblsupplier` (
-  `supplier_id` int(11) NOT NULL,
-  `supplier_name` varchar(30) NOT NULL,
-  `contact` varchar(50) NOT NULL,
-  `email` varchar(20) NOT NULL,
-  `address` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tblsupplier`
---
-
-INSERT INTO `tblsupplier` (`supplier_id`, `supplier_name`, `contact`, `email`, `address`) VALUES
-(1, 'Harvester', '9095643236', 'Harvester@yahoo.com', 'Brgy.Sum-ag, Bacolod City'),
-(2, 'Amigo', '9786534213', 'Amigo@yahoo.com', 'Bgry.Singkang Bacolod City'),
-(3, 'Atlas', '9096547321', 'Atlas@yahoo.com', 'Brgy.Poblacion, Bacolod City');
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `tbltransac`
 --
 
@@ -404,7 +325,11 @@ CREATE TABLE `tbltransac` (
 INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`, `total_price`, `reservation_date_time`, `person_count`, `customer_id`) VALUES
 (16, 'res1906202209315098', '2022/06/19', 'reservasi', 2, 535000, '2022-06-20 17:34:00', 7, 4),
 (17, 'res2006202203484247', '2022/06/20', 'reservasi', 1, 288000, '2022-06-21 10:50:00', 3, 4),
-(18, 'res2006202204322273', '2022/06/20', 'reservasi', 0, 288000, '2022-06-20 09:32:22', 0, 4);
+(18, 'res2006202204322273', '2022/06/20', 'reservasi', 1, 288000, '2022-06-20 09:32:22', 0, 4),
+(23, 'res2006202203311836', '2022/06/20', 'reservasi', 2, 210000, '2022-06-22 12:00:00', 5, 4),
+(24, 'res2106202205262892', '2022/06/21', 'reservasi', 0, 666000, '2022-06-21 22:26:28', 0, 4),
+(25, 'res2106202206055374', '2022/06/21', 'reservasi', 0, 257000, '2022-06-21 23:05:53', 0, 4),
+(26, 'res2106202206343325', '2022/06/21', 'reservasi', 0, 257000, '2022-06-21 23:34:33', 0, 4);
 
 -- --------------------------------------------------------
 
@@ -424,31 +349,44 @@ CREATE TABLE `tbltransacdetail` (
 --
 
 INSERT INTO `tbltransacdetail` (`id`, `product_code`, `qty`, `transac_code`) VALUES
-(44, '46', 4, 'res1906202209315098'),
+(44, '46', 1, 'res1906202209315098'),
 (45, '49', 3, 'res1906202209315098'),
 (46, '51', 2, 'res1906202209315098'),
 (47, '48', 1, 'res1906202209315098'),
 (48, '50', 1, 'res1906202209315098'),
 (49, '53', 1, 'res1906202209315098'),
 (50, '52', 1, 'res1906202209315098'),
-(51, '46', 4, 'res2006202203484247'),
+(51, '46', 1, 'res2006202203484247'),
 (52, '49', 3, 'res2006202203484247'),
 (53, '50', 1, 'res2006202203484247'),
 (54, '48', 1, 'res2006202203484247'),
 (55, '53', 1, 'res2006202203484247'),
 (56, '52', 1, 'res2006202203484247'),
-(57, '46', 4, 'res2006202204322273'),
+(57, '46', 1, 'res2006202204322273'),
 (58, '49', 3, 'res2006202204322273'),
 (59, '50', 1, 'res2006202204322273'),
 (60, '48', 1, 'res2006202204322273'),
 (61, '53', 1, 'res2006202204322273'),
 (62, '52', 1, 'res2006202204322273'),
-(63, '46', 4, 'res2006202205161582'),
+(63, '46', 1, 'res2006202205161582'),
 (64, '49', 3, 'res2006202205161582'),
 (65, '50', 1, 'res2006202205161582'),
 (66, '48', 1, 'res2006202205161582'),
 (67, '53', 1, 'res2006202205161582'),
-(68, '52', 1, 'res2006202205161582');
+(68, '52', 1, 'res2006202205161582'),
+(87, '46', 1, 'res2006202203311836'),
+(88, '50', 1, 'res2006202203311836'),
+(89, '52', 1, 'res2006202203311836'),
+(90, '46', 3, 'res2106202205262892'),
+(91, '49', 1, 'res2106202205262892'),
+(92, '48', 1, 'res2106202205262892'),
+(93, '50', 1, 'res2106202205262892'),
+(94, '46', 1, 'res2106202206055374'),
+(95, '49', 1, 'res2106202206055374'),
+(96, '50', 1, 'res2106202206055374'),
+(97, '46', 1, 'res2106202206343325'),
+(98, '49', 1, 'res2106202206343325'),
+(99, '50', 1, 'res2106202206343325');
 
 -- --------------------------------------------------------
 
@@ -480,12 +418,6 @@ INSERT INTO `tblusers` (`user_id`, `fname`, `lname`, `email`, `contact`, `addres
 --
 
 --
--- Indeks untuk tabel `history`
---
-ALTER TABLE `history`
-  ADD PRIMARY KEY (`h_id`);
-
---
 -- Indeks untuk tabel `tblautonumber`
 --
 ALTER TABLE `tblautonumber`
@@ -510,15 +442,9 @@ ALTER TABLE `tbldelivery`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tblemployee`
+-- Indeks untuk tabel `tbldetailrequestmitra`
 --
-ALTER TABLE `tblemployee`
-  ADD PRIMARY KEY (`emp_id`);
-
---
--- Indeks untuk tabel `tblpot`
---
-ALTER TABLE `tblpot`
+ALTER TABLE `tbldetailrequestmitra`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -553,12 +479,6 @@ ALTER TABLE `tblstockhistory`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tblsupplier`
---
-ALTER TABLE `tblsupplier`
-  ADD PRIMARY KEY (`supplier_id`);
-
---
 -- Indeks untuk tabel `tbltransac`
 --
 ALTER TABLE `tbltransac`
@@ -580,12 +500,6 @@ ALTER TABLE `tblusers`
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
-
---
--- AUTO_INCREMENT untuk tabel `history`
---
-ALTER TABLE `history`
-  MODIFY `h_id` int(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblautonumber`
@@ -612,22 +526,16 @@ ALTER TABLE `tbldelivery`
   MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `tblemployee`
+-- AUTO_INCREMENT untuk tabel `tbldetailrequestmitra`
 --
-ALTER TABLE `tblemployee`
-  MODIFY `emp_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT untuk tabel `tblpot`
---
-ALTER TABLE `tblpot`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+ALTER TABLE `tbldetailrequestmitra`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblproducts`
 --
 ALTER TABLE `tblproducts`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblreqdetail`
@@ -639,7 +547,7 @@ ALTER TABLE `tblreqdetail`
 -- AUTO_INCREMENT untuk tabel `tblrequestmitra`
 --
 ALTER TABLE `tblrequestmitra`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblstockhistory`
@@ -648,22 +556,16 @@ ALTER TABLE `tblstockhistory`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `tblsupplier`
---
-ALTER TABLE `tblsupplier`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT untuk tabel `tbltransac`
 --
 ALTER TABLE `tbltransac`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbltransacdetail`
 --
 ALTER TABLE `tbltransacdetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblusers`
