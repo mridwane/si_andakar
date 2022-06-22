@@ -33,7 +33,7 @@ if ($_GET['action'] == 'save') {
     }
   }
   echo ("<script language='JavaScript'>
-         window.location.href='../next_menu.php?nt=$no_transac';
+         window.location.href='../reservasi.php?nt=$no_transac';
          window.alert('Data Reservasi berhasil disimpan')
        </script>");
 }
@@ -80,7 +80,7 @@ elseif ($_GET['action'] == 'updatePesanan') {
     } 
   }
   echo ("<script language='JavaScript'>
-    window.location.href = '../next_menu.php?nt=".$transac_code."';
+    window.location.href = '../reservasi.php?nt=".$transac_code."';
     window.alert('Data Pesanan berhasil diupdate.')
   </script>");
 }
