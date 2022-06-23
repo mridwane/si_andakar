@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Jun 2022 pada 03.58
+-- Waktu pembuatan: 23 Jun 2022 pada 17.21
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -41,6 +41,67 @@ CREATE TABLE `tblautonumber` (
 
 INSERT INTO `tblautonumber` (`id`, `start`, `end`, `increment`, `desc`) VALUES
 (1, 1000, 62, 1, 'PROD');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tblcart`
+--
+
+CREATE TABLE `tblcart` (
+  `kd_cart` varchar(255) NOT NULL,
+  `jenis_cart` varchar(50) NOT NULL,
+  `date` date NOT NULL,
+  `c_id` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tblcart`
+--
+
+INSERT INTO `tblcart` (`kd_cart`, `jenis_cart`, `date`, `c_id`) VALUES
+('Delivery4', 'Delivery', '2022-06-23', 4),
+('Delivery5', 'Delivery', '2022-06-23', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tblcartdetail`
+--
+
+CREATE TABLE `tblcartdetail` (
+  `id` int(100) NOT NULL,
+  `kd_cart` varchar(255) NOT NULL,
+  `kd_menu` int(11) NOT NULL,
+  `kd_saus` varchar(10) NOT NULL,
+  `qty` int(10) NOT NULL,
+  `harga` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tblcartdetail`
+--
+
+INSERT INTO `tblcartdetail` (`id`, `kd_cart`, `kd_menu`, `kd_saus`, `qty`, `harga`) VALUES
+(1, 'Delivery4', 49, 'S002', 2, 114000),
+(2, 'Delivery4', 51, 'S003', 1, 128000),
+(3, 'Delivery4', 46, 'S002', 2, 414000),
+(4, 'Delivery4', 46, 'S001', 2, 418000),
+(5, 'Delivery5', 46, 'S001', 2, 418000),
+(6, 'Delivery5', 49, 'S001', 2, 118000),
+(7, 'Delivery5', 46, 'S002', 2, 414000),
+(8, 'Delivery5', 46, 'S002', 2, 414000),
+(9, 'Delivery5', 46, 'S002', 2, 414000),
+(10, 'Delivery5', 46, 'S002', 2, 414000),
+(11, 'Delivery5', 46, 'S002', 2, 414000),
+(12, 'Delivery5', 46, 'S002', 2, 414000),
+(13, 'Delivery5', 46, 'S002', 2, 414000),
+(14, 'Delivery5', 46, 'S002', 2, 414000),
+(15, 'Delivery5', 46, 'S001', 2, 418000),
+(16, 'Delivery5', 46, 'S001', 2, 418000),
+(17, '5', 0, '', 0, 0),
+(18, 'Delivery5', 49, 'S001', 4, 236000),
+(19, 'Delivery5', 46, 'S001', 2, 418000);
 
 -- --------------------------------------------------------
 
@@ -275,6 +336,31 @@ INSERT INTO `tblrequestmitra` (`id`, `regis_no`, `date_req`, `file`, `status`, `
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tblsaus`
+--
+
+CREATE TABLE `tblsaus` (
+  `id_saus` varchar(10) NOT NULL,
+  `nama_saus` varchar(255) NOT NULL,
+  `harga_saus` int(25) NOT NULL,
+  `stok_saus` int(10) NOT NULL,
+  `keterangan` text NOT NULL,
+  `user_id` varchar(255) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tblsaus`
+--
+
+INSERT INTO `tblsaus` (`id_saus`, `nama_saus`, `harga_saus`, `stok_saus`, `keterangan`, `user_id`, `date`) VALUES
+('S001', 'Saus Keju', 9000, 50, '-', '2', '2022-06-22'),
+('S002', 'Saus BBQ', 7000, 50, '-', '2', '2022-06-22'),
+('S003', 'Saus Tartar', 8000, 50, '-', '2', '2022-06-22');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tblstockhistory`
 --
 
@@ -329,7 +415,8 @@ INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`
 (23, 'res2006202203311836', '2022/06/20', 'reservasi', 2, 210000, '2022-06-22 12:00:00', 5, 4),
 (24, 'res2106202205262892', '2022/06/21', 'reservasi', 0, 666000, '2022-06-21 22:26:28', 0, 4),
 (25, 'res2106202206055374', '2022/06/21', 'reservasi', 0, 257000, '2022-06-21 23:05:53', 0, 4),
-(26, 'res2106202206343325', '2022/06/21', 'reservasi', 0, 257000, '2022-06-21 23:34:33', 0, 4);
+(26, 'res2106202206343325', '2022/06/21', 'reservasi', 0, 257000, '2022-06-21 23:34:33', 0, 4),
+(27, 'res2206202205171677', '2022/06/22', 'reservasi', 0, 0, '2022-06-22 10:17:16', 0, 4);
 
 -- --------------------------------------------------------
 
@@ -424,6 +511,18 @@ ALTER TABLE `tblautonumber`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `tblcart`
+--
+ALTER TABLE `tblcart`
+  ADD PRIMARY KEY (`kd_cart`);
+
+--
+-- Indeks untuk tabel `tblcartdetail`
+--
+ALTER TABLE `tblcartdetail`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `tblcategory`
 --
 ALTER TABLE `tblcategory`
@@ -473,6 +572,12 @@ ALTER TABLE `tblrequestmitra`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `tblsaus`
+--
+ALTER TABLE `tblsaus`
+  ADD PRIMARY KEY (`id_saus`);
+
+--
 -- Indeks untuk tabel `tblstockhistory`
 --
 ALTER TABLE `tblstockhistory`
@@ -506,6 +611,12 @@ ALTER TABLE `tblusers`
 --
 ALTER TABLE `tblautonumber`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `tblcartdetail`
+--
+ALTER TABLE `tblcartdetail`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcategory`
@@ -559,7 +670,7 @@ ALTER TABLE `tblstockhistory`
 -- AUTO_INCREMENT untuk tabel `tbltransac`
 --
 ALTER TABLE `tbltransac`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbltransacdetail`
