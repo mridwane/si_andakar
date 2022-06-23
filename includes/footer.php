@@ -82,7 +82,7 @@
  <!-- footer section -->
 
  <!-- jQery -->
- <script src="assets/js/jquery-3.6.0.min.js"></script>
+ <script src="assets/js/jquery-3.4.1.min.js"></script>
  <!-- <script src="https://code.jquery.com/jquery-3.5.0.js"></script> -->
  <!-- popper js -->
  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -105,7 +105,8 @@
  <!-- End Google Map -->
  <!-- cart js -->
  <script src="assets/js/toastr.min.js"></script>
- <script src="assets/js/cart.js"></script>
+ <!-- <script src="assets/js/cart.js"></script> -->
+ <script src="assets/js/keranjang.js"></script>
 
  </body>
 
