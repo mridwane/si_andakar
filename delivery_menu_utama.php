@@ -143,7 +143,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary addCart"
-                                        data-kd-menu="<?= $row['product_id']; ?>" data-kd-saus="0"
+                                        data-kd-menu="<?= $row['product_id']; ?>" data-kd-saus="S100"
                                         data-price="<?= $row['price']; ?>" data-jenis="<?= $page ?>"
                                         data-fungsi="addMenu" data-qty="1" disabled>Masukan kedaftar pesanan</button>
                                 </div>
@@ -179,7 +179,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button class="clear-cart btn btn-danger">Hapus List Menu</button>
-                    <a href="menu_saus.php" type="button" class="btn btn-primary">Pilih Saus</a>
+                    <a href="delivery_menu_sidedish.php" type="button" class="btn btn-primary">Pilih Menu Pendamping</a>
                 </div>
             </div>
         </div>
