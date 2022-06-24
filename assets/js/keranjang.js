@@ -1,4 +1,50 @@
 $(document).ready(function () {
+    // panggil fungsi dari loadData()
+    loadData();
+    loadJumlah();
+    // menampilkan pesanan dari database
+    function loadData() {
+        let jenis = $('.sub_page').data('page');
+        console.log(jenis)
+        $.ajax({
+            url: 'controller/showcart_controller.php',
+            method: 'POST',
+            data: {
+                jenis: jenis,
+            },
+            success: function (response) {
+                var todos = JSON.parse(response);
+                todos.forEach(function (value, index) {
+                    $(".show-cart").append(`
+        			<tr>
+        				<td>${value.kd_menu}</td>
+        				<td>${value.kd_saus}</td>
+        				<td>${value.qty}</td>
+                        <td>${value.harga}</td>
+        			</tr>`);
+                })
+            }
+        })
+    }
+
+    function loadJumlah() {
+        let jenis = $('.sub_page').data('page');
+        console.log(jenis)
+        $.ajax({
+            url: 'controller/tampilangka_controller.php',
+            method: 'POST',
+            data: {
+                jenis: jenis,
+            },
+            success: function (data) {
+                $('.total-count').text(data);
+            }
+        })
+    }
+    // $(function () {
+
+    // });
+
     // fungsi untuk tombol tambah dan kurang
     $('.btn-number').click(function (e) {
         e.preventDefault();
@@ -82,9 +128,10 @@ $(document).ready(function () {
         let total = priceSaus + priceMenu;
         $('.addCart').attr("data-price", total);
         $('.addCart').attr("data-kd-saus", id);
+        $('.addCart').removeAttr('disabled');
     });
 
-
+    // menambahkan pesanan ke database
     $('.addCart').on("click", function (e) {
         e.preventDefault();
         // var no_permintaan = $('#no_permintaan').val();
@@ -94,12 +141,6 @@ $(document).ready(function () {
         let qty = $(this).data('qty');
         let priceMenu = $(this).data('price');
         let totalPrice = priceMenu * qty;
-        // console.log(kodeMenu)
-        // console.log(kodeSaus)
-        // console.log(jenisCart)
-        // console.log(qty)
-        // console.log(priceMenu)
-        // console.log(totalPrice)
 
         $.ajax({
             data: {
@@ -116,14 +157,24 @@ $(document).ready(function () {
                 alert("Ditambahkan ke pesanan");
                 // console.log("Berhasil")
                 $("#modalMenu" + kodeMenu).modal('hide');
+                loadData();
+                loadJumlah()
             },
             error: function (data, error) {
                 // window.location.reload();
                 alert("gagal Menambahkan ke pesanan");
                 $("#modalMenu" + kodeMenu).modal('hide');
-                // console.log(arguments);
+                loadData();
+                loadJumlah()
                 // console.log("Gagal");
             },
         });
     });
+
+
+    // $('.cart_link').on("click", function (e) {
+    //     e.preventDefault();
+    //     let jenis = $(this).data('jenis');
+
+    // });
 });
