@@ -5,7 +5,7 @@ session_start();
 if ($_GET['action'] == 'save') {
   $random = rand(10, 100);
   $tgl = date("dmYhis");
-  $no_transac = "res" . $tgl . $random;
+  $no_transac = "RES" . $tgl . $random;
   $date = date("Y/m/d");
   $user_id = $_SESSION['cid'];
   $kode_produk = $_POST['product_code'];
