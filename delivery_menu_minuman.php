@@ -115,8 +115,7 @@
                                     <button type="button" class="btn btn-primary addCart"
                                         data-kd-menu="<?= $row['product_id']; ?>" data-kd-saus="S100"
                                         data-price="<?= $row['price']; ?>" data-jenis="<?= $page ?>"
-                                        data-fungsi="addMenu" data-qty="1">Masukan kedaftar
-                                        pesanan</button>
+                                        data-fungsi="addMenu" data-qty="1">Masukan keranjang</button>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +150,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="clear-cart btn btn-danger">Hapus List Menu</button>
+                        <button class="clear-cart btn btn-danger">Kosongkan keranjang</button>
                         <button type="submit" id="next_reservasi" name="next_reservasi"
                             class="btn btn-primary">Lanjutkan
                             Pesanan</button>

@@ -56,7 +56,11 @@ if (isset($_SESSION['C_ID'])) ?>
                             <span>Ingin merubah alamat dan data lainnya? <a href="profil.php">Rubah data</a></span>
                         </div>
                         <div class="btn-box">
-                            <button type="submit">Pesan Sekarang</button>
+                            <button>
+                                <a href="delivery_rincian_pemesanan.php?&no_transaksi=<?= $_GET['nt'] ?>">
+                                    Pesan Sekarang
+                                </a>
+                            </button>
                         </div>
                     </div>
                 </div>

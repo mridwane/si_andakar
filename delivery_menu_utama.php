@@ -145,7 +145,7 @@
                                     <button type="button" class="btn btn-primary addCart"
                                         data-kd-menu="<?= $row['product_id']; ?>" data-kd-saus="S100"
                                         data-price="<?= $row['price']; ?>" data-jenis="<?= $page ?>"
-                                        data-fungsi="addMenu" data-qty="1" disabled>Masukan kedaftar pesanan</button>
+                                        data-fungsi="addMenu" data-qty="1" disabled>Masukan keranjang</button>
                                 </div>
                             </div>
                         </div>
