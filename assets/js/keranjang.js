@@ -17,6 +17,8 @@ $(document).ready(function () {
                 todos.forEach(function (value, index) {
                     $(".show-cart").append(`
         			<tr>
+                        <input type='text' name='product_code[]' id='product_code' style='display:none' value='${value.kd_menu}'>
+                        <input type='text' name='qty[]' id='qty' style='display:none' value='${value.qty}'>
         				<td>${value.product_name} + ${value.nama_saus}</td>
         				<td>${value.qty}</td>
                         <td>${value.harga}</td>
@@ -24,7 +26,7 @@ $(document).ready(function () {
         			</tr>`);
                 })
             }
-        })
+        });
     }
 
     function loadJumlah() {
@@ -153,19 +155,19 @@ $(document).ready(function () {
             type: "POST",
             url: "controller/keranjang_controller.php",
             success: function (data) {
-                // window.location.reload();
                 alert("Ditambahkan ke pesanan");
+                window.location.reload();
                 // console.log("Berhasil")
-                $("#modalMenu" + kodeMenu).modal('hide');
-                loadData();
-                loadJumlah();
+                // $("#modalMenu" + kodeMenu).modal('hide');
+                // loadData();
+                // loadJumlah();
             },
             error: function (data, error) {
-                // window.location.reload();
+                window.location.reload();
                 alert("gagal Menambahkan ke pesanan");
-                $("#modalMenu" + kodeMenu).modal('hide');
-                loadData();
-                loadJumlah();
+                // $("#modalMenu" + kodeMenu).modal('hide');
+                // loadData();
+                // loadJumlah();
                 // console.log("Gagal");
             },
         });
