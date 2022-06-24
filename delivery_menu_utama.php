@@ -11,7 +11,7 @@
 ?>
 
 
-<body class="sub_page">
+<body class="sub_page" data-page="<?= $page ?>">
     <div class="hero_area">
         <div class="bg-box">
             <img src="assets/images/hero-bg.jpg" alt="">
@@ -144,8 +144,8 @@
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary addCart"
                                         data-kd-menu="<?= $row['product_id']; ?>" data-kd-saus="0"
-                                        data-price="<?= $row['price']; ?>" data-jenis="<?= $page ?>" data-qty="1">Save
-                                        changes</button>
+                                        data-price="<?= $row['price']; ?>" data-jenis="<?= $page ?>" data-qty="1"
+                                        disabled>Masukan kedaftar pesanan</button>
                                 </div>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Daftar Pesanan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Daftar Pesanan Delivery</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
