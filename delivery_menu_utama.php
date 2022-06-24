@@ -144,8 +144,8 @@
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary addCart"
                                         data-kd-menu="<?= $row['product_id']; ?>" data-kd-saus="0"
-                                        data-price="<?= $row['price']; ?>" data-jenis="<?= $page ?>" data-qty="1"
-                                        disabled>Masukan kedaftar pesanan</button>
+                                        data-price="<?= $row['price']; ?>" data-jenis="<?= $page ?>"
+                                        data-fungsi="addMenu" data-qty="1" disabled>Masukan kedaftar pesanan</button>
                                 </div>
                             </div>
                         </div>
