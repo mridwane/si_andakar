@@ -2,12 +2,12 @@
 session_start();
 if (isset($_SESSION['C_ID'])) ?>
 <?php include('includes/connection.php'); ?>
-<?php $page = "Reservasi"; ?>
+<?php $page = "Delivery"; ?>
 <!--header area-->
 <?php include 'includes/header.php'; ?>
 
 
-<body class="sub_page">
+<body class="sub_page" data-page="<?= $page ?>">
     <div class="hero_area">
         <div class="bg-box">
             <img src="assets/images/hero-bg.jpg" alt="">
@@ -80,12 +80,12 @@ if (isset($_SESSION['C_ID'])) ?>
                                     <th>Nama</th>
                                     <th>Qty</th>
                                     <th>Jenis</th>
-                                    <th>Edit</th>
+                                    <!-- <th>Edit</th> -->
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    $query = 'SELECT * FROM `tbltransacdetail` a inner join `tblproducts` b on a.`product_code` = b.`product_id` WHERE a.`transac_code` = "' . $_GET['nt'] . '"';
+                                    $query = 'SELECT * FROM `tbltransacdetail` a inner join `tblproducts` b on a.`product_code` = b.`product_id` inner join `tblsaus` c on a.`kd_saus` = c.`id_saus` WHERE a.`transac_code` = "' . $_GET['nt'] . '"';
                                     $result = mysqli_query($db, $query) or die(mysqli_error($db));
                                     // membuat nomer otomatis untuk di tabel
                                     $no = 1;
@@ -100,17 +100,22 @@ if (isset($_SESSION['C_ID'])) ?>
                                         }
                                         echo '<tr>';
                                         echo '<td>' . $no++ . '</td>';
-                                        echo '<td>' . $row['product_name'] . '</td>';
+                                        if($row['id_saus'] == 'S100'){
+                                            echo '<td>' . $row['product_name'] .'</td>';
+                                        }
+                                        else {
+                                            echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . '</td>';
+                                        }                                        
                                         echo '<td>' . $row['qty'] . '</td>';
                                         echo '<td>' . $row['type'] . '</td>';
-                                        echo '<td><a type="button" class="btn-detail" data-toggle="modal"
-                                                data-target="#cartReservasi"
-                                        href="detail_list_permintaan.php?&no_permintaan=' . $row['transac_code'] . '">
-                                            <span class="material-icons">
-                                                Edit
-                                            </span>
-                                            </a>
-                                            </td>';
+                                        // echo '<td><a type="button" class="btn-detail" data-toggle="modal"
+                                        //         data-target="#cartReservasi"
+                                        // href="detail_list_permintaan.php?&no_permintaan=' . $row['transac_code'] . '">
+                                        //     <span class="material-icons">
+                                        //         Edit
+                                        //     </span>
+                                        //     </a>
+                                        //     </td>';
                                         echo '</tr> ';
                                     }
                                     ?>
