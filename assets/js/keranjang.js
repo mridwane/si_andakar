@@ -173,6 +173,7 @@ $(document).ready(function () {
         });
     });
 
+    // fungsi untuk menghapus menu di cart
     $('.show-cart').on("click", ".delete-item", function (e) {
         e.preventDefault();
         let id = $(this).data('id-cart');
@@ -208,4 +209,5 @@ $(document).ready(function () {
             },
         });
     })
+
 });
