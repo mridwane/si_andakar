@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 23 Jun 2022 pada 17.21
+-- Waktu pembuatan: 24 Jun 2022 pada 19.00
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -73,7 +73,7 @@ CREATE TABLE `tblcartdetail` (
   `id` int(100) NOT NULL,
   `kd_cart` varchar(255) NOT NULL,
   `kd_menu` int(11) NOT NULL,
-  `kd_saus` varchar(10) NOT NULL,
+  `kd_saus` varchar(11) DEFAULT NULL,
   `qty` int(10) NOT NULL,
   `harga` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -87,21 +87,12 @@ INSERT INTO `tblcartdetail` (`id`, `kd_cart`, `kd_menu`, `kd_saus`, `qty`, `harg
 (2, 'Delivery4', 51, 'S003', 1, 128000),
 (3, 'Delivery4', 46, 'S002', 2, 414000),
 (4, 'Delivery4', 46, 'S001', 2, 418000),
-(5, 'Delivery5', 46, 'S001', 2, 418000),
-(6, 'Delivery5', 49, 'S001', 2, 118000),
-(7, 'Delivery5', 46, 'S002', 2, 414000),
-(8, 'Delivery5', 46, 'S002', 2, 414000),
-(9, 'Delivery5', 46, 'S002', 2, 414000),
-(10, 'Delivery5', 46, 'S002', 2, 414000),
-(11, 'Delivery5', 46, 'S002', 2, 414000),
-(12, 'Delivery5', 46, 'S002', 2, 414000),
-(13, 'Delivery5', 46, 'S002', 2, 414000),
-(14, 'Delivery5', 46, 'S002', 2, 414000),
-(15, 'Delivery5', 46, 'S001', 2, 418000),
-(16, 'Delivery5', 46, 'S001', 2, 418000),
-(17, '5', 0, '', 0, 0),
-(18, 'Delivery5', 49, 'S001', 4, 236000),
-(19, 'Delivery5', 46, 'S001', 2, 418000);
+(29, 'Delivery5', 49, 'S001', 2, 118000),
+(30, 'Delivery5', 46, 'S100', 2, 414000),
+(33, 'Delivery5', 49, 'S001', 2, 118000),
+(34, 'Delivery5', 53, 'S100', 2, 24000),
+(35, 'Delivery5', 52, 'S100', 1, 10000),
+(36, 'Delivery5', 46, 'S002', 1, 207000);
 
 -- --------------------------------------------------------
 
@@ -232,13 +223,11 @@ CREATE TABLE `tblproducts` (
 INSERT INTO `tblproducts` (`product_id`, `product_name`, `date_in`, `category_id`, `user_id`, `status`, `type`, `price`, `image`, `detail_product`) VALUES
 (45, 'Iga Bakar', '2022-06-12', 2, 2, 'Habis', 'Makanan Utama', 80000, '1053bbq-chicken-wings2.jpg', ''),
 (46, 'Iga Barbar', '2022-06-12', 2, 2, 'Tersedia', 'Makanan Utama', 200000, '1054boneless-chicken2.jpg', ''),
-(48, 'BBQ Sauce', '2022-06-15', 14, 2, 'Tersedia', 'Saus', 9000, '10562.jpg', 'Saus hanya bisa dipesan ketika anda membeli makanan Steak'),
 (49, 'Daging ayam', '2022-06-16', 2, 2, 'Tersedia', 'Makanan Utama', 50000, '', ''),
-(50, 'keju', '2022-06-17', 14, 2, 'Tersedia', 'Saus', 7000, '10574.jpg', ''),
 (51, 'ikan bakar', '2022-06-17', 6, 2, 'Tersedia', 'Makanan Utama', 120000, '10587.jpg', ''),
 (52, 'Jus Melon', '2022-06-17', 13, 2, 'Tersedia', 'Minuman', 10000, '10598.jpg', ''),
 (53, 'Nasi Lengko', '2022-06-17', 7, 2, 'Tersedia', 'Makanan Pendamping', 12000, '106011.jpg', ''),
-(54, 'pizza', '2022-06-20', 9, 2, 'Tersedia', 'Makanan Utama', 190000, '1061boneless-chicken2.jpg', '');
+(54, 'Salmon Barbar', '2022-06-20', 9, 2, 'Tersedia', 'Makanan Utama', 190000, '1061boneless-chicken2.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -356,7 +345,8 @@ CREATE TABLE `tblsaus` (
 INSERT INTO `tblsaus` (`id_saus`, `nama_saus`, `harga_saus`, `stok_saus`, `keterangan`, `user_id`, `date`) VALUES
 ('S001', 'Saus Keju', 9000, 50, '-', '2', '2022-06-22'),
 ('S002', 'Saus BBQ', 7000, 50, '-', '2', '2022-06-22'),
-('S003', 'Saus Tartar', 8000, 50, '-', '2', '2022-06-22');
+('S003', 'Saus Tartar', 8000, 50, '-', '2', '2022-06-22'),
+('S100', 'Tanpa Saus', 0, 10000, '-', '2', '2022-06-24');
 
 -- --------------------------------------------------------
 
@@ -409,14 +399,10 @@ CREATE TABLE `tbltransac` (
 --
 
 INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`, `total_price`, `reservation_date_time`, `person_count`, `customer_id`) VALUES
-(16, 'res1906202209315098', '2022/06/19', 'reservasi', 2, 535000, '2022-06-20 17:34:00', 7, 4),
-(17, 'res2006202203484247', '2022/06/20', 'reservasi', 1, 288000, '2022-06-21 10:50:00', 3, 4),
-(18, 'res2006202204322273', '2022/06/20', 'reservasi', 1, 288000, '2022-06-20 09:32:22', 0, 4),
-(23, 'res2006202203311836', '2022/06/20', 'reservasi', 2, 210000, '2022-06-22 12:00:00', 5, 4),
-(24, 'res2106202205262892', '2022/06/21', 'reservasi', 0, 666000, '2022-06-21 22:26:28', 0, 4),
-(25, 'res2106202206055374', '2022/06/21', 'reservasi', 0, 257000, '2022-06-21 23:05:53', 0, 4),
-(26, 'res2106202206343325', '2022/06/21', 'reservasi', 0, 257000, '2022-06-21 23:34:33', 0, 4),
-(27, 'res2206202205171677', '2022/06/22', 'reservasi', 0, 0, '2022-06-22 10:17:16', 0, 4);
+(2, 'DEL2406202205023689', '2022/06/24', 'reservasi', 0, 650000, '2022-06-24 22:02:36', 0, 5),
+(3, 'DEL2406202205040181', '2022/06/24', 'reservasi', 0, 650000, '2022-06-24 22:04:01', 0, 5),
+(4, 'DEL2406202205152159', '2022/06/24', 'reservasi', 0, 684000, '2022-06-24 22:15:21', 0, 5),
+(5, 'DEL2406202206365142', '2022/06/24', 'reservasi', 4, 891000, '2022-06-24 23:36:51', 0, 5);
 
 -- --------------------------------------------------------
 
@@ -427,53 +413,34 @@ INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`
 CREATE TABLE `tbltransacdetail` (
   `id` int(11) NOT NULL,
   `product_code` varchar(255) NOT NULL,
+  `kd_saus` varchar(11) DEFAULT NULL,
   `qty` int(11) NOT NULL,
-  `transac_code` varchar(255) NOT NULL
+  `transac_code` varchar(255) NOT NULL,
+  `harga` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `tbltransacdetail`
 --
 
-INSERT INTO `tbltransacdetail` (`id`, `product_code`, `qty`, `transac_code`) VALUES
-(44, '46', 1, 'res1906202209315098'),
-(45, '49', 3, 'res1906202209315098'),
-(46, '51', 2, 'res1906202209315098'),
-(47, '48', 1, 'res1906202209315098'),
-(48, '50', 1, 'res1906202209315098'),
-(49, '53', 1, 'res1906202209315098'),
-(50, '52', 1, 'res1906202209315098'),
-(51, '46', 1, 'res2006202203484247'),
-(52, '49', 3, 'res2006202203484247'),
-(53, '50', 1, 'res2006202203484247'),
-(54, '48', 1, 'res2006202203484247'),
-(55, '53', 1, 'res2006202203484247'),
-(56, '52', 1, 'res2006202203484247'),
-(57, '46', 1, 'res2006202204322273'),
-(58, '49', 3, 'res2006202204322273'),
-(59, '50', 1, 'res2006202204322273'),
-(60, '48', 1, 'res2006202204322273'),
-(61, '53', 1, 'res2006202204322273'),
-(62, '52', 1, 'res2006202204322273'),
-(63, '46', 1, 'res2006202205161582'),
-(64, '49', 3, 'res2006202205161582'),
-(65, '50', 1, 'res2006202205161582'),
-(66, '48', 1, 'res2006202205161582'),
-(67, '53', 1, 'res2006202205161582'),
-(68, '52', 1, 'res2006202205161582'),
-(87, '46', 1, 'res2006202203311836'),
-(88, '50', 1, 'res2006202203311836'),
-(89, '52', 1, 'res2006202203311836'),
-(90, '46', 3, 'res2106202205262892'),
-(91, '49', 1, 'res2106202205262892'),
-(92, '48', 1, 'res2106202205262892'),
-(93, '50', 1, 'res2106202205262892'),
-(94, '46', 1, 'res2106202206055374'),
-(95, '49', 1, 'res2106202206055374'),
-(96, '50', 1, 'res2106202206055374'),
-(97, '46', 1, 'res2106202206343325'),
-(98, '49', 1, 'res2106202206343325'),
-(99, '50', 1, 'res2106202206343325');
+INSERT INTO `tbltransacdetail` (`id`, `product_code`, `kd_saus`, `qty`, `transac_code`, `harga`) VALUES
+(38, '49', 'S001', 2, 'DEL2406202205023689', 118000),
+(39, '46', 'S100', 2, 'DEL2406202205023689', 414000),
+(40, '49', 'S001', 2, 'DEL2406202205023689', 118000),
+(41, '49', 'S001', 2, 'DEL2406202205040181', 118000),
+(42, '46', 'S100', 2, 'DEL2406202205040181', 414000),
+(43, '49', 'S001', 2, 'DEL2406202205040181', 118000),
+(44, '49', 'S001', 2, 'DEL2406202205152159', 118000),
+(45, '46', 'S100', 2, 'DEL2406202205152159', 414000),
+(46, '49', 'S001', 2, 'DEL2406202205152159', 118000),
+(47, '53', 'S100', 2, 'DEL2406202205152159', 24000),
+(48, '52', 'S100', 1, 'DEL2406202205152159', 10000),
+(49, '49', 'S001', 2, 'DEL2406202206365142', 118000),
+(50, '46', 'S100', 2, 'DEL2406202206365142', 414000),
+(51, '49', 'S001', 2, 'DEL2406202206365142', 118000),
+(52, '53', 'S100', 2, 'DEL2406202206365142', 24000),
+(53, '52', 'S100', 1, 'DEL2406202206365142', 10000),
+(54, '46', 'S002', 1, 'DEL2406202206365142', 207000);
 
 -- --------------------------------------------------------
 
@@ -616,7 +583,7 @@ ALTER TABLE `tblautonumber`
 -- AUTO_INCREMENT untuk tabel `tblcartdetail`
 --
 ALTER TABLE `tblcartdetail`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcategory`
@@ -670,13 +637,13 @@ ALTER TABLE `tblstockhistory`
 -- AUTO_INCREMENT untuk tabel `tbltransac`
 --
 ALTER TABLE `tbltransac`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbltransacdetail`
 --
 ALTER TABLE `tbltransacdetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblusers`
