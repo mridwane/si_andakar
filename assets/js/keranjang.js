@@ -5,7 +5,7 @@ $(document).ready(function () {
     // menampilkan pesanan dari database
     function loadData() {
         let jenis = $('.sub_page').data('page');
-        console.log(jenis)
+        // console.log(jenis)
         $.ajax({
             url: 'controller/showcart_controller.php',
             method: 'POST',
@@ -17,10 +17,10 @@ $(document).ready(function () {
                 todos.forEach(function (value, index) {
                     $(".show-cart").append(`
         			<tr>
-        				<td>${value.kd_menu}</td>
-        				<td>${value.kd_saus}</td>
+        				<td>${value.product_name} + ${value.nama_saus}</td>
         				<td>${value.qty}</td>
                         <td>${value.harga}</td>
+                        <td><a href="#" class="btn btn-danger delete-item" data-id-cart="${value.id}">Hapus</a></td>
         			</tr>`);
                 })
             }
@@ -29,7 +29,7 @@ $(document).ready(function () {
 
     function loadJumlah() {
         let jenis = $('.sub_page').data('page');
-        console.log(jenis)
+        // console.log(jenis)
         $.ajax({
             url: 'controller/tampilangka_controller.php',
             method: 'POST',
@@ -158,23 +158,52 @@ $(document).ready(function () {
                 // console.log("Berhasil")
                 $("#modalMenu" + kodeMenu).modal('hide');
                 loadData();
-                loadJumlah()
+                loadJumlah();
             },
             error: function (data, error) {
                 // window.location.reload();
                 alert("gagal Menambahkan ke pesanan");
                 $("#modalMenu" + kodeMenu).modal('hide');
                 loadData();
-                loadJumlah()
+                loadJumlah();
                 // console.log("Gagal");
             },
         });
     });
 
+    $('.show-cart').on("click", ".delete-item", function (e) {
+        e.preventDefault();
+        let id = $(this).data('id-cart');
+        let fungsi = "Delete";
+        // console.log(kdMenu);
+        // console.log(kdSaus);
 
-    // $('.cart_link').on("click", function (e) {
-    //     e.preventDefault();
-    //     let jenis = $(this).data('jenis');
-
-    // });
+        $.ajax({
+            data: {
+                id: id,
+                fungsi: fungsi,
+            },
+            type: "POST",
+            url: "controller/keranjang_controller.php",
+            success: function (data) {
+                // window.location.reload();                
+                alert("Menu Dihapus");
+                loadData();
+                loadJumlah();
+                // window.location = "controller/keranjang_controller.php";
+                // console.log("Berhasil")
+                // $("#modalMenu" + kodeMenu).modal('hide');
+                // loadData();
+                // loadJumlah()
+            },
+            error: function (data, error) {
+                // window.location.reload();
+                alert("gagal Menambahkan ke pesanan");
+                // $("#modalMenu" + kodeMenu).modal('hide');
+                // loadData();
+                // loadJumlah()
+                // console.log("Gagal");
+            },
+        });
+    })
 });

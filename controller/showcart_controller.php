@@ -15,7 +15,9 @@ $jenis = $_POST['jenis'];
 
 if($jenis == "Delivery"){
     // $data = [];
-    $query = mysqli_query($db, 'SELECT * FROM tblcartdetail a INNER JOIN tblcart b ON a.kd_cart = b.kd_cart WHERE b.c_id = "'.$cid.'"');
+    $query = mysqli_query($db, 'SELECT * FROM tblcartdetail a JOIN tblcart b ON a.kd_cart = b.kd_cart JOIN tblproducts c ON
+    a.kd_menu = c.product_id JOIN tblsaus d ON
+    a.kd_saus = d.id_saus WHERE b.c_id = "'.$cid.'"');
     while($row = mysqli_fetch_array($query)){
     $data[] = $row;
     }
