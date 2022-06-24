@@ -9,7 +9,6 @@ include('../includes/connection.php');
 }
 // var_dump($kd_menu);
 $kd_menu = $_POST['kd_menu'];
-
 $kd_saus = $_POST['kd_saus'];
 $qty = $_POST['qty'];
 $jenis_cart = $_POST['jenis_cart'];
@@ -64,7 +63,6 @@ else {
     //         alert('Gagal menambahkan ke pesanan');
     //     </script>";
     // }
-    
 }
 
 
