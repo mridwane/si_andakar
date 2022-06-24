@@ -4,39 +4,39 @@ if (!isset($_SESSION['email'])) {
     header("Location: login.php"); /* Redirect browser */
     exit();
 } else { ?>
-    <?php include('includes/connection.php'); ?>
-    <?php $page = "Kemitraan"; ?>
-    <!--header area-->
-    <?php include 'includes/header.php'; ?>
+<?php include('includes/connection.php'); ?>
+<?php $page = "Kemitraan"; ?>
+<!--header area-->
+<?php include 'includes/header.php'; ?>
 
 
-    <body class="sub_page">
-        <div class="hero_area">
-            <div class="bg-box">
-                <img src="assets/images/hero-bg.jpg" alt="">
-            </div>
-            <!-- navigation strats -->
-            <?php include 'includes/navigation.php'; ?>
-            <!-- end navigation-->
-            <section class="slider_section">
-                <div id="customCarousel1" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="container ">
-                                <div class="row">
-                                    <div class="col-md-7 col-lg-6 ">
-                                        <div class="detail-box">
-                                            <h1>
-                                                Hi, Calon Mitra
-                                            </h1>
-                                            <p>
-                                                Untuk format persyaratan kemtiraan dengan kami bisa didownload disini.
-                                            </p>
-                                            <div class="btn-box">
-                                                <a href="assets/file/FORM PENDAFTARAN KEMITRAAN.pdf" class="btn1" target="_blank">
-                                                    Download Format Persyaratan
-                                                </a>
-                                            </div>
+<body class="sub_page">
+    <div class="hero_area">
+        <div class="bg-box">
+            <img src="assets/images/hero-bg.jpg" alt="">
+        </div>
+        <!-- navigation strats -->
+        <?php include 'includes/navigation.php'; ?>
+        <!-- end navigation-->
+        <section class="slider_section">
+            <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="container ">
+                            <div class="row">
+                                <div class="col-md-7 col-lg-6 ">
+                                    <div class="detail-box">
+                                        <h1>
+                                            Hi, Calon Mitra
+                                        </h1>
+                                        <p>
+                                            Untuk format persyaratan kemtiraan dengan kami bisa didownload disini.
+                                        </p>
+                                        <div class="btn-box">
+                                            <a href="assets/file/FORM PENDAFTARAN KEMITRAAN.pdf" class="btn1"
+                                                target="_blank">
+                                                Download Format Persyaratan
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -44,51 +44,85 @@ if (!isset($_SESSION['email'])) {
                         </div>
                     </div>
                 </div>
-
-            </section>
-        </div>
-        <section class="book_section layout_padding">
-            <div class="container">
-                <div class="heading_container heading_center">
-                    <h2>
-                        Kemitraan
-                    </h2>
-                </div>
-                <div class="row">
-                    <!-- Informasi personal -->
-                    <div class="col-md-6">
-                        <div class="form_container">
-
-                            <div>
-                                <input type="text" class="form-control" placeholder="Your Name" value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" disabled />
-                            </div>
-                            <div>
-                                <input type="text" class="form-control" placeholder="Phone Number" value="<?= $_SESSION['contact'] ?>" disabled />
-                            </div>
-                            <div>
-                                <input type="email" class="form-control" placeholder="Your Email" value="<?= $_SESSION['email'] ?>" disabled />
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Pengaturan reservasi -->
-
-                    <div class="col-md-6">
-                        <div class="form_container">
-                            <form action="controller/kemitraan_controller.php" method="POST" enctype="multipart/form-data">
-                                <div>
-                                    <label for="upload">Upload Portofolio</label>
-                                    <input type="file" class="form-control" id="upload" name="upload" onchange="validasifile2()" accept=".pdf, .docx, .doc">
-                                    <span>*File harus PDF/Word, max 5 MB </span>
-                                </div>
-                                <button type="submit" id="submit" name="submit" class="btn btn-primary">Simpan</button>
-                            </form>
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </section>
-    <?php } ?>
+    </div>
+    <?php 
+    $cek = mysqli_query($db, 'SELECT C_ID FROM tblrequestmitra WHERE C_ID = "'.$_SESSION["cid"].'"'); 
+    if ($cek->num_rows > 0) {
+    ?>
+    <section class="book_section layout_padding">
+        <div class="container">
+            <div class="heading_container">
+                <h2>
+                    Status Kemitraan
+                </h2>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form_container">
+                        <h3><b> Silahkan Cek Status Kemitraan Kamu disini</b></h3>
+                    </div>
+                    <div class="btn-box">
+                        <a href="status_kemitraan.php" class="btn btn-warning">
+                            Cek Status
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="assets/images/no_data.svg" alt="" width="450px">
+                </div>
+            </div>
+        </div>
+    </section>
+    <?php }else{ ?>
+    <section class="book_section layout_padding">
+        <div class="container">
+            <div class="heading_container heading_center">
+                <h2>
+                    Kemitraan
+                </h2>
+            </div>
+            <div class="row">
+                <!-- Informasi personal -->
+                <div class="col-md-6">
+                    <div class="form_container">
+
+                        <div>
+                            <input type="text" class="form-control" placeholder="Your Name"
+                                value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" disabled />
+                        </div>
+                        <div>
+                            <input type="text" class="form-control" placeholder="Phone Number"
+                                value="<?= $_SESSION['contact'] ?>" disabled />
+                        </div>
+                        <div>
+                            <input type="email" class="form-control" placeholder="Your Email"
+                                value="<?= $_SESSION['email'] ?>" disabled />
+                        </div>
+                    </div>
+                </div>
+                <!-- Pengaturan reservasi -->
+
+                <div class="col-md-6">
+                    <div class="form_container">
+                        <form action="controller/kemitraan_controller.php" method="POST" enctype="multipart/form-data">
+                            <div>
+                                <label for="upload">Upload Portofolio</label>
+                                <input type="file" class="form-control" id="upload" name="upload"
+                                    onchange="validasifile2()" accept=".pdf, .docx, .doc">
+                                <span>*File harus PDF/Word, max 5 MB </span>
+                            </div>
+                            <button type="submit" id="submit" name="submit" class="btn btn-primary">Simpan</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <?php }
+} ?>
 
     <!--footer area-->
     <?php include 'includes/footer.php'; ?>
