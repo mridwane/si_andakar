@@ -6,7 +6,7 @@
   <footer class="sticky-footer">
     <div class="container my-auto">
       <div class="copyright text-center my-auto">
-        <span>Copyright © Purna Baja Harsco</span>
+        <span>Copyright © ANDAKAR</span>
       </div>
     </div>
   </footer>
