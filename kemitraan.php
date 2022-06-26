@@ -11,6 +11,71 @@ if (!isset($_SESSION['email'])) {
 
 
 <body class="sub_page">
+    <?php 
+    $cek = mysqli_query($db, 'SELECT C_ID FROM tblrequestmitra WHERE C_ID = "'.$_SESSION["cid"].'" AND status = "accepted" OR C_ID = "'.$_SESSION["cid"].'" AND status = "unconfirmed"'); 
+    if ($cek->num_rows > 0) {
+    ?>
+    <div class="hero_area">
+        <div class="bg-box">
+            <img src="assets/images/hero-bg.jpg" alt="">
+        </div>
+        <!-- navigation strats -->
+        <?php include 'includes/navigation.php'; ?>
+        <!-- end navigation-->
+    </div>
+    <section class="food_section layout_padding">
+        <div class="container">
+            <div class="heading_container heading_center">
+                <h3>
+                    List Pengajuan Kemitraan
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%"
+                        cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>No Registrasi</th>
+                                <th>Tanggal Pengajuan</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                    $query = 'SELECT * FROM `tblrequestmitra` WHERE C_ID = "'.$_SESSION["cid"].'"';
+                                    $result = mysqli_query($db, $query) or die(mysqli_error($db));
+                                    // membuat nomer otomatis untuk di tabel
+                                    $no = 1;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo '<tr>';
+                                        echo '<td>' . $no++ . '</td>';
+                                        echo '<td>' . $row['regis_no'] . '</td>';
+                                        echo '<td>' . $row['date_req'] . '</td>';
+                                        echo '<td>' . $row['status'] . '</td>';
+                                        echo '<td><a type="button" class="btn-detail"
+                                        href="status_kemitraan.php?&regis_no=' . $row['regis_no'] . '">
+                                            <span class="material-icons">
+                                                Detail
+                                            </span>
+                                            </a>
+                                            </td>';
+                                        echo '</tr> ';
+                                    }
+                                    ?>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <?php }else{ ?>
+
+
     <div class="hero_area">
         <div class="bg-box">
             <img src="assets/images/hero-bg.jpg" alt="">
@@ -47,35 +112,6 @@ if (!isset($_SESSION['email'])) {
             </div>
         </section>
     </div>
-    <?php 
-    $cek = mysqli_query($db, 'SELECT C_ID FROM tblrequestmitra WHERE C_ID = "'.$_SESSION["cid"].'"'); 
-    if ($cek->num_rows > 0) {
-    ?>
-    <section class="book_section layout_padding">
-        <div class="container">
-            <div class="heading_container">
-                <h2>
-                    Status Kemitraan
-                </h2>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form_container">
-                        <h3><b> Silahkan Cek Status Kemitraan Kamu disini</b></h3>
-                    </div>
-                    <div class="btn-box">
-                        <a href="status_kemitraan.php" class="btn btn-warning">
-                            Cek Status
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <img src="assets/images/no_data.svg" alt="" width="450px">
-                </div>
-            </div>
-        </div>
-    </section>
-    <?php }else{ ?>
     <section class="book_section layout_padding">
         <div class="container">
             <div class="heading_container heading_center">

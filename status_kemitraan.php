@@ -9,9 +9,8 @@
     include 'includes/header.php';
     }
 
-    $query = 'SELECT a.regis_no, a.date_req, a.status, b.note FROM `tblrequestmitra` a INNER JOIN
-    `tbldetailrequestmitra` b ON a.C_ID = b.user_id WHERE
-    a.C_ID = "'.$_SESSION["cid"].'"';
+    $query = 'SELECT regis_no, date_req, status, note FROM `tblrequestmitra` WHERE
+    C_ID = "'.$_SESSION["cid"].'" AND regis_no = "'.$_GET["regis_no"].'"';
     $result = mysqli_query($db, $query) or die(mysqli_error($db));
     // membuat nomer otomatis untuk di tabel
     $no = 1;
@@ -58,49 +57,33 @@
                                 <label for="">Tanggal Request</label>
                                 <input type="text" class="form-control" value="<?= $tgl ?>" readonly />
                             </div>
-                            <div>
-                                <label for="">Status</label>
-                                <input type="text" class="form-control" value="<?= $status ?>" readonly />
-                            </div>
-                            <div>
-                                <label for="">Keterangan</label>
-                                <textarea type="text" class="form-control" readonly cols="10" rows="4">
-                                <?= $keterangan ?>
-                            </textarea>
-                            </div>
                             <?php if ($status == "unconfirmed") { ?>
-                            <div>
-                                <label for="upload">Upload Ulang Persayaratan</label>
-                                <input type="file" class="form-control" id="upload" name="upload"
-                                    onchange="validasifile2()" accept=".pdf, .docx, .doc">
-                                <span>*File harus PDF/Word, max 5 MB </span>
-                            </div>
-                            <div class="btn-box">
-                                <button type="submit" name="reupload">
-                                    Kirim Ulang Persyaratan
-                                </button>
-                            </div>
-                            <?php }elseif($status == "Pending") {?>
-                            <div class="btn-red">
-                                <button type="submit">
-                                    Batalkan Pesanan
-                                </button>
-                            </div>
-                            <?php }elseif($status == "Disetujui") {?>
-                            <h4>Terimakasih sudah melakukan reservasi</h4>
-                            <p>*Kami tunggu kedatangan anda.</p>
+                            <span>Silahkan tunggu konfirmasi dari pihak admin.</span>
+                            <?php }elseif($status == "denied") {?>
+                            <span>Maaf pengajuan kemitraan anda kami tolak karena <b><?= $keterangan ?></b>.</span>
+                            <br>
+                            <?php }elseif($status == "accepted") {?>
+                            <span><b><?= $keterangan ?></b></span>
                             <?php } ?>
                             <!-- </form> -->
                             <div class="btn-black">
-                                <button onclick="history.back()">
-                                    Kembali
+                                <button>
+                                    <a href="kemitraan.php">
+                                        Kembali
+                                    </a>
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <img src="assets/images/order_detail.svg" alt="">
+                    <?php if ($status == "unconfirmed") { ?>
+                    <img src="assets/images/status_menunggu.svg" alt="">
+                    <?php }elseif($status == "denied") {?>
+                    <img src="assets/images/status_ditolak.svg" alt="">
+                    <?php }elseif($status == "accepted") {?>
+                    <img src="assets/images/status_diterima.svg" alt="">
+                    <?php } ?>
                 </div>
             </div>
         </div>

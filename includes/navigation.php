@@ -179,7 +179,6 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item" href="profil.php">Profil</a>
                             <a class="dropdown-item" href="order.php">Pesanan Kamu</a>
-                            <a class="dropdown-item" href="status_kemitraan.php">Status Kemitraan</a>
                         </div>
                     </div>
                     <a href="#" class="order_online" data-toggle="modal" data-target="#logoutModal">

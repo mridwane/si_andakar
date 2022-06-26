@@ -11,7 +11,8 @@
                         <div class="form-group">
                             <label>No Registrasi</label>
                             <input type="hidden" name="user_id" value="<?php echo $user_id ?>" />
-                            <input type="text" name="regis_no" value="<?php echo $no_regis ?>" class="form-control" readonly />
+                            <input type="text" name="regis_no" value="<?php echo $no_regis ?>" class="form-control"
+                                readonly />
                         </div>
                         <div class="form-group">
                             <label>Keputusan</label>
@@ -31,8 +32,10 @@
                 </div>
                 <div style="clear:both;"></div>
                 <div class="modal-footer">
-                    <button name="simpan" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>Simpan</button>
-                    <button class="btn btn-danger" type="button" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                    <button name="simpan" class="btn btn-warning"><span
+                            class="glyphicon glyphicon-edit"></span>Simpan</button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal"><span
+                            class="glyphicon glyphicon-remove"></span> Cancel</button>
                 </div>
         </div>
         </form>
@@ -53,18 +56,19 @@ if (!isset($_SESSION["userid"])) {
         $user_id = $_POST['user_id'];
 
         // update table request
-        $query_update = "UPDATE tblrequestmitra SET status = '" . $status . "' WHERE regis_no='" . $regis_no . "'";
+        $query_update = "UPDATE tblrequestmitra SET status = '" . $status . "', note = '" . $note . "' WHERE
+        regis_no='" . $regis_no . "'";
         mysqli_query($db, $query_update) or die(mysqli_error($db));
 
 
-        //insert ke table detail, berfungsi untuk melihat hisoty siapa yang accept atau dengan alesan apa
-        $query_insert = "INSERT INTO tbldetailrequestmitra(date,note,status,user_id)values('" . $datetime . "','" . $note . "','" . $status . "','" . $user_id . "')";
-        mysqli_query($db, $query_insert) or die(mysqli_error($db));
+        // //insert ke table detail, berfungsi untuk melihat hisoty siapa yang accept atau dengan alesan apa
+        // $query_insert = "INSERT INTO tbldetailrequestmitra(date,note,status,user_id)values('" . $datetime . "','" . $note . "','" . $status . "','" . $user_id . "')";
+        // mysqli_query($db, $query_insert) or die(mysqli_error($db));
 ?>
-        <script type="text/javascript">
-            window.location.href = 'list_kemitraan_admin.php';
-            alert('Data Berhasil Disimpan');
-        </script>
+<script type="text/javascript">
+    window.location.href = 'list_kemitraan_admin.php';
+    alert('Data Berhasil Disimpan');
+</script>
 <?php
     }
 }
