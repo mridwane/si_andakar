@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Jun 2022 pada 12.21
--- Versi server: 10.4.21-MariaDB
--- Versi PHP: 7.3.31
+-- Waktu pembuatan: 26 Jun 2022 pada 18.47
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,6 +33,7 @@ CREATE TABLE `tblrequestmitra` (
   `date_req` date NOT NULL,
   `file` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
+  `note` text NOT NULL,
   `C_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -40,9 +41,8 @@ CREATE TABLE `tblrequestmitra` (
 -- Dumping data untuk tabel `tblrequestmitra`
 --
 
-INSERT INTO `tblrequestmitra` (`id`, `regis_no`, `date_req`, `file`, `status`, `C_ID`) VALUES
-(1, 'MITREG2006202212123146', '2022-06-20', 'MITREG2006202212123146_4_kemitraan.docx', 'pengajuan', 4),
-(2, 'MITREG2006202212153454', '2022-06-20', 'MITREG2006202212153454_4_kemitraan.docx', 'pengajuan', 4);
+INSERT INTO `tblrequestmitra` (`id`, `regis_no`, `date_req`, `file`, `status`, `note`, `C_ID`) VALUES
+(4, 'MITREG2006202203225689', '2022-06-20', 'MITREG2006202203225689_4_kemitraan.docx', 'accepted', 'Selama anda kami undang untuk interview pada tanggal 10/11/2022.', 4);
 
 --
 -- Indexes for dumped tables
@@ -62,7 +62,7 @@ ALTER TABLE `tblrequestmitra`
 -- AUTO_INCREMENT untuk tabel `tblrequestmitra`
 --
 ALTER TABLE `tblrequestmitra`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
