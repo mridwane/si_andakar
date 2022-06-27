@@ -31,7 +31,7 @@ if ($_GET['action'] == 'save') {
   $ht = mysqli_fetch_array($hitung_total);
   $jml_total = $ht['total'];
   $instransac = "INSERT INTO tbltransac (transac_code, date, transac_type, status, total_price, customer_id)
-      VALUES ('$no_transac','$date','reservasi','4','$jml_total','$user_id')";
+      VALUES ('$no_transac','$date','delivery','4','$jml_total','$user_id')";
   mysqli_query($db, $instransac) or die('Error, gagal menyimpan data delivery');
 
   // untuk memasukan ke table tbltransacdetail
@@ -92,6 +92,12 @@ if ($_GET['action'] == 'savetrf') {
         $query = "INSERT INTO `tblbuktitransfer`(`date`, `file_name`, `no_transac`)
             VALUES ('" . $datetime . "','" . $nama . "','" . $transac_code . "')";
         mysqli_query($db, $query) or die(mysqli_error($db));
+
+        // update status
+        $paid = "paid";
+        $query_update = "UPDATE tbltransac SET status = '" . $paid . "' WHERE
+        transac_code='" . $transac_code . "'";
+        mysqli_query($db, $query_update) or die(mysqli_error($db));
 
         // TODO: Gunakan sweet alert
         echo ("<script language='JavaScript'>

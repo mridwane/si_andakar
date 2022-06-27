@@ -1,31 +1,32 @@
 <?php
-    session_start();
-    if(!isset($_SESSION["cid"])){
+session_start();
+if (!isset($_SESSION["cid"])) {
     header("Location: login.php");
-    }else{
+} else {
     include('includes/connection.php');
     // if (isset($_SESSION['C_ID']))
-    $page = "Detail Order"; 
+    $page = "Detail Order";
     include 'includes/header.php';
-    }
+}
 
-    $query = 'SELECT * FROM `tbltransac` WHERE transac_code = "'.$_GET["no_transaksi"].'"';
-    $result = mysqli_query($db, $query) or die(mysqli_error($db));
-    // membuat nomer otomatis untuk di tabel
-    $no = 1;
-    while ($row = mysqli_fetch_assoc($result)) {
-        $jenis = $row['transac_type'];
-        // cek Status Pending atau disetujui atau batal
-        if ($row['status'] == "0") {
-            $status = "Pending";
-        } elseif ($row['status'] == "1") {
-            $status = "Disetujui";
-        } else {
-            $status = "Dibatalkan";
-        }
-        $total = $row['total_price'];
-
+$query = 'SELECT * FROM `tbltransac` WHERE transac_code = "' . $_GET["no_transaksi"] . '"';
+$result = mysqli_query($db, $query) or die(mysqli_error($db));
+// membuat nomer otomatis untuk di tabel
+$no = 1;
+while ($row = mysqli_fetch_assoc($result)) {
+    $jenis = $row['transac_type'];
+    // cek Status Pending atau disetujui atau batal
+    if ($row['status'] == "0") {
+        $status = "Pending";
+    } elseif ($row['status'] == "paid") {
+        $status = "Sudah Bayar";
+    } elseif ($row['status'] == "1") {
+        $status = "Disetujui";
+    } else {
+        $status = "Dibatalkan";
     }
+    $total = $row['total_price'];
+}
 ?>
 
 
@@ -51,8 +52,7 @@
                         <form action="controller/reservasi_controller.php?action=batal" method="POST">
                             <div>
                                 <label for="">No Transaksi</label>
-                                <input type="text" class="form-control" name="transac_code"
-                                    value="<?= $_GET['no_transaksi'] ?>" readonly />
+                                <input type="text" class="form-control" name="transac_code" value="<?= $_GET['no_transaksi'] ?>" readonly />
                             </div>
                             <div>
                                 <label for="">Jenis Pesanan</label>
@@ -64,20 +64,19 @@
                             </div>
                             <div>
                                 <label for="">Total Pesanan</label>
-                                <input type="text" class="form-control"
-                                    value="Rp. <?= number_format($total,0,',','.'); ?>" readonly />
+                                <input type="text" class="form-control" value="Rp. <?= number_format($total, 0, ',', '.'); ?>" readonly />
                             </div>
                             <?php if ($status == "Dibatalkan") { ?>
-                            <span>*Pesanan Anda Telah Dibatalkan</span>
-                            <?php }elseif($status == "Pending") {?>
-                            <div class="btn-red">
-                                <button type="submit">
-                                    Batalkan Pesanan
-                                </button>
-                            </div>
-                            <?php }elseif($status == "Disetujui") {?>
-                            <h4>Terimakasih sudah melakukan reservasi</h4>
-                            <p>*Kami tunggu kedatangan anda.</p>
+                                <span>*Pesanan Anda Telah Dibatalkan</span>
+                            <?php } elseif ($status == "Pending") { ?>
+                                <div class="btn-red">
+                                    <button type="submit">
+                                        Batalkan Pesanan
+                                    </button>
+                                </div>
+                            <?php } elseif ($status == "Disetujui") { ?>
+                                <h4>Terimakasih sudah melakukan reservasi</h4>
+                                <p>*Kami tunggu kedatangan anda.</p>
                             <?php } ?>
                         </form>
                         <div class="btn-black">
