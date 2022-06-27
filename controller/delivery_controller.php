@@ -68,7 +68,7 @@ if ($_GET['action'] == 'savetrf') {
 
 
       // Rename nama file
-      $filenew = "BT" . $transac_code;
+      $filenew = "BT" . $transac_code . "." . $type;
       // Set path folder tempat menyimpan fotonya
       $path = "../assets/bukti_transfer/" . $filenew;
 
