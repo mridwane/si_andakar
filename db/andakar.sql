@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Jun 2022 pada 19.00
--- Versi server: 10.4.24-MariaDB
--- Versi PHP: 7.4.29
+-- Waktu pembuatan: 27 Jun 2022 pada 15.36
+-- Versi server: 10.4.21-MariaDB
+-- Versi PHP: 7.3.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,6 +41,26 @@ CREATE TABLE `tblautonumber` (
 
 INSERT INTO `tblautonumber` (`id`, `start`, `end`, `increment`, `desc`) VALUES
 (1, 1000, 62, 1, 'PROD');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tblbuktitransfer`
+--
+
+CREATE TABLE `tblbuktitransfer` (
+  `id` int(11) NOT NULL,
+  `date` datetime NOT NULL,
+  `file_name` varchar(255) NOT NULL,
+  `no_transac` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tblbuktitransfer`
+--
+
+INSERT INTO `tblbuktitransfer` (`id`, `date`, `file_name`, `no_transac`) VALUES
+(6, '2022-06-27 15:12:39', 'BTDEL2706202203122956', 'DEL2706202203122956');
 
 -- --------------------------------------------------------
 
@@ -83,16 +103,14 @@ CREATE TABLE `tblcartdetail` (
 --
 
 INSERT INTO `tblcartdetail` (`id`, `kd_cart`, `kd_menu`, `kd_saus`, `qty`, `harga`) VALUES
-(1, 'Delivery4', 49, 'S002', 2, 114000),
-(2, 'Delivery4', 51, 'S003', 1, 128000),
-(3, 'Delivery4', 46, 'S002', 2, 414000),
-(4, 'Delivery4', 46, 'S001', 2, 418000),
 (29, 'Delivery5', 49, 'S001', 2, 118000),
 (30, 'Delivery5', 46, 'S100', 2, 414000),
 (33, 'Delivery5', 49, 'S001', 2, 118000),
 (34, 'Delivery5', 53, 'S100', 2, 24000),
 (35, 'Delivery5', 52, 'S100', 1, 10000),
-(36, 'Delivery5', 46, 'S002', 1, 207000);
+(36, 'Delivery5', 46, 'S002', 1, 207000),
+(37, 'Delivery4', 46, 'S002', 1, 207000),
+(38, 'Delivery4', 49, 'S002', 1, 57000);
 
 -- --------------------------------------------------------
 
@@ -387,7 +405,7 @@ CREATE TABLE `tbltransac` (
   `transac_code` varchar(100) NOT NULL,
   `date` varchar(50) NOT NULL,
   `transac_type` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
   `total_price` int(11) NOT NULL,
   `reservation_date_time` datetime NOT NULL DEFAULT current_timestamp(),
   `person_count` int(11) NOT NULL,
@@ -399,10 +417,18 @@ CREATE TABLE `tbltransac` (
 --
 
 INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`, `total_price`, `reservation_date_time`, `person_count`, `customer_id`) VALUES
-(2, 'DEL2406202205023689', '2022/06/24', 'reservasi', 0, 650000, '2022-06-24 22:02:36', 0, 5),
-(3, 'DEL2406202205040181', '2022/06/24', 'reservasi', 0, 650000, '2022-06-24 22:04:01', 0, 5),
-(4, 'DEL2406202205152159', '2022/06/24', 'reservasi', 0, 684000, '2022-06-24 22:15:21', 0, 5),
-(5, 'DEL2406202206365142', '2022/06/24', 'reservasi', 4, 891000, '2022-06-24 23:36:51', 0, 5);
+(2, 'DEL2406202205023689', '2022/06/24', 'reservasi', '0', 650000, '2022-06-24 22:02:36', 0, 5),
+(3, 'DEL2406202205040181', '2022/06/24', 'reservasi', '0', 650000, '2022-06-24 22:04:01', 0, 5),
+(4, 'DEL2406202205152159', '2022/06/24', 'reservasi', '0', 684000, '2022-06-24 22:15:21', 0, 5),
+(5, 'DEL2406202206365142', '2022/06/24', 'reservasi', '4', 891000, '2022-06-24 23:36:51', 0, 5),
+(6, 'DEL2606202212095364', '2022/06/26', 'reservasi', '4', 1074000, '2022-06-26 17:09:53', 0, 4),
+(7, 'DEL2606202201011986', '2022/06/26', 'reservasi', '4', 1074000, '2022-06-26 18:01:19', 0, 4),
+(8, 'DEL2706202211502461', '2022/06/27', 'reservasi', '4', 1074000, '2022-06-27 16:50:24', 0, 4),
+(9, 'DEL2706202211525363', '2022/06/27', 'reservasi', '4', 1074000, '2022-06-27 16:52:53', 0, 4),
+(10, 'DEL2706202211530842', '2022/06/27', 'reservasi', '4', 1074000, '2022-06-27 16:53:08', 0, 4),
+(11, 'DEL2706202203034118', '2022/06/27', 'delivery', '4', 264000, '2022-06-27 20:03:41', 0, 4),
+(12, 'DEL2706202203053864', '2022/06/27', 'delivery', '0', 264000, '2022-06-27 20:05:38', 0, 4),
+(13, 'DEL2706202203122956', '2022/06/27', 'delivery', 'paid', 264000, '2022-06-27 20:12:29', 0, 4);
 
 -- --------------------------------------------------------
 
@@ -440,7 +466,33 @@ INSERT INTO `tbltransacdetail` (`id`, `product_code`, `kd_saus`, `qty`, `transac
 (51, '49', 'S001', 2, 'DEL2406202206365142', 118000),
 (52, '53', 'S100', 2, 'DEL2406202206365142', 24000),
 (53, '52', 'S100', 1, 'DEL2406202206365142', 10000),
-(54, '46', 'S002', 1, 'DEL2406202206365142', 207000);
+(54, '46', 'S002', 1, 'DEL2406202206365142', 207000),
+(55, '49', 'S002', 2, 'DEL2606202212095364', 114000),
+(56, '51', 'S003', 1, 'DEL2606202212095364', 128000),
+(57, '46', 'S002', 2, 'DEL2606202212095364', 414000),
+(58, '46', 'S001', 2, 'DEL2606202212095364', 418000),
+(59, '49', 'S002', 2, 'DEL2606202201011986', 114000),
+(60, '51', 'S003', 1, 'DEL2606202201011986', 128000),
+(61, '46', 'S002', 2, 'DEL2606202201011986', 414000),
+(62, '46', 'S001', 2, 'DEL2606202201011986', 418000),
+(63, '49', 'S002', 2, 'DEL2706202211502461', 114000),
+(64, '51', 'S003', 1, 'DEL2706202211502461', 128000),
+(65, '46', 'S002', 2, 'DEL2706202211502461', 414000),
+(66, '46', 'S001', 2, 'DEL2706202211502461', 418000),
+(67, '49', 'S002', 2, 'DEL2706202211525363', 114000),
+(68, '51', 'S003', 1, 'DEL2706202211525363', 128000),
+(69, '46', 'S002', 2, 'DEL2706202211525363', 414000),
+(70, '46', 'S001', 2, 'DEL2706202211525363', 418000),
+(71, '49', 'S002', 2, 'DEL2706202211530842', 114000),
+(72, '51', 'S003', 1, 'DEL2706202211530842', 128000),
+(73, '46', 'S002', 2, 'DEL2706202211530842', 414000),
+(74, '46', 'S001', 2, 'DEL2706202211530842', 418000),
+(75, '46', 'S002', 1, 'DEL2706202203034118', 207000),
+(76, '49', 'S002', 1, 'DEL2706202203034118', 57000),
+(77, '46', 'S002', 1, 'DEL2706202203053864', 207000),
+(78, '49', 'S002', 1, 'DEL2706202203053864', 57000),
+(79, '46', 'S002', 1, 'DEL2706202203122956', 207000),
+(80, '49', 'S002', 1, 'DEL2706202203122956', 57000);
 
 -- --------------------------------------------------------
 
@@ -475,6 +527,12 @@ INSERT INTO `tblusers` (`user_id`, `fname`, `lname`, `email`, `contact`, `addres
 -- Indeks untuk tabel `tblautonumber`
 --
 ALTER TABLE `tblautonumber`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `tblbuktitransfer`
+--
+ALTER TABLE `tblbuktitransfer`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -580,10 +638,16 @@ ALTER TABLE `tblautonumber`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT untuk tabel `tblbuktitransfer`
+--
+ALTER TABLE `tblbuktitransfer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT untuk tabel `tblcartdetail`
 --
 ALTER TABLE `tblcartdetail`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcategory`
@@ -637,13 +701,13 @@ ALTER TABLE `tblstockhistory`
 -- AUTO_INCREMENT untuk tabel `tbltransac`
 --
 ALTER TABLE `tbltransac`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbltransacdetail`
 --
 ALTER TABLE `tbltransacdetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblusers`
