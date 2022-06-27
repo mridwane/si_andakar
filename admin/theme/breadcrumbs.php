@@ -1,8 +1,8 @@
 <!-- Breadcrumbs-->
 <?php
 include('../includes/connection.php');
-$query_delivery = 'SELECT COUNT(*) AS neworder FROM `tbltransac` WHERE `status` = "paid"';
-$result = mysqli_query($db, $query_delivery) or die(mysqli_error($db));
+$query = 'SELECT COUNT(*) AS neworder FROM `tbltransac` WHERE `status` = "paid"';
+$result = mysqli_query($db, $query) or die(mysqli_error($db));
 $row = mysqli_fetch_assoc($result);
 
 ?>
