@@ -18,6 +18,7 @@ $harga = $_POST['harga'];
 $cid = $_SESSION["cid"];
 $date = date("Y-m-d");
 $kd_cart = $jenis_cart.$cid;
+// $kd_cart = "Delivery4";
 
 if ($fungsi == 'Delete'){
      $query = 'DELETE From tblcartdetail WHERE id = "'.$id.'"';
@@ -28,6 +29,15 @@ if ($fungsi == 'Delete'){
     //  }
     //  else {
     //     echo 'Berhasild dihapus';
+} elseif ($fungsi == 'DeleteAll'){
+$query = 'DELETE From tblcartdetail WHERE kd_cart = "'.$kd_cart.'"';
+$result = mysqli_query($db, $query) or die(mysqli_error($db));
+
+// if($result > 1) {
+// echo 'Gagal dihapus';
+// }
+// else {
+// echo 'Berhasild dihapus';
 } else {
     // echo $kd_saus.$qty;
     $query1 = 'SELECT * From tblcart WHERE c_id = "'.$cid.'"';
