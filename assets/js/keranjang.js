@@ -12,19 +12,8 @@ $(document).ready(function () {
             data: {
                 jenis: jenis,
             },
-            success: function (response) {
-                var todos = JSON.parse(response);
-                todos.forEach(function (value, index) {
-                    $(".show-cart").append(`
-        			<tr>
-                        <input type='text' name='product_code[]' id='product_code' style='display:none' value='${value.kd_menu}'>
-                        <input type='text' name='qty[]' id='qty' style='display:none' value='${value.qty}'>
-        				<td>${value.product_name} + ${value.nama_saus}</td>
-        				<td>${value.qty}</td>
-                        <td>${value.harga}</td>
-                        <td><a href="#" class="btn btn-danger delete-item" data-id-cart="${value.id}">Hapus</a></td>
-        			</tr>`);
-                })
+            success: function (data) {
+                $(".show-cart").html(data);
             }
         });
     }
@@ -43,9 +32,6 @@ $(document).ready(function () {
             }
         })
     }
-    // $(function () {
-
-    // });
 
     // fungsi untuk tombol tambah dan kurang
     $('.btn-number').click(function (e) {
@@ -81,46 +67,6 @@ $(document).ready(function () {
             input.val(0);
         }
     });
-    // $('.input-number').focusin(function () {
-    //     $(this).data('oldValue', $(this).val());
-    // });
-    // $('.input-number').change(function () {
-
-    //     minValue = parseInt($(this).attr('min'));
-    //     maxValue = parseInt($(this).attr('max'));
-    //     valueCurrent = parseInt($(this).val());
-
-    //     name = $(this).attr('name');
-    //     if (valueCurrent >= minValue) {
-    //         $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
-    //     } else {
-    //         alert('Sorry, the minimum value was reached');
-    //         $(this).val($(this).data('oldValue'));
-    //     }
-    //     if (valueCurrent <= maxValue) {
-    //         $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
-    //     } else {
-    //         alert('Sorry, the maximum value was reached');
-    //         $(this).val($(this).data('oldValue'));
-    //     }
-
-
-    // });
-    // $(".input-number").keydown(function (e) {
-    //     // Allow: backspace, delete, tab, escape, enter and .
-    //     if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-    //         // Allow: Ctrl+A
-    //         (e.keyCode == 65 && e.ctrlKey === true) ||
-    //         // Allow: home, end, left, right
-    //         (e.keyCode >= 35 && e.keyCode <= 39)) {
-    //         // let it happen, don't do anything
-    //         return;
-    //     }
-    //     // Ensure that it is a number and stop the keypress
-    //     if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-    //         e.preventDefault();
-    //     }
-    // });
 
     $('.nice-select').on('change', function () {
         const priceSaus = $(this).find(':selected').data('prices');
@@ -156,19 +102,13 @@ $(document).ready(function () {
             url: "controller/keranjang_controller.php",
             success: function (data) {
                 alert("Ditambahkan ke pesanan");
-                window.location.reload();
-                // console.log("Berhasil")
-                // $("#modalMenu" + kodeMenu).modal('hide');
-                // loadData();
-                // loadJumlah();
+                $("#modalMenu" + kodeMenu).modal('hide');
+                loadData();
+                loadJumlah();
             },
             error: function (data, error) {
                 window.location.reload();
                 alert("gagal Menambahkan ke pesanan");
-                // $("#modalMenu" + kodeMenu).modal('hide');
-                // loadData();
-                // loadJumlah();
-                // console.log("Gagal");
             },
         });
     });
@@ -178,8 +118,6 @@ $(document).ready(function () {
         e.preventDefault();
         let id = $(this).data('id-cart');
         let fungsi = "Delete";
-        // console.log(kdMenu);
-        // console.log(kdSaus);
 
         $.ajax({
             data: {
@@ -189,23 +127,41 @@ $(document).ready(function () {
             type: "POST",
             url: "controller/keranjang_controller.php",
             success: function (data) {
-                // window.location.reload();                
+                // window.location.reload();
                 alert("Menu Dihapus");
                 loadData();
                 loadJumlah();
-                // window.location = "controller/keranjang_controller.php";
-                // console.log("Berhasil")
-                // $("#modalMenu" + kodeMenu).modal('hide');
-                // loadData();
-                // loadJumlah()
+                $("#modalMenu" + kodeMenu).modal('hide');
             },
             error: function (data, error) {
                 // window.location.reload();
                 alert("gagal Menambahkan ke pesanan");
-                // $("#modalMenu" + kodeMenu).modal('hide');
-                // loadData();
-                // loadJumlah()
-                // console.log("Gagal");
+            },
+        });
+    })
+
+    $('.clear-cart').on("click", function (e) {
+        e.preventDefault();
+        let jenis_cart = $(this).data('jenis');
+        let fungsi = "DeleteAll";
+
+        $.ajax({
+            data: {
+                fungsi: fungsi,
+                jenis_cart: jenis_cart,
+            },
+            type: "POST",
+            url: "controller/keranjang_controller.php",
+            success: function (data) {
+                // window.location.reload();
+                alert("Keranjang pesanan dikosongkan");
+                loadData();
+                loadJumlah();
+                $("#cartMenu" + kodeMenu).modal('hide');
+            },
+            error: function (data, error) {
+                // window.location.reload();
+                alert("gagal Menambahkan ke pesanan");
             },
         });
     })

@@ -185,12 +185,13 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="clear-cart btn btn-danger">Kosongkan keranjang</button>
                         <button type="submit" id="next_reservasi" name="next_reservasi"
                             class="btn btn-primary">Lanjutkan
-                            Pesanan</button>
+                            Pesanan
+                        </button>
                     </div>
                 </form>
+                <button class="clear-cart btn btn-danger" data-jenis="<?= $page ?>">Kosongkan keranjang</button>
             </div>
         </div>
     </div>
