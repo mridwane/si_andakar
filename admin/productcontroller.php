@@ -58,6 +58,7 @@
 		$product = $_POST['product'];
 		$category = $_POST['category'];
 		$type = $_POST['type'];
+		$status = $_POST['status'];
 		$price = $_POST['price']; 
 		$id = $_POST['id'];
 
@@ -71,7 +72,7 @@
 			elseif ($price == "") {
 				header("Location: productupdate.php?required=price&id=".$id."");  
 			}else{
-            	$query = 'UPDATE tblproducts set product_name ="'.$product.'", price ="'.$price.'", `category_id`="'.$category.'",`type`="'.$type.'" WHERE product_id ="'.$id.'"';
+            	$query = 'UPDATE tblproducts set product_name ="'.$product.'", price ="'.$price.'", `category_id`="'.$category.'",`type`="'.$type.'" ,`status`="'.$status.'" WHERE product_id ="'.$id.'"';
 				mysqli_query($db, $query) or die(mysqli_error($db));
 				
 					?>

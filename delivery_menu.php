@@ -175,17 +175,22 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <table class="show-cart table">
+                <form action="controller/delivery_controller.php?action=save" method="POST">
+                    <div class="modal-body">
+                        <table class="show-cart table">
 
-                    </table>
-                    <div>Total price: Rp.<span class="total-cart"></span></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button class="clear-cart btn btn-danger">Hapus List Menu</button>
-                    <a href="delivery_menu_sidedish.php" type="button" class="btn btn-primary">Pilih Menu Pendamping</a>
-                </div>
+                        </table>
+                        <div>Total price: Rp. <span class="total-cart" id="total_cart"> </span></div>
+                        <!-- <input type="text" class="jml_total" name="jml_total" id="jml_total" hidden> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button class="clear-cart btn btn-danger">Kosongkan keranjang</button>
+                        <button type="submit" id="next_reservasi" name="next_reservasi"
+                            class="btn btn-primary">Lanjutkan
+                            Pesanan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

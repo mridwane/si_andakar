@@ -44,21 +44,23 @@ include 'theme/sidebar.php';
                             echo '<td>'. $row['name'].'</td>';
                             echo '<td>'. $row['price'].'</td>';
                             if($row['status'] == "Tersedia") {
-                                echo '<td><a title="Update Product" type="button" class="btn btn-success"
-                                        href="productupdate.php?action=view & id='.$row['product_id'] . '">
-                                        '. $row['status'].'
-                                    </a></td>';
+                                echo '<td><button class="btn btn-success">'. $row['status'].'</button></td>';
                             }else {
-                                echo '<td><a title="Update Product" type="button" class="btn btn-danger"
-                                        href="productupdate.php?action=view & id='.$row['product_id'] . '">
-                                        '. $row['status'].'
-                                    </a></td>';
+                                echo '<td><button class="btn btn-danger">'. $row['status'].'</button></td>';
                             }                            
-                            echo '<td><a title="Update Product" type="button" class="btn-detail" href="productupdate.php?action=view & id='.$row['product_id'] . '">
+                            echo '<td>
+                                    <a title="Update Product" type="button" class="btn btn-warning" href="productupdate.php?action=view & id='.$row['product_id'] . '">
                                     <span class="material-icons">
                                        edit
                                     </span>                              
-                                    </a></td>';
+                                    </a>
+                                    <a title="Update Product" type="button" class="btn btn-danger"
+                                        href="productdelete.php?id='.$row['product_id'] . '">
+                                        <span class="material-icons">
+                                            delete
+                                        </span>
+                                    </a>
+                                    </td>';
                             echo '</tr> ';
                 }
             ?>

@@ -15,6 +15,7 @@ $query = 'SELECT *,category FROM `tblproducts`a inner join `tblcategory` b on a.
                $name = $row['product_name'];
                $price = $row['price'];
                $type = $row['type'];
+               $status = $row['status'];
                $category = $row['category'];
                $c_id = $row['category_id'];
               }              
@@ -67,6 +68,14 @@ $result1 = mysqli_query($db,$query1);
             <option selected hidden value="<?php echo $type; ?>"><?php echo $type; ?></option>
             <option value="Minuman">Minuman</option>
             <option value="Makanan">Makanan</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <span>Status</span>
+          <select class="form-control" name="status">
+            <option selected hidden value="<?php echo $status; ?>"><?php echo $status; ?></option>
+            <option value="Tersedia">Tersedia</option>
+            <option value="Habis">Habis</option>
           </select>
         </div>
         <div class="form-group">

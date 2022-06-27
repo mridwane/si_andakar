@@ -20,12 +20,12 @@
                     <li class="nav-item <?php if ($page == "Delivery") {
                                             echo "active";
                                         } ?>">
-                        <a class="nav-link" href="delivery_menu_utama.php">Delivery</a>
+                        <a class="nav-link" href="delivery_menu.php">Delivery</a>
                     </li>
                     <li class="nav-item <?php if ($page == "Reservasi") {
                                             echo "active";
                                         } ?>">
-                        <a class="nav-link" href="reservasi_menu_utama.php">Reservasi</a>
+                        <a class="nav-link" href="reservasi_menu.php">Reservasi</a>
                     </li>
                     <li class="nav-item <?php if ($page == "Kemitraan") {
                                             echo "active";
