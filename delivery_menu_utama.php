@@ -27,24 +27,29 @@
                     Menu Steak
                 </h2>
             </div>
-            <ul class="filters_menu">
-                <li class="active" data-filter="*">All</li>
-                <li data-filter=".Steak">Steak</li>
-                <li data-filter=".Ribs">Ribs</li>
-                <li data-filter=".pasta">Pasta</li>
-                <li data-filter=".fries">Fries</li>
-                <li data-filter=".Saus">Saus</li>
-            </ul>
+            <div class="filters">
+                <ul class="filters_menu" data-filter-group="menu">
+                    <li class="button active" data-filter="">All</li>
+                    <li class="button" data-filter=".Makanan-Utama">Makanan Utama</li>
+                    <li class="button" data-filter=".Side-Dish">Side Dish</li>
+                    <li class="button" data-filter=".Minuman">Minuman</li>
+                </ul>
+                <ul class="filters_menu" data-filter-group="sub_menu">
+                    <li class="button active" data-filter="">All</li>
+                    <li class="button" data-filter=".Seafood">Seafood</li>
+                    <li class="button" data-filter=".Ribs">Ribs</li>
+                </ul>
+            </div>
 
             <div class="filters-content">
-                <div class="row allMenu">
+                <div class="row allMenu grid">
                     <?php 
-                        $query = "SELECT * FROM tblproducts a Join tblcategory b WHERE a.category_id = b.category_id AND type = 'Makanan Utama'";
+                        $query = "SELECT * FROM tblproducts a Join tblcategory b WHERE a.category_id = b.category_id";
                         $result = mysqli_query($db, $query) or die (mysqli_error($db));                        
                         $no = 1;
                         while ($row = mysqli_fetch_assoc($result)) {
                     ?>
-                    <div class="col-sm-6 col-lg-4 all <?= $row['category'] ?>">
+                    <div class="col-sm-6 col-lg-4 all <?= $row['category'] ?> <?= $row['type'] ?>">
                         <div class="box">
                             <div>
                                 <div class="img-box">
