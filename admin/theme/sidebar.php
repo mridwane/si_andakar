@@ -24,38 +24,37 @@
           <i class="fas fa-fw fa-shopping-cart"></i>
           <span>Menu</span></a>
       </li>
-      <!-- <li class="nav-item">
-        <a title="Products" class="nav-link" href="permintaan_barang.php">
-          <i class="fas fa-fw fa-shopping-cart"></i>
-          <span>Buat Permintaan Barang</span></a>
-      </li> -->
-      <!-- <li class="nav-item">
-        <a title="Products" class="nav-link" href="list_permintaan_barang.php">
-          <i class="fas fa-fw fa-shopping-cart"></i>
-          <span>List Permintaan Barang</span>
-        </a>
-      </li> -->
       <li class="nav-item">
         <a title="Kemitraan" class="nav-link" href="list_kemitraan_admin.php">
           <i class="fas fa-fw fa-shopping-cart"></i>
           <span>Kemitraan</span></a>
       </li>
-      <li class="nav-item">
-        <a title="Transaction" class="nav-link" href="detail.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Transaksi</span></a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Transaksi</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          <!-- <h6 class="dropdown-header">Login Screens:</h6> -->
+          <a class="dropdown-item" href="transaksi_semua.php">Semua</a>
+          <a class="dropdown-item" href="transaksi_belum_diproses.php">Belum diproses</a>
+          <a class="dropdown-item" href="transaksi_diproses.php">Diproses</a>
+          <a class="dropdown-item" href="transaksi_selesai.php">Selesai</a>
+        </div>
       </li>
+
       <!-- <li class="nav-item">
         <a title="Reports" class="nav-link" href="reportpage.php">
           <i class="fas fa-fw fa-user-tie"></i>
           <span>Laporan Penjualan</span></a>
-      </li> -->
-      <!-- <li class="nav-item">
+      </li>
+      <li class="nav-item">
         <a title="Reports" class="nav-link" href="reportstock.php">
           <i class="fas fa-fw fa-user-tie"></i>
           <span>Laporan Penyetokan</span></a>
-      </li> -->
-      <!-- <li class="nav-item">
+      </li>
+      <li class="nav-item">
         <a title="Reports" class="nav-link" href="reportdelivery.php">
           <i class="fas fa-fw fa-user-tie"></i>
           <span>Laporan Pengiriman</span></a>

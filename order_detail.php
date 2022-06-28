@@ -24,6 +24,8 @@ while ($row = mysqli_fetch_assoc($result)) {
         $status = "Disetujui";
     } elseif ($row['status'] == "sending") {
         $status = "Dikirim";
+    } elseif ($row['status'] == "done") {
+        $status = "Selesai";
     }else {
         $status = "Dibatalkan";
     }
@@ -51,7 +53,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class="row">
                 <div class="col-md-6">
                     <div class="form_container">
-                        <form action="controller/reservasi_controller.php?action=batal" method="POST">
+                        <form action="controller/delivery_controller.php?action=selesai" method="POST">
                             <div>
                                 <label for="">No Transaksi</label>
                                 <input type="text" class="form-control" name="transac_code"
@@ -78,6 +80,12 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <h4>Pesanan anda sedang kami buat, mohon untuk menunggu.</h4>
                             <?php } elseif ($status == "Dikirim") { ?>
                             <h4>Pesanan anda telah kami kirim ke alamat anda.</h4>
+                            <span>*Jika pesanan anda telah selesai, silahkan klik tombol selesai.</span>
+                            <div class="btn-box">
+                                <button type="submit">Pesanan Selesai</button>
+                            </div>
+                            <?php } elseif ($status == "Selesai") { ?>
+                            <h4>Pesanan anda telah selesai.</h4>
                             <?php } ?>
                         </form>
                         <div class="btn-black">
