@@ -36,7 +36,7 @@ if (!isset($_SESSION["userid"])) {
         <h5>Jenis Pesanan : <?php echo $order_type; ?></h5>
         <h5>Status Pesanan : <?php echo $stats; ?></h5>
         <h5>Tanggal & Waktu : <?php echo $tgl_reservasi; ?></h5>
-        <?php if ($order_type == strtoupper("delivery")) { ?>
+        <?php if (strtoupper($order_type) == strtoupper("delivery")) { ?>
           <h5>Bukti Transfer : <?php echo '<a href="controller/download_file_transaksi.php?file_name=' . $row2['file_name'] . '&no_transac=' . $cd . '">Download Bukti Transfer</a>'; ?></h5>
         <?php }  ?>
       </div>
