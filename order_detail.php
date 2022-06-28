@@ -16,13 +16,15 @@ $no = 1;
 while ($row = mysqli_fetch_assoc($result)) {
     $jenis = $row['transac_type'];
     // cek Status Pending atau disetujui atau batal
-    if ($row['status'] == "0") {
+    if ($row['status'] == "pending") {
         $status = "Pending";
     } elseif ($row['status'] == "paid") {
         $status = "Sudah Bayar";
-    } elseif ($row['status'] == "1") {
+    } elseif ($row['status'] == "confirmed") {
         $status = "Disetujui";
-    } else {
+    } elseif ($row['status'] == "sending") {
+        $status = "Dikirim";
+    }else {
         $status = "Dibatalkan";
     }
     $total = $row['total_price'];
@@ -52,7 +54,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <form action="controller/reservasi_controller.php?action=batal" method="POST">
                             <div>
                                 <label for="">No Transaksi</label>
-                                <input type="text" class="form-control" name="transac_code" value="<?= $_GET['no_transaksi'] ?>" readonly />
+                                <input type="text" class="form-control" name="transac_code"
+                                    value="<?= $_GET['no_transaksi'] ?>" readonly />
                             </div>
                             <div>
                                 <label for="">Jenis Pesanan</label>
@@ -64,19 +67,17 @@ while ($row = mysqli_fetch_assoc($result)) {
                             </div>
                             <div>
                                 <label for="">Total Pesanan</label>
-                                <input type="text" class="form-control" value="Rp. <?= number_format($total, 0, ',', '.'); ?>" readonly />
+                                <input type="text" class="form-control"
+                                    value="Rp. <?= number_format($total, 0, ',', '.'); ?>" readonly />
                             </div>
-                            <?php if ($status == "Dibatalkan") { ?>
-                                <span>*Pesanan Anda Telah Dibatalkan</span>
-                            <?php } elseif ($status == "Pending") { ?>
-                                <div class="btn-red">
-                                    <button type="submit">
-                                        Batalkan Pesanan
-                                    </button>
-                                </div>
+                            <?php if ($status == "Pending") { ?>
+                            <span>*Pesanan Anda Belum Selesai</span>
+                            <?php } elseif ($status == "Sudah Bayar") { ?>
+                            <h4>Pesanan kamu sedang kami proses, mohon untuk menunggu.</h4>
                             <?php } elseif ($status == "Disetujui") { ?>
-                                <h4>Terimakasih sudah melakukan reservasi</h4>
-                                <p>*Kami tunggu kedatangan anda.</p>
+                            <h4>Pesanan anda sedang kami buat, mohon untuk menunggu.</h4>
+                            <?php } elseif ($status == "Dikirim") { ?>
+                            <h4>Pesanan anda telah kami kirim ke alamat anda.</h4>
                             <?php } ?>
                         </form>
                         <div class="btn-black">

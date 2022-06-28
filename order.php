@@ -29,7 +29,8 @@ if (!isset($_SESSION["cid"])) {
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%"
+                        cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -48,12 +49,14 @@ if (!isset($_SESSION["cid"])) {
                             $no = 1;
                             while ($row = mysqli_fetch_assoc($result)) {
                                 // cek Status Pending atau disetujui
-                                if ($row['status'] == "0") {
+                                if ($row['status'] == "pending") {
                                     $status = "Pending";
                                 } elseif ($row['status'] == "paid") {
                                     $status = "Sudah Bayar";
-                                } elseif ($row['status'] == "1") {
+                                } elseif ($row['status'] == "confirmed") {
                                     $status = "Disetujui";
+                                } elseif ($row['status'] == "sending") {
+                                    $status = "Dikirim";
                                 } else {
                                     $status = "Dibatalkan";
                                 }
