@@ -11,7 +11,7 @@ if (!isset($_SESSION["userid"])) {
 
 <div class="card mb-3">
   <div class="card-header">
-    <h2>Transaksi yang belum di proses</h2>
+    <h2>Transaksi Selesai</h2>
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">

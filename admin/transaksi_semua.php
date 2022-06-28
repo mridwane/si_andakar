@@ -11,7 +11,7 @@ if (!isset($_SESSION["userid"])) {
 
 <div class="card mb-3">
   <div class="card-header">
-    <h2>Transaksi diproses</h2>
+    <h2>Semua Transaksi</h2>
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
@@ -27,7 +27,7 @@ if (!isset($_SESSION["userid"])) {
           </thead>
           <tbody>
             <?php
-              $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name FROM tbltransac a, tblcustomer b WHERE a.`customer_id`=b.`C_ID` AND a.`status`="confirmed" OR a.`status`="sending"';
+              $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name FROM tbltransac a, tblcustomer b WHERE a.`customer_id`=b.`C_ID`';
               $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
               while ($row = mysqli_fetch_assoc($result)) {
@@ -55,13 +55,9 @@ if (!isset($_SESSION["userid"])) {
                             visibility
                           </span>
                         </a></td>';
-
-
-
                 echo '</tr> ';
               }
               ?>
-
           </tbody>
         </table>
       </div>
