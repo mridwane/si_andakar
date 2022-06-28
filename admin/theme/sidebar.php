@@ -24,27 +24,29 @@
           <i class="fas fa-fw fa-shopping-cart"></i>
           <span>Menu</span></a>
       </li>
-      <!-- <li class="nav-item">
-        <a title="Products" class="nav-link" href="permintaan_barang.php">
-          <i class="fas fa-fw fa-shopping-cart"></i>
-          <span>Buat Permintaan Barang</span></a>
-      </li> -->
-      <!-- <li class="nav-item">
-        <a title="Products" class="nav-link" href="list_permintaan_barang.php">
-          <i class="fas fa-fw fa-shopping-cart"></i>
-          <span>List Permintaan Barang</span>
-        </a>
-      </li> -->
       <li class="nav-item">
         <a title="Kemitraan" class="nav-link" href="list_kemitraan_admin.php">
           <i class="fas fa-fw fa-shopping-cart"></i>
           <span>Kemitraan</span></a>
       </li>
       <li class="nav-item">
-        <a title="Transaction" class="nav-link" href="detail.php">
+        <a title="Transaction" class="nav-link" href="transaksi_belum_diproses.php">
           <i class="fas fa-fw fa-table"></i>
-          <span>Transaksi</span></a>
+          <span>Transaksi Belum Diproses</span></a>
       </li>
+      <li class="nav-item">
+        <a title="Transaction" class="nav-link" href="transaksi_diproses.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Transaksi Diproses</span></a>
+      </li>
+      <li class="nav-item">
+        <a title="Transaction" class="nav-link" href="transaksi_selesai.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Transaksi Selesai</span></a>
+      </li>
+
+
+
       <!-- <li class="nav-item">
         <a title="Reports" class="nav-link" href="reportpage.php">
           <i class="fas fa-fw fa-user-tie"></i>

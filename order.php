@@ -57,6 +57,8 @@ if (!isset($_SESSION["cid"])) {
                                     $status = "Disetujui";
                                 } elseif ($row['status'] == "sending") {
                                     $status = "Dikirim";
+                                } elseif ($row['status'] == "done") {
+                                    $status = "Selesai";
                                 } else {
                                     $status = "Dibatalkan";
                                 }

@@ -118,6 +118,19 @@ if ($_GET['action'] == 'savetrf') {
   }
 }
 
+elseif ($_GET['action'] == 'selesai') {
+  $transac_code = $_POST['transac_code'];
+  // var_dump($transac_code);
+
+  //Update table transac
+  $query2 = "UPDATE tbltransac SET status = 'done' WHERE transac_code='" . $transac_code . "'";
+  mysqli_query($db, $query2) or die(mysqli_error($db));
+  echo ("<script language='JavaScript'>
+    window.location.href = '../index.php';
+    window.alert('Terimakasih sudah memesan.')
+  </script>");
+}
+
 // elseif ($_GET['action'] == 'update') {
 //   $transac_code = $_POST['transac_code'];
 //   $person_count = $_POST['person_count'];
