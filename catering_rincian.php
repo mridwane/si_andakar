@@ -5,7 +5,7 @@ if (!isset($_SESSION["cid"])) {
 } else {
     include('includes/connection.php');
     // if (isset($_SESSION['C_ID']))
-    $page = "Delivery";
+    $page = "Rincian Catering";
     include 'includes/header.php';
 }
 
@@ -52,7 +52,7 @@ $dp = $totalkeseluruhan * 0.5;
                                 <input type="text" class="form-control" value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" readonly />
                             </div>
                             <div>
-                                <label for="">Jumlah Pesanan</label>
+                                <label for="">Jumlah Item</label>
                                 <input type="text" class="form-control" value="<?= $jumlah ?>" readonly />
                             </div>
                             <div>
@@ -90,6 +90,10 @@ $dp = $totalkeseluruhan * 0.5;
                                 <button type="submit" class="btn-konfirmasi-pembayaran" name="confirm">
                                     Konfirmasi Pembayaran
                                 </button>
+                            </div>
+                            <br>
+                            <div class="btn-box">
+                                <a href="controller/catering_controller.php?action=cancel&no_pemesanan=<?php echo $_GET['no_transaksi'] ?>" class="batal btn btn-danger" type="button" data-status="2">Batalkan Pesanan</a>
                             </div>
                         </form>
                         <div class="btn-black">

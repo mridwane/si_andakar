@@ -62,10 +62,24 @@ if (isset($_POST['pesan_catering'])) {
     mysqli_query($db, $query2) or die(mysqli_error($db));
     echo ("<script language='JavaScript'>
            window.location.href='../catering_rincian.php?no_transaksi=$transac_code';
-           window.alert('Data Catering berhasil disimpan. Mohon Tunggu Konfirmasi dari kami yaa')
+           window.alert('Data Catering berhasil disimpan. Mohon Lakukan pembayaran Down Payment')
          </script>");
   }
 }
+
+
+if ($_GET['action'] == 'cancel') {
+  $transac_code = $_GET['no_pemesanan'];
+  $status = "cancel";
+  //Update table transac
+  $query2 = "UPDATE tbltransac SET status = '" . $status . "' WHERE transac_code='" . $transac_code . "'";
+  mysqli_query($db, $query2) or die(mysqli_error($db));
+  echo ("<script language='JavaScript'>
+           window.location.href='../index.php';
+           window.alert('Pemesanan berhasil dibatalkan')
+         </script>");
+}
+
 
 //code save bukti transfer
 
@@ -118,7 +132,7 @@ if ($_GET['action'] == 'savetrf') {
 
         // TODO: Gunakan sweet alert
         echo ("<script language='JavaScript'>
-        window.location.href='../index.php';
+        window.location.href='../order_detail_catering.php?&no_transaksi=$transac_code';
         window.alert('Terima kasih telah melakukan pemesanan! Pesanan anda akan kami proses dan dikirimkan mohon menunggu dan cek status pesanan di menu pesanan saya.')
         </script>");
       } else {
@@ -127,6 +141,72 @@ if ($_GET['action'] == 'savetrf') {
       }
     } else {
 ?>
+      <script type="text/javascript">
+        alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
+      </script>
+    <?php
+    }
+  }
+}
+
+if ($_GET['action'] == 'savetrflunas') {
+
+  if (isset($_POST['submit_pelunasan'])) {
+    if ($_FILES['upload_pelunasan']['name'] != "") {
+
+      $transac_code = $_POST['transac_code'];
+      $datetime = date('Y-m-d H:i:s');
+      // get file
+      $file = $_FILES['upload_pelunasan']['name'];
+      $tmp = $_FILES['upload_pelunasan']['tmp_name'];
+      $type = pathinfo($file, PATHINFO_EXTENSION);
+
+      $user_id = $_SESSION['cid'];
+
+
+      // Rename nama file
+      $filenew = "BTLNS" . $transac_code . "." . $type;
+      // Set path folder tempat menyimpan fotonya
+      $path = "../assets/bukti_transfer/" . $filenew;
+
+
+
+      // Cek apakah gambar berhasil diupload atau tidak
+      $status = false;
+      if (move_uploaded_file($tmp, $path)) {
+        copy($path, $path);
+      }
+      if ($status == false) {
+
+        // Proses simpan ke Database
+
+        $nama = "";
+
+        if ($type != "") {
+          $nama = $filenew;
+        }
+
+        $query = "INSERT INTO `tblbuktitransfer`(`date`, `file_name`, `no_transac`)
+            VALUES ('" . $datetime . "','" . $nama . "','" . $transac_code . "')";
+        mysqli_query($db, $query) or die(mysqli_error($db));
+
+        // update status
+        $dp = "lunas";
+        $query_update = "UPDATE tbltransac SET status = '" . $dp . "' WHERE
+        transac_code='" . $transac_code . "'";
+        mysqli_query($db, $query_update) or die(mysqli_error($db));
+
+        // TODO: Gunakan sweet alert
+        echo ("<script language='JavaScript'>
+        window.location.href='../order_detail_catering.php?&no_transaksi=$transac_code';
+        window.alert('Terima kasih telah melakukan pemesanan! Pesanan anda akan kami proses dan dikirimkan mohon menunggu dan cek status pesanan di menu pesanan saya.')
+        </script>");
+      } else {
+        // Jika gambar gagal diupload, Lakukan :
+        echo "Maaf, butkti transfer gagal untuk diupload.";
+      }
+    } else {
+    ?>
       <script type="text/javascript">
         alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
       </script>

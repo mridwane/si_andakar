@@ -29,8 +29,7 @@ if (!isset($_SESSION["cid"])) {
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%"
-                        cellspacing="0">
+                    <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -47,12 +46,15 @@ if (!isset($_SESSION["cid"])) {
                             $result = mysqli_query($db, $query) or die(mysqli_error($db));
                             // membuat nomer otomatis untuk di tabel
                             $no = 1;
+                            $link = "";
                             while ($row = mysqli_fetch_assoc($result)) {
                                 // cek Status Pending atau disetujui
                                 if ($row['status'] == "pending") {
                                     $status = "Pending";
                                 } elseif ($row['status'] == "paid") {
                                     $status = "Sudah Bayar";
+                                } elseif ($row['status'] == "dp") {
+                                    $status = "Sudah Bayar DP";
                                 } elseif ($row['status'] == "confirmed") {
                                     $status = "Disetujui";
                                 } elseif ($row['status'] == "sending") {
@@ -62,6 +64,13 @@ if (!isset($_SESSION["cid"])) {
                                 } else {
                                     $status = "Dibatalkan";
                                 }
+                                if (strtoupper($row['transac_type']) == strtoupper("delivery")) {
+                                    $link = "order_detail_delivery.php";
+                                } elseif (strtoupper($row['transac_type']) == strtoupper("catering")) {
+                                    $link = "order_detail_catering.php";
+                                } elseif (strtoupper($row['transac_type']) == strtoupper("reservasi")) {
+                                    $link = "order_detail_reservasi.php";
+                                }
                                 echo '<tr>';
                                 echo '<td>' . $no++ . '</td>';
                                 echo '<td>' . $row['transac_code'] . '</td>';
@@ -69,7 +78,7 @@ if (!isset($_SESSION["cid"])) {
                                 echo '<td>' . $status . '</td>';
                                 echo '<td>' . $row['reservation_date_time'] . '</td>';
                                 echo '<td><a type="button" class="btn-detail"
-                                        href="order_detail.php?&no_transaksi=' . $row['transac_code'] . '">
+                                        href="' . $link . '?&no_transaksi=' . $row['transac_code'] . '">
                                             <span class="material-icons">
                                                 Detail
                                             </span>
