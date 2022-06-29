@@ -24,20 +24,20 @@
         <div class="container">
             <div class="heading_container heading_center">
                 <h2>
-                    Menu Steak
+                    Daftar Menu Delivery
                 </h2>
             </div>
             <div class="filters">
                 <ul class="filters_menu" data-filter-group="menu">
-                    <li class="button active" data-filter="">All</li>
-                    <li class="button" data-filter=".Makanan-Utama">Makanan Utama</li>
-                    <li class="button" data-filter=".Side-Dish">Side Dish</li>
-                    <li class="button" data-filter=".Minuman">Minuman</li>
+                    <li class="button active" data-filter="" data-menus="">All</li>
+                    <li class="button" data-filter=".Starter" data-menus="Starter">Starter</li>
+                    <li class="button" data-filter=".Makanan-Utama" data-menus="Makanan-Utama">Makanan Utama</li>
+                    <li class="button" data-filter=".Makanan-Pendamping" data-menus="Makanan-Pendamping">Makanan
+                        Pendamping</li>
+                    <li class="button" data-filter=".Makanan-Penutup" data-menus="Makanan-Penutup">Makanan Penutup</li>
+                    <li class="button" data-filter=".Minuman" data-menus="Minuman">Minuman</li>
                 </ul>
-                <ul class="filters_menu" data-filter-group="sub_menu">
-                    <li class="button active" data-filter="">All</li>
-                    <li class="button" data-filter=".Seafood">Seafood</li>
-                    <li class="button" data-filter=".Ribs">Ribs</li>
+                <ul class="filters_menu SubMenu" data-filter-group="sub_menu">
                 </ul>
             </div>
 
@@ -58,9 +58,11 @@
                                 <div class="detail-box">
                                     <input type="text" id="prod_name" value="<?= $row['product_name'] ?> " hidden>
                                     <h5> <?= $row['product_name'] ?> </h5>
-                                    <p> <?= $row['detail_product'] ?> </p>
                                     <div class="options">
                                         <h3> <b> Rp. <?=  number_format($row['price'],0,',','.'); ?> </b> </h3>
+                                        <button class="btn btn-success" data-toggle="modal"
+                                            data-target="#modalDetail<?= $row['product_id'] ?>">Detail</button>
+
                                         <?php if($row['status'] == "Tersedia") { ?>
                                         <a href="#" data-toggle="modal"
                                             data-target="#modalMenu<?= $row['product_id'] ?>" class="btn btn-warning">
@@ -74,6 +76,36 @@
                                         <button class="btn btn-danger"><?= $row['status'] ?></button>
                                         <?php } ?>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- modal detail -->
+                    <div class="modal fade" id="modalDetail<?= $row['product_id'] ?>" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle"><?= $row['product_name'] ?></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="box">
+                                        <div class="img-box">
+                                            <img src="admin/images/<?= $row['image'] ?>" alt="">
+                                        </div>
+                                        <div class="detail-box">
+                                            <h5><b><?= $row['product_name'] ?></b></h5>
+                                            <p> <?= $row['detail_product'] ?> </p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
@@ -122,10 +154,9 @@
                                             <select class="form-control nice-select wide">
                                                 <option value="" selected disabled>Pilih Saus</option>
                                                 <?php 
-                                                    $query2 = "SELECT * FROM tblsaus";
+                                                    $query2 = "SELECT * FROM tblsaus WHERE NOT id_saus = 'S100'";
                                                     $result2 = mysqli_query($db, $query2) or die (mysqli_error($db));   
-                                                    while ($item = mysqli_fetch_assoc($result2)) {
-                                                    
+                                                    while ($item = mysqli_fetch_assoc($result2)) {                                                    
                                                 ?>
                                                 <option data-prices="<?= $item['harga_saus'] ?>"
                                                     data-id="<?= $item['id_saus'] ?>"
@@ -139,7 +170,7 @@
                                         <div class="col-12">
                                             <br>
                                             <div class="float-right">
-                                                <p>Harga Saus: <span id="hargaSaus">0</span></p>
+                                                <p>Harga Saus: <span id="hargaSaus" class="hargaSaus">0</span></p>
                                                 <!-- <input type="text" id="hargaMenu" value="<?= $row['price'] ?>"> -->
                                             </div>
                                         </div>

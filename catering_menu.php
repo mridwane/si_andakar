@@ -24,7 +24,7 @@
         <div class="container">
             <div class="heading_container heading_center">
                 <h2>
-                    Daftar Menu
+                    Daftar Menu Catering
                 </h2>
             </div>
             <div class="filters">
@@ -122,6 +122,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
+                                <?php if($row['type'] == "Makanan-Utama"){ ?>
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col-8">
@@ -183,6 +184,40 @@
                                         data-price="<?= $row['price']; ?>" data-jenis="<?= $page ?>"
                                         data-fungsi="addMenu" data-qty="1" disabled>Masukan keranjang</button>
                                 </div>
+                                <?php }else {?>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <span>
+                                                <?= $row['product_name'] ?>
+                                            </span>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-danger btn-number"
+                                                        data-type="minus" data-field="quant[2]">-
+                                                    </button>
+                                                </span>
+                                                <input type="text" name="quant[2]" class="form-control input-number qty"
+                                                    value="1" min="1" max="1000" disabled>
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-success btn-number"
+                                                        data-type="plus" data-field="quant[2]">+
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary tanpa-saus addCart"
+                                        data-kd-menu="<?= $row['product_id']; ?>" data-kd-saus="S100"
+                                        data-price="<?= $row['price']; ?>" data-jenis="<?= $page ?>"
+                                        data-fungsi="addMenu" data-qty="1">Masukan keranjang</button>
+                                </div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
