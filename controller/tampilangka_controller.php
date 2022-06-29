@@ -31,6 +31,14 @@ elseif($jenis == "Catering"){
     echo json_encode($jumlah);
     // var_dump($jumlah);
 }
+elseif($jenis == "Reservasi"){
+    // $data = [];
+    $query = mysqli_query($db, 'SELECT * FROM tblcartdetail a INNER JOIN tblcart b ON a.kd_cart = b.kd_cart WHERE b.c_id =
+    "'.$cid.'" AND a.kd_cart = "'.$kd_cart.'"');
+    $jumlah = mysqli_num_rows($query);
+    echo json_encode($jumlah);
+    // var_dump($jumlah);
+}
 
 
 
