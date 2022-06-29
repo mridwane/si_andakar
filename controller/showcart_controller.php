@@ -10,14 +10,14 @@ include('../includes/connection.php');
 // var_dump($kd_menu);
 $cid = $_SESSION['cid'];
 $jenis = $_POST['jenis'];
-// $jenis = "Delivery";
+$kd_cart = $jenis.$cid;
 
 
-if($jenis == "Delivery"){
+// if($jenis == "Delivery"){
     // $data = [];
     $query = mysqli_query($db, 'SELECT * FROM tblcartdetail a JOIN tblcart b ON a.kd_cart = b.kd_cart JOIN tblproducts c ON
     a.kd_menu = c.product_id JOIN tblsaus d ON
-    a.kd_saus = d.id_saus WHERE b.c_id = "'.$cid.'"');
+    a.kd_saus = d.id_saus WHERE a.kd_cart = "'.$kd_cart.'"');
     while($row = mysqli_fetch_array($query)){
     // $data[] = $row;
     echo '<tr>
@@ -30,7 +30,7 @@ if($jenis == "Delivery"){
         </tr>';
     }
     // echo json_encode($data);  
-}
+// }
 
 
 

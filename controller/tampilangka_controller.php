@@ -13,12 +13,20 @@ include('../includes/connection.php');
 // var_dump($kd_menu);
 $cid = $_SESSION['cid'];
 $jenis = $_POST['jenis'];
+$kd_cart = $jenis.$cid;
 // $jenis = "Delivery";
 
 
 if($jenis == "Delivery"){
     // $data = [];
-    $query = mysqli_query($db, 'SELECT * FROM tblcartdetail a INNER JOIN tblcart b ON a.kd_cart = b.kd_cart WHERE b.c_id = "'.$cid.'"');
+    $query = mysqli_query($db, 'SELECT * FROM tblcartdetail a INNER JOIN tblcart b ON a.kd_cart = b.kd_cart WHERE b.c_id = "'.$cid.'" AND a.kd_cart = "'.$kd_cart.'"');
+    $jumlah = mysqli_num_rows($query);
+    echo json_encode($jumlah);
+    // var_dump($jumlah);
+}
+elseif($jenis == "Catering"){
+    // $data = [];
+    $query = mysqli_query($db, 'SELECT * FROM tblcartdetail a INNER JOIN tblcart b ON a.kd_cart = b.kd_cart WHERE b.c_id = "'.$cid.'" AND a.kd_cart = "'.$kd_cart.'"');
     $jumlah = mysqli_num_rows($query);
     echo json_encode($jumlah);
     // var_dump($jumlah);
