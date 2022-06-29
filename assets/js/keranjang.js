@@ -36,6 +36,7 @@ $(document).ready(function () {
         })
     }
 
+
     // fungsi untuk tombol tambah dan kurang
     $('.btn-number').click(function (e) {
         e.preventDefault();

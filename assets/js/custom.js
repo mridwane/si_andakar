@@ -32,10 +32,33 @@ $('.filters').on('click', '.button', function (event) {
     });
 });
 
+$('.filters').on('click', '.button-sub', function (event) {
+    var $button = $(event.currentTarget);
+    // get group key
+    var $buttonGroup = $button.parents('.filters_menu');
+    var filterGroup = $buttonGroup.attr('data-filter-group');
+    // set filter for group
+    filters[filterGroup] = $button.attr('data-filter');
+    // combine filters
+    var filterValue = concatValues(filters);
+    // set filter for Isotope
+    $grid.isotope({
+        filter: filterValue
+    });
+});
+
 // change is-checked class on buttons
 $('.filters_menu').each(function (i, filters_menu) {
     var $filters_menu = $(filters_menu);
     $filters_menu.on('click', '.button', function (event) {
+        $filters_menu.find('.active').removeClass('active');
+        var $button = $(event.currentTarget);
+        $button.addClass('active');
+    });
+});
+$('.filters_menu').each(function (i, filters_menu) {
+    var $filters_menu = $(filters_menu);
+    $filters_menu.on('click', '.button-sub', function (event) {
         $filters_menu.find('.active').removeClass('active');
         var $button = $(event.currentTarget);
         $button.addClass('active');
@@ -51,6 +74,25 @@ function concatValues(obj) {
     return value;
 }
 // end isotopjs
+// load filter sub menu
+$('.button').on('click', function (event) {
+    $(event.currentTarget);
+    let type = $(this).attr('data-menus');
+    console.log(type);
+    $.ajax({
+        url: 'controller/filter_controller.php',
+        method: 'POST',
+        data: {
+            type: type,
+        },
+        success: function (data) {
+            $(".SubMenu").html(data);
+            console.log(data);
+        }
+    })
+});
+// end
+
 
 // $(window).on('load', function () {
 //     $('.filters_menu li').click(function () {
