@@ -21,26 +21,16 @@ $kd_cart = $jenis_cart.$cid;
 // $kd_cart = "Delivery4";
 
 if ($fungsi == 'Delete'){
-     $query = 'DELETE From tblcartdetail WHERE id = "'.$id.'"';
-     $result = mysqli_query($db, $query) or die(mysqli_error($db));
+    $query = 'DELETE From tblcartdetail WHERE id = "'.$id.'"';
+    $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
-    //  if($result > 1) {
-    //     echo 'Gagal dihapus';
-    //  }
-    //  else {
-    //     echo 'Berhasild dihapus';
 } elseif ($fungsi == 'DeleteAll'){
-$query = 'DELETE From tblcartdetail WHERE kd_cart = "'.$kd_cart.'"';
-$result = mysqli_query($db, $query) or die(mysqli_error($db));
+    $query = 'DELETE From tblcartdetail WHERE kd_cart = "'.$kd_cart.'"';
+    $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
-// if($result > 1) {
-// echo 'Gagal dihapus';
-// }
-// else {
-// echo 'Berhasild dihapus';
-} else {
+} elseif($fungsi == 'addMenu') {
     // echo $kd_saus.$qty;
-    $query1 = 'SELECT * From tblcart WHERE c_id = "'.$cid.'"';
+    $query1 = 'SELECT * From tblcart WHERE kd_cart = "'.$kd_cart.'"';
     $result1 = mysqli_query($db, $query1) or die(mysqli_error($db));
     $row = mysqli_fetch_assoc($result1);
     if(!$row) {
@@ -50,56 +40,13 @@ $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
         $query2 = "INSERT INTO tblcartdetail (kd_cart, kd_menu, kd_saus, qty, harga) VALUES ('".$kd_cart."', '".$kd_menu."',
         '".$kd_saus."', '".$qty."', '".$harga."')";
-        $result2 = mysqli_query($db, $query2) or die(mysqli_error($db));
-
-        // echo "<script>
-        //     alert('Berhasil menambahkan ke pesanan');
-        // </script>";
-        // if($result1){
-            // echo "<script>
-            //     alert('Berhasil menambahkan ke pesanan');
-            // </script>";
-        // }
-        // else {
-        //     echo "<script>
-        //         alert('Gagal menambahkan ke pesanan');
-        //     </script>";
-        // }
-
-        
+        $result2 = mysqli_query($db, $query2) or die(mysqli_error($db));        
     }
     else {
-
-        // $query = 'SELECT * From tblcartdetail WHERE c_id = "'.$cid.'" AND ';
-        // $result = mysqli_query($db, $query) or die(mysqli_error($db));
-        // $row = mysqli_fetch_assoc($result);
-
-        // if(!$row) {
-            $query2 = "INSERT INTO tblcartdetail (kd_cart, kd_menu, kd_saus, qty, harga) VALUES ('".$kd_cart."',
-            '".$kd_menu."',
-            '".$kd_saus."', '".$qty."', '".$harga."')";
-            $result2 = mysqli_query($db, $query2) or die(mysqli_error($db));
-        // }
-        
-        
-        // if($result2){
-        //     echo "<script>
-        //         alert('Berhasil menambahkan ke pesanan');
-        //     </script>";
-        // }
-        // else {
-        //     echo "<script>
-        //         alert('Gagal menambahkan ke pesanan');
-        //     </script>";
-        // }
+        $query2 = "INSERT INTO tblcartdetail (kd_cart, kd_menu, kd_saus, qty, harga) VALUES ('".$kd_cart."',
+        '".$kd_menu."',
+        '".$kd_saus."', '".$qty."', '".$harga."')";
+        $result2 = mysqli_query($db, $query2) or die(mysqli_error($db));
     }
-}
-
-
-
-
-
-
-
-
+} 
 ?>

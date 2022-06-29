@@ -29,9 +29,15 @@ $(document).ready(function () {
             },
             success: function (data) {
                 $('.total-count').text(data);
+                if (data > 0) {
+                    $(".nextOrder").removeAttr('disabled');
+                } else {
+                    $(".nextOrder").attr('disabled', 'disabled');
+                }
             }
         })
     }
+
 
     // fungsi untuk tombol tambah dan kurang
     $('.btn-number').click(function (e) {
@@ -86,10 +92,12 @@ $(document).ready(function () {
         let kodeMenu = $(this).data('kd-menu');
         let kodeSaus = $(this).data('kd-saus');
         let jenisCart = $(this).data('jenis');
+        let fungsi = $(this).data('fungsi');
         let qty = $(this).data('qty');
         let priceMenu = $(this).data('price');
         let totalPrice = priceMenu * qty;
-
+        console.log(jenisCart)
+        console.log(fungsi)
         $.ajax({
             data: {
                 kd_menu: kodeMenu,
@@ -97,6 +105,7 @@ $(document).ready(function () {
                 qty: qty,
                 jenis_cart: jenisCart,
                 harga: totalPrice,
+                fungsi: fungsi,
             },
             type: "POST",
             url: "controller/keranjang_controller.php",
@@ -105,6 +114,9 @@ $(document).ready(function () {
                 $("#modalMenu" + kodeMenu).modal('hide');
                 loadData();
                 loadJumlah();
+                $(".qty").val(1);
+                $(".hargaSaus").text("0");
+                $('.addCart').attr('disabled', 'disabled');
             },
             error: function (data, error) {
                 window.location.reload();
@@ -131,7 +143,7 @@ $(document).ready(function () {
                 alert("Menu Dihapus");
                 loadData();
                 loadJumlah();
-                $("#modalMenu" + kodeMenu).modal('hide');
+                $("#cartlMenu").modal('hide');
             },
             error: function (data, error) {
                 // window.location.reload();
@@ -157,7 +169,7 @@ $(document).ready(function () {
                 alert("Keranjang pesanan dikosongkan");
                 loadData();
                 loadJumlah();
-                $("#cartMenu" + kodeMenu).modal('hide');
+                $("#cartMenu").modal('hide');
             },
             error: function (data, error) {
                 // window.location.reload();

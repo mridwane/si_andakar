@@ -2,12 +2,12 @@
 session_start();
 if (isset($_SESSION['C_ID'])) ?>
 <?php include('includes/connection.php'); ?>
-<?php $page = "Reservasi"; ?>
+<?php $page = "Catering"; ?>
 <!--header area-->
 <?php include 'includes/header.php'; ?>
 
 
-<body class="sub_page">
+<body class="sub_page" data-page="<?= $page ?>">
     <div class="hero_area">
         <div class="bg-box">
             <img src="assets/images/hero-bg.jpg" alt="">
@@ -20,14 +20,13 @@ if (isset($_SESSION['C_ID'])) ?>
         <div class="container">
             <div class="heading_container heading_center">
                 <h2>
-                    Reservasi
+                    Catering
                 </h2>
             </div>
-            <div class="row">
-                <!-- Informasi personal -->
+            <!-- Informasi personal -->
+            <form action="#" method="POST" class="row">
                 <div class="col-md-6">
                     <div class="form_container">
-
                         <div>
                             <input type="text" class="form-control" placeholder="Your Name"
                                 value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" disabled />
@@ -42,78 +41,56 @@ if (isset($_SESSION['C_ID'])) ?>
                         </div>
                     </div>
                 </div>
-                <!-- Pengaturan reservasi -->
                 <div class="col-md-6">
                     <div class="form_container">
-                        <form action="controller/catering_controller.php?action=update" method="POST">
-                            <div>
-                                <input type="text" class="form-control" name="transac_code" value="<?= $_GET['nt'] ?>"
-                                    readonly />
-                            </div>
-                            <div>
-                                <select class="form-control nice-select wide" id="person_count" name="person_count">
-                                    <option value="" disabled selected> Untuk Berapa Orang? </option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="date">Tanggal Reservasi?</label>
-                                <input type="date" class="form-control" id="date" name="date">
-                            </div>
-                            <div>
-                                <label for="time">Waktu Reservasi?</label>
-                                <input type="time" class="form-control" id="time" name="time">
-                            </div>
-                            <button type="submit" id="update_reservasi" name="update_reservasi"
-                                class="btn btn-primary">Simpan
-                            </button>
-                        </form>
-                        <form action="controller/reservasi_controller.php?action=hapus" method="POST">
+                        <div>
                             <input type="text" class="form-control" name="transac_code" value="<?= $_GET['nt'] ?>"
-                                hidden />
-                            <div class="btn-red">
-                                <button type="submit">Tidak Jadi Pesan</button>
-                            </div>
-                        </form>
+                                readonly />
+                        </div>
+                        <div>
+                            <textarea class="form-control" name="" id="" cols="30" rows="4" readonly>
+                                    <?= $_SESSION['address'] ?>
+                                </textarea>
+                        </div>
+                        <div>
+                            <label for="date">Tanggal Catering?</label>
+                            <input type="date" class="form-control" id="date" name="date">
+                        </div>
+                        <div class="btn-box">
+                            <button>
+                                <a href="delivery_rincian_pemesanan.php?&no_transaksi=<?= $_GET['nt'] ?>">
+                                    Pesan Sekarang
+                                </a>
+                            </button>
+                        </div>
                     </div>
                 </div>
-
-
-            </div>
+            </form>
         </div>
     </section>
     <section class="food_section layout_padding">
-        < <!-- Product Tables -->
-            <div class="card mb-3">
-                <div class="card-header">
-                    <Center>
-                        <h3>Makanan/Minuman yang dipilih</h3>
-                    </Center>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%"
-                                cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Qty</th>
-                                        <th>Jenis</th>
-                                        <th>Edit</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $query = 'SELECT * FROM `tbltransacdetail` a inner join `tblproducts` b on a.`product_code` = b.`product_id` WHERE a.`transac_code` = "' . $_GET['nt'] . '"';
+        <!-- Product Tables -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <Center>
+                    <h3>Makanan/Minuman yang dipilih</h3>
+                </Center>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%"
+                            cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Qty</th>
+                                    <th>Jenis</th>
+                                    <!-- <th>Edit</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    $query = 'SELECT * FROM `tbltransacdetail` a inner join `tblproducts` b on a.`product_code` = b.`product_id` inner join `tblsaus` c on a.`kd_saus` = c.`id_saus` WHERE a.`transac_code` = "' . $_GET['nt'] . '"';
                                     $result = mysqli_query($db, $query) or die(mysqli_error($db));
                                     // membuat nomer otomatis untuk di tabel
                                     $no = 1;
@@ -128,26 +105,31 @@ if (isset($_SESSION['C_ID'])) ?>
                                         }
                                         echo '<tr>';
                                         echo '<td>' . $no++ . '</td>';
-                                        echo '<td>' . $row['product_name'] . '</td>';
+                                        if($row['id_saus'] == 'S100'){
+                                            echo '<td>' . $row['product_name'] .'</td>';
+                                        }
+                                        else {
+                                            echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . '</td>';
+                                        }                                        
                                         echo '<td>' . $row['qty'] . '</td>';
                                         echo '<td>' . $row['type'] . '</td>';
-                                        echo '<td><a type="button" class="btn-detail" data-toggle="modal"
-                                                data-target="#cartReservasi"
-                                        href="detail_list_permintaan.php?&no_permintaan=' . $row['transac_code'] . '">
-                                            <span class="material-icons">
-                                                Edit
-                                            </span>
-                                            </a>
-                                            </td>';
+                                        // echo '<td><a type="button" class="btn-detail" data-toggle="modal"
+                                        //         data-target="#cartReservasi"
+                                        // href="detail_list_permintaan.php?&no_permintaan=' . $row['transac_code'] . '">
+                                        //     <span class="material-icons">
+                                        //         Edit
+                                        //     </span>
+                                        //     </a>
+                                        //     </td>';
                                         echo '</tr> ';
                                     }
                                     ?>
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
     <div class="modal fade" id="cartReservasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

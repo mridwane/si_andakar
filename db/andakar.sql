@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Jun 2022 pada 15.36
--- Versi server: 10.4.21-MariaDB
--- Versi PHP: 7.3.31
+-- Waktu pembuatan: 29 Jun 2022 pada 09.43
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -60,7 +60,8 @@ CREATE TABLE `tblbuktitransfer` (
 --
 
 INSERT INTO `tblbuktitransfer` (`id`, `date`, `file_name`, `no_transac`) VALUES
-(6, '2022-06-27 15:12:39', 'BTDEL2706202203122956', 'DEL2706202203122956');
+(6, '2022-06-27 15:12:39', 'BTDEL2706202203122956', 'DEL2706202203122956'),
+(7, '2022-06-28 08:45:56', 'BTDEL2806202208441969.jpg', 'DEL2806202208441969');
 
 -- --------------------------------------------------------
 
@@ -80,6 +81,7 @@ CREATE TABLE `tblcart` (
 --
 
 INSERT INTO `tblcart` (`kd_cart`, `jenis_cart`, `date`, `c_id`) VALUES
+('Catering4', 'Catering', '2022-06-29', 4),
 ('Delivery4', 'Delivery', '2022-06-23', 4),
 ('Delivery5', 'Delivery', '2022-06-23', 5);
 
@@ -109,8 +111,8 @@ INSERT INTO `tblcartdetail` (`id`, `kd_cart`, `kd_menu`, `kd_saus`, `qty`, `harg
 (34, 'Delivery5', 53, 'S100', 2, 24000),
 (35, 'Delivery5', 52, 'S100', 1, 10000),
 (36, 'Delivery5', 46, 'S002', 1, 207000),
-(37, 'Delivery4', 46, 'S002', 1, 207000),
-(38, 'Delivery4', 49, 'S002', 1, 57000);
+(42, 'Delivery4', 51, 'S001', 2, 258000),
+(45, 'Delivery4', 49, 'S001', 1, 59000);
 
 -- --------------------------------------------------------
 
@@ -139,8 +141,7 @@ INSERT INTO `tblcategory` (`category_id`, `category`) VALUES
 (10, 'Regular Drink'),
 (11, 'Squash'),
 (12, 'Tea & Coffee & Blend'),
-(13, 'Juice'),
-(14, 'Saus');
+(13, 'Juice');
 
 -- --------------------------------------------------------
 
@@ -239,13 +240,13 @@ CREATE TABLE `tblproducts` (
 --
 
 INSERT INTO `tblproducts` (`product_id`, `product_name`, `date_in`, `category_id`, `user_id`, `status`, `type`, `price`, `image`, `detail_product`) VALUES
-(45, 'Iga Bakar', '2022-06-12', 2, 2, 'Habis', 'Makanan Utama', 80000, '1053bbq-chicken-wings2.jpg', ''),
-(46, 'Iga Barbar', '2022-06-12', 2, 2, 'Tersedia', 'Makanan Utama', 200000, '1054boneless-chicken2.jpg', ''),
-(49, 'Daging ayam', '2022-06-16', 2, 2, 'Tersedia', 'Makanan Utama', 50000, '', ''),
-(51, 'ikan bakar', '2022-06-17', 6, 2, 'Tersedia', 'Makanan Utama', 120000, '10587.jpg', ''),
+(45, 'Iga Bakar', '2022-06-12', 2, 2, 'Habis', 'Makanan-Utama', 80000, '1053bbq-chicken-wings2.jpg', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'),
+(46, 'Iga Barbar', '2022-06-12', 2, 2, 'Tersedia', 'Makanan-Utama', 200000, '1054boneless-chicken2.jpg', ''),
+(49, 'Daging ayam', '2022-06-16', 2, 2, 'Tersedia', 'Makanan-Utama', 50000, '', ''),
+(51, 'ikan bakar', '2022-06-17', 6, 2, 'Tersedia', 'Makanan-Utama', 120000, '10587.jpg', ''),
 (52, 'Jus Melon', '2022-06-17', 13, 2, 'Tersedia', 'Minuman', 10000, '10598.jpg', ''),
-(53, 'Nasi Lengko', '2022-06-17', 7, 2, 'Tersedia', 'Makanan Pendamping', 12000, '106011.jpg', ''),
-(54, 'Salmon Barbar', '2022-06-20', 9, 2, 'Tersedia', 'Makanan Utama', 190000, '1061boneless-chicken2.jpg', '');
+(53, 'Nasi Lengko', '2022-06-17', 7, 2, 'Tersedia', 'Makanan-Pendamping', 12000, '106011.jpg', ''),
+(54, 'Salmon Barbar', '2022-06-20', 9, 2, 'Tersedia', 'Makanan-Utama', 190000, '1061boneless-chicken2.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -330,6 +331,7 @@ CREATE TABLE `tblrequestmitra` (
   `date_req` date NOT NULL,
   `file` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
+  `note` text NOT NULL,
   `C_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -337,8 +339,8 @@ CREATE TABLE `tblrequestmitra` (
 -- Dumping data untuk tabel `tblrequestmitra`
 --
 
-INSERT INTO `tblrequestmitra` (`id`, `regis_no`, `date_req`, `file`, `status`, `C_ID`) VALUES
-(4, 'MITREG2006202203225689', '2022-06-20', 'MITREG2006202203225689_4_kemitraan.docx', 'unconfirmed', 4);
+INSERT INTO `tblrequestmitra` (`id`, `regis_no`, `date_req`, `file`, `status`, `note`, `C_ID`) VALUES
+(4, 'MITREG2006202203225689', '2022-06-20', 'MITREG2006202203225689_4_kemitraan.docx', 'unconfirmed', '', 4);
 
 -- --------------------------------------------------------
 
@@ -417,18 +419,7 @@ CREATE TABLE `tbltransac` (
 --
 
 INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`, `total_price`, `reservation_date_time`, `person_count`, `customer_id`) VALUES
-(2, 'DEL2406202205023689', '2022/06/24', 'reservasi', '0', 650000, '2022-06-24 22:02:36', 0, 5),
-(3, 'DEL2406202205040181', '2022/06/24', 'reservasi', '0', 650000, '2022-06-24 22:04:01', 0, 5),
-(4, 'DEL2406202205152159', '2022/06/24', 'reservasi', '0', 684000, '2022-06-24 22:15:21', 0, 5),
-(5, 'DEL2406202206365142', '2022/06/24', 'reservasi', '4', 891000, '2022-06-24 23:36:51', 0, 5),
-(6, 'DEL2606202212095364', '2022/06/26', 'reservasi', '4', 1074000, '2022-06-26 17:09:53', 0, 4),
-(7, 'DEL2606202201011986', '2022/06/26', 'reservasi', '4', 1074000, '2022-06-26 18:01:19', 0, 4),
-(8, 'DEL2706202211502461', '2022/06/27', 'reservasi', '4', 1074000, '2022-06-27 16:50:24', 0, 4),
-(9, 'DEL2706202211525363', '2022/06/27', 'reservasi', '4', 1074000, '2022-06-27 16:52:53', 0, 4),
-(10, 'DEL2706202211530842', '2022/06/27', 'reservasi', '4', 1074000, '2022-06-27 16:53:08', 0, 4),
-(11, 'DEL2706202203034118', '2022/06/27', 'delivery', '4', 264000, '2022-06-27 20:03:41', 0, 4),
-(12, 'DEL2706202203053864', '2022/06/27', 'delivery', '0', 264000, '2022-06-27 20:05:38', 0, 4),
-(13, 'DEL2706202203122956', '2022/06/27', 'delivery', 'paid', 264000, '2022-06-27 20:12:29', 0, 4);
+(1, 'DEL2806202208441969', '2022/06/28', 'Delivery', 'done', 672000, '2022-06-28 13:44:19', 0, 4);
 
 -- --------------------------------------------------------
 
@@ -450,49 +441,8 @@ CREATE TABLE `tbltransacdetail` (
 --
 
 INSERT INTO `tbltransacdetail` (`id`, `product_code`, `kd_saus`, `qty`, `transac_code`, `harga`) VALUES
-(38, '49', 'S001', 2, 'DEL2406202205023689', 118000),
-(39, '46', 'S100', 2, 'DEL2406202205023689', 414000),
-(40, '49', 'S001', 2, 'DEL2406202205023689', 118000),
-(41, '49', 'S001', 2, 'DEL2406202205040181', 118000),
-(42, '46', 'S100', 2, 'DEL2406202205040181', 414000),
-(43, '49', 'S001', 2, 'DEL2406202205040181', 118000),
-(44, '49', 'S001', 2, 'DEL2406202205152159', 118000),
-(45, '46', 'S100', 2, 'DEL2406202205152159', 414000),
-(46, '49', 'S001', 2, 'DEL2406202205152159', 118000),
-(47, '53', 'S100', 2, 'DEL2406202205152159', 24000),
-(48, '52', 'S100', 1, 'DEL2406202205152159', 10000),
-(49, '49', 'S001', 2, 'DEL2406202206365142', 118000),
-(50, '46', 'S100', 2, 'DEL2406202206365142', 414000),
-(51, '49', 'S001', 2, 'DEL2406202206365142', 118000),
-(52, '53', 'S100', 2, 'DEL2406202206365142', 24000),
-(53, '52', 'S100', 1, 'DEL2406202206365142', 10000),
-(54, '46', 'S002', 1, 'DEL2406202206365142', 207000),
-(55, '49', 'S002', 2, 'DEL2606202212095364', 114000),
-(56, '51', 'S003', 1, 'DEL2606202212095364', 128000),
-(57, '46', 'S002', 2, 'DEL2606202212095364', 414000),
-(58, '46', 'S001', 2, 'DEL2606202212095364', 418000),
-(59, '49', 'S002', 2, 'DEL2606202201011986', 114000),
-(60, '51', 'S003', 1, 'DEL2606202201011986', 128000),
-(61, '46', 'S002', 2, 'DEL2606202201011986', 414000),
-(62, '46', 'S001', 2, 'DEL2606202201011986', 418000),
-(63, '49', 'S002', 2, 'DEL2706202211502461', 114000),
-(64, '51', 'S003', 1, 'DEL2706202211502461', 128000),
-(65, '46', 'S002', 2, 'DEL2706202211502461', 414000),
-(66, '46', 'S001', 2, 'DEL2706202211502461', 418000),
-(67, '49', 'S002', 2, 'DEL2706202211525363', 114000),
-(68, '51', 'S003', 1, 'DEL2706202211525363', 128000),
-(69, '46', 'S002', 2, 'DEL2706202211525363', 414000),
-(70, '46', 'S001', 2, 'DEL2706202211525363', 418000),
-(71, '49', 'S002', 2, 'DEL2706202211530842', 114000),
-(72, '51', 'S003', 1, 'DEL2706202211530842', 128000),
-(73, '46', 'S002', 2, 'DEL2706202211530842', 414000),
-(74, '46', 'S001', 2, 'DEL2706202211530842', 418000),
-(75, '46', 'S002', 1, 'DEL2706202203034118', 207000),
-(76, '49', 'S002', 1, 'DEL2706202203034118', 57000),
-(77, '46', 'S002', 1, 'DEL2706202203053864', 207000),
-(78, '49', 'S002', 1, 'DEL2706202203053864', 57000),
-(79, '46', 'S002', 1, 'DEL2706202203122956', 207000),
-(80, '49', 'S002', 1, 'DEL2706202203122956', 57000);
+(1, '46', 'S002', 2, 'DEL2806202208441969', 414000),
+(2, '51', 'S001', 2, 'DEL2806202208441969', 258000);
 
 -- --------------------------------------------------------
 
@@ -641,13 +591,13 @@ ALTER TABLE `tblautonumber`
 -- AUTO_INCREMENT untuk tabel `tblbuktitransfer`
 --
 ALTER TABLE `tblbuktitransfer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcartdetail`
 --
 ALTER TABLE `tblcartdetail`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcategory`
@@ -701,13 +651,13 @@ ALTER TABLE `tblstockhistory`
 -- AUTO_INCREMENT untuk tabel `tbltransac`
 --
 ALTER TABLE `tbltransac`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbltransacdetail`
 --
 ALTER TABLE `tbltransacdetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblusers`
