@@ -9,40 +9,42 @@ if (!isset($_SESSION["userid"])) {
 ?>
 
 
-<div class="card mb-3">
-  <div class="card-header">
-    <h2>Transaksi yang belum di proses</h2>
-    <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
-          <thead>
-            <tr>
-              <th>No. Pemesanan</th>
-              <th>Pelanggan</th>
-              <th>Tanggal Pemesanan</th>
-              <th>Jenis Pesanan</th>
-              <th>Status</th>
-              <th>Pilihan</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-              $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name FROM tbltransac a, tblcustomer b WHERE a.`customer_id`=b.`C_ID` AND a.`status`="paid" OR a.`status`="pending"';
+  <div class="card mb-3">
+    <div class="card-header">
+      <h2>Transaksi yang belum di proses</h2>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>No. Pemesanan</th>
+                <th>Pelanggan</th>
+                <th>Tanggal Pemesanan</th>
+                <th>Jenis Pesanan</th>
+                <th>Status</th>
+                <th>Pilihan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name FROM tbltransac a, tblcustomer b WHERE a.`customer_id`=b.`C_ID` AND a.`status`="paid" OR a.`status`="pending" OR a.`status`="dp"';
               $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
               while ($row = mysqli_fetch_assoc($result)) {
                 if ($row['status'] == "pending") {
-                $status = "Pending";
+                  $status = "Pending";
                 } elseif ($row['status'] == "paid") {
-                $status = "Sudah Bayar";
+                  $status = "Sudah Bayar";
+                } elseif ($row['status'] == "dp") {
+                  $status = "Sudah Bayar DP";
                 } elseif ($row['status'] == "confirmed") {
-                $status = "Disetujui";
+                  $status = "Disetujui";
                 } elseif ($row['status'] == "sending") {
-                $status = "Dikirim";
+                  $status = "Dikirim";
                 } elseif ($row['status'] == "done") {
-                $status = "Selesai";
-                }else {
-                $status = "Dibatalkan";
+                  $status = "Selesai";
+                } else {
+                  $status = "Dibatalkan";
                 }
                 echo '<tr>';
                 echo '<td>' . $row['transac_code'] . '</td>';
@@ -62,16 +64,16 @@ if (!isset($_SESSION["userid"])) {
               }
               ?>
 
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
+
     </div>
 
+
   </div>
-
-
-</div>
-<!-- /.container-fluid -->
+  <!-- /.container-fluid -->
 
 <?php include 'theme/footer.php';
 } ?>

@@ -127,9 +127,9 @@ if ($_GET['action'] == 'savetrf') {
       }
     } else {
 ?>
-<script type="text/javascript">
-  alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
-</script>
+      <script type="text/javascript">
+        alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
+      </script>
 <?php
     }
   }

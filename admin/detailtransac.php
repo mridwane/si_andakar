@@ -36,7 +36,7 @@ if (!isset($_SESSION["userid"])) {
         <h5>Jenis Pesanan : <?php echo $order_type; ?></h5>
         <h5>Status Pesanan : <?php echo $stats; ?></h5>
         <h5>Tanggal & Waktu : <?php echo $tgl_reservasi; ?></h5>
-        <?php if (strtoupper($order_type) == strtoupper("delivery")) { ?>
+        <?php if (strtoupper($order_type) == strtoupper("delivery") || strtoupper($order_type) == strtoupper("catering")) { ?>
           <h5>Bukti Transfer : <?php echo '<a href="controller/download_file_transaksi.php?file_name=' . $row2['file_name'] . '&no_transac=' . $cd . '">Download Bukti Transfer</a>'; ?></h5>
         <?php }  ?>
       </div>
@@ -49,6 +49,9 @@ if (!isset($_SESSION["userid"])) {
                 <th>Produk</th>
                 <th>Tanggal Pesanan</th>
                 <th>Jumlah</th>
+                <th>Harga Makanan</th>
+                <th>Harga Saus</th>
+                <th>Total</th>
               </tr>
             </thead>
             <tbody style="font-size: 20px">
@@ -56,15 +59,18 @@ if (!isset($_SESSION["userid"])) {
               // $query = 'SELECT * FROM `tbltransac` a, `tblproducts` b, `tbltransacdetail` c WHERE
               // c.product_code=b.product_id AND a.transac_code="'.$_GET['id'].'"';
               $query = 'SELECT * FROM `tbltransac` a
-                INNER JOIN `tbltransacdetail` b on a.transac_code=b.transac_code INNER JOIN `tblproducts` c on
-                b.product_code=c.product_id WHERE a.transac_code ="' . $_GET['id'] . '"';
+                INNER JOIN `tbltransacdetail` b on a.transac_code=b.transac_code JOIN `tblproducts` c on
+                b.product_code=c.product_id JOIN `tblsaus` d on b.kd_saus=d.id_saus WHERE a.transac_code ="' . $_GET['id'] . '"';
               $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
               while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td>' . $row['product_name'] . '</td>';
+                echo '<td>' . $row['product_name'] .  "+" . $row["nama_saus"] . '</td>';
                 echo '<td>' . $row['date'] . '</td>';
                 echo '<td>' . $row['qty'] . '</td>';
+                echo '<td>' . $row['price'] . '</td>';
+                echo '<td>' . $row['harga_saus'] . '</td>';
+                echo '<td>' . ($row['price'] + $row['harga_saus']) * $row['qty'] . '</td>';
                 echo '<td>  ';
                 /*echo '<center> <a  type="button" class="btn btn-lg btn-info fas fa-cart-plus" href="addtransacdetail.php?action=edit & id='.$row['transac_id'] . '"></a> </td></center>';*/
                 echo '</tr> ';
@@ -76,7 +82,7 @@ if (!isset($_SESSION["userid"])) {
                 transac_code ="' . $_GET['id'] . '"';
               $result = mysqli_query($db, $query) or die(mysqli_error($db));
               while ($row = mysqli_fetch_array($result)) {
-                // $zz = $row['totalprice'];   
+
               ?>
 
                 <!-- <tr>
@@ -84,7 +90,7 @@ if (!isset($_SESSION["userid"])) {
                 <h5> Subtotal :</h5>
               </td>
               <td><br>
-                <h5> Rp. <?php echo $zz - 10000; ?></h5>
+                <h5> Rp. <?php echo $row["total_price"]; ?></h5>
               </td>
             </tr>
             <tr>
@@ -108,6 +114,28 @@ if (!isset($_SESSION["userid"])) {
             </tbody>
           </table>
           <br>
+          <?php
+                $query = 'SELECT * FROM tbltransac
+                WHERE
+                transac_code ="' . $_GET['id'] . '"';
+                $result = mysqli_query($db, $query) or die(mysqli_error($db));
+                $pajak = 0;
+                $service = 0;
+                $subtotal = 0;
+                while ($row = mysqli_fetch_array($result)) {
+                  $service = $row["total_price"] * 0.05;
+                  $pajak = $row["total_price"] * 0.10;
+                  $subtotal = $row["total_price"];
+                }
+                echo "SUB TOTAL : " . $subtotal;
+                echo "<br>";
+                echo "BIAYA SERVICE 5% : " . $service;
+                echo "<br>";
+                echo "PAJAK 10% : " . $pajak;
+                echo "<br>";
+                echo "TOTAL KESELURUAHN : " . ($subtotal + $pajak + $service);
+          ?>
+
           <?php if ($row['status'] == '0') { ?>
             <a title="Cancel" type="button" class="btn btn-xs btn-danger " onclick="return confirm('Apakah Anda ingin membatalkan transaksi?')" href="confirm.php?action=edit & cancel=<?php echo $row['transac_code']; ?> "><i class="fas fa-minus-circle"></i>Batal</a>
             <a title="Confirm" type="button" class="btn btn-xs btn-info " onclick="return confirm('Apakah Anda ingin mengkonfirmasi transaksi?')" href="confirm.php?action=edit & confirm=<?php echo $row['transac_code']; ?>"><i class="fas fa-check"></i>Konfirmasi</a>

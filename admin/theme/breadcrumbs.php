@@ -1,7 +1,7 @@
 <!-- Breadcrumbs-->
 <?php
 include('../includes/connection.php');
-$query = 'SELECT COUNT(*) AS neworder FROM `tbltransac` WHERE `status` = "paid"';
+$query = 'SELECT COUNT(*) AS neworder FROM `tbltransac` WHERE `status` = "paid" OR `status` = "dp"';
 $result = mysqli_query($db, $query) or die(mysqli_error($db));
 $row = mysqli_fetch_assoc($result);
 
@@ -56,7 +56,7 @@ $row = mysqli_fetch_assoc($result);
                           }
                           ?></div>
       </div>
-      <a class="card-footer text-white clearfix small z-1" href="../admin/detail.php">
+      <a class="card-footer text-white clearfix small z-1" href="../admin/transaksi_belum_diproses.php">
         <span class="float-left">Lihat rincian</span>
         <span class="float-right">
           <i class="fas fa-angle-right"></i>
