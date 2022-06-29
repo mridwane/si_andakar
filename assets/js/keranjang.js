@@ -31,6 +31,8 @@ $(document).ready(function () {
                 $('.total-count').text(data);
                 if (data > 0) {
                     $(".nextOrder").removeAttr('disabled');
+                } else {
+                    $(".nextOrder").attr('disabled', 'disabled');
                 }
             }
         })
