@@ -202,6 +202,7 @@ if (!isset($_SESSION["userid"])) {
           <?php } elseif (strtoupper($row["status"]) == strtoupper("dp") && strtoupper($row["transac_type"]) == strtoupper("catering")) { ?>
             <a href="controller/admin_catering_controller.php?no_transac=<?php echo $cd; ?>&action=confirm" class="btn btn-xs btn-info"><i class="fas fa-sign-out-alt"></i>Terima Pesanan</a>
             <a href="controller/admin_catering_controller.php?no_transac=<?php echo $cd; ?>&action=deny" class="btn btn-xs btn-danger"><i class="fas fa-sign-out-alt"></i>Tolak Pesanan</a>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update_modal<?php echo $_GET['id']; ?>">Transfer Tidak Sesuai</button>
             <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
           <?php } elseif (strtoupper($row["status"]) == strtoupper('confirmed') && strtoupper($row["transac_type"]) == strtoupper("catering")) { ?>
             <span>Menunggu Customer Melakukan Pelunasan</span>
@@ -260,4 +261,6 @@ if (!isset($_SESSION["userid"])) {
 
 
 <?php include 'theme/footer.php';
+  include 'controller/admin_catering_controller.php';
 } ?>
+
