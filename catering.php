@@ -2,9 +2,13 @@
 session_start();
 if (isset($_SESSION['C_ID'])) ?>
 <?php include('includes/connection.php'); ?>
-<?php $page = "Catering"; ?>
+<?php $page = "Catering Checkout"; ?>
 <!--header area-->
-<?php include 'includes/header.php'; ?>
+<?php include 'includes/header.php'; 
+    $random = rand(10, 100);
+    $tgl = date("dmYhis");
+    $no_transac = "CAT" . $tgl . $random;
+?>
 
 
 <body class="sub_page" data-page="<?= $page ?>">
@@ -24,66 +28,69 @@ if (isset($_SESSION['C_ID'])) ?>
                 </h2>
             </div>
             <!-- Informasi personal -->
-            <form action="controller/catering_controller.php?action=todetail&no_transaksi=<?= $_GET['nt'] ?>" method="POST" class="row">
+            <form action="controller/catering_controller.php?action=todetail&no_transaksi=<?= $no_transac ?>"
+                method="POST" class="row">
                 <div class="col-md-6">
                     <div class="form_container">
                         <div>
-                            <input type="text" class="form-control" placeholder="Your Name" value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" disabled />
+                            <input type="text" class="form-control" placeholder="Your Name"
+                                value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" disabled />
                         </div>
                         <div>
-                            <input type="text" class="form-control" placeholder="Phone Number" value="<?= $_SESSION['contact'] ?>" disabled />
+                            <input type="text" class="form-control" placeholder="Phone Number"
+                                value="<?= $_SESSION['contact'] ?>" disabled />
                         </div>
                         <div>
-                            <input type="email" class="form-control" placeholder="Your Email" value="<?= $_SESSION['email'] ?>" disabled />
+                            <input type="email" class="form-control" placeholder="Your Email"
+                                value="<?= $_SESSION['email'] ?>" disabled />
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form_container">
-
-                        <div>
-                            <input type="text" class="form-control" name="transac_code" value="<?= $_GET['nt'] ?>" readonly />
-                        </div>
                         <div>
                             <textarea class="form-control" name="" id="" cols="30" rows="4" readonly>
-                                    <?= $_SESSION['address'] ?>
-                                </textarea>
+                                <?= $_SESSION['address'] ?>
+                            </textarea>
                         </div>
                         <div>
                             <label for="date">Tanggal Catering?</label>
                             <input type="datetime-local" class="form-control" id="date" name="date">
                         </div>
                         <div class="btn-box">
-                            <button type="submit" id="pesan_catering" name="pesan_catering" class="btn btn-primary">Pesan Sekarang</button>
+                            <button type="submit" id="pesan_catering" name="pesan_catering"
+                                class="btn btn-primary">Pesan Sekarang</button>
                         </div>
+                    </div>
+                </div>
             </form>
         </div>
-        </div>
-        </form>
-        </div>
     </section>
-    <section class="food_section layout_padding">
+    <section class="food_section">
         <!-- Product Tables -->
-        <div class="card mb-3">
-            <div class="card-header">
-                <Center>
-                    <h3>Makanan/Minuman yang dipilih</h3>
-                </Center>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Qty</th>
-                                    <th>Jenis</th>
-                                    <!-- <th>Edit</th> -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $query = 'SELECT * FROM `tbltransacdetail` a inner join `tblproducts` b on a.`product_code` = b.`product_id` inner join `tblsaus` c on a.`kd_saus` = c.`id_saus` WHERE a.`transac_code` = "' . $_GET['nt'] . '"';
+        <div class="container">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <Center>
+                        <h3>Makanan/Minuman yang dipilih</h3>
+                    </Center>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%"
+                                cellspacing="0">
+                                <thead>
+                                    <tr class="table-primary">
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Qty</th>
+                                        <th>Jenis</th>
+                                        <th>Harga</th>
+                                        <!-- <th>Edit</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                $query = 'SELECT * FROM `tblcartdetail` a inner join `tblproducts` b on a.`kd_menu` = b.`product_id` inner join `tblsaus` c on a.`kd_saus` = c.`id_saus` WHERE a.`kd_cart` = "' . $_GET['kd_cart'] . '"';
                                 $result = mysqli_query($db, $query) or die(mysqli_error($db));
                                 // membuat nomer otomatis untuk di tabel
                                 $no = 1;
@@ -105,6 +112,7 @@ if (isset($_SESSION['C_ID'])) ?>
                                     }
                                     echo '<td>' . $row['qty'] . '</td>';
                                     echo '<td>' . $row['type'] . '</td>';
+                                    echo '<td>Rp. ' . number_format($row['harga'] ,0,',','.'). '</td>';
                                     // echo '<td><a type="button" class="btn-detail" data-toggle="modal"
                                     //         data-target="#cartReservasi"
                                     // href="detail_list_permintaan.php?&no_permintaan=' . $row['transac_code'] . '">
@@ -116,15 +124,26 @@ if (isset($_SESSION['C_ID'])) ?>
                                     echo '</tr> ';
                                 }
                                 ?>
-                            </tbody>
-                        </table>
+                                    <!-- <tr class="table-warning">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Total</td>
+                                        <td>
+                                            Rp. 100.000
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="modal fade" id="cartReservasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="cartReservasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -135,7 +154,8 @@ if (isset($_SESSION['C_ID'])) ?>
                 </div>
                 <form action="controller/reservasi_controller.php?action=updatePesanan" method="POST">
                     <div class="modal-body">
-                        <input type="text" class="form-control" name="transac_code" value="<?= $_GET['nt'] ?>" hidden />
+                        <input type="text" class="form-control" name="transac_code" value="<?= $_GET['kd_cart'] ?>"
+                            hidden />
                         <table class="show-cart table">
 
                         </table>
@@ -157,7 +177,7 @@ if (isset($_SESSION['C_ID'])) ?>
     <?php include 'includes/footer.php'; ?>
 
     <script>
-        $('#date').on('change', function() {
+        $('#date').on('change', function () {
             var selected_date = $(this).val();
             var today = new Date();
             var formattedDate = moment(date).format('YYYYMMDD');

@@ -9,6 +9,7 @@ if ($_GET['action'] == 'save') {
   $no_transac = "CAT" . $tgl . $random;
   $date = date("Y/m/d");
   $user_id = $_SESSION['cid'];
+  $type = "Catering";
   // $kode_produk = $_POST['product_code'];
   // $jml = $_POST['qty'];
   // $jml_total = 120000;
@@ -28,11 +29,20 @@ if ($_GET['action'] == 'save') {
   ON
   a.kd_menu = c.product_id JOIN tblsaus d ON
   a.kd_saus = d.id_saus WHERE b.c_id = "' . $user_id . '"');
+
   $ht = mysqli_fetch_array($hitung_total);
   $jml_total = $ht['total'];
-  $instransac = "INSERT INTO tbltransac (transac_code, date, transac_type, status, total_price, customer_id)
-      VALUES ('$no_transac','$date','Catering','pending','$jml_total','$user_id')";
-  mysqli_query($db, $instransac) or die('Error, gagal menyimpan data catering');
+  
+  $queryCek = mysqli_query($db, 'SELECT * FROM tbltransac WHERE customer_id = "' . $user_id . '" AND transac_type = "' . $type . '" ');
+  $cek = mysqli_num_rows($queryCek);
+  if($cek > 0){
+    $uptransac = "UPDATE tbltransac SET transac_code = '$no_transac', total_price = '$jml_total'";
+    mysqli_query($db, $uptransac) or die('Error, gagal menyimpan data catering');
+  }else {
+    $instransac = "INSERT INTO tbltransac (transac_code, date, transac_type, status, total_price, customer_id)
+    VALUES ('$no_transac','$date','Catering','pending','$jml_total','$user_id')";
+    mysqli_query($db, $instransac) or die('Error, gagal menyimpan data catering');
+  }
 
   // untuk memasukan ke table tbltransacdetail
   $query_select = mysqli_query($db, 'SELECT * FROM tblcartdetail a JOIN tblcart b ON a.kd_cart = b.kd_cart
