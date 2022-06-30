@@ -28,8 +28,7 @@ if (isset($_SESSION['C_ID'])) ?>
                 </h2>
             </div>
             <!-- Informasi personal -->
-            <form action="controller/catering_controller.php?action=todetail&no_transaksi=<?= $no_transac ?>"
-                method="POST" class="row">
+            <form action="controller/catering_controller.php?action=save" method="POST" class="row">
                 <div class="col-md-6">
                     <div class="form_container">
                         <div>

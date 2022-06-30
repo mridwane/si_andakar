@@ -57,25 +57,25 @@ if ($_GET['action'] == 'save') {
     mysqli_query($db, $query2) or die('Error, gagal menyimpan data catering');
   }
   echo ("<script language='JavaScript'>
-         window.location.href='../catering.php?nt=$no_transac';
-         window.alert('Data Catering berhasil disimpan')
-       </script>");
+    window.location.href = '../catering_rincian.php?no_transaksi=$no_transac';
+    window.alert('Data Catering berhasil disimpan. Mohon Lakukan pembayaran Down Payment')
+  </script>");
 }
 
-if (isset($_POST['pesan_catering'])) {
-  if ($_GET['action'] == 'todetail') {
-    $transac_code = $_GET['no_transaksi'];
-    $date_time = $_POST['date'];
+// if (isset($_POST['pesan_catering'])) {
+//   if ($_GET['action'] == 'todetail') {
+//     $transac_code = $_GET['no_transaksi'];
+//     $date_time = $_POST['date'];
 
-    //Update table transac
-    $query2 = "UPDATE tbltransac SET reservation_date_time = '" . $date_time . "' WHERE transac_code='" . $transac_code . "'";
-    mysqli_query($db, $query2) or die(mysqli_error($db));
-    echo ("<script language='JavaScript'>
-           window.location.href='../catering_rincian.php?no_transaksi=$transac_code';
-           window.alert('Data Catering berhasil disimpan. Mohon Lakukan pembayaran Down Payment')
-         </script>");
-  }
-}
+//     //Update table transac
+//     $query2 = "UPDATE tbltransac SET reservation_date_time = '" . $date_time . "' WHERE transac_code='" . $transac_code . "'";
+//     mysqli_query($db, $query2) or die(mysqli_error($db));
+//     echo ("<script language='JavaScript'>
+//            window.location.href='../catering_rincian.php?no_transaksi=$transac_code';
+//            window.alert('Data Catering berhasil disimpan. Mohon Lakukan pembayaran Down Payment')
+//          </script>");
+//   }
+// }
 
 
 if ($_GET['action'] == 'cancel') {
@@ -151,10 +151,10 @@ if ($_GET['action'] == 'savetrf') {
       }
     } else {
 ?>
-      <script type="text/javascript">
-        alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
-      </script>
-    <?php
+<script type="text/javascript">
+  alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
+</script>
+<?php
     }
   }
 }
@@ -217,9 +217,9 @@ if ($_GET['action'] == 'savetrflunas') {
       }
     } else {
     ?>
-      <script type="text/javascript">
-        alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
-      </script>
+<script type="text/javascript">
+  alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
+</script>
 <?php
     }
   }
