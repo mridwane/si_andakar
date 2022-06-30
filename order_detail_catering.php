@@ -97,8 +97,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <?php } elseif ($status == "Selesai") { ?>
                                 <h4>Pesanan anda telah selesai.</h4>
                                 <!-- tombol tomtol untuk pesanan catering -->
-                            <?php } elseif ($status == "Disetujui" && strtoupper($jenis) == strtoupper("catering")) { ?>
-                                <h4>Pesanan anda sedang kami buat, mohon untuk menunggu.</h4>
                             <?php } elseif ($status == "DP Tidak Sesuai" && strtoupper($jenis) == strtoupper("catering")) { ?>
                                 <h4>Transfer Down Payement (DP) yang telah anda lakukan tidak sesuai dengan nominal seharusnya, klik disini untuk melihat rincian dan lakukan ulang pembayaran</h4>
                                 <a href="catering_revisi.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>" class="btn btn-danger">Lihat Rincian / Upload Ulang</a>

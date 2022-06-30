@@ -32,13 +32,13 @@ if ($_GET['action'] == 'save') {
 
   $ht = mysqli_fetch_array($hitung_total);
   $jml_total = $ht['total'];
-  
+
   $queryCek = mysqli_query($db, 'SELECT * FROM tbltransac WHERE customer_id = "' . $user_id . '" AND transac_type = "' . $type . '" ');
   $cek = mysqli_num_rows($queryCek);
-  if($cek > 0){
+  if ($cek > 0) {
     $uptransac = "UPDATE tbltransac SET transac_code = '$no_transac', total_price = '$jml_total'";
     mysqli_query($db, $uptransac) or die('Error, gagal menyimpan data catering');
-  }else {
+  } else {
     $instransac = "INSERT INTO tbltransac (transac_code, date, transac_type, status, total_price, customer_id)
     VALUES ('$no_transac','$date','Catering','pending','$jml_total','$user_id')";
     mysqli_query($db, $instransac) or die('Error, gagal menyimpan data catering');
@@ -58,10 +58,10 @@ if ($_GET['action'] == 'save') {
   }
 
   // query delete cart dan cart detail
- $deletecart = 'DELETE From tblcartdetail WHERE kd_cart = "'.$_GET['kd_cart'].'"';
- mysqli_query($db, $deletecart) or die(mysqli_error($db));
- $deletecartdetail = 'DELETE From tblcart WHERE kd_cart = "'.$_GET['kd_cart'].'"';
- mysqli_query($db, $deletecartdetail) or die(mysqli_error($db));
+  $deletecart = 'DELETE From tblcartdetail WHERE kd_cart = "' . $_GET['kd_cart'] . '"';
+  mysqli_query($db, $deletecart) or die(mysqli_error($db));
+  $deletecartdetail = 'DELETE From tblcart WHERE kd_cart = "' . $_GET['kd_cart'] . '"';
+  mysqli_query($db, $deletecartdetail) or die(mysqli_error($db));
 
   echo ("<script language='JavaScript'>
     window.location.href = '../catering_rincian.php?no_transaksi=$no_transac';
@@ -159,10 +159,10 @@ if ($_GET['action'] == 'savetrf') {
       }
     } else {
 ?>
-<script type="text/javascript">
-  alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
-</script>
-<?php
+      <script type="text/javascript">
+        alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
+      </script>
+    <?php
     }
   }
 }
@@ -276,8 +276,8 @@ if ($_GET['action'] == 'savetrflunas') {
           $nama = $filenew;
         }
 
-        $query = "INSERT INTO `tblbuktitransfer`(`date`, `file_name`, `no_transac`)
-            VALUES ('" . $datetime . "','" . $nama . "','" . $transac_code . "')";
+        $query = "INSERT INTO `tblbuktitransfer`(`date`, `file_name`, `status`,`user`, `no_transac`)
+            VALUES ('" . $datetime . "','" . $nama . "','lunas','customer','" . $transac_code . "')";
         mysqli_query($db, $query) or die(mysqli_error($db));
 
         // update status
@@ -297,9 +297,9 @@ if ($_GET['action'] == 'savetrflunas') {
       }
     } else {
     ?>
-<script type="text/javascript">
-  alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
-</script>
+      <script type="text/javascript">
+        alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
+      </script>
 <?php
     }
   }
