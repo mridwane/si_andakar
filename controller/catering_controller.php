@@ -56,6 +56,13 @@ if ($_GET['action'] == 'save') {
     '" . $row['harga'] . "')";
     mysqli_query($db, $query2) or die('Error, gagal menyimpan data catering');
   }
+
+  // query delete cart dan cart detail
+ $deletecart = 'DELETE From tblcartdetail WHERE kd_cart = "'.$_GET['kd_cart'].'"';
+ mysqli_query($db, $deletecart) or die(mysqli_error($db));
+ $deletecartdetail = 'DELETE From tblcart WHERE kd_cart = "'.$_GET['kd_cart'].'"';
+ mysqli_query($db, $deletecartdetail) or die(mysqli_error($db));
+
   echo ("<script language='JavaScript'>
     window.location.href = '../catering_rincian.php?no_transaksi=$no_transac';
     window.alert('Data Catering berhasil disimpan. Mohon Lakukan pembayaran Down Payment')

@@ -5,9 +5,6 @@ if (isset($_SESSION['C_ID'])) ?>
 <?php $page = "Catering Checkout"; ?>
 <!--header area-->
 <?php include 'includes/header.php'; 
-    $random = rand(10, 100);
-    $tgl = date("dmYhis");
-    $no_transac = "CAT" . $tgl . $random;
 ?>
 
 
@@ -28,7 +25,8 @@ if (isset($_SESSION['C_ID'])) ?>
                 </h2>
             </div>
             <!-- Informasi personal -->
-            <form action="controller/catering_controller.php?action=save" method="POST" class="row">
+            <form action="controller/catering_controller.php?action=save&kd_cart=<?= $_GET['kd_cart'] ?>" method="POST"
+                class="row">
                 <div class="col-md-6">
                     <div class="form_container">
                         <div>
