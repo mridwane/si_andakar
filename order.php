@@ -55,6 +55,8 @@ if (!isset($_SESSION["cid"])) {
                                     $status = "Sudah Bayar";
                                 } elseif ($row['status'] == "dp") {
                                     $status = "Sudah Bayar DP";
+                                } elseif ($row['status'] == "revisi_dp") {
+                                    $status = "DP Tidak Sesuai";
                                 } elseif ($row['status'] == "confirmed") {
                                     $status = "Disetujui";
                                 } elseif ($row['status'] == "sending") {

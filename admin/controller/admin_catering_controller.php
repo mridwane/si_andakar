@@ -1,7 +1,7 @@
 <div class="modal fade" id="update_modal<?php echo $_GET['id']; ?>" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="">
+            <form method="POST" action="" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h3 class="modal-title">Ketidaksesuaian Transfer</h3>
                 </div>
@@ -10,7 +10,7 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label>No Pemesanan</label>
-                            <input type="text" name="regis_no" value="<?php echo $_GET['id'] ?>" class="form-control" readonly />
+                            <input type="text" name="transac_code" value="<?php echo $_GET['id'] ?>" class="form-control" readonly />
                         </div>
                         <div class="form-group">
                             <label>Nominal Transfer Seharusnya</label>
@@ -18,7 +18,7 @@
                         </div>
                         <div class="form-group">
                             <label>Nominal Transfer Customer</label>
-                            <input type="text" name="cust_transfer" id="cust_transfer" class="form-control" onkeyup="validateTransfer();" />
+                            <input type="number" name="cust_transfer" id="cust_transfer" class="form-control" onkeyup="validateTransfer();" />
                         </div>
                         <div class="form-group">
                             <label>Catatan</label>
@@ -26,12 +26,17 @@
                         </div>
                         <div class="form-group">
                             <span id="count"></span>
+                            <input type="number" name="margin" id="margin" class="form-control" hidden />
+                        </div>
+                        <div class="form-group">
+                            <label for="upload">Upload Bukti Transfer Pengembalian (total transfer sesuai dengan Nominal Transfer Customer)</label>
+                            <input type="file" class="form-control" id="upload_pengembalian" name="upload_pengembalian" accept=".jpeg, .jpg, .png">
                         </div>
                     </div>
                 </div>
                 <div style="clear:both;"></div>
                 <div class="modal-footer">
-                    <button name="simpan" id="simpan" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>Simpan</button>
+                    <button type="submit" name="save_ketidaksesuaian" id="save_ketidaksesuaian" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span>Simpan</button>
                     <button class="btn btn-danger" type="button" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                 </div>
         </div>
@@ -45,6 +50,7 @@
         var transfer_seharusnya = document.getElementById("transfer_seharusnya").value;
         var cust_tramsfer = document.getElementById("cust_transfer").value;
         var count = parseInt(transfer_seharusnya.replace(/[^0-9]/g, '')) - parseInt(cust_tramsfer);
+        document.getElementById('margin').value = parseInt(cust_tramsfer.replace(/[^0-9]/g, '')) - parseInt(transfer_seharusnya.replace(/[^0-9]/g, ''));
         if (count < 0) {
             count_string = Math.abs(count)
             document.getElementById('count').innerHTML = "Lebih " + count_string.toLocaleString('en-US');
@@ -52,6 +58,10 @@
         } else if (count > 0) {
             count_string = Math.abs(count)
             document.getElementById('count').innerHTML = "Kurang " + count.toLocaleString('en-US');
+            document.getElementById("simpan").disabled = false;
+        } else if (count == 0 || count == "" || isNaN(count)) {
+            count_string = Math.abs(count)
+            document.getElementById('count').innerHTML = "Kurang " + transfer_seharusnya.toLocaleString('en-US');
             document.getElementById("simpan").disabled = false;
         } else {
             document.getElementById('count').innerHTML = "Sesuai";
@@ -64,8 +74,8 @@
 
 <?php
 
-include('../../includes/connection.php');
 if (isset($_GET['no_transac']) && $_GET['action'] == "confirm") {
+    require_once('../../includes/connection.php');
     $status = "confirmed";
     $no_transac = $_GET['no_transac'];
     // update table transac
@@ -78,13 +88,15 @@ if (isset($_GET['no_transac']) && $_GET['action'] == "confirm") {
     // mysqli_query($db, $query_insert) or die(mysqli_error($db));
 ?>
     <script type="text/javascript">
+        window.location.href = '../detailtransac.php?id=<?php echo $no_transac ?>';
         alert("Pesanan Telah Dikonfirmasi");
     </script>
 <?php
-    header('Location: ../detailtransac.php?id=' . $no_transac);
+
 }
 
 if (isset($_GET['no_transac']) && $_GET['action'] == "deny") {
+    require_once('../../includes/connection.php');
     $status = "deny";
     $no_transac = $_GET['no_transac'];
     // update table transac
@@ -97,11 +109,75 @@ if (isset($_GET['no_transac']) && $_GET['action'] == "deny") {
     // mysqli_query($db, $query_insert) or die(mysqli_error($db));
 ?>
     <script type="text/javascript">
-        alert("Pesanan Telah Ditolak");
+        window.location.href = '../detailtransac.php?id=<?php echo $no_transac ?>';
+        alert("Pesanan Telah Ditolak/Dibatalkan");
     </script>
 <?php
-    header('Location: ../detailtransac.php?id=' . $no_transac);
+
 }
 
+
+if (isset($_POST['save_ketidaksesuaian'])) {
+    $transac_code = $_POST["transac_code"];
+    $status = "revisi_dp";
+    $note = $_POST["note"];
+    $nominal_customer_trf = $_POST["cust_transfer"];
+    $margin = $_POST["margin"];
+
+    // insert bukti transfer dari admin
+    // get file
+    $file = $_FILES['upload_pengembalian']['name'];
+    $tmp = $_FILES['upload_pengembalian']['tmp_name'];
+    $type = pathinfo($file, PATHINFO_EXTENSION);
+
+    $user_id = $_SESSION['cid'];
+
+
+    // Rename nama file
+    $filenew = "BTDP" . $transac_code . "." . $type;
+    // Set path folder tempat menyimpan fotonya
+    $path = "../assets/bukti_transfer/" . $filenew;
+
+
+
+    // Cek apakah gambar berhasil diupload atau tidak
+    $status = false;
+    if (move_uploaded_file($tmp, $path)) {
+        copy($path, $path);
+    }
+    if ($status == false) {
+
+        // Proses simpan ke Database
+
+        $nama = "";
+
+        if ($type != "") {
+            $nama = $filenew;
+        }
+        $status_transfer = "revisi_dp";
+        $query = "INSERT INTO `tblbuktitransfer`(`date`, `file_name`, `status`, `nominal_trf`, `user`, `margin`, `note`, `no_transac`)
+    VALUES ('" . $datetime . "','" . $nama . "','" . $status_transfer . "', '" . $nominal_customer_trf . "', 'admin','','', '" . $transac_code . "')";
+        mysqli_query($db, $query) or die(mysqli_error($db));
+    }
+
+    // update tblbuktitrasnfer untuk bukti transfer customer
+    $query_update = "UPDATE tblbuktitransfer SET status = 'revisi_dp', nominal_trf = '" . $nominal_customer_trf . "', margin = '" . $margin . "', note = '" . $note . "' WHERE
+        no_transac='" . $transac_code . "' AND user='customer'";
+    mysqli_query($db, $query_update) or die(mysqli_error($db));
+
+    // update tbltransac
+    $query_transac = "UPDATE tbltransac SET status = 'revisi_dp' WHERE
+        transac_code='" . $transac_code . "'";
+    mysqli_query($db, $query_transac) or die(mysqli_error($db));
+
+
+?>
+    <script type="text/javascript">
+        window.location.href = 'detailtransac.php?id=<?php echo $transac_code ?>';
+        alert('Data Berhasil Disimpan');
+    </script>
+<?php
+
+}
 
 ?>

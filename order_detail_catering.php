@@ -22,6 +22,10 @@ while ($row = mysqli_fetch_assoc($result)) {
         $status = "Sudah Bayar";
     } elseif ($row['status'] == "dp") {
         $status = "Sudah Bayar DP";
+    } elseif ($row['status'] == "revisi_dp") {
+        $status = "DP Tidak Sesuai";
+    } elseif ($row['status'] == "after_revision") {
+        $status = "Sudah Bayar Ulang DP";
     } elseif ($row['status'] == "lunas") {
         $status = "Lunas";
     } elseif ($row['status'] == "confirmed") {
@@ -78,7 +82,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                                 <span>*Pesanan Anda Belum Selesai</span>
                             <?php } elseif ($status == "Sudah Bayar") { ?>
                                 <h4>Pesanan kamu sedang kami proses, mohon untuk menunggu.</h4>
-                            <?php } elseif ($status == "Sudah Bayar DP") { ?>
+                            <?php } elseif ($status == "Sudah Bayar DP" || $status == "Sudah Bayar Ulang DP") { ?>
                                 <h4>Terima kasih telah membayar down payment, Mohon menunggu konfirmasi dari kami</h4>
                             <?php } elseif ($status == "Lunas") { ?>
                                 <h4>Terima kasih telah membayar pelunasan, Kami akan mengirimkan pesanan anda sesuai dengan jadwal yang tertera </h4>
@@ -92,9 +96,12 @@ while ($row = mysqli_fetch_assoc($result)) {
                                 </div>
                             <?php } elseif ($status == "Selesai") { ?>
                                 <h4>Pesanan anda telah selesai.</h4>
-                                <!-- tombol tomtol untuk pesanan delivery -->
-                            <?php } elseif ($status == "Disetujui" && strtoupper($jenis) == strtoupper("delivery")) { ?>
+                                <!-- tombol tomtol untuk pesanan catering -->
+                            <?php } elseif ($status == "Disetujui" && strtoupper($jenis) == strtoupper("catering")) { ?>
                                 <h4>Pesanan anda sedang kami buat, mohon untuk menunggu.</h4>
+                            <?php } elseif ($status == "DP Tidak Sesuai" && strtoupper($jenis) == strtoupper("catering")) { ?>
+                                <h4>Transfer Down Payement (DP) yang telah anda lakukan tidak sesuai dengan nominal seharusnya, klik disini untuk melihat rincian dan lakukan ulang pembayaran</h4>
+                                <a href="catering_revisi.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>" class="btn btn-danger">Lihat Rincian / Upload Ulang</a>
                             <?php } elseif ($status == "Disetujui" && strtoupper($jenis) == strtoupper("catering")) { ?>
                                 <h4>Pesanan anda telah kami terima. Mohon melakukan pelunasan maksimal h-2 dari jadwal yang telah dipilih.</h4>
                                 <label for="upload">Upload Bukti Transfer Pelusanan</label>

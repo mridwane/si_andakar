@@ -20,7 +20,8 @@ if (!isset($_SESSION["userid"])) {
     $order_type = $row['transac_type'];
   }
 
-  $query_bukti_transfer = 'SELECT * FROM `tblbuktitransfer` WHERE no_transac="' . $cd . '"';
+  $query_bukti_transfer = 'SELECT * FROM `tblbuktitransfer` WHERE no_transac="' . $cd . '" AND user="customer" ORDER BY id ASC
+  LIMIT 1';
   $result2 = mysqli_query($db, $query_bukti_transfer) or die(mysqli_error($db));
   $file_name_dp = "";
   $file_name_lunas = "";
@@ -46,7 +47,7 @@ if (!isset($_SESSION["userid"])) {
         <h5>Status Pesanan : <?php echo $stats; ?></h5>
         <h5>Tanggal & Waktu : <?php echo $tgl_reservasi; ?></h5>
         <?php if (strtoupper($order_type) == strtoupper("delivery") || strtoupper($order_type) == strtoupper("catering")) { ?>
-          <?php if ($stats == "paid" || $stats == "dp" || $stats == "lunas") { ?>
+          <?php if ($stats == "paid" || $stats == "dp" || $stats == "lunas" || $stats == "after_revision") { ?>
             <h5>Bukti Transfer <?php if ($order_type == "Catering") {
                                   echo " DP";
                                 } ?>: <?php echo '<a href="controller/download_file_transaksi.php?file_name=' . $file_name_dp . '&no_transac=' . $cd . '">Download Bukti Transfer</a>'; ?></h5>
@@ -199,7 +200,7 @@ if (!isset($_SESSION["userid"])) {
                 elseif (strtoupper($row["status"]) == strtoupper("pending") && strtoupper($row["transac_type"]) == "catering") { ?>
 
             <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
-          <?php } elseif (strtoupper($row["status"]) == strtoupper("dp") && strtoupper($row["transac_type"]) == strtoupper("catering")) { ?>
+          <?php } elseif (strtoupper($row["status"]) == strtoupper("dp") || strtoupper($row["status"]) == strtoupper("after_revision") && strtoupper($row["transac_type"]) == strtoupper("catering")) { ?>
             <a href="controller/admin_catering_controller.php?no_transac=<?php echo $cd; ?>&action=confirm" class="btn btn-xs btn-info"><i class="fas fa-sign-out-alt"></i>Terima Pesanan</a>
             <a href="controller/admin_catering_controller.php?no_transac=<?php echo $cd; ?>&action=deny" class="btn btn-xs btn-danger"><i class="fas fa-sign-out-alt"></i>Tolak Pesanan</a>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update_modal<?php echo $_GET['id']; ?>">Transfer Tidak Sesuai</button>
@@ -263,4 +264,3 @@ if (!isset($_SESSION["userid"])) {
 <?php include 'theme/footer.php';
   include 'controller/admin_catering_controller.php';
 } ?>
-
