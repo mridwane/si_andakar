@@ -1,9 +1,22 @@
 $(document).ready(function () {
     // panggil fungsi dari loadData()
-    loadData();
+    // loadData();
+    loadDataCart();
     loadJumlah();
     // menampilkan pesanan dari database
-    function loadData() {
+    // function loadData() {
+    //     let jenis = $('.sub_page').data('page');
+    //     // console.log(jenis)
+    //     $.ajax({
+    //         url: 'controller/showmenu_controller.php',
+    //         method: 'POST',
+    //         success: function (data) {
+    //             $(".filters-content").html(data);
+    //         }
+    //     });
+    // }
+
+    function loadDataCart() {
         let jenis = $('.sub_page').data('page');
         // console.log(jenis)
         $.ajax({
@@ -38,6 +51,9 @@ $(document).ready(function () {
         })
     }
 
+    // $(window).click(function (e) {
+    //     console.log('diklik')
+    // });
 
     // fungsi untuk tombol tambah dan kurang
     $('.btn-number').click(function (e) {
@@ -73,8 +89,48 @@ $(document).ready(function () {
             input.val(0);
         }
     });
+    $('.input-number').focusin(function () {
+        $(this).data('oldValue', $(this).val());
+    });
+    $('.input-number').change(function () {
 
-    $('.nice-select').on('change', function () {
+        minValue = parseInt($(this).attr('min'));
+        maxValue = parseInt($(this).attr('max'));
+        valueCurrent = parseInt($(this).val());
+
+        name = $(this).attr('name');
+        if (valueCurrent >= minValue) {
+            $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the minimum value was reached');
+            $(this).val($(this).data('oldValue'));
+        }
+        if (valueCurrent <= maxValue) {
+            $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the maximum value was reached');
+            $(this).val($(this).data('oldValue'));
+        }
+
+
+    });
+    $(".input-number").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+            // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) ||
+            // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
+
+    $('.nice-select').on('click', function () {
         const priceSaus = $(this).find(':selected').data('prices');
         $('[id=hargaSaus]').text(priceSaus);
         var priceMenu = $(this).find(':selected').data('pricem');
@@ -85,6 +141,19 @@ $(document).ready(function () {
         $('.addCart').removeAttr('disabled');
     });
 
+    $('.showOption').click(function (e) {
+        e.preventDefault();
+        $(".qty").val(1);
+        $(".hargaSaus").text("0");
+        $('.addCart').attr('data-qty', '1');
+        $(".nice-select").val('').change();
+        // if (kodeSaus === 'S100') {
+        //     $('.addCart').removeAttr('disabled');
+        // } else {
+        //     $('.addCart').attr('disabled', 'disabled');
+        // }
+    });
+
     // menambahkan pesanan ke database
     $('.addCart').on("click", function (e) {
         e.preventDefault();
@@ -93,11 +162,11 @@ $(document).ready(function () {
         let kodeSaus = $(this).data('kd-saus');
         let jenisCart = $(this).data('jenis');
         let fungsi = $(this).data('fungsi');
-        let qty = $(this).data('qty');
+        // var qty = $(this).data('qty');
+        var qty = $(this).data('qty');
         let priceMenu = $(this).data('price');
         let totalPrice = priceMenu * qty;
-        console.log(jenisCart)
-        console.log(fungsi)
+
         $.ajax({
             data: {
                 kd_menu: kodeMenu,
@@ -112,11 +181,9 @@ $(document).ready(function () {
             success: function (data) {
                 alert("Ditambahkan ke pesanan");
                 $("#modalMenu" + kodeMenu).modal('hide');
-                loadData();
+                loadDataCart();
                 loadJumlah();
-                $(".qty").val(1);
-                $(".hargaSaus").text("0");
-                $('.addCart').attr('disabled', 'disabled');
+                location.reload();
             },
             error: function (data, error) {
                 window.location.reload();
@@ -141,7 +208,7 @@ $(document).ready(function () {
             success: function (data) {
                 // window.location.reload();
                 alert("Menu Dihapus");
-                loadData();
+                loadDataCart();
                 loadJumlah();
                 $("#cartlMenu").modal('hide');
             },
@@ -167,7 +234,7 @@ $(document).ready(function () {
             success: function (data) {
                 // window.location.reload();
                 alert("Keranjang pesanan dikosongkan");
-                loadData();
+                loadDataCart();
                 loadJumlah();
                 $("#cartMenu").modal('hide');
             },

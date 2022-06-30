@@ -27,7 +27,7 @@
                                         } ?>">
                         <a class="nav-link" href="reservasi_menu.php">Reservasi</a>
                     </li>
-                    <li class="nav-item <?php if ($page == "Catering") {
+                    <li class="nav-item <?php if ($page == "Catering" || $page == "Catering Checkout") {
                                             echo "active";
                                         } ?>">
                         <a class="nav-link" href="catering_menu.php">Catering</a>

@@ -87,7 +87,7 @@ $('.button').on('click', function (event) {
         },
         success: function (data) {
             $(".SubMenu").html(data);
-            console.log(data);
+            // console.log(data);
         }
     })
 });
