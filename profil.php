@@ -40,8 +40,8 @@
                 <div class="col-md-2">
                     <!-- <img src="assets/images/order_detail.svg" alt=""> -->
                     <nav class="nav flex-column nav-pills">
-                        <a class="nav-link active" href="profil.php">Profile</a>
-                        <a class="nav-link" href="profil_alamat.php">Alamat</a>
+                        <a class="nav-link active" href="profil.php">Edit Profile</a>
+                        <a class="nav-link" href="profil_alamat.php">Edit Alamat</a>
                         <!-- <a class="nav-link" href="#">Link</a> -->
                     </nav>
                 </div>

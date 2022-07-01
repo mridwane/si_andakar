@@ -45,10 +45,16 @@ if (isset($_SESSION['C_ID'])) ?>
                 </div>
                 <div class="col-md-6">
                     <div class="form_container">
+                        <label for="date">Alamat</label>
                         <div>
-                            <textarea class="form-control" name="" id="" cols="30" rows="4" readonly>
-                                <?= $_SESSION['address'] ?>
-                            </textarea>
+                            <?php 
+                            $query = 'SELECT * FROM `tblcustomer`a JOIN `tblalamat`b ON a.C_ADRESSID=b.id_alamat WHERE a.C_ID = "'.$_SESSION["cid"].'"';
+                            $result = mysqli_query($db, $query) or die(mysqli_error($db));
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $alamat = $row['alamat'];
+                            }
+                            ?>
+                            <textarea name="" id="" cols="30" rows="4" disabled><?= $alamat; ?></textarea>
                         </div>
                         <div>
                             <label for="date">Tanggal Catering?</label>
