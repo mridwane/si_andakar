@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form_container">
-                        <form action="controller/reservasi_controller.php?action=batal" method="POST">
+                        <form action="controller/profil_controller.php?action=update" method="POST">
                             <div>
                                 <label for="">Nama Depan</label>
                                 <input type="text" class="form-control" name="fname" value="<?= $FNAME ?>" />
