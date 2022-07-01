@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Jun 2022 pada 09.43
+-- Waktu pembuatan: 01 Jul 2022 pada 19.09
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -20,6 +20,18 @@ SET time_zone = "+00:00";
 --
 -- Database: `andakar`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tblalamat`
+--
+
+CREATE TABLE `tblalamat` (
+  `id_alamat` int(50) NOT NULL,
+  `alamat` text NOT NULL,
+  `c_id` int(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -52,6 +64,11 @@ CREATE TABLE `tblbuktitransfer` (
   `id` int(11) NOT NULL,
   `date` datetime NOT NULL,
   `file_name` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `nominal_trf` int(11) NOT NULL,
+  `user` varchar(255) NOT NULL,
+  `margin` varchar(255) NOT NULL,
+  `note` varchar(255) NOT NULL,
   `no_transac` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -59,9 +76,13 @@ CREATE TABLE `tblbuktitransfer` (
 -- Dumping data untuk tabel `tblbuktitransfer`
 --
 
-INSERT INTO `tblbuktitransfer` (`id`, `date`, `file_name`, `no_transac`) VALUES
-(6, '2022-06-27 15:12:39', 'BTDEL2706202203122956', 'DEL2706202203122956'),
-(7, '2022-06-28 08:45:56', 'BTDEL2806202208441969.jpg', 'DEL2806202208441969');
+INSERT INTO `tblbuktitransfer` (`id`, `date`, `file_name`, `status`, `nominal_trf`, `user`, `margin`, `note`, `no_transac`) VALUES
+(1, '2022-06-30 15:59:20', 'BTCAT3006202203590738.jpg', 'after_revision', 0, 'customer', '0', 'asdasd', 'CAT3006202203590738'),
+(2, '0000-00-00 00:00:00', 'BTDPCAT3006202203590738.png', 'revisi_dp', 12312313, 'admin', '', '', 'CAT3006202203590738'),
+(3, '0000-00-00 00:00:00', 'BTDPCAT3006202203590738.jpg', 'revisi_dp', 200000, 'admin', '', '', 'CAT3006202203590738'),
+(4, '0000-00-00 00:00:00', 'BTDPCAT3006202203590738.jpg', 'revisi_dp', 123213, 'admin', '', '', 'CAT3006202203590738'),
+(5, '0000-00-00 00:00:00', 'BTDPCAT3006202203590738.jpg', 'revisi_dp', 123123, 'admin', '', '', 'CAT3006202203590738'),
+(7, '2022-06-30 18:42:25', 'BTLNSCAT3006202203590738.jpg', 'lunas', 0, 'customer', '', '', 'CAT3006202203590738');
 
 -- --------------------------------------------------------
 
@@ -72,18 +93,10 @@ INSERT INTO `tblbuktitransfer` (`id`, `date`, `file_name`, `no_transac`) VALUES
 CREATE TABLE `tblcart` (
   `kd_cart` varchar(255) NOT NULL,
   `jenis_cart` varchar(50) NOT NULL,
+  `total` int(50) NOT NULL,
   `date` date NOT NULL,
   `c_id` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tblcart`
---
-
-INSERT INTO `tblcart` (`kd_cart`, `jenis_cart`, `date`, `c_id`) VALUES
-('Catering4', 'Catering', '2022-06-29', 4),
-('Delivery4', 'Delivery', '2022-06-23', 4),
-('Delivery5', 'Delivery', '2022-06-23', 5);
 
 -- --------------------------------------------------------
 
@@ -99,20 +112,6 @@ CREATE TABLE `tblcartdetail` (
   `qty` int(10) NOT NULL,
   `harga` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tblcartdetail`
---
-
-INSERT INTO `tblcartdetail` (`id`, `kd_cart`, `kd_menu`, `kd_saus`, `qty`, `harga`) VALUES
-(29, 'Delivery5', 49, 'S001', 2, 118000),
-(30, 'Delivery5', 46, 'S100', 2, 414000),
-(33, 'Delivery5', 49, 'S001', 2, 118000),
-(34, 'Delivery5', 53, 'S100', 2, 24000),
-(35, 'Delivery5', 52, 'S100', 1, 10000),
-(36, 'Delivery5', 46, 'S002', 1, 207000),
-(42, 'Delivery4', 51, 'S001', 2, 258000),
-(45, 'Delivery4', 49, 'S001', 1, 59000);
 
 -- --------------------------------------------------------
 
@@ -154,7 +153,7 @@ CREATE TABLE `tblcustomer` (
   `C_FNAME` varchar(50) NOT NULL,
   `C_LNAME` varchar(50) NOT NULL,
   `C_AGE` int(2) NOT NULL,
-  `C_ADDRESS` text NOT NULL,
+  `C_ADRESSID` int(25) NOT NULL,
   `C_PNUMBER` varchar(50) NOT NULL,
   `C_GENDER` varchar(50) NOT NULL,
   `C_EMAILADD` varchar(50) NOT NULL,
@@ -167,10 +166,10 @@ CREATE TABLE `tblcustomer` (
 -- Dumping data untuk tabel `tblcustomer`
 --
 
-INSERT INTO `tblcustomer` (`C_ID`, `C_FNAME`, `C_LNAME`, `C_AGE`, `C_ADDRESS`, `C_PNUMBER`, `C_GENDER`, `C_EMAILADD`, `ZIPCODE`, `username`, `password`) VALUES
-(4, 'Nadya', 'Minerva', 25, 'Jalanin aja dulu', '082346578910', 'Perempuan', 'emak@gmail.com', 'asd', 'admin', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
-(5, 'sumail', 'cofeen', 20, 'Jl Lembang', '0823123123', 'Laki-Laki', 'sumail@gmail.com', '40222', 'sumail', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
-(6, 'ridwan', 'remin', 21, 'Jl asd', '312312', 'Laki-Laki', '123@gmail.com', '4321', 'ridwan12', '$2y$10$XZw1u9HtZtDpLXMsUtbHUe4m0ztA8kUttAhXpVxD71cFb9GFnkpn2');
+INSERT INTO `tblcustomer` (`C_ID`, `C_FNAME`, `C_LNAME`, `C_AGE`, `C_ADRESSID`, `C_PNUMBER`, `C_GENDER`, `C_EMAILADD`, `ZIPCODE`, `username`, `password`) VALUES
+(4, 'Nadya', 'Minerva', 25, 0, '082346578919', 'Perempuan', 'emak@gmail.com', 'asd', 'admin', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
+(5, 'sumail', 'cofeen', 20, 0, '0823123123', 'Laki-Laki', 'sumail@gmail.com', '40222', 'sumail', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
+(6, 'ridwan', 'remin', 21, 0, '312312', 'Laki-Laki', '123@gmail.com', '4321', 'ridwan12', '$2y$10$XZw1u9HtZtDpLXMsUtbHUe4m0ztA8kUttAhXpVxD71cFb9GFnkpn2');
 
 -- --------------------------------------------------------
 
@@ -419,7 +418,7 @@ CREATE TABLE `tbltransac` (
 --
 
 INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`, `total_price`, `reservation_date_time`, `person_count`, `customer_id`) VALUES
-(1, 'DEL2806202208441969', '2022/06/28', 'Delivery', 'done', 672000, '2022-06-28 13:44:19', 0, 4);
+(1, 'CAT3006202212205773', '2022/06/30', 'Catering', 'pending', 444000, '2022-06-30 17:20:57', 0, 4);
 
 -- --------------------------------------------------------
 
@@ -441,8 +440,8 @@ CREATE TABLE `tbltransacdetail` (
 --
 
 INSERT INTO `tbltransacdetail` (`id`, `product_code`, `kd_saus`, `qty`, `transac_code`, `harga`) VALUES
-(1, '46', 'S002', 2, 'DEL2806202208441969', 414000),
-(2, '51', 'S001', 2, 'DEL2806202208441969', 258000);
+(1, '46', 'S002', 2, 'CAT3006202212205773', 414000),
+(2, '52', 'S100', 3, 'CAT3006202212205773', 30000);
 
 -- --------------------------------------------------------
 
@@ -472,6 +471,12 @@ INSERT INTO `tblusers` (`user_id`, `fname`, `lname`, `email`, `contact`, `addres
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `tblalamat`
+--
+ALTER TABLE `tblalamat`
+  ADD PRIMARY KEY (`id_alamat`);
 
 --
 -- Indeks untuk tabel `tblautonumber`
@@ -582,6 +587,12 @@ ALTER TABLE `tblusers`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `tblalamat`
+--
+ALTER TABLE `tblalamat`
+  MODIFY `id_alamat` int(50) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `tblautonumber`
 --
 ALTER TABLE `tblautonumber`
@@ -597,7 +608,7 @@ ALTER TABLE `tblbuktitransfer`
 -- AUTO_INCREMENT untuk tabel `tblcartdetail`
 --
 ALTER TABLE `tblcartdetail`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcategory`
