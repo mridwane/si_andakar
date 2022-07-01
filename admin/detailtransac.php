@@ -20,8 +20,7 @@ if (!isset($_SESSION["userid"])) {
     $order_type = $row['transac_type'];
   }
 
-  $query_bukti_transfer = 'SELECT * FROM `tblbuktitransfer` WHERE no_transac="' . $cd . '" AND user="customer" ORDER BY id ASC
-  LIMIT 1';
+  $query_bukti_transfer = 'SELECT * FROM `tblbuktitransfer` WHERE no_transac="' . $cd . '" AND user="customer" ';
   $result2 = mysqli_query($db, $query_bukti_transfer) or die(mysqli_error($db));
   $file_name_dp = "";
   $file_name_lunas = "";
