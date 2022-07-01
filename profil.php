@@ -14,7 +14,6 @@
     while ($row = mysqli_fetch_assoc($result)) {
         $FNAME = $row['C_FNAME'];
         $LNAME = $row['C_LNAME'];
-        $ALAMAT = $row['C_ADDRESS'];
         $NOTLP = $row['C_PNUMBER'];
         $EMAIL = $row['C_EMAILADD'];
     }
@@ -38,7 +37,15 @@
                 </h2>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-2">
+                    <!-- <img src="assets/images/order_detail.svg" alt=""> -->
+                    <nav class="nav flex-column nav-pills">
+                        <a class="nav-link active" href="profil.php">Profile</a>
+                        <a class="nav-link" href="profil_alamat.php">Alamat</a>
+                        <!-- <a class="nav-link" href="#">Link</a> -->
+                    </nav>
+                </div>
+                <div class="col-md-5">
                     <div class="form_container">
                         <form action="controller/profil_controller.php?action=update" method="POST">
                             <div>
@@ -57,12 +64,6 @@
                                 <label for="">Email</label>
                                 <input type="email" class="form-control" value="<?= $EMAIL ?>" name="email" />
                             </div>
-                            <div>
-                                <label for="">Alamat</label>
-                                <textarea name="alamat" id="" cols="30" rows="4" class="form-control">
-                                    <?= $ALAMAT ?>
-                                </textarea>
-                            </div>
                             <div class="btn-box">
                                 <button type="submit">
                                     Update Profil
@@ -76,8 +77,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <img src="assets/images/order_detail.svg" alt="">
+                <div class="col-md-3">
+                    <img src="assets/images/profil.svg" alt="" width="550px">
                 </div>
             </div>
         </div>
