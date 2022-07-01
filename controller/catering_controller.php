@@ -223,7 +223,76 @@ if ($_GET['action'] == 'savetrfrvs') {
         // TODO: Gunakan sweet alert
         echo ("<script language='JavaScript'>
         window.location.href='../order_detail_catering.php?&no_transaksi=$transac_code';
-        window.alert('Terima kasih telah melakukan pemesanan! Pesanan anda akan kami proses dan dikirimkan mohon menunggu dan cek status pesanan di menu pesanan saya.')
+        window.alert('Terima kasih telah melakukan pembayaran! Tunggu pembayaran anda dikonfirmasi oleh kami.')
+        </script>");
+      } else {
+        // Jika gambar gagal diupload, Lakukan :
+        echo "Maaf, butkti transfer gagal untuk diupload.";
+      }
+    } else {
+    ?>
+      <script type="text/javascript">
+        alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
+      </script>
+    <?php
+    }
+  }
+}
+
+// untuk upload ulang bukti transfer jika transfer sebelumnya tidak sesuai
+if ($_GET['action'] == 'savetrfrvslns') {
+
+  if (isset($_POST['confirm'])) {
+    if ($_FILES['upload']['name'] != "") {
+
+      $transac_code = $_POST['transac_code'];
+      $datetime = date('Y-m-d H:i:s');
+      // get file
+      $file = $_FILES['upload']['name'];
+      $tmp = $_FILES['upload']['tmp_name'];
+      $type = pathinfo($file, PATHINFO_EXTENSION);
+      $file_name = $_POST["file_name"];
+
+      $user_id = $_SESSION['cid'];
+
+
+      // Rename nama file
+      $filenew = "BTLNS" . $transac_code . "." . $type;
+      // Set path folder tempat menyimpan fotonya
+      $path = "../assets/bukti_transfer/" . $filenew;
+      $path2 = $_SERVER['DOCUMENT_ROOT'] . "/si_andakar/assets/bukti_transfer/" . $file_name;
+      // hapus file sebelumnya
+      @unlink($path2);
+      // Cek apakah gambar berhasil diupload atau tidak
+      $status = false;
+      if (move_uploaded_file($tmp, $path)) {
+        copy($path, $path);
+      }
+      if ($status == false) {
+
+        // Proses simpan ke Database
+
+        $nama = "";
+
+        if ($type != "") {
+          $nama = $filenew;
+        }
+        $status_transfer = "after_revision_lns";
+
+        $query_update = "UPDATE tblbuktitransfer SET status = 'after_revision_lns', nominal_trf = 0 , user = 'customer', margin = 0  WHERE
+        no_transac='" . $transac_code . "' AND user='customer'";
+        mysqli_query($db, $query_update) or die(mysqli_error($db));
+
+        // update status
+        $after_revision_lns = "after_revision_lns";
+        $query_update = "UPDATE tbltransac SET status = '" . $after_revision_lns . "' WHERE
+        transac_code='" . $transac_code . "'";
+        mysqli_query($db, $query_update) or die(mysqli_error($db));
+
+        // TODO: Gunakan sweet alert
+        echo ("<script language='JavaScript'>
+        window.location.href='../order_detail_catering.php?&no_transaksi=$transac_code';
+        window.alert('Terima kasih telah melakukan pelunasan! Pesanan anda akan kami proses dan dikirimkan mohon menunggu dan cek status pesanan di menu pesanan saya.')
         </script>");
       } else {
         // Jika gambar gagal diupload, Lakukan :
@@ -281,8 +350,8 @@ if ($_GET['action'] == 'savetrflunas') {
         mysqli_query($db, $query) or die(mysqli_error($db));
 
         // update status
-        $dp = "lunas";
-        $query_update = "UPDATE tbltransac SET status = '" . $dp . "' WHERE
+        $pelunasan = "pelunasan";
+        $query_update = "UPDATE tbltransac SET status = '" . $pelunasan . "' WHERE
         transac_code='" . $transac_code . "'";
         mysqli_query($db, $query_update) or die(mysqli_error($db));
 

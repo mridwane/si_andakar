@@ -11,6 +11,7 @@
                         <div class="form-group">
                             <label>No Pemesanan</label>
                             <input type="text" name="transac_code" value="<?php echo $_GET['id'] ?>" class="form-control" readonly />
+                            <input type="text" name="status" value="<?php echo $stats ?>" class="form-control" readonly />
                         </div>
                         <div class="form-group">
                             <label>Nominal Transfer Seharusnya</label>
@@ -95,6 +96,27 @@ if (isset($_GET['no_transac']) && $_GET['action'] == "confirm") {
 
 }
 
+if (isset($_GET['no_transac']) && $_GET['action'] == "lunas") {
+    require_once('../../includes/connection.php');
+    $status = "lunas";
+    $no_transac = $_GET['no_transac'];
+    // update table transac
+    $query_update = "UPDATE tbltransac SET status = '" . $status . "' WHERE transac_code='" . $_GET['no_transac'] . "'";
+    mysqli_query($db, $query_update) or die(mysqli_error($db));
+
+
+    // //insert ke table detail, berfungsi untuk melihat hisoty siapa yang accept atau dengan alesan apa
+    // $query_insert = "INSERT INTO tbldetailrequestmitra(date,note,status,user_id)values('" . $datetime . "','" . $note . "','" . $status . "','" . $user_id . "')";
+    // mysqli_query($db, $query_insert) or die(mysqli_error($db));
+?>
+    <script type="text/javascript">
+        window.location.href = '../detailtransac.php?id=<?php echo $no_transac ?>';
+        alert("Pesanan Telah Dikonfirmasi");
+    </script>
+<?php
+
+}
+
 if (isset($_GET['no_transac']) && $_GET['action'] == "deny") {
     require_once('../../includes/connection.php');
     $status = "deny";
@@ -117,58 +139,115 @@ if (isset($_GET['no_transac']) && $_GET['action'] == "deny") {
 }
 
 
+
 if (isset($_POST['save_ketidaksesuaian'])) {
-    $transac_code = $_POST["transac_code"];
-    $status = "revisi_dp";
-    $note = $_POST["note"];
-    $nominal_customer_trf = $_POST["cust_transfer"];
-    $margin = $_POST["margin"];
+    if ($_POST["status"] == "dp") {
+        $transac_code = $_POST["transac_code"];
+        $status = "revisi_dp";
+        $note = $_POST["note"];
+        $nominal_customer_trf = $_POST["cust_transfer"];
+        $margin = $_POST["margin"];
 
-    // insert bukti transfer dari admin
-    // get file
-    $file = $_FILES['upload_pengembalian']['name'];
-    $tmp = $_FILES['upload_pengembalian']['tmp_name'];
-    $type = pathinfo($file, PATHINFO_EXTENSION);
+        // insert bukti transfer dari admin
+        // get file
+        $file = $_FILES['upload_pengembalian']['name'];
+        $tmp = $_FILES['upload_pengembalian']['tmp_name'];
+        $type = pathinfo($file, PATHINFO_EXTENSION);
 
-    $user_id = $_SESSION['cid'];
-
-
-    // Rename nama file
-    $filenew = "BTDP" . $transac_code . "." . $type;
-    // Set path folder tempat menyimpan fotonya
-    $path = "../assets/bukti_transfer/" . $filenew;
+        $user_id = $_SESSION['cid'];
 
 
+        // Rename nama file
+        $filenew = "BTDP" . $transac_code . "." . $type;
+        // Set path folder tempat menyimpan fotonya
+        $path = "../assets/bukti_transfer/" . $filenew;
 
-    // Cek apakah gambar berhasil diupload atau tidak
-    $status = false;
-    if (move_uploaded_file($tmp, $path)) {
-        copy($path, $path);
-    }
-    if ($status == false) {
 
-        // Proses simpan ke Database
 
-        $nama = "";
-
-        if ($type != "") {
-            $nama = $filenew;
+        // Cek apakah gambar berhasil diupload atau tidak
+        $status = false;
+        if (move_uploaded_file($tmp, $path)) {
+            copy($path, $path);
         }
-        $status_transfer = "revisi_dp";
-        $query = "INSERT INTO `tblbuktitransfer`(`date`, `file_name`, `status`, `nominal_trf`, `user`, `margin`, `note`, `no_transac`)
-    VALUES ('" . $datetime . "','" . $nama . "','" . $status_transfer . "', '" . $nominal_customer_trf . "', 'admin','','', '" . $transac_code . "')";
-        mysqli_query($db, $query) or die(mysqli_error($db));
+        if ($status == false) {
+
+            // Proses simpan ke Database
+
+            $nama = "";
+
+            if ($type != "") {
+                $nama = $filenew;
+            }
+            $status_transfer = "revisi_dp";
+            $query = "INSERT INTO `tblbuktitransfer`(`date`, `file_name`, `status`, `nominal_trf`, `user`, `margin`, `note`, `no_transac`)
+        VALUES ('" . $datetime . "','" . $nama . "','" . $status_transfer . "', '" . $nominal_customer_trf . "', 'admin','','', '" . $transac_code . "')";
+            mysqli_query($db, $query) or die(mysqli_error($db));
+        }
+
+        // update tblbuktitrasnfer untuk bukti transfer customer
+        $query_update = "UPDATE tblbuktitransfer SET status = 'revisi_dp', nominal_trf = '" . $nominal_customer_trf . "', margin = '" . $margin . "', note = '" . $note . "' WHERE
+            no_transac='" . $transac_code . "' AND user='customer'";
+        mysqli_query($db, $query_update) or die(mysqli_error($db));
+
+        // update tbltransac
+        $query_transac = "UPDATE tbltransac SET status = 'revisi_dp' WHERE
+            transac_code='" . $transac_code . "'";
+        mysqli_query($db, $query_transac) or die(mysqli_error($db));
+    }
+    if ($_POST["status"] == "pelunasan") {
+        $transac_code = $_POST["transac_code"];
+        $status = "revisi_dp";
+        $note = $_POST["note"];
+        $nominal_customer_trf = $_POST["cust_transfer"];
+        $margin = $_POST["margin"];
+
+        // insert bukti transfer dari admin
+        // get file
+        $file = $_FILES['upload_pengembalian']['name'];
+        $tmp = $_FILES['upload_pengembalian']['tmp_name'];
+        $type = pathinfo($file, PATHINFO_EXTENSION);
+
+        $user_id = $_SESSION['cid'];
+
+
+        // Rename nama file
+        $filenew = "BTREVLNS" . $transac_code . "." . $type;
+        // Set path folder tempat menyimpan fotonya
+        $path = "../assets/bukti_transfer/" . $filenew;
+
+
+
+        // Cek apakah gambar berhasil diupload atau tidak
+        $status = false;
+        if (move_uploaded_file($tmp, $path)) {
+            copy($path, $path);
+        }
+        if ($status == false) {
+
+            // Proses simpan ke Database
+
+            $nama = "";
+
+            if ($type != "") {
+                $nama = $filenew;
+            }
+            $status_transfer = "revisi_pelunasan";
+            $query = "INSERT INTO `tblbuktitransfer`(`date`, `file_name`, `status`, `nominal_trf`, `user`, `margin`, `note`, `no_transac`)
+        VALUES ('" . $datetime . "','" . $nama . "','" . $status_transfer . "', '" . $nominal_customer_trf . "', 'admin','','', '" . $transac_code . "')";
+            mysqli_query($db, $query) or die(mysqli_error($db));
+        }
+
+        // update tblbuktitrasnfer untuk bukti transfer customer
+        $query_update = "UPDATE tblbuktitransfer SET status = 'revisi_pelunasan', nominal_trf = '" . $nominal_customer_trf . "', margin = '" . $margin . "', note = '" . $note . "' WHERE
+            no_transac='" . $transac_code . "' AND user='customer'";
+        mysqli_query($db, $query_update) or die(mysqli_error($db));
+
+        // update tbltransac
+        $query_transac = "UPDATE tbltransac SET status = 'revisi_pelunasan' WHERE
+            transac_code='" . $transac_code . "'";
+        mysqli_query($db, $query_transac) or die(mysqli_error($db));
     }
 
-    // update tblbuktitrasnfer untuk bukti transfer customer
-    $query_update = "UPDATE tblbuktitransfer SET status = 'revisi_dp', nominal_trf = '" . $nominal_customer_trf . "', margin = '" . $margin . "', note = '" . $note . "' WHERE
-        no_transac='" . $transac_code . "' AND user='customer'";
-    mysqli_query($db, $query_update) or die(mysqli_error($db));
-
-    // update tbltransac
-    $query_transac = "UPDATE tbltransac SET status = 'revisi_dp' WHERE
-        transac_code='" . $transac_code . "'";
-    mysqli_query($db, $query_transac) or die(mysqli_error($db));
 
 
 ?>

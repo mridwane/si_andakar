@@ -13,6 +13,9 @@ $query = 'SELECT * FROM `tbltransac` WHERE transac_code = "' . $_GET["no_transak
 $result = mysqli_query($db, $query) or die(mysqli_error($db));
 // membuat nomer otomatis untuk di tabel
 $no = 1;
+$pajak = 0;
+$service = 0;
+$subtotal = 0;
 while ($row = mysqli_fetch_assoc($result)) {
     $jenis = $row['transac_type'];
     // cek Status Pending atau disetujui atau batal
@@ -26,6 +29,12 @@ while ($row = mysqli_fetch_assoc($result)) {
         $status = "DP Tidak Sesuai";
     } elseif ($row['status'] == "after_revision") {
         $status = "Sudah Bayar Ulang DP";
+    } elseif ($row['status'] == "pelunasan") {
+        $status = "Sudah Bayar Pelunasan";
+    } elseif ($row['status'] == "revisi_pelunasan") {
+        $status = "Pelunasan Tidak Sesuai";
+    } elseif ($row['status'] == "after_revision_lns") {
+        $status = "Sudah Bayar Ulang Pelunasan";
     } elseif ($row['status'] == "lunas") {
         $status = "Lunas";
     } elseif ($row['status'] == "confirmed") {
@@ -38,6 +47,9 @@ while ($row = mysqli_fetch_assoc($result)) {
         $status = "Dibatalkan";
     }
     $total = $row['total_price'];
+    $service = $row["total_price"] * 0.05;
+    $pajak = $row["total_price"] * 0.10;
+    $subtotal = $row["total_price"];
 }
 ?>
 
@@ -76,7 +88,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             </div>
                             <div>
                                 <label for="">Total Pesanan</label>
-                                <input type="text" class="form-control" value="Rp. <?= number_format($total, 0, ',', '.'); ?>" readonly />
+                                <input type="text" class="form-control" value="Rp. <?= number_format(($subtotal + $pajak + $service)) ?>" readonly />
                             </div>
                             <?php if ($status == "Pending") { ?>
                                 <span>*Pesanan Anda Belum Selesai</span>
@@ -84,6 +96,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                                 <h4>Pesanan kamu sedang kami proses, mohon untuk menunggu.</h4>
                             <?php } elseif ($status == "Sudah Bayar DP" || $status == "Sudah Bayar Ulang DP") { ?>
                                 <h4>Terima kasih telah membayar down payment, Mohon menunggu konfirmasi dari kami</h4>
+                            <?php } elseif ($status == "Sudah Bayar Pelunasan" || $status == "Sudah Bayar Ulang Pelunasan") { ?>
+                                <h4>Terima kasih telah membayar Pelunasan, Mohon menunggu konfirmasi dari kami</h4>
                             <?php } elseif ($status == "Lunas") { ?>
                                 <h4>Terima kasih telah membayar pelunasan, Kami akan mengirimkan pesanan anda sesuai dengan jadwal yang tertera </h4>
                                 <br>
@@ -100,8 +114,15 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <?php } elseif ($status == "DP Tidak Sesuai" && strtoupper($jenis) == strtoupper("catering")) { ?>
                                 <h4>Transfer Down Payement (DP) yang telah anda lakukan tidak sesuai dengan nominal seharusnya, klik disini untuk melihat rincian dan lakukan ulang pembayaran</h4>
                                 <a href="catering_revisi.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>" class="btn btn-danger">Lihat Rincian / Upload Ulang</a>
+                            <?php } elseif ($status == "Pelunasan Tidak Sesuai" && strtoupper($jenis) == strtoupper("catering")) { ?>
+                                <h4>Transfer Pelunasan yang telah anda lakukan tidak sesuai dengan nominal seharusnya, klik disini untuk melihat rincian dan lakukan ulang pembayaran</h4>
+                                <a href="catering_revisi_lns.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>" class="btn btn-danger">Lihat Rincian / Upload Ulang</a>
                             <?php } elseif ($status == "Disetujui" && strtoupper($jenis) == strtoupper("catering")) { ?>
-                                <h4>Pesanan anda telah kami terima. Mohon melakukan pelunasan maksimal h-2 dari jadwal yang telah dipilih.</h4>
+                                <h4>Pesanan anda telah kami terima. Mohon melakukan pelunasan SISA BAYAR maksimal h-2 dari jadwal yang telah dipilih.</h4>
+                                <div>
+                                    <label for="">Anda Harus Membayar Sebesar</label>
+                                    <input type="text" class="form-control" value="Rp. <?= number_format(($subtotal + $pajak + $service) / 2, 0, ',', '.'); ?>" readonly />
+                                </div>
                                 <label for="upload">Upload Bukti Transfer Pelusanan</label>
                                 <input type="file" class="form-control" id="upload_pelunasan" name="upload_pelunasan" accept=".jpeg, .jpg, .png">
                                 <div class="btn-box">

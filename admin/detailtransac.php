@@ -7,7 +7,7 @@ if (!isset($_SESSION["userid"])) {
   include 'theme/header.php';
   include 'theme/sidebar.php';
 
-  $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name,`C_PNUMBER`,`C_ADDRESS` FROM `tbltransac` a INNER JOIN
+  $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name,`C_PNUMBER` FROM `tbltransac` a INNER JOIN
   `tblcustomer` b on a.customer_id=b.C_ID WHERE a.transac_code ="' . $_GET['id'] . '"';
   $result = mysqli_query($db, $query) or die(mysqli_error($db));
   while ($row = mysqli_fetch_array($result)) {
@@ -19,6 +19,36 @@ if (!isset($_SESSION["userid"])) {
     $cd = $row['transac_code'];
     $order_type = $row['transac_type'];
   }
+
+  $status_strng = "";
+  if (strtoupper($stats) == strtoupper("dp")) {
+    $status_strng = "Sudah Bayar DP";
+  } else if (strtoupper($stats) == strtoupper("revisi_dp")) {
+    $status_strng = "DP Tidak Sesuai";
+  } else if (strtoupper($stats) == strtoupper("after_revision")) {
+    $status_strng = "Sudah Bayar Ulang DP";
+  } else if (strtoupper($stats) == strtoupper("pelunasan")) {
+    $status_strng = "Sudah Bayar Pelunasan";
+  } else if (strtoupper($stats) == strtoupper("revisi_pelunasan")) {
+    $status_strng = "Pelunasan Tidak Sesuai";
+  } else if (strtoupper($stats) == strtoupper("after_revision_lns")) {
+    $status_strng = "Sudah Bayar Ulang Pelunasan";
+  } else if (strtoupper($stats) == strtoupper("lunas")) {
+    $status_strng = "Lunas";
+  } else if (strtoupper($stats) == strtoupper("confirmed")) {
+    $status_strng = "Disetujui";
+  } else if (strtoupper($stats) == strtoupper("sending")) {
+    $status_strng = "Dikirim";
+  } else if (strtoupper($stats) == strtoupper("done")) {
+    $status_strng = "Selesai";
+  } else if (strtoupper($stats) == strtoupper("Paid")) {
+    $status_strng = "Sudah Bayar";
+  } else if (strtoupper($stats) == strtoupper("pending")) {
+    $status_strng = "Pending";
+  } else {
+    $status = "Dibatalkan";
+  }
+
 
   $query_bukti_transfer = 'SELECT * FROM `tblbuktitransfer` WHERE no_transac="' . $cd . '" AND user="customer" ';
   $result2 = mysqli_query($db, $query_bukti_transfer) or die(mysqli_error($db));
@@ -43,16 +73,16 @@ if (!isset($_SESSION["userid"])) {
         <h5>Kontak : 0<?php echo $contact; ?></h5>
         <h5>Alamat : <?php echo $address; ?></h5>
         <h5>Jenis Pesanan : <?php echo $order_type; ?></h5>
-        <h5>Status Pesanan : <?php echo $stats; ?></h5>
+        <h5>Status Pesanan : <?php echo $status_strng; ?></h5>
         <h5>Tanggal & Waktu : <?php echo $tgl_reservasi; ?></h5>
         <?php if (strtoupper($order_type) == strtoupper("delivery") || strtoupper($order_type) == strtoupper("catering")) { ?>
-          <?php if ($stats == "paid" || $stats == "dp" || $stats == "lunas" || $stats == "after_revision") { ?>
+          <?php if ($stats == "paid" || $stats == "dp" || $stats == "lunas" || $stats == "pelunasan" || $stats == "after_revision_lns" || $stats == "after_revision") { ?>
             <h5>Bukti Transfer <?php if ($order_type == "Catering") {
                                   echo " DP";
                                 } ?>: <?php echo '<a href="controller/download_file_transaksi.php?file_name=' . $file_name_dp . '&no_transac=' . $cd . '">Download Bukti Transfer</a>'; ?></h5>
 
           <?php }
-          if ($stats == "lunas") { ?>
+          if ($stats == "lunas" || $stats == "pelunasan" || $stats == "after_revision_lns") { ?>
             <h5>Bukti Transfer Pelunasan : <?php echo '<a href="controller/download_file_transaksi.php?file_name=' . $file_name_lunas . '&no_transac=' . $cd . '">Download Bukti Transfer</a>'; ?></h5>
         <?php
           }
@@ -204,8 +234,15 @@ if (!isset($_SESSION["userid"])) {
             <a href="controller/admin_catering_controller.php?no_transac=<?php echo $cd; ?>&action=deny" class="btn btn-xs btn-danger"><i class="fas fa-sign-out-alt"></i>Tolak Pesanan</a>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update_modal<?php echo $_GET['id']; ?>">Transfer Tidak Sesuai</button>
             <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
+          <?php } elseif (strtoupper($row["status"]) == strtoupper("pelunasan") || strtoupper($row["status"]) == strtoupper("after_revision_lns") && strtoupper($row["transac_type"]) == strtoupper("catering")) { ?>
+            <a href="controller/admin_catering_controller.php?no_transac=<?php echo $cd; ?>&action=lunas" class="btn btn-xs btn-info"><i class="fas fa-sign-out-alt"></i>Buat Pesanan</a>
+            <a href="controller/admin_catering_controller.php?no_transac=<?php echo $cd; ?>&action=deny" class="btn btn-xs btn-danger"><i class="fas fa-sign-out-alt"></i>Batalkan Pesanan</a>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update_modal<?php echo $_GET['id']; ?>">Transfer Tidak Sesuai</button>
+            <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
           <?php } elseif (strtoupper($row["status"]) == strtoupper('confirmed') && strtoupper($row["transac_type"]) == strtoupper("catering")) { ?>
             <span>Menunggu Customer Melakukan Pelunasan</span>
+          <?php } elseif (strtoupper($row["status"]) == strtoupper('lunas') && strtoupper($row["transac_type"]) == strtoupper("catering")) { ?>
+            <span>Pesanan harus dikirimkan sesuai dengan tanggal yang tertera</span><br>
           <?php } elseif (strtoupper($row["status"]) == 'confirmed' && strtoupper($row["transac_type"]) == "catering") { ?>
             <a href="controller/admin_delivery_controller.php?no_transac=<?php echo $cd; ?>&action=send" class="btn btn-xs btn-danger"><i class="fas fa-sign-out-alt"></i>Kirimkan Pesanan</a>
             <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
