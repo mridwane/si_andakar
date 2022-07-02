@@ -63,6 +63,8 @@ if (!isset($_SESSION["cid"])) {
                                     $status = "Dikirim";
                                 } elseif ($row['status'] == "done") {
                                     $status = "Selesai";
+                                } elseif ($row['status'] == "deny_adm_dp" || $row['status'] == "deny_adm_lns") {
+                                    $status = "Dibatalkan Admin";
                                 } else {
                                     $status = "Dibatalkan";
                                 }
