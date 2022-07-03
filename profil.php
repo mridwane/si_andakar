@@ -9,7 +9,7 @@
     include 'includes/header.php';
     }
 
-    $query = 'SELECT * FROM `tblcustomer` WHERE C_ID = "'.$_SESSION["cid"].'"';
+     $query = 'SELECT * FROM `tblcustomer` WHERE C_ID = "'.$_SESSION["cid"].'"';
     $result = mysqli_query($db, $query) or die(mysqli_error($db));
     while ($row = mysqli_fetch_assoc($result)) {
         $FNAME = $row['C_FNAME'];

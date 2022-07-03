@@ -54,7 +54,18 @@ if (isset($_SESSION['C_ID'])) ?>
                                 $alamat = $row['alamat'];
                             }
                             ?>
+                            <?php
+                            
+                            $query = 'SELECT C_ADRESSID FROM `tblcustomer` WHERE C_ID = "'.$_SESSION["cid"].'"';
+                            $result = mysqli_query($db, $query) or die(mysqli_error($db));
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $address = $row['C_ADRESSID'];
+                            }
+                            if($address == 0){ ?>
+                            <textarea name="" id="" cols="30" rows="4" disabled>Anda belum memilih alamat</textarea>
+                            <?php } else{ ?>
                             <textarea name="" id="" cols="30" rows="4" disabled><?= $alamat; ?></textarea>
+                            <?php } ?>
                         </div>
                         <div>
                             <label for="date">Tanggal Catering?</label>
