@@ -29,7 +29,8 @@ if (!isset($_SESSION["cid"])) {
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%"
+                        cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -81,13 +82,24 @@ if (!isset($_SESSION["cid"])) {
                                 echo '<td>' . $row['transac_type'] . '</td>';
                                 echo '<td>' . $status . '</td>';
                                 echo '<td>' . $row['reservation_date_time'] . '</td>';
+                                if ($row['status'] == "pending") {
                                 echo '<td><a type="button" class="btn-detail"
-                                        href="' . $link . '?&no_transaksi=' . $row['transac_code'] . '">
+                                        href="catering_rincian.php?&no_transaksi=' . $row['transac_code'] . '">
+                                        <span class="material-icons">
+                                            Detail
+                                        </span>
+                                    </a>
+                                </td>';
+                                }
+                                else{
+                                    echo '<td><a type="button" class="btn-detail"
+                                            href="' . $link . '?&no_transaksi=' . $row['transac_code'] . '">
                                             <span class="material-icons">
                                                 Detail
                                             </span>
-                                            </a>
-                                            </td>';
+                                        </a>
+                                    </td>';
+                                }
                                 echo '</tr> ';
                             }
                             ?>
