@@ -39,9 +39,11 @@ $kd_cart = $jenis.$cid;?>
         <?php } ?>
     </table>
     <?php if(empty($total)){?>
-    <div>Total price: Rp. <span class="priceTotal" data-price="<?= $total; ?>"> </span></div>
+    <div>Total price: Rp. <span class="priceTotal" data-price="<?= $total; ?>" data-jenis="<?= $jenis; ?>"> </span>
+    </div>
     <?php }else { ?>
-    <div>Total price: Rp. <span class="priceTotal" data-price="<?= $total; ?>"><?= number_format($total ,0,',','.') ?>
+    <div>Total price: Rp. <span class="priceTotal" data-price="<?= $total; ?>"
+            data-jenis="<?= $jenis; ?>"><?= number_format($total ,0,',','.') ?>
         </span>
     </div>
     <?php } ?>
@@ -59,14 +61,24 @@ $kd_cart = $jenis.$cid;?>
 
         function loadCheckout() {
             let total = $('.priceTotal').data('price');
-            console.log(total);
-            if (total <= 500000) {
-                $('.nextOrder').addClass('disabled');
-                $('.nextOrder').text('Minimal Order 5.000.000');
+            let jenis = $('.priceTotal').data('jenis');
+            console.log(jenis);
+            if (jenis == 'Catering') {
+                if (total <= 5000000) {
+                    $('.nextOrder').addClass('disabled');
+                    $('.nextOrder').text('Minimal Order 5.000.000');
+                } else {
+                    $('.nextOrder').removeClass('disabled');
+                    $('.nextOrder').text('Checkout');
+                }
             } else {
-                $('.nextOrder').removeClass('disabled');
-                $('.nextOrder').text('Checkout');
+                if (total > 0) {
+                    $('.nextOrder').removeClass('disabled');
+                } else {
+                    $('.nextOrder').addClass('disabled');
+                }
             }
+
         }
     })
 </script>

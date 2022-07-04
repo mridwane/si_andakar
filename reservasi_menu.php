@@ -24,7 +24,7 @@
         <div class="container">
             <div class="heading_container heading_center">
                 <h2>
-                    Daftar Menu Catering
+                    Daftar Menu Reservasi
                 </h2>
             </div>
             <div class="filters">
@@ -65,7 +65,8 @@
 
                                         <?php if($row['status'] == "Tersedia") { ?>
                                         <a href="#" data-toggle="modal"
-                                            data-target="#modalMenu<?= $row['product_id'] ?>" class="btn btn-warning">
+                                            data-target="#modalMenu<?= $row['product_id'] ?>"
+                                            class="btn btn-warning showOption">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                                 fill="currentColor">
                                                 <path
@@ -101,8 +102,6 @@
                                             <p> <?= $row['detail_product'] ?> </p>
                                         </div>
                                     </div>
-
-
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -134,7 +133,8 @@
                                             <div class="input-group">
                                                 <span class="input-group-btn">
                                                     <button type="button" class="btn btn-danger btn-number"
-                                                        data-type="minus" data-field="quant[2]">-
+                                                        data-type="minus" data-idMenu="<?= $row['product_id']; ?>"
+                                                        data-field="quant[2]">-
                                                     </button>
                                                 </span>
                                                 <input type="text" name="quant[2]" class="form-control input-number qty"
@@ -153,7 +153,7 @@
                                         </div>
                                         <div class="col-12">
                                             <select class="form-control nice-select wide">
-                                                <option value="" selected disabled>Pilih Saus</option>
+                                                <option value="" selected disabled>Pilih Menu</option>
                                                 <?php 
                                                     $query2 = "SELECT * FROM tblsaus WHERE NOT id_saus = 'S100'";
                                                     $result2 = mysqli_query($db, $query2) or die (mysqli_error($db));   
@@ -236,26 +236,13 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Daftar Pesanan Reservasi</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Daftar Pesanan Catering</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="controller/delivery_controller.php?action=save" method="POST">
-                    <div class="modal-body">
-                        <table class="show-cart table">
+                <form action="catering.php?kd_cart=<?= $page.$_SESSION['cid'] ?>" method="POST" class="show-cart">
 
-                        </table>
-                        <div>Total price: Rp. <span class="total-cart" id="total_cart"> </span></div>
-                        <!-- <input type="text" class="jml_total" name="jml_total" id="jml_total" hidden> -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" id="next_reservasi" name="next_reservasi"
-                            class="btn btn-primary">Lanjutkan
-                            Pesanan
-                        </button>
-                    </div>
                 </form>
                 <button class="clear-cart btn btn-danger" data-jenis="<?= $page ?>">Kosongkan keranjang</button>
             </div>
