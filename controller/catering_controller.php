@@ -33,10 +33,10 @@ if ($_GET['action'] == 'save') {
   $ht = mysqli_fetch_array($hitung_total);
   $jml_total = $ht['total'];
 
-  $queryCek = mysqli_query($db, 'SELECT * FROM tbltransac WHERE customer_id = "' . $user_id . '" AND transac_type = "' . $type . '" ');
+  $queryCek = mysqli_query($db, 'SELECT * FROM tbltransac WHERE customer_id = "' . $user_id . '" AND transac_type = "' . $type . '" AND transac_code = "' . $no_transac . '" ');
   $cek = mysqli_num_rows($queryCek);
   if ($cek > 0) {
-    $uptransac = "UPDATE tbltransac SET transac_code = '$no_transac', total_price = '$jml_total'";
+    $uptransac = "UPDATE tbltransac SET transac_code = '$no_transac', total_price = '$jml_total' WHERE customer_id = '". $user_id . "'";
     mysqli_query($db, $uptransac) or die('Error, gagal menyimpan data catering');
   } else {
     $instransac = "INSERT INTO tbltransac (transac_code, date, transac_type, status, total_price, customer_id)
@@ -159,10 +159,10 @@ if ($_GET['action'] == 'savetrf') {
       }
     } else {
 ?>
-      <script type="text/javascript">
-        alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
-      </script>
-    <?php
+<script type="text/javascript">
+  alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
+</script>
+<?php
     }
   }
 }
@@ -231,10 +231,10 @@ if ($_GET['action'] == 'savetrfrvs') {
       }
     } else {
     ?>
-      <script type="text/javascript">
-        alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
-      </script>
-    <?php
+<script type="text/javascript">
+  alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
+</script>
+<?php
     }
   }
 }
@@ -300,10 +300,10 @@ if ($_GET['action'] == 'savetrfrvslns') {
       }
     } else {
     ?>
-      <script type="text/javascript">
-        alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
-      </script>
-    <?php
+<script type="text/javascript">
+  alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
+</script>
+<?php
     }
   }
 }
@@ -366,9 +366,9 @@ if ($_GET['action'] == 'savetrflunas') {
       }
     } else {
     ?>
-      <script type="text/javascript">
-        alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
-      </script>
+<script type="text/javascript">
+  alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
+</script>
 <?php
     }
   }

@@ -9,6 +9,7 @@ if (!isset($_SESSION["cid"])) {
     include 'includes/header.php';
 }
 
+
 $query = 'SELECT * FROM `tbltransac` WHERE transac_code = "' . $_GET["no_transaksi"] . '"';
 $result = mysqli_query($db, $query) or die(mysqli_error($db));
 // membuat nomer otomatis untuk di tabel
@@ -43,6 +44,27 @@ while ($row = mysqli_fetch_assoc($result)) {
         $status = "Dikirim";
     } elseif ($row['status'] == "done") {
         $status = "Selesai";
+    } elseif ($row['status'] == "deny_adm_dp" || $row['status'] == "deny_adm_lns") {
+        $status = "Dibatalkan Admin";
+        $query3 = 'SELECT * FROM `tblbuktitransfer`  WHERE no_transac = "' . $_GET["no_transaksi"] . '" AND user="admin" AND status = "deny_adm_dp" OR status = "deny_adm_lns" ';
+        $result3 = mysqli_query($db, $query3) or die(mysqli_error($db));
+        $file_name_dp = "";
+        $file_name_lunas = "";
+        $besar_dana = 0;
+        while ($row3 = mysqli_fetch_array($result3)) {
+
+            $file_name_dp = $row3["file_name"];
+            $besar_dana = $row3["nominal_trf"];
+        }
+        $query2 = 'SELECT * FROM `tblbuktitransfer`  WHERE no_transac = "' . $_GET["no_transaksi"] . '" AND user="customer" AND status = "deny_adm_dp" OR status = "deny_adm_lns" ';
+        $result2 = mysqli_query($db, $query2) or die(mysqli_error($db));
+        $note_admin = "";
+        while ($row2 = mysqli_fetch_array($result2)) {
+
+            $note_admin = $row2["note"];
+        }
+    } elseif ($row['status'] == "deny_adm_lns") {
+        $status = "Dibatalkan Admin";
     } else {
         $status = "Dibatalkan";
     }
@@ -114,6 +136,13 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <?php } elseif ($status == "DP Tidak Sesuai" && strtoupper($jenis) == strtoupper("catering")) { ?>
                                 <h4>Transfer Down Payement (DP) yang telah anda lakukan tidak sesuai dengan nominal seharusnya, klik disini untuk melihat rincian dan lakukan ulang pembayaran</h4>
                                 <a href="catering_revisi.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>" class="btn btn-danger">Lihat Rincian / Upload Ulang</a>
+                            <?php } elseif (strtoupper($status) == strtoupper("Dibatalkan Admin") && strtoupper($jenis) == strtoupper("catering")) { ?>
+                                <div>
+                                    <label for="">Alasan Pembatalan</label>
+                                    <textarea class="form-control" readonly><?= $note_admin ?></textarea>
+                                </div>
+                                <h4>Pesanan Anda telah dibatalkan. dana telah dikembalikan sebesar Rp. <?= number_format($besar_dana) ?></h4>
+                                <a href="controller/download_file_transaksi.php?file_name=<?php echo $file_name_dp ?>&no_transac=<?php echo $_GET['no_transaksi'] ?>">Lihat Bukti Pengembalian Dana</a>
                             <?php } elseif ($status == "Pelunasan Tidak Sesuai" && strtoupper($jenis) == strtoupper("catering")) { ?>
                                 <h4>Transfer Pelunasan yang telah anda lakukan tidak sesuai dengan nominal seharusnya, klik disini untuk melihat rincian dan lakukan ulang pembayaran</h4>
                                 <a href="catering_revisi_lns.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>" class="btn btn-danger">Lihat Rincian / Upload Ulang</a>
