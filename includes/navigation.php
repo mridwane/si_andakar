@@ -17,12 +17,12 @@
                                         } ?>">
                         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item <?php if ($page == "Delivery") {
+                    <li class="nav-item <?php if ($page == "Delivery"  || $page == "Delivery Checkout") {
                                             echo "active";
                                         } ?>">
                         <a class="nav-link" href="delivery_menu.php">Delivery</a>
                     </li>
-                    <li class="nav-item <?php if ($page == "Reservasi") {
+                    <li class="nav-item <?php if ($page == "Reservasi"  || $page == "Reservasi Checkout") {
                                             echo "active";
                                         } ?>">
                         <a class="nav-link" href="reservasi_menu.php">Reservasi</a>
