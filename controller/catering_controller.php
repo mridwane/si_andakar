@@ -49,7 +49,7 @@ if ($_GET['action'] == 'save') {
   JOIN tblproducts c
   ON
   a.kd_menu = c.product_id JOIN tblsaus d ON
-  a.kd_saus = d.id_saus WHERE b.c_id = "' . $user_id . '"');
+  a.kd_saus = d.id_saus WHERE b.kd_cart = "' . $_GET['kd_cart'] . '"');
   while ($row = mysqli_fetch_array($query_select)) {
     $query2 = "INSERT INTO tbltransacdetail (product_code, kd_saus, qty, transac_code, harga)
     VALUES ('" . $row['kd_menu'] . "', '" . $row['kd_saus'] . "', '" . $row['qty'] . "', '$no_transac' ,
