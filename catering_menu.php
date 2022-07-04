@@ -243,15 +243,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="catering.php?kd_cart=<?= $page.$_SESSION['cid'] ?>" method="POST">
-                    <div class="modal-body show-cart">
+                <form action="catering.php?kd_cart=<?= $page.$_SESSION['cid'] ?>" method="POST" class="show-cart">
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary nextOrder" disabled>Checkout
-                        </button>
-                    </div>
                 </form>
                 <button class="clear-cart btn btn-danger" data-jenis="<?= $page ?>">Kosongkan keranjang</button>
             </div>

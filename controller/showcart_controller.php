@@ -13,32 +13,60 @@ $jenis = $_POST['jenis'];
 $kd_cart = $jenis.$cid;?>
 
 
-<table class="table">
-    <?php 
+<div class="modal-body show-cart">
+    <table class="table">
+        <?php 
     $query = mysqli_query($db, 'SELECT * FROM tblcartdetail a JOIN tblcart b ON a.kd_cart = b.kd_cart JOIN tblproducts c ON
     a.kd_menu = c.product_id JOIN tblsaus d ON
     a.kd_saus = d.id_saus WHERE a.kd_cart = "'.$kd_cart.'"');
     while($row = mysqli_fetch_array($query)){
         $total = $row['total'];
     ?>
-    <tr>
-        <input type="text" name="product_code[]" id="product_code" style="display:none" value="<?= $row['kd_menu']?>">
-        <input type="text" name="qty[]" id="qty" style="display:none" value="<?= $row['qty']?>">
-        <?php if($row['nama_saus'] == "Tanpa Saus") {?>
-        <td><?= $row['product_name']?></td>
-        <?php }else{?>
-        <td><?= $row['product_name']?> + <?= $row['nama_saus'] ?></td>
-        <?php } ?>
-        <td><?= $row['qty']?></td>
-        <td>Rp. <?= number_format($row['harga'] ,0,',','.') ?></td>
-        <td><a href="#" class="btn btn-danger delete-item" data-id-cart="<?= $row['id']?>">Hapus</a></td>
-    </tr>
+        <tr>
+            <input type="text" name="product_code[]" id="product_code" style="display:none"
+                value="<?= $row['kd_menu']?>">
+            <input type="text" name="qty[]" id="qty" style="display:none" value="<?= $row['qty']?>">
+            <?php if($row['nama_saus'] == "Tanpa Saus") {?>
+            <td><?= $row['product_name']?></td>
+            <?php }else{?>
+            <td><?= $row['product_name']?> + <?= $row['nama_saus'] ?></td>
+            <?php } ?>
+            <td><?= $row['qty']?></td>
+            <td>Rp. <?= number_format($row['harga'] ,0,',','.') ?></td>
+            <td><a href="#" class="btn btn-danger delete-item" data-id-cart="<?= $row['id']?>">Hapus</a></td>
+        </tr>
 
-    <?php }
-?>
-</table>
-<?php if(empty($total)){?>
-<div>Total price: Rp. <span> </span></div>
-<?php }else { ?>
-<div>Total price: Rp. <span><?= number_format($total ,0,',','.') ?> </span></div>
-<?php } ?>
+        <?php } ?>
+    </table>
+    <?php if(empty($total)){?>
+    <div>Total price: Rp. <span class="priceTotal" data-price="<?= $total; ?>"> </span></div>
+    <?php }else { ?>
+    <div>Total price: Rp. <span class="priceTotal" data-price="<?= $total; ?>"><?= number_format($total ,0,',','.') ?>
+        </span>
+    </div>
+    <?php } ?>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <!-- <button type="submit" class="btn btn-primary nextOrder disabled">Minimal Order 5.000.000</button> -->
+    <button type="submit" class="btn btn-primary nextOrder disabled">Checkout</button>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        loadCheckout();
+
+        function loadCheckout() {
+            let total = $('.priceTotal').data('price');
+            console.log(total);
+            if (total <= 500000) {
+                $('.nextOrder').addClass('disabled');
+                $('.nextOrder').text('Minimal Order 5.000.000');
+            } else {
+                $('.nextOrder').removeClass('disabled');
+                $('.nextOrder').text('Checkout');
+            }
+        }
+    })
+</script>
