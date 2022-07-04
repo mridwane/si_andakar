@@ -10,6 +10,7 @@ if ($_GET['action'] == 'save') {
   $date = date("Y/m/d");
   $user_id = $_SESSION['cid'];
   $type = "Catering";
+  $kd_cart = $type.$user_id;
   // $kode_produk = $_POST['product_code'];
   // $jml = $_POST['qty'];
   // $jml_total = 120000;
@@ -49,7 +50,7 @@ if ($_GET['action'] == 'save') {
   JOIN tblproducts c
   ON
   a.kd_menu = c.product_id JOIN tblsaus d ON
-  a.kd_saus = d.id_saus WHERE b.kd_cart = "' . $_GET['kd_cart'] . '"');
+  a.kd_saus = d.id_saus WHERE b.kd_cart = "' .$kd_cart. '"');
   while ($row = mysqli_fetch_array($query_select)) {
     $query2 = "INSERT INTO tbltransacdetail (product_code, kd_saus, qty, transac_code, harga)
     VALUES ('" . $row['kd_menu'] . "', '" . $row['kd_saus'] . "', '" . $row['qty'] . "', '$no_transac' ,
@@ -58,9 +59,9 @@ if ($_GET['action'] == 'save') {
   }
 
   // query delete cart dan cart detail
-  $deletecart = 'DELETE From tblcartdetail WHERE kd_cart = "' . $_GET['kd_cart'] . '"';
+  $deletecart = 'DELETE From tblcartdetail WHERE kd_cart = "' .$kd_cart. '"';
   mysqli_query($db, $deletecart) or die(mysqli_error($db));
-  $deletecartdetail = 'DELETE From tblcart WHERE kd_cart = "' . $_GET['kd_cart'] . '"';
+  $deletecartdetail = 'DELETE From tblcart WHERE kd_cart = "' .$kd_cart. '"';
   mysqli_query($db, $deletecartdetail) or die(mysqli_error($db));
 
   echo ("<script language='JavaScript'>
