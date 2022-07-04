@@ -15,10 +15,10 @@ $result = mysqli_query($db, $query) or die(mysqli_error($db));
 // membuat nomer otomatis untuk di tabel
 $no = 1;
 $pajak = 0;
-$service = 0;
 $subtotal = 0;
 while ($row = mysqli_fetch_assoc($result)) {
     $jenis = $row['transac_type'];
+    $waktu_reservasi = $row['reservation_date_time'];
     // cek Status Pending atau disetujui atau batal
     if ($row['status'] == "pending") {
         $status = "Pending";
@@ -58,7 +58,6 @@ while ($row = mysqli_fetch_assoc($result)) {
         }
         $query2 = 'SELECT * FROM `tblbuktitransfer`  WHERE no_transac = "' . $_GET["no_transaksi"] . '" AND user="customer" AND status = "deny_adm_dp" OR status = "deny_adm_lns" ';
         $result2 = mysqli_query($db, $query2) or die(mysqli_error($db));
-        $note_admin = "";
         while ($row2 = mysqli_fetch_array($result2)) {
 
             $note_admin = $row2["note"];
@@ -94,7 +93,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class="row">
                 <div class="col-md-6">
                     <div class="form_container">
-                        <form action="controller/catering_controller.php?action=savetrflunas" method="POST"
+                        <form action="controller/reservasi_controller.php?action=savetrflunas" method="POST"
                             enctype="multipart/form-data">
                             <div>
                                 <label for="">No Transaksi</label>
@@ -104,6 +103,10 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <div>
                                 <label for="">Jenis Pesanan</label>
                                 <input type="text" class="form-control" value="<?= $jenis ?>" readonly />
+                            </div>
+                            <div>
+                                <label for="">Waktu Reservasi</label>
+                                <input type="text" class="form-control" value="<?= $waktu_reservasi ?>" readonly />
                             </div>
                             <div>
                                 <label for="">Status</label>
@@ -123,8 +126,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <?php } elseif ($status == "Sudah Bayar Pelunasan" || $status == "Sudah Bayar Ulang Pelunasan") { ?>
                             <h4>Terima kasih telah membayar Pelunasan, Mohon menunggu konfirmasi dari kami</h4>
                             <?php } elseif ($status == "Lunas") { ?>
-                            <h4>Terima kasih telah membayar pelunasan, Kami akan mengirimkan pesanan anda sesuai dengan
-                                jadwal yang tertera </h4>
+                            <h4>Terima kasih telah membayar pelunasan, Kami tunggu kedatangan anda. </h4>
                             <br>
                             <h6>*Jika ada yang ditanyakan silahkan hubungi kontak kami</h6>
                             <?php } elseif ($status == "Dikirim") { ?>
@@ -135,13 +137,13 @@ while ($row = mysqli_fetch_assoc($result)) {
                             </div>
                             <?php } elseif ($status == "Selesai") { ?>
                             <h4>Pesanan anda telah selesai.</h4>
-                            <!-- tombol tomtol untuk pesanan catering -->
-                            <?php } elseif ($status == "DP Tidak Sesuai" && strtoupper($jenis) == strtoupper("catering")) { ?>
+                            <!-- tombol tomtol untuk pesanan reservasi -->
+                            <?php } elseif ($status == "DP Tidak Sesuai" && strtoupper($jenis) == strtoupper("reservasi")) { ?>
                             <h4>Transfer Down Payement (DP) yang telah anda lakukan tidak sesuai dengan nominal
                                 seharusnya, klik disini untuk melihat rincian dan lakukan ulang pembayaran</h4>
-                            <a href="catering_revisi.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>"
+                            <a href="reservasi_revisi.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>"
                                 class="btn btn-danger">Lihat Rincian / Upload Ulang</a>
-                            <?php } elseif (strtoupper($status) == strtoupper("Dibatalkan Admin") && strtoupper($jenis) == strtoupper("catering")) { ?>
+                            <?php } elseif (strtoupper($status) == strtoupper("Dibatalkan Admin") && strtoupper($jenis) == strtoupper("reservasi")) { ?>
                             <div>
                                 <label for="">Alasan Pembatalan</label>
                                 <textarea class="form-control" readonly><?= $note_admin ?></textarea>
@@ -151,19 +153,18 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <a
                                 href="controller/download_file_transaksi.php?file_name=<?php echo $file_name_dp ?>&no_transac=<?php echo $_GET['no_transaksi'] ?>">Lihat
                                 Bukti Pengembalian Dana</a>
-                            <?php } elseif ($status == "Pelunasan Tidak Sesuai" && strtoupper($jenis) == strtoupper("catering")) { ?>
+                            <?php } elseif ($status == "Pelunasan Tidak Sesuai" && strtoupper($jenis) == strtoupper("reservasi")) { ?>
                             <h4>Transfer Pelunasan yang telah anda lakukan tidak sesuai dengan nominal seharusnya, klik
                                 disini untuk melihat rincian dan lakukan ulang pembayaran</h4>
-                            <a href="catering_revisi_lns.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>"
+                            <a href="reservasi_revisi_lns.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>"
                                 class="btn btn-danger">Lihat Rincian / Upload Ulang</a>
-                            <?php } elseif ($status == "Disetujui" && strtoupper($jenis) == strtoupper("catering")) { ?>
+                            <?php } elseif ($status == "Disetujui" && strtoupper($jenis) == strtoupper("reservasi")) { ?>
                             <h4>Pesanan anda telah kami terima. Mohon melakukan pelunasan SISA BAYAR maksimal h-2 dari
                                 jadwal yang telah dipilih.</h4>
                             <div>
                                 <label for="">Anda Harus Membayar Sebesar</label>
                                 <input type="text" class="form-control"
-                                    value="Rp. <?= number_format(($subtotal + $pajak + $service) / 2, 0, ',', '.'); ?>"
-                                    readonly />
+                                    value="Rp. <?= number_format(($subtotal + $pajak) / 2, 0, ',', '.'); ?>" readonly />
                             </div>
                             <label for="upload">Upload Bukti Transfer Pelusanan</label>
                             <input type="file" class="form-control" id="upload_pelunasan" name="upload_pelunasan"

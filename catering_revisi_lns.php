@@ -63,15 +63,19 @@ while ($row3 = mysqli_fetch_array($result3)) {
             <div class="row">
                 <div class="col-md-6">
                     <div class="form_container">
-                        <form action="controller/catering_controller.php?action=savetrfrvslns" method="POST" enctype="multipart/form-data">
+                        <form action="controller/catering_controller.php?action=savetrfrvslns" method="POST"
+                            enctype="multipart/form-data">
                             <div>
                                 <label for="">No Transaksi</label>
-                                <input type="text" class="form-control" name="transac_code" value="<?= $_GET['no_transaksi'] ?>" readonly />
-                                <input type="text" class="form-control" name="file_name" value="<?= $file_name; ?>" hidden />
+                                <input type="text" class="form-control" name="transac_code"
+                                    value="<?= $_GET['no_transaksi'] ?>" readonly />
+                                <input type="text" class="form-control" name="file_name" value="<?= $file_name; ?>"
+                                    hidden />
                             </div>
                             <div>
                                 <label for="">Nama Pemesan</label>
-                                <input type="text" class="form-control" value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" readonly />
+                                <input type="text" class="form-control"
+                                    value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" readonly />
                             </div>
                             <div>
                                 <label for="">Jumlah Item</label>
@@ -79,29 +83,38 @@ while ($row3 = mysqli_fetch_array($result3)) {
                             </div>
                             <div>
                                 <label for="">Jumlah Total (Sudah termasuk biaya Service dan pajak)</label>
-                                <input type="text" class="form-control" value="Rp. <?= number_format($totalkeseluruhan, 0, ',', '.'); ?>" readonly />
+                                <input type="text" class="form-control"
+                                    value="Rp. <?= number_format($totalkeseluruhan, 0, ',', '.'); ?>" readonly />
 
                             </div>
 
                             <div>
                                 <label for="">Sisa Bayar </label>
-                                <input type="text" class="form-control" value="Rp. <?= number_format($dp, 0, ',', '.'); ?>" readonly />
+                                <input type="text" class="form-control"
+                                    value="Rp. <?= number_format($dp, 0, ',', '.'); ?>" readonly />
                             </div>
                             <div>
                                 <label for="">Pembayaran yang anda telah lakukan</label>
-                                <input type="text" class="form-control" value="Rp. <?= number_format($pembayaran_cust, 0, ',', '.'); ?>" readonly />
-                                <span> Kami telah melakukan transfer pengembalian sesuai dengan pemabayaran yang telah anda lakukan</span>
-                                <h4><a href="controller/download_file_transaksi.php?file_name=<?php echo $file_name_dp ?>&no_transac=<?php echo $_GET['no_transaksi'] ?>">Download Bukti Transfer Pengembalian</a></h4>
+                                <input type="text" class="form-control"
+                                    value="Rp. <?= number_format($pembayaran_cust, 0, ',', '.'); ?>" readonly />
+                                <span> Kami telah melakukan transfer pengembalian sesuai dengan pemabayaran yang telah
+                                    anda lakukan</span>
+                                <h4><a
+                                        href="controller/download_file_transaksi.php?file_name=<?php echo $file_name_dp ?>&no_transac=<?php echo $_GET['no_transaksi'] ?>">Download
+                                        Bukti Transfer Pengembalian</a></h4>
                             </div>
                             <br>
                             <div>
                                 <span>
-                                    <b>*silahkan melakukan pembayaran ke rekening (No.rekening) sesuai dengan SISA BAYAR (BUKAN TOTAL KESELURUHAN), Jika sudah silahkan
+                                    <b>*silahkan melakukan pembayaran ke rekening <b>BANK BCA (525 019 1873) atas nama
+                                            Yanuar R. Arief</b> sesuai dengan SISA BAYAR (BUKAN TOTAL KESELURUHAN), Jika
+                                        sudah silahkan
                                         upload bukti transfer dibawah ini.
                                     </b>
                                 </span>
                                 <label for="upload">Upload Bukti Transfer</label>
-                                <input type="file" class="form-control" id="upload" name="upload" accept=".jpeg, .jpg, .png">
+                                <input type="file" class="form-control" id="upload" name="upload"
+                                    accept=".jpeg, .jpg, .png">
                             </div>
                             <div class="btn-box">
                                 <button type="submit" class="btn-konfirmasi-pembayaran" name="confirm">
@@ -110,7 +123,8 @@ while ($row3 = mysqli_fetch_array($result3)) {
                             </div>
                             <br>
                             <div class="btn-box">
-                                <a href="controller/catering_controller.php?action=cancel&no_pemesanan=<?php echo $_GET['no_transaksi'] ?>" class="batal btn btn-danger" type="button" data-status="2">Batalkan Pesanan</a>
+                                <a href="controller/catering_controller.php?action=cancel&no_pemesanan=<?php echo $_GET['no_transaksi'] ?>"
+                                    class="batal btn btn-danger" type="button" data-status="2">Batalkan Pesanan</a>
                             </div>
                         </form>
                         <div class="btn-black">

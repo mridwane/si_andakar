@@ -42,7 +42,7 @@ $dp = $totalkeseluruhan * 0.5;
             <div class="row">
                 <div class="col-md-6">
                     <div class="form_container">
-                        <form action="controller/catering_controller.php?action=savetrf" method="POST"
+                        <form action="controller/reservasi_controller.php?action=savetrf" method="POST"
                             enctype="multipart/form-data">
                             <div>
                                 <label for="">No Transaksi</label>
@@ -94,10 +94,10 @@ $dp = $totalkeseluruhan * 0.5;
                             <br>
                             <div>
                                 <span>
-                                    <b>*silahkan melakukan pembayaran ke rekening (No.rekening) sesuai dengan DP (DOWN
-                                        PAYMENT, BUKAN TOTAL KESELURUHAN), Jika sudah silahkan
-                                        upload bukti transfer dibawah ini.
-                                    </b>
+                                    *silahkan melakukan pembayaran ke rekening <b>BANK BCA (525 019 1873) atas nama
+                                        Yanuar R. Arief</b> sesuai dengan DP (DOWN
+                                    PAYMENT, BUKAN TOTAL KESELURUHAN), Jika sudah silahkan
+                                    upload bukti transfer dibawah ini.
                                 </span>
                                 <label for="upload">Upload Bukti Transfer</label>
                                 <input type="file" class="form-control" id="upload" name="upload"

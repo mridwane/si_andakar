@@ -2,7 +2,7 @@
 session_start();
 if (isset($_SESSION['C_ID'])) ?>
 <?php include('includes/connection.php'); ?>
-<?php $page = "Reservasi"; ?>
+<?php $page = "Reservasi Checkout"; ?>
 <!--header area-->
 <?php include 'includes/header.php'; ?>
 
@@ -45,11 +45,7 @@ if (isset($_SESSION['C_ID'])) ?>
                 <!-- Pengaturan reservasi -->
                 <div class="col-md-6">
                     <div class="form_container">
-                        <form action="controller/catering_controller.php?action=update" method="POST">
-                            <div>
-                                <input type="text" class="form-control" name="transac_code" value="<?= $_GET['nt'] ?>"
-                                    readonly />
-                            </div>
+                        <form action="controller/reservasi_controller.php?action=save" method="POST">
                             <div>
                                 <select class="form-control nice-select wide" id="person_count" name="person_count">
                                     <option value="" disabled selected> Untuk Berapa Orang? </option>
@@ -73,15 +69,14 @@ if (isset($_SESSION['C_ID'])) ?>
                                 <label for="time">Waktu Reservasi?</label>
                                 <input type="time" class="form-control" id="time" name="time">
                             </div>
-                            <button type="submit" id="update_reservasi" name="update_reservasi"
-                                class="btn btn-primary">Simpan
+                            <button type="submit" class="btn btn-primary">Reservasi Sekarang
                             </button>
                         </form>
-                        <form action="controller/reservasi_controller.php?action=hapus" method="POST">
-                            <input type="text" class="form-control" name="transac_code" value="<?= $_GET['nt'] ?>"
+                        <form action="controller/reservasi_controller.php?action=cancel" method="POST">
+                            <input type="text" class="form-control" name="kd_cart" value="<?= $_GET['kd_cart'] ?>"
                                 hidden />
                             <div class="btn-red">
-                                <button type="submit">Tidak Jadi Pesan</button>
+                                <button type="submit">Tidak Jadi Reservasi</button>
                             </div>
                         </form>
                     </div>
@@ -92,7 +87,8 @@ if (isset($_SESSION['C_ID'])) ?>
         </div>
     </section>
     <section class="food_section layout_padding">
-        < <!-- Product Tables -->
+        <!-- Product Tables -->
+        <div class="container">
             <div class="card mb-3">
                 <div class="card-header">
                     <Center>
@@ -102,7 +98,7 @@ if (isset($_SESSION['C_ID'])) ?>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%"
                                 cellspacing="0">
-                                <thead>
+                                <thead class="table-primary">
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
@@ -113,41 +109,39 @@ if (isset($_SESSION['C_ID'])) ?>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $query = 'SELECT * FROM `tbltransacdetail` a inner join `tblproducts` b on a.`product_code` = b.`product_id` WHERE a.`transac_code` = "' . $_GET['nt'] . '"';
-                                    $result = mysqli_query($db, $query) or die(mysqli_error($db));
-                                    // membuat nomer otomatis untuk di tabel
-                                    $no = 1;
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        // cek Status Pending atau disetujui
-                                        if ($row['status'] == "0") {
-                                            $status = "Pending";
-                                        } elseif ($row['status'] == "1") {
-                                            $status = "Disetujui";
-                                        } else {
-                                            $status = "Dibatalkan";
-                                        }
-                                        echo '<tr>';
-                                        echo '<td>' . $no++ . '</td>';
-                                        echo '<td>' . $row['product_name'] . '</td>';
-                                        echo '<td>' . $row['qty'] . '</td>';
-                                        echo '<td>' . $row['type'] . '</td>';
-                                        echo '<td><a type="button" class="btn-detail" data-toggle="modal"
-                                                data-target="#cartReservasi"
-                                        href="detail_list_permintaan.php?&no_permintaan=' . $row['transac_code'] . '">
-                                            <span class="material-icons">
-                                                Edit
-                                            </span>
-                                            </a>
-                                            </td>';
-                                        echo '</tr> ';
+                                $query = 'SELECT * FROM `tblcartdetail` a inner join `tblproducts` b on a.`kd_menu` = b.`product_id` inner join `tblsaus` c on a.`kd_saus` = c.`id_saus` WHERE a.`kd_cart` = "' . $_GET['kd_cart'] . '"';
+                                $result = mysqli_query($db, $query) or die(mysqli_error($db));
+                                // membuat nomer otomatis untuk di tabel
+                                $no = 1;
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    // cek Status Pending atau disetujui
+                                    if ($row['status'] == "0") {
+                                        $status = "Pending";
+                                    } elseif ($row['status'] == "1") {
+                                        $status = "Disetujui";
+                                    } else {
+                                        $status = "Dibatalkan";
                                     }
-                                    ?>
+                                    echo '<tr>';
+                                    echo '<td>' . $no++ . '</td>';
+                                    if ($row['id_saus'] == 'S100') {
+                                        echo '<td>' . $row['product_name'] . '</td>';
+                                    } else {
+                                        echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . '</td>';
+                                    }
+                                    echo '<td>' . $row['qty'] . '</td>';
+                                    echo '<td>' . $row['type'] . '</td>';
+                                    echo '<td>Rp. ' . number_format($row['harga'] ,0,',','.'). '</td>';
+                                    echo '</tr> ';
+                                }
+                                ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
     <div class="modal fade" id="cartReservasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
