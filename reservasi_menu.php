@@ -241,7 +241,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="catering.php?kd_cart=<?= $page.$_SESSION['cid'] ?>" method="POST" class="show-cart">
+                <form action="reservasi.php?kd_cart=<?= $page.$_SESSION['cid'] ?>" method="POST" class="show-cart">
 
                 </form>
                 <button class="clear-cart btn btn-danger" data-jenis="<?= $page ?>">Kosongkan keranjang</button>

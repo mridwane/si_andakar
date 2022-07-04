@@ -9,25 +9,25 @@ if (!isset($_SESSION["userid"])) {
 ?>
 
 
-  <div class="card mb-3">
-    <div class="card-header">
-      <h2>Transaksi yang belum di proses</h2>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-              <tr>
-                <th>No. Pemesanan</th>
-                <th>Pelanggan</th>
-                <th>Tanggal Pemesanan</th>
-                <th>Jenis Pesanan</th>
-                <th>Status</th>
-                <th>Pilihan</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name FROM tbltransac a, tblcustomer b WHERE a.`customer_id`=b.`C_ID` AND a.`status`="paid" OR a.`status`="pending" OR a.`status`="dp"';
+<div class="card mb-3">
+  <div class="card-header">
+    <h2>Transaksi yang belum di proses</h2>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>No. Pemesanan</th>
+              <th>Pelanggan</th>
+              <th>Tanggal Pemesanan</th>
+              <th>Jenis Pesanan</th>
+              <th>Status</th>
+              <th>Pilihan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+              $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name FROM tbltransac a, tblcustomer b WHERE a.`customer_id`=b.`C_ID` AND NOT a.`status`="paid" AND NOT a.`status`="cancel" AND NOT a.`status`="deny_adm_dp"';
               $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
               while ($row = mysqli_fetch_assoc($result)) {
@@ -52,28 +52,40 @@ if (!isset($_SESSION["userid"])) {
                 echo '<td>' . $row['reservation_date_time'] . '</td>';
                 echo '<td>' . $row['transac_type'] . '</td>';
                 echo '<td>' . $status . '</td>';
-                echo '<td class="bungkus-tombol"><a title="View list Of Ordered" type="button" class="btn-detail" href="detailtransac.php?id=' . $row['transac_code'] . '" >
-                          <span class="material-icons">
-                            visibility
-                          </span>
-                        </a></td>';
-
-
-
+                if($row['transac_type'] == "Catering"){
+                  echo '<td class="bungkus-tombol"><a title="View list Of Ordered" type="button" class="btn-detail"
+                      href="detailtransac.php?id=' . $row['transac_code'] . '">
+                      <span class="material-icons">
+                        visibility
+                      </span>
+                    </a></td>';
+                }
+                elseif($row['transac_type'] == "Reservasi"){
+                  echo '<td class="bungkus-tombol"><a title="View list Of Ordered" type="button" class="btn-detail"
+                      href="detailtransac_reservasi.php?id=' . $row['transac_code'] . '">
+                      <span class="material-icons">
+                        visibility
+                      </span>
+                    </a></td>';
+                }
+                elseif($row['transac_type'] == "Delivery"){
+                echo '<td class="bungkus-tombol"><a title="View list Of Ordered" type="button" class="btn-detail"
+                    href="detailtransac_delivery.php?id=' . $row['transac_code'] . '">
+                    <span class="material-icons">
+                      visibility
+                    </span>
+                  </a></td>';
+                }
                 echo '</tr> ';
               }
               ?>
-
-            </tbody>
-          </table>
-        </div>
+          </tbody>
+        </table>
       </div>
-
     </div>
-
-
   </div>
-  <!-- /.container-fluid -->
+</div>
+<!-- /.container-fluid -->
 
 <?php include 'theme/footer.php';
 } ?>

@@ -17,8 +17,7 @@ $row = mysqli_fetch_array($result);
 $jumlah = $row['jumlah'];
 $total = $row['total_price'];
 $pajak = $total * 0.10;
-$biayaservice = $total * 0.05;
-$totalkeseluruhan = $total + $pajak + $biayaservice;
+$totalkeseluruhan = $total + $pajak;
 $dp = $totalkeseluruhan * 0.5;
 
 // qeeury tbl bukti transfer
@@ -63,7 +62,7 @@ while ($row3 = mysqli_fetch_array($result3)) {
             <div class="row">
                 <div class="col-md-6">
                     <div class="form_container">
-                        <form action="controller/catering_controller.php?action=savetrfrvs" method="POST"
+                        <form action="controller/reservasi_controller.php?action=savetrfrvs" method="POST"
                             enctype="multipart/form-data">
                             <div>
                                 <label for="">No Transaksi</label>
@@ -107,8 +106,8 @@ while ($row3 = mysqli_fetch_array($result3)) {
                             <div>
                                 <span>
                                     <b>*silahkan melakukan pembayaran ke rekening <b>BANK BCA (525 019 1873) atas nama
-                                            Yanuar R. Arief</b> sesuai dengan DP (DOWN PAYMENT, BUKAN TOTAL
-                                        KESELURUHAN), Jika sudah silahkan
+                                            Yanuar R. Arief</b> sesuai dengan DP (DOWN
+                                        PAYMENT, BUKAN TOTAL KESELURUHAN), Jika sudah silahkan
                                         upload bukti transfer dibawah ini.
                                     </b>
                                 </span>
@@ -123,7 +122,7 @@ while ($row3 = mysqli_fetch_array($result3)) {
                             </div>
                             <br>
                             <div class="btn-box">
-                                <a href="controller/catering_controller.php?action=cancel&no_pemesanan=<?php echo $_GET['no_transaksi'] ?>"
+                                <a href="controller/reservasi_controller.php?action=cancel&no_pemesanan=<?php echo $_GET['no_transaksi'] ?>"
                                     class="batal btn btn-danger" type="button" data-status="2">Batalkan Pesanan</a>
                             </div>
                         </form>

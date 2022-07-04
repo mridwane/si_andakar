@@ -42,7 +42,7 @@ $dp = $totalkeseluruhan * 0.5;
             <div class="row">
                 <div class="col-md-6">
                     <div class="form_container">
-                        <form action="controller/catering_controller.php?action=savetrf" method="POST"
+                        <form action="controller/reservasi_controller.php?action=savetrf" method="POST"
                             enctype="multipart/form-data">
                             <div>
                                 <label for="">No Transaksi</label>

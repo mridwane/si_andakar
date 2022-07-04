@@ -17,12 +17,11 @@ $row = mysqli_fetch_array($result);
 $jumlah = $row['jumlah'];
 $total = $row['total_price'];
 $pajak = $total * 0.10;
-$biayaservice = $total * 0.05;
-$totalkeseluruhan = $total + $pajak + $biayaservice;
+$totalkeseluruhan = $total + $pajak;
 $dp = $totalkeseluruhan * 0.5;
 
 // qeeury tbl bukti transfer
-$query2 = 'SELECT * FROM `tblbuktitransfer`  WHERE no_transac = "' . $_GET["no_transaksi"] . '" AND status = "revisi_dp" AND user="customer"';
+$query2 = 'SELECT * FROM `tblbuktitransfer`  WHERE no_transac = "' . $_GET["no_transaksi"] . '" AND status = "revisi_pelunasan" AND user="customer"';
 $result2 = mysqli_query($db, $query2) or die(mysqli_error($db));
 $pembayaran_cust = 0;
 $file_name = "";
@@ -31,7 +30,7 @@ while ($row2 = mysqli_fetch_array($result2)) {
     $file_name = $row2["file_name"];
 }
 
-$query3 = 'SELECT * FROM `tblbuktitransfer`  WHERE no_transac = "' . $_GET["no_transaksi"] . '" AND status = "revisi_dp" AND user="admin"';
+$query3 = 'SELECT * FROM `tblbuktitransfer`  WHERE no_transac = "' . $_GET["no_transaksi"] . '" AND status = "revisi_pelunasan" AND user="admin"';
 $result3 = mysqli_query($db, $query3) or die(mysqli_error($db));
 $file_name_dp = "";
 $file_name_lunas = "";
@@ -63,7 +62,7 @@ while ($row3 = mysqli_fetch_array($result3)) {
             <div class="row">
                 <div class="col-md-6">
                     <div class="form_container">
-                        <form action="controller/catering_controller.php?action=savetrfrvs" method="POST"
+                        <form action="controller/reservasi_controller.php?action=savetrfrvslns" method="POST"
                             enctype="multipart/form-data">
                             <div>
                                 <label for="">No Transaksi</label>
@@ -82,14 +81,14 @@ while ($row3 = mysqli_fetch_array($result3)) {
                                 <input type="text" class="form-control" value="<?= $jumlah ?>" readonly />
                             </div>
                             <div>
-                                <label for="">Jumlah Total (Sudah termasuk biaya Service dan pajak)</label>
+                                <label for="">Jumlah Total (Sudah termasuk pajak)</label>
                                 <input type="text" class="form-control"
                                     value="Rp. <?= number_format($totalkeseluruhan, 0, ',', '.'); ?>" readonly />
 
                             </div>
 
                             <div>
-                                <label for="">DP 50% Yang harus dibayar</label>
+                                <label for="">Sisa Bayar </label>
                                 <input type="text" class="form-control"
                                     value="Rp. <?= number_format($dp, 0, ',', '.'); ?>" readonly />
                             </div>
@@ -107,8 +106,8 @@ while ($row3 = mysqli_fetch_array($result3)) {
                             <div>
                                 <span>
                                     <b>*silahkan melakukan pembayaran ke rekening <b>BANK BCA (525 019 1873) atas nama
-                                            Yanuar R. Arief</b> sesuai dengan DP (DOWN PAYMENT, BUKAN TOTAL
-                                        KESELURUHAN), Jika sudah silahkan
+                                            Yanuar R. Arief</b> sesuai dengan SISA BAYAR
+                                        (BUKAN TOTAL KESELURUHAN), Jika sudah silahkan
                                         upload bukti transfer dibawah ini.
                                     </b>
                                 </span>
@@ -123,7 +122,7 @@ while ($row3 = mysqli_fetch_array($result3)) {
                             </div>
                             <br>
                             <div class="btn-box">
-                                <a href="controller/catering_controller.php?action=cancel&no_pemesanan=<?php echo $_GET['no_transaksi'] ?>"
+                                <a href="controller/reservasi_controller.php?action=cancel&no_pemesanan=<?php echo $_GET['no_transaksi'] ?>"
                                     class="batal btn btn-danger" type="button" data-status="2">Batalkan Pesanan</a>
                             </div>
                         </form>
