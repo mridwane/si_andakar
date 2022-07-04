@@ -14,15 +14,27 @@
                             <input type="text" name="regis_no" value="<?php echo $no_regis ?>" class="form-control"
                                 readonly />
                         </div>
+                        <?php if($status == 'unconfirmed'){ ?>
                         <div class="form-group">
                             <label>Keputusan</label>
                             <select name="action" id="action" class="form-control nice-select wide">
                                 <option value="" disabled selected> Pilih Keputusan </option>
-                                <option value="accepted" data-names="accepted">Terima</option>
+                                <option value="semi-accepted" data-names="accepted">Terima Wawancara</option>
                                 <option value="denied" data-names="denied">Tolak</option>
                                 </option>
                             </select>
                         </div>
+                        <?php }else{ ?>
+                        <div class="form-group">
+                            <label>Keputusan</label>
+                            <select name="action" id="action" class="form-control nice-select wide">
+                                <option value="" disabled selected> Pilih Keputusan </option>
+                                <option value="accepted" data-names="accepted">Terima Sebagai Mitra</option>
+                                <option value="denied" data-names="denied">Tolak</option>
+                                </option>
+                            </select>
+                        </div>
+                        <?php } ?>
 
                         <div class="form-group">
                             <label>Catatan</label>

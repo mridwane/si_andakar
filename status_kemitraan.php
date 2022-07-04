@@ -62,6 +62,8 @@
                             <?php }elseif($status == "denied") {?>
                             <span>Maaf pengajuan kemitraan anda kami tolak karena <b><?= $keterangan ?></b>.</span>
                             <br>
+                            <?php }elseif($status == "semi-accepted") {?>
+                            <span><b><?= $keterangan ?></b></span>
                             <?php }elseif($status == "accepted") {?>
                             <span><b><?= $keterangan ?></b></span>
                             <?php } ?>
@@ -81,6 +83,8 @@
                     <img src="assets/images/status_menunggu.svg" alt="">
                     <?php }elseif($status == "denied") {?>
                     <img src="assets/images/status_ditolak.svg" alt="">
+                    <?php }elseif($status == "semi-accepted") {?>
+                    <img src="assets/images/interview.svg" alt="" width="550px">
                     <?php }elseif($status == "accepted") {?>
                     <img src="assets/images/status_diterima.svg" alt="">
                     <?php } ?>

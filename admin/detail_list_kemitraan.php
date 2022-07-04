@@ -7,7 +7,7 @@ if (!isset($_SESSION["userid"])) {
     include 'theme/header.php';
     include 'theme/sidebar.php';
 
-    $query = 'SELECT * ,concat(b.`c_fname`," ",b.`c_lname`)as name FROM tblrequestmitra a left join tblcustomer b on a.`c_id` = b.`c_id` WHERE a.`regis_no` = "' . $_GET['no_regis'] . '" ';
+    $query = 'SELECT * ,concat(b.`c_fname`," ",b.`c_lname`)as name FROM tblrequestmitra a left join tblcustomer b on a.`c_id` = b.`c_id` left join tblalamat c on b.`C_ADRESSID` = c.`id_alamat` WHERE a.`regis_no` = "' . $_GET['no_regis'] . '" ';
     $result = mysqli_query($db, $query) or die(mysqli_error($db));
     while ($row = mysqli_fetch_array($result)) {
         $no_regis = $row['regis_no'];
@@ -16,7 +16,7 @@ if (!isset($_SESSION["userid"])) {
         $status = $row['status'];
         $no_telp = $row['C_PNUMBER'];
         $gender = $row['C_GENDER'];
-        $alamat = $row['C_ADDRESS'];
+        $alamat = $row['alamat'];
         $email = $row['C_EMAILADD'];
         $kodepos = $row['ZIPCODE'];
         $umur = $row['C_AGE'];
@@ -110,7 +110,7 @@ if (!isset($_SESSION["userid"])) {
                     <br>
                     <tr>
 
-                        <?php if ($status == "unconfirmed") { ?>
+                        <?php if ($status == "unconfirmed" || $status == "semi-accepted") { ?>
                         <div class="col-8">
                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#update_modal<?php echo $_GET['no_regis']; ?>">
