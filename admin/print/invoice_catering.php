@@ -97,7 +97,7 @@ $pdf->Cell(100, 5, 'Nama    : ' . $invoice['name'], 0, 0);
 $pdf->Cell(25, 5, 'Tanggal', 0, 0);
 $pdf->Cell(34, 5, date("Y/m/d"), 0, 1); //end of line
 
-$pdf->Cell(100, 5, 'Fax : -', 0, 0);
+$pdf->Cell(100, 5, 'Fax        : -', 0, 0);
 $pdf->Cell(25, 5, 'No   ', 0, 0);
 $pdf->Cell(34, 5, $invoice['transac_code'], 0, 1); //end of line
 
@@ -117,8 +117,6 @@ $pdf->Cell(25, 5, '', 0, 0);
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(34, 5, 'atas Pemesanan Catering Tgl ' . $invoice['date'], 0, 1); //end of line
 $pdf->SetFont('Arial', '', 10);
-//make a dummy empty cell as a vertical spacer
-$pdf->Cell(189, 10, '', 0, 1); //end of line
 
 //billing address
 $pdf->SetFont('Arial', 'B', 10);
