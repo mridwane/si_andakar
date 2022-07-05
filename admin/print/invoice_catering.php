@@ -190,6 +190,6 @@ $pdf->LN();
 $pdf->Cell(200, 5, "Terbilang : ## " . ucwords($total_terbilang) . " Rupiah ##", 0, 0);
 
 
-$filename = "invoice" . $item['transac_code'] . ".pdf";
+$filename = "invoice_" . $invoice['transac_code'] . ".pdf";
 
-$pdf->Output('invoice.pdf', 'I');
+$pdf->Output($filename, 'I');
