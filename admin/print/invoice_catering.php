@@ -110,7 +110,7 @@ if ($invoice['status'] == "dp") {
     $status = "Pelunasan";
 }
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(34, 5, "Pemabayaran " . $status . " 50%", 0, 1); //end of line
+$pdf->Cell(34, 5, "Pembayaran " . $status . " 50%", 0, 1); //end of line
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(100, 5, 'Fax        : -', 0, 0);
 $pdf->Cell(25, 5, '', 0, 0);
