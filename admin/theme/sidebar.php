@@ -29,6 +29,11 @@
           <i class="fas fa-fw fa-shopping-cart"></i>
           <span>Kemitraan</span></a>
       </li>
+      <li class="nav-item">
+        <a title="Kemitraan" class="nav-link" href="pos.php">
+          <i class="fas fa-fw fa-shopping-cart"></i>
+          <span>Kasir</span></a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
