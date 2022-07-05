@@ -121,23 +121,9 @@ $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(189, 10, '', 0, 1); //end of line
 
 //billing address
-$pdf->Cell(100, 5, 'Bill to', 0, 1); //end of line
+$pdf->Cell(100, 5, 'Detail Pesanan', 0, 1); //end of line
 
-//add dummy cell at beginning of each line for indentation
-$pdf->Cell(10, 5, '', 0, 0);
-$pdf->Cell(90, 5, $invoice['transac_code'], 0, 1);
-
-$pdf->Cell(10, 5, '', 0, 0);
-$pdf->Cell(90, 5, $invoice['transac_code'], 0, 1);
-
-$pdf->Cell(10, 5, '', 0, 0);
-$pdf->Cell(90, 5, $invoice['transac_code'], 0, 1);
-
-$pdf->Cell(10, 5, '', 0, 0);
-$pdf->Cell(90, 5, $invoice['transac_code'], 0, 1);
-
-//make a dummy empty cell as a vertical spacer
-$pdf->Cell(189, 10, '', 0, 1); //end of line
+$pdf->LN();
 
 //invoice contents
 $pdf->SetFont('Arial', 'B', 10);
