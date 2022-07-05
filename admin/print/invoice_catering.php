@@ -1,162 +1,209 @@
 <?php
-session_start();
-if (!isset($_SESSION["userid"])) {
-    header("Location: login.php");
+
+require_once('../../assets/fpdf17/fpdf.php');
+
+//db connection
+include('../../includes/connection.php');
+
+//get invoices data
+$query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name,`C_PNUMBER` FROM `tbltransac` a INNER JOIN
+`tblcustomer` b on a.customer_id=b.C_ID INNER JOIN
+`tblalamat` c on b.C_ADRESSID=c.id_alamat WHERE a.transac_code ="' . $_GET['no_transaksi'] . '"';
+$result_invoice = mysqli_query($db, $query) or die(mysqli_error($db));
+$invoice = mysqli_fetch_array($result_invoice);
+
+//A4 width : 219mm
+//default margin : 10mm each side
+//writable horizontal : 219-(10*2)=189mm
+
+//ubah header
+class myPDF extends FPDF
+{
+    function header()
+    {
+        $this->Image('../../assets/images/logo.png', 50, -25, 100);
+        $this->LN(30);
+    }
+    function footer()
+    {
+        $this->SetY(-25);
+        $this->SetFont('Arial', 'B', 14);
+        $this->Cell(0, 10, "Andakar (Ayam Iga Bakar)", 10, 0, 'C');
+        $this->LN(7);
+        $this->SetFont('Arial', 'I', 12);
+        $this->Cell(0, 10, "Jl Duren 3 No. 11, Jakarta.", 10, 0, 'C');
+        $this->LN(5);
+        $this->Cell(0, 10, "Telp. 021-79198184", 10, 0, 'C');
+    }
+}
+
+function penyebut($nilai)
+{
+    $nilai = abs($nilai);
+    $huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
+    $temp = "";
+    if ($nilai < 12) {
+        $temp = " " . $huruf[$nilai];
+    } else if ($nilai < 20) {
+        $temp = penyebut($nilai - 10) . " belas";
+    } else if ($nilai < 100) {
+        $temp = penyebut($nilai / 10) . " puluh" . penyebut($nilai % 10);
+    } else if ($nilai < 200) {
+        $temp = " seratus" . penyebut($nilai - 100);
+    } else if ($nilai < 1000) {
+        $temp = penyebut($nilai / 100) . " ratus" . penyebut($nilai % 100);
+    } else if ($nilai < 2000) {
+        $temp = " seribu" . penyebut($nilai - 1000);
+    } else if ($nilai < 1000000) {
+        $temp = penyebut($nilai / 1000) . " ribu" . penyebut($nilai % 1000);
+    } else if ($nilai < 1000000000) {
+        $temp = penyebut($nilai / 1000000) . " juta" . penyebut($nilai % 1000000);
+    } else if ($nilai < 1000000000000) {
+        $temp = penyebut($nilai / 1000000000) . " milyar" . penyebut(fmod($nilai, 1000000000));
+    } else if ($nilai < 1000000000000000) {
+        $temp = penyebut($nilai / 1000000000000) . " trilyun" . penyebut(fmod($nilai, 1000000000000));
+    }
+    return $temp;
+}
+
+function terbilang($nilai)
+{
+    if ($nilai < 0) {
+        $hasil = "minus " . trim(penyebut($nilai));
+    } else {
+        $hasil = trim(penyebut($nilai));
+    }
+    return $hasil;
+}
+$pdf = new myPDF('P', 'mm', 'A4');
+
+//add new page
+$pdf->AddPage();
+
+//set font to arial, bold, 14pt
+$pdf->SetFont('Arial', 'B', 14);
+
+//Cell(width , height , text , border , end line , [align] )
+
+$pdf->Cell(100, 5, 'Kepada', 0, 0);
+$pdf->SetFont('Arial', 'B', 18);
+$pdf->Cell(59, 5, 'INVOICE', 0, 1); //end of line
+$pdf->LN();
+
+//set font to arial, regular, 10pt
+$pdf->SetFont('Arial', '', 10);
+
+$pdf->Cell(100, 5, 'Nama    : ' . $invoice['name'], 0, 0);
+$pdf->Cell(25, 5, 'Tanggal', 0, 0);
+$pdf->Cell(34, 5, date("Y/m/d"), 0, 1); //end of line
+
+$pdf->Cell(100, 5, 'Alamat  : ' . $invoice['alamat'], 0, 0);
+$pdf->Cell(25, 5, 'No   ', 0, 0);
+$pdf->Cell(34, 5, $invoice['transac_code'], 0, 1); //end of line
+
+$pdf->Cell(100, 5, 'Telp       : ' . $invoice['C_PNUMBER'], 0, 0);
+$pdf->Cell(25, 5, 'Perihal ', 0, 0);
+$status = "";
+if ($invoice['status'] == "dp") {
+    $status = "Down Payment";
 } else {
-    include('../../includes/connection.php');
-    echo '<a href="#" class="btn btn-xs btn-info fas fa-print" value="print" onclick="PrintDiv();">Print</a>';
-    echo '<br></br>';
-?>
-    <?php
-    $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name,`C_PNUMBER` FROM `tbltransac` a INNER JOIN
-     `tblcustomer` b on a.customer_id=b.C_ID INNER JOIN
-     `tblalamat` c on b.C_ADRESSID=c.id_alamat WHERE a.transac_code ="' . $_GET['no_transaksi'] . '"';
-    $result = mysqli_query($db, $query) or die(mysqli_error($db));
-    $pajak = 0;
-    $service = 0;
-    $subtotal = 0;
-    while ($row = mysqli_fetch_array($result)) {
-        $stats = $row['status'];
-        $tanggal_pemesanan = $row["date"];
-        $tanggal_kirim = $row["reservation_date_time"];
-        $name = $row['name'];
-        $contact = $row['C_PNUMBER'];
-        $address = $row['alamat'];
-        $cd = $row['transac_code'];
-        $service = $row["total_price"] * 0.05;
-        $pajak = $row["total_price"] * 0.10;
-        $subtotal = $row["total_price"];
-    }
+    $status = "Pelunasan";
+}
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(34, 5, "Pemabayaran " . $status . " 50%", 0, 1); //end of line
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(100, 5, 'Fax        : -', 0, 0);
+$pdf->Cell(25, 5, '', 0, 0);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(34, 5, 'atas Pemesanan Catering Tgl ' . $invoice['date'], 0, 1); //end of line
+$pdf->SetFont('Arial', '', 10);
+//make a dummy empty cell as a vertical spacer
+$pdf->Cell(189, 10, '', 0, 1); //end of line
 
-    $query2 = 'SELECT * FROM `tblbuktitransfer`  WHERE no_transac = "' . $_GET["no_transaksi"] . '" AND user="customer" AND status = "deny_adm_dp" OR status = "deny_adm_lns" ';
-    $result2 = mysqli_query($db, $query2) or die(mysqli_error($db));
-    $note_admin = "";
-    while ($row2 = mysqli_fetch_array($result2)) {
+//billing address
+$pdf->Cell(100, 5, 'Bill to', 0, 1); //end of line
 
-        $note_admin = $row2["note"];
-    }
+//add dummy cell at beginning of each line for indentation
+$pdf->Cell(10, 5, '', 0, 0);
+$pdf->Cell(90, 5, $invoice['transac_code'], 0, 1);
 
-    ?>
+$pdf->Cell(10, 5, '', 0, 0);
+$pdf->Cell(90, 5, $invoice['transac_code'], 0, 1);
 
-    <span id="divToPrint">
-        <div class="card">
-            <center>
-                <h2>INVOICE CATERING</h2>
-            </center>
-            <div class="card-header">
-                <div style="margin-bottom: 30px">
-                    <h5>No Pesanan : <?php echo $cd; ?></h5>
-                    <h5>Tanggal Pemesanan : <?php echo $tanggal_pemesanan; ?></h5>
-                    <h5>Nama Pelanggan : <?php echo $name; ?></h5>
-                    <h5>Telp : <?php echo $contact; ?></h5>
-                    <h5>Alamat Tujuan : <?php echo $address; ?></h5>
-                    <h5>Dikirimkan pada : <?php echo $tanggal_kirim; ?></h5>
-                    <h5>Perihal : Pelunasan Pesanan Catering Sebesar Rp. <?php echo number_format(($subtotal + $pajak + $service)); ?></h5>
-                </div>
-                <div class="card-body">
-                    <h4 style="color: blue">Informasi Pemesanan</h4>
-                    <div class="table-responsive">
-                        <table cellpadding="0" width="100%" cellspacing="0" border="1">
-                            <thead>
-                                <tr>
-                                    <th>Produkt</th>
-                                    <th>Jumlah</th>
-                                    <th>Harga Makanan</th>
-                                    <th>Harga Saus</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody style="font-size: 20px">
-                                <?php
-                                $query2 = 'SELECT * FROM `tbltransac` a INNER JOIN `tbltransacdetail` b on a.transac_code=b.transac_code JOIN `tblproducts` c on
-                               b.product_code=c.product_id JOIN `tblsaus` d on b.kd_saus=d.id_saus WHERE a.transac_code ="' . $_GET['no_transaksi'] . '"';
-                                $result2 = mysqli_query($db, $query2) or die(mysqli_error($db));
+$pdf->Cell(10, 5, '', 0, 0);
+$pdf->Cell(90, 5, $invoice['transac_code'], 0, 1);
 
-                                while ($row2 = mysqli_fetch_assoc($result2)) {
+$pdf->Cell(10, 5, '', 0, 0);
+$pdf->Cell(90, 5, $invoice['transac_code'], 0, 1);
 
-                                    echo '<tr>';
-                                    echo '<td>' . $row2['product_name'] .  "+" . $row2["nama_saus"] . '</td>';
-                                    echo '<td>' . $row2['qty'] . '</td>';
-                                    echo '<td>' . number_format($row2['price']) . '</td>';
-                                    echo '<td>' . number_format($row2['harga_saus']) . '</td>';
-                                    echo '<td>' . number_format(($row2['price'] + $row2['harga_saus']) * $row2['qty']) . '</td>';
-                                    echo '<td>  ';
-                                    /*echo '<center> <a  type="button" class="btn btn-lg btn-info fas fa-cart-plus" href="addtransacdetail.php?action=edit & id='.$row['transac_id'] . '"></a> </td></center>';*/
-                                    echo '</tr> ';
-                                }
-                                ?>
-                                <?php
-                                $query = 'SELECT * FROM tbltransacdetail WHERE transac_code = "' . $_GET['no_transaksi'] . '"';
-                                $result = mysqli_query($db, $query) or die(mysqli_error($db));
-                                while ($row = mysqli_fetch_array($result)) {
-                                    $total_price = $row['harga'];
+//make a dummy empty cell as a vertical spacer
+$pdf->Cell(189, 10, '', 0, 1); //end of line
 
+//invoice contents
+$pdf->SetFont('Arial', 'B', 10);
 
-                                ?>
+$pdf->Cell(85, 5, 'Makanan/Minuman', 1, 0);
+$pdf->Cell(25, 5, 'Qty', 1, 0, 'C');
+$pdf->Cell(45, 5, 'Harga Makanan + Saus', 1, 0, 'C');
+$pdf->Cell(34, 5, 'Total', 1, 1, 'C'); //end of line
 
-                                    <tr>
-                                        <td colspan="4" align="right">
-                                            <h5> Subtotal :</h5>
-                                        </td>
-                                        <td>
-                                            <h5> Rp. <?php echo number_format($subtotal); ?></h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4" align="right">
-                                            <h5>Service Charge (5%) :</h5>
-                                        </td>
-                                        <td>
-                                            <h5> Rp. <?php echo number_format($service); ?></h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4" align="right">
-                                            <h5>Tax (10%) :</h5>
-                                        </td>
-                                        <td>
-                                            <h5> Rp. <?php echo number_format($pajak); ?></h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4" align="right">
-                                            <h5> Total Keseluruhan :</h5>
-                                        </td>
-                                        <td>
-                                            <h5> Rp. <?php echo number_format(($subtotal + $pajak + $service)); ?></h5>
-                                        </td>
-                                    </tr>
+$pdf->SetFont('Arial', '', 10);
+
+//Numbers are right-aligned so we give 'R' after new line parameter
+
+//items
+$query2 = 'SELECT * FROM `tbltransac` a INNER JOIN `tbltransacdetail` b on a.transac_code=b.transac_code JOIN `tblproducts` c on
+    b.product_code=c.product_id JOIN `tblsaus` d on b.kd_saus=d.id_saus WHERE a.transac_code ="' . $_GET['no_transaksi'] . '"';
+$result2 = mysqli_query($db, $query2) or die(mysqli_error($db));
+$tax = 0; //total tax
+$amount = 0; //total amount
+
+//display the items
+while ($item = mysqli_fetch_assoc($result2)) {
+    $pdf->Cell(85, 5, $item['product_name'] . " + " . $item['nama_saus'], 1, 0,);
+    //add thousand separator using number_format function
+    $pdf->Cell(25, 5, number_format($item['qty']), 1, 0, 'C');
+    $pdf->Cell(45, 5, number_format($item['price'] + $item['harga_saus']), 1, 0, 'C'); //end of line
+    $pdf->Cell(34, 5, number_format(($item['price'] + $item['harga_saus']) * $item['qty']), 1, 1, 'C');
+    //accumulate tax and amount
+    $tax += $item['price'];
+    $amount += $item['price'];
+}
+
+//summary
+$service = $invoice["total_price"] * 0.05;
+$pajak = $invoice["total_price"] * 0.10;
+$pdf->Cell(130, 5, '', 0, 0);
+$pdf->Cell(25, 5, 'Sub Total', 0, 0, 'R');
+$pdf->Cell(34, 5, number_format($invoice['total_price']), 1, 1, 'C'); //end of line
+
+$pdf->Cell(130, 5, '', 0, 0);
+$pdf->Cell(25, 5, 'Service (15%)', 0, 0, 'R');
+$pdf->Cell(34, 5, number_format($service), 1, 1, 'C'); //end of line
+
+$pdf->Cell(130, 5, '', 0, 0);
+$pdf->Cell(25, 5, 'Pajak (10%)', 0, 0, 'R');
+$pdf->Cell(34, 5, number_format($pajak), 1, 1, 'C'); //end of line
+
+$pdf->Cell(130, 5, '', 0, 0);
+$pdf->Cell(25, 5, 'Grand Total', 0, 0, 'R');
+$pdf->Cell(34, 5, number_format($invoice['total_price'] + $service + $pajak), 1, 1, 'C');
+
+$pdf->Cell(50, 5, '', 0, 0);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(105, 5, 'Pemabayaran DP(50%)', 0, 0, 'R');
+$pdf->Cell(34, 5, number_format(($invoice['total_price'] + $service + $pajak) / 2), 1, 1, 'C'); //end of line
+
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(50, 5, '', 0, 0);
+$pdf->Cell(105, 5, 'Sisa Pembayaran', 0, 0, 'R');
+$pdf->Cell(34, 5, "-", 1, 1, 'C'); //end of line
+$total_terbilang = terbilang(($invoice['total_price'] + $service + $pajak) / 2);
+$pdf->SetFont('Arial', 'BI', 12);
+$pdf->LN();
+$pdf->Cell(200, 5, "Terbilang : ## " . ucwords($total_terbilang) . " Rupiah ##", 0, 0);
 
 
-                            </tbody>
-                        </table>
-                        <br>
+$filename = "invoice" . $item['transac_code'] . ".pdf";
 
-                        <div style="margin-left:50%; display:inline;">
-                            <p>Tanda Terima</p>
-                            <br>
-                            <br>
-                            <p>(............................)</p>
-
-                        </div>
-
-
-
-
-                        <!-- /.container-fluid -->
-
-                    <?php } ?>
-
-                <?php } ?>
-    </span>
-
-
-    <script type="text/javascript">
-        function PrintDiv() {
-            var divToPrint = document.getElementById('divToPrint');
-            var popupWin = window.open('', '_blank', 'width=800,height=800');
-            popupWin.document.open();
-            popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
-            popupWin.document.close();
-        }
-    </script>
+$pdf->Output('invoice.pdf', 'I');
