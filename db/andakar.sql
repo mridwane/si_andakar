@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Jul 2022 pada 19.09
+-- Waktu pembuatan: 05 Jul 2022 pada 16.53
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -32,6 +32,18 @@ CREATE TABLE `tblalamat` (
   `alamat` text NOT NULL,
   `c_id` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tblalamat`
+--
+
+INSERT INTO `tblalamat` (`id_alamat`, `alamat`, `c_id`) VALUES
+(10, 'Jl Raya Semarang Demak Km 5,6 Pangkalan Truk Genuk Gudang AA-24, Jawa Tengah', 4),
+(11, 'Jl RS Fatmawati 39 Pus Niaga Duta Mas Fatmawati Bl D-1/29, Dki Jakarta', 4),
+(12, 'Jl Prof Dr Latumeten Kompl Grogol Permai Bl C/41-44, Dki Jakarta', 4),
+(13, 'Jl Jend Sudirman Kav 52-53 Ged Artha Graha, Dki Jakarta', 4),
+(14, 'Mandiri Building 5th Floor, JL. Imam Bonjol No. 16D, Medan', 4),
+(25, 'alamat 2', 5);
 
 -- --------------------------------------------------------
 
@@ -82,7 +94,29 @@ INSERT INTO `tblbuktitransfer` (`id`, `date`, `file_name`, `status`, `nominal_tr
 (3, '0000-00-00 00:00:00', 'BTDPCAT3006202203590738.jpg', 'revisi_dp', 200000, 'admin', '', '', 'CAT3006202203590738'),
 (4, '0000-00-00 00:00:00', 'BTDPCAT3006202203590738.jpg', 'revisi_dp', 123213, 'admin', '', '', 'CAT3006202203590738'),
 (5, '0000-00-00 00:00:00', 'BTDPCAT3006202203590738.jpg', 'revisi_dp', 123123, 'admin', '', '', 'CAT3006202203590738'),
-(7, '2022-06-30 18:42:25', 'BTLNSCAT3006202203590738.jpg', 'lunas', 0, 'customer', '', '', 'CAT3006202203590738');
+(7, '2022-06-30 18:42:25', 'BTLNSCAT3006202203590738.jpg', 'lunas', 0, 'customer', '', '', 'CAT3006202203590738'),
+(8, '2022-07-03 09:30:49', 'BTCAT0307202209282463.jpg', 'deny_adm_dp', 100000, 'customer', '', 'Karena terlalu sering tidak sesuai', 'CAT0307202209282463'),
+(9, '0000-00-00 00:00:00', 'BTDPCAT0307202209282463.jpg', 'deny_adm_dp', 100000, 'admin', '', '', 'CAT0307202209282463'),
+(10, '2022-07-04 14:08:11', 'BTRES0407202201440047.jpg', 'dp', 0, 'customer', '', '', 'RES0407202201440047'),
+(11, '2022-07-04 14:43:52', 'BTCAT0407202202433553.jpg', 'dp', 0, 'customer', '', '', 'CAT0407202202433553'),
+(12, '2022-07-04 14:44:47', 'BTLNSCAT0407202202433553.jpg', 'lunas', 0, 'customer', '', '', 'CAT0407202202433553'),
+(13, '2022-07-04 15:26:35', 'BTLNSRES0407202201440047.jpg', 'lunas', 0, 'customer', '', '', 'RES0407202201440047'),
+(14, '2022-07-04 15:40:44', 'BTRES0407202203402921.jpg', 'deny_adm_lns', 500000, 'customer', '', 'terlalu sering salah', 'RES0407202203402921'),
+(15, '2022-07-04 15:53:09', 'BTLNSRES0407202203402921.jpg', 'deny_adm_lns', 500000, 'customer', '', 'terlalu sering salah', 'RES0407202203402921'),
+(16, '0000-00-00 00:00:00', 'BTREVLNSRES0407202203402921.jpg', 'revisi_pelunasan', 500000, 'admin', '', '', 'RES0407202203402921'),
+(17, '0000-00-00 00:00:00', 'BTREVLNSRES0407202203402921.jpg', 'deny_adm_lns', 500000, 'admin', '', '', 'RES0407202203402921'),
+(18, '2022-07-05 05:08:20', 'BTCAT0507202204522499.jpg', 'deny_adm_lns', 240000, 'customer', '', 'terlalu sering salah', 'CAT0507202204522499'),
+(19, '2022-07-05 05:12:58', 'BTCAT0507202204522499.jpg', 'deny_adm_lns', 240000, 'customer', '', 'terlalu sering salah', 'CAT0507202204522499'),
+(20, '0000-00-00 00:00:00', 'BTDPCAT0507202204522499.jpg', 'revisi_pelunasan', 240000, 'admin', '', '', 'CAT0507202204522499'),
+(21, '0000-00-00 00:00:00', 'BTDPCAT0507202204522499.jpg', 'revisi_pelunasan', 240000, 'admin', '', '', 'CAT0507202204522499'),
+(22, '0000-00-00 00:00:00', 'BTDPCAT0507202204522499.jpg', 'revisi_pelunasan', 240000, 'admin', '', '', 'CAT0507202204522499'),
+(23, '0000-00-00 00:00:00', 'BTDPCAT0507202204522499.jpg', 'revisi_pelunasan', 240000, 'admin', '', '', 'CAT0507202204522499'),
+(24, '0000-00-00 00:00:00', 'BTREVLNSCAT0507202204522499.jpg', 'deny_adm_lns', 240000, 'admin', '', '', 'CAT0507202204522499'),
+(25, '2022-07-05 09:49:17', 'BTDEL0507202209484953.jpg', 'paid', 0, 'customer', '', '', 'DEL0507202209484953'),
+(26, '2022-07-05 16:42:36', 'BTCAT0507202204422629.jpg', 'dp', 0, 'customer', '', '', 'CAT0507202204422629'),
+(27, '2022-07-05 16:43:26', 'BTLNSCAT0507202204422629.jpg', 'lunas', 0, 'customer', '', '', 'CAT0507202204422629'),
+(28, '2022-07-05 16:50:49', 'BTCAT0507202204503918.jpg', 'dp', 0, 'customer', '', '', 'CAT0507202204503918'),
+(29, '2022-07-05 16:51:47', 'BTLNSCAT0507202204503918.jpg', 'lunas', 0, 'customer', '', '', 'CAT0507202204503918');
 
 -- --------------------------------------------------------
 
@@ -98,6 +132,13 @@ CREATE TABLE `tblcart` (
   `c_id` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data untuk tabel `tblcart`
+--
+
+INSERT INTO `tblcart` (`kd_cart`, `jenis_cart`, `total`, `date`, `c_id`) VALUES
+('Reservasi4', 'Reservasi', 275000, '2022-07-04', 4);
+
 -- --------------------------------------------------------
 
 --
@@ -112,6 +153,15 @@ CREATE TABLE `tblcartdetail` (
   `qty` int(10) NOT NULL,
   `harga` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tblcartdetail`
+--
+
+INSERT INTO `tblcartdetail` (`id`, `kd_cart`, `kd_menu`, `kd_saus`, `qty`, `harga`) VALUES
+(38, 'Reservasi4', 49, 'S001', 2, 118000),
+(39, 'Reservasi4', 51, 'S002', 1, 127000),
+(40, 'Reservasi4', 52, 'S100', 3, 30000);
 
 -- --------------------------------------------------------
 
@@ -167,8 +217,8 @@ CREATE TABLE `tblcustomer` (
 --
 
 INSERT INTO `tblcustomer` (`C_ID`, `C_FNAME`, `C_LNAME`, `C_AGE`, `C_ADRESSID`, `C_PNUMBER`, `C_GENDER`, `C_EMAILADD`, `ZIPCODE`, `username`, `password`) VALUES
-(4, 'Nadya', 'Minerva', 25, 0, '082346578919', 'Perempuan', 'emak@gmail.com', 'asd', 'admin', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
-(5, 'sumail', 'cofeen', 20, 0, '0823123123', 'Laki-Laki', 'sumail@gmail.com', '40222', 'sumail', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
+(4, 'Nadya', 'Minerva', 25, 11, '082346578919', 'Perempuan', 'emak@gmail.com', 'asd', 'admin', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
+(5, 'sumail', 'cofeen', 20, 25, '0823123123', 'Laki-Laki', 'sumail@gmail.com', '40222', 'sumail', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
 (6, 'ridwan', 'remin', 21, 0, '312312', 'Laki-Laki', '123@gmail.com', '4321', 'ridwan12', '$2y$10$XZw1u9HtZtDpLXMsUtbHUe4m0ztA8kUttAhXpVxD71cFb9GFnkpn2');
 
 -- --------------------------------------------------------
@@ -339,7 +389,7 @@ CREATE TABLE `tblrequestmitra` (
 --
 
 INSERT INTO `tblrequestmitra` (`id`, `regis_no`, `date_req`, `file`, `status`, `note`, `C_ID`) VALUES
-(4, 'MITREG2006202203225689', '2022-06-20', 'MITREG2006202203225689_4_kemitraan.docx', 'unconfirmed', '', 4);
+(4, 'MITREG2006202203225689', '2022-06-20', 'MITREG2006202203225689_4_kemitraan.docx', 'semi-accepted', 'Selamat anda diterima sebagai mitra kami', 4);
 
 -- --------------------------------------------------------
 
@@ -418,7 +468,21 @@ CREATE TABLE `tbltransac` (
 --
 
 INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`, `total_price`, `reservation_date_time`, `person_count`, `customer_id`) VALUES
-(1, 'CAT3006202212205773', '2022/06/30', 'Catering', 'pending', 444000, '2022-06-30 17:20:57', 0, 4);
+(3, 'CAT0307202209252544', '2022/07/03', 'Catering', 'cancel', 219000, '2022-07-03 14:23:20', 0, 5),
+(4, 'CAT0307202209235393', '2022/07/03', 'Catering', 'pending', 219000, '2022-07-03 14:23:53', 0, 4),
+(5, 'CAT0307202209282463', '2022/07/03', 'Catering', 'deny_adm_dp', 219000, '2022-07-03 14:28:24', 0, 5),
+(12, 'RES0407202212421827', '2022/07/04', 'Reservasi', 'cancel', 3576000, '2022-07-04 12:42:18', 0, 4),
+(13, 'RES0407202201440047', '2022/07/04', 'Reservasi', 'lunas', 3632000, '2022-07-04 20:45:00', 4, 4),
+(14, 'CAT0407202202433553', '2022/07/04', 'Catering', 'lunas', 7772000, '2022-07-04 19:43:35', 0, 4),
+(15, 'RES0407202203402921', '2022/07/04', 'Reservasi', 'deny_adm_lns', 926000, '2022-07-04 20:44:00', 5, 4),
+(16, 'CAT0507202204491071', '2022/07/05', 'Delivery', 'pending', 926000, '2022-07-05 09:49:10', 0, 4),
+(17, 'CAT0507202204514059', '2022/07/05', 'Delivery', 'pending', 438000, '2022-07-05 09:51:40', 0, 4),
+(18, 'CAT0507202204522499', '2022/07/05', 'Delivery', 'deny_adm_lns', 219000, '2022-07-05 09:52:24', 0, 4),
+(19, 'DEL0507202209484953', '2022/07/05', 'Delivery', 'done', 217000, '2022-07-05 14:48:49', 0, 4),
+(22, 'DINEIN0507202203503454', '2022/07/05', 'Dinein', 'done', 217000, '2022-07-05 20:50:34', 0, 2),
+(23, 'CAT0507202204422629', '2022/07/05', 'Catering', 'lunas', 6898000, '2022-07-05 21:42:26', 0, 4),
+(24, 'CAT0507202204503918', '2022/07/05', 'Catering', 'lunas', 7350000, '2022-07-05 21:50:39', 0, 4),
+(25, 'CAT0507202204524824', '2022/07/05', 'Catering', 'pending', 6270000, '2022-07-05 21:52:48', 0, 4);
 
 -- --------------------------------------------------------
 
@@ -440,8 +504,38 @@ CREATE TABLE `tbltransacdetail` (
 --
 
 INSERT INTO `tbltransacdetail` (`id`, `product_code`, `kd_saus`, `qty`, `transac_code`, `harga`) VALUES
-(1, '46', 'S002', 2, 'CAT3006202212205773', 414000),
-(2, '52', 'S100', 3, 'CAT3006202212205773', 30000);
+(13, '46', 'S001', 1, 'CAT0307202209235393', 209000),
+(14, '52', 'S100', 1, 'CAT0307202209235393', 10000),
+(15, '46', 'S001', 1, 'CAT0307202209252544', 209000),
+(16, '52', 'S100', 1, 'CAT0307202209252544', 10000),
+(17, '46', 'S001', 1, 'CAT0307202209282463', 209000),
+(18, '52', 'S100', 1, 'CAT0307202209282463', 10000),
+(35, '46', 'S001', 1, 'RES0407202212421827', 209000),
+(36, '52', 'S100', 1, 'RES0407202212421827', 10000),
+(37, '49', 'S001', 2, 'RES0407202201440047', 118000),
+(38, '51', 'S002', 1, 'RES0407202201440047', 127000),
+(39, '52', 'S100', 3, 'RES0407202201440047', 30000),
+(40, '46', 'S001', 2, 'CAT0407202202433553', 418000),
+(41, '46', 'S002', 20, 'CAT0407202202433553', 4140000),
+(42, '46', 'S003', 11, 'CAT0407202202433553', 2288000),
+(43, '49', 'S001', 2, 'RES0407202203402921', 118000),
+(44, '51', 'S002', 1, 'RES0407202203402921', 127000),
+(45, '52', 'S100', 3, 'RES0407202203402921', 30000),
+(46, '46', 'S002', 3, 'CAT0507202204491071', 621000),
+(47, '52', 'S100', 3, 'CAT0507202204491071', 30000),
+(48, '46', 'S001', 2, 'CAT0507202204514059', 418000),
+(49, '52', 'S100', 2, 'CAT0507202204514059', 20000),
+(50, '46', 'S001', 1, 'CAT0507202204522499', 209000),
+(51, '52', 'S100', 1, 'CAT0507202204522499', 10000),
+(52, '46', 'S002', 1, 'DEL0507202209484953', 207000),
+(53, '52', 'S100', 1, 'DEL0507202209484953', 10000),
+(58, '46', 'S002', 1, 'DINEIN0507202203503454', 207000),
+(59, '52', 'S100', 1, 'DINEIN0507202203503454', 10000),
+(60, '46', 'S001', 32, 'CAT0507202204422629', 6688000),
+(61, '52', 'S100', 21, 'CAT0507202204422629', 210000),
+(62, '46', 'S002', 30, 'CAT0507202204503918', 6210000),
+(63, '49', 'S002', 20, 'CAT0507202204503918', 1140000),
+(64, '46', 'S001', 30, 'CAT0507202204524824', 6270000);
 
 -- --------------------------------------------------------
 
@@ -590,7 +684,7 @@ ALTER TABLE `tblusers`
 -- AUTO_INCREMENT untuk tabel `tblalamat`
 --
 ALTER TABLE `tblalamat`
-  MODIFY `id_alamat` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_alamat` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblautonumber`
@@ -602,13 +696,13 @@ ALTER TABLE `tblautonumber`
 -- AUTO_INCREMENT untuk tabel `tblbuktitransfer`
 --
 ALTER TABLE `tblbuktitransfer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcartdetail`
 --
 ALTER TABLE `tblcartdetail`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcategory`
@@ -662,13 +756,13 @@ ALTER TABLE `tblstockhistory`
 -- AUTO_INCREMENT untuk tabel `tbltransac`
 --
 ALTER TABLE `tbltransac`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbltransacdetail`
 --
 ALTER TABLE `tbltransacdetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblusers`
