@@ -29,7 +29,7 @@ if ($_GET['action'] == 'save') {
   JOIN tblproducts c
   ON
   a.kd_menu = c.product_id JOIN tblsaus d ON
-  a.kd_saus = d.id_saus WHERE b.c_id = "' . $user_id . '"');
+  a.kd_saus = d.id_saus WHERE b.c_id = "' . $user_id . '" AND b.kd_cart = "' . $kd_cart . '"');
 
   $ht = mysqli_fetch_array($hitung_total);
   $jml_total = $ht['total'];

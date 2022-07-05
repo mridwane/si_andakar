@@ -54,11 +54,11 @@ if ($_GET['action'] == 'save') {
    mysqli_query($db, $query2) or die('Error, gagal menyimpan data Reservasi');
    }
 
-   // query delete cart dan cart detail
-  //  $deletecart = 'DELETE From tblcartdetail WHERE kd_cart = "' . $kd_cart. '"';
-  //  mysqli_query($db, $deletecart) or die(mysqli_error($db));
-  //  $deletecartdetail = 'DELETE From tblcart WHERE kd_cart = "' . $kd_cart . '"';
-  //  mysqli_query($db, $deletecartdetail) or die(mysqli_error($db));
+  //  query delete cart dan cart detail
+   $deletecart = 'DELETE From tblcartdetail WHERE kd_cart = "' . $kd_cart. '"';
+   mysqli_query($db, $deletecart) or die(mysqli_error($db));
+   $deletecartdetail = 'DELETE From tblcart WHERE kd_cart = "' . $kd_cart . '"';
+   mysqli_query($db, $deletecartdetail) or die(mysqli_error($db));
 
    echo ("<script language='JavaScript'>
      window.location.href = '../reservasi_rincian.php?no_transaksi=$no_transac';
@@ -213,7 +213,7 @@ elseif ($_GET['action'] == 'cancel') {
    JOIN tblproducts c
    ON
    a.kd_menu = c.product_id JOIN tblsaus d ON
-   a.kd_saus = d.id_saus WHERE b.c_id = "' . $user_id . '"');
+   a.kd_saus = d.id_saus WHERE b.c_id = "' . $user_id . '" AND b.kd_cart = "' . $kd_cart . '"');
 
    $ht = mysqli_fetch_array($hitung_total);
    $jml_total = $ht['total'];

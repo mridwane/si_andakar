@@ -236,12 +236,12 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Daftar Pesanan Catering</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Daftar Pesanan Delivery</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="catering.php?kd_cart=<?= $page.$_SESSION['cid'] ?>" method="POST" class="show-cart">
+                <form action="delivery.php?kd_cart=<?= $page.$_SESSION['cid'] ?>" method="POST" class="show-cart">
 
                 </form>
                 <button class="clear-cart btn btn-danger" data-jenis="<?= $page ?>">Kosongkan keranjang</button>

@@ -51,30 +51,41 @@ if (!isset($_SESSION["cid"])) {
                             while ($row = mysqli_fetch_assoc($result)) {
                                 // cek Status Pending atau disetujui
                                 if ($row['status'] == "pending") {
-                                    $status = "Pending";
+                                $status = "Pending";
                                 } elseif ($row['status'] == "paid") {
-                                    $status = "Sudah Bayar";
+                                $status = "Sudah Bayar";
                                 } elseif ($row['status'] == "dp") {
-                                    $status = "Sudah Bayar DP";
+                                $status = "Sudah Bayar DP";
                                 } elseif ($row['status'] == "revisi_dp") {
-                                    $status = "DP Tidak Sesuai";
+                                $status = "DP Tidak Sesuai";
+                                } elseif ($row['status'] == "after_revision") {
+                                $status = "Sudah Bayar Ulang DP";
+                                } elseif ($row['status'] == "pelunasan") {
+                                $status = "Sudah Bayar Pelunasan";
+                                } elseif ($row['status'] == "revisi_pelunasan") {
+                                $status = "Pelunasan Tidak Sesuai";
+                                } elseif ($row['status'] == "after_revision_lns") {
+                                $status = "Sudah Bayar Ulang";
+                                } elseif ($row['status'] == "lunas") {
+                                $status = "Lunas";
                                 } elseif ($row['status'] == "confirmed") {
-                                    $status = "Disetujui";
+                                $status = "Disetujui";
                                 } elseif ($row['status'] == "sending") {
-                                    $status = "Dikirim";
+                                $status = "Dikirim";
                                 } elseif ($row['status'] == "done") {
-                                    $status = "Selesai";
+                                $status = "Selesai";
                                 } elseif ($row['status'] == "deny_adm_dp" || $row['status'] == "deny_adm_lns") {
-                                    $status = "Dibatalkan Admin";
-                                } else {
-                                    $status = "Dibatalkan";
+                                $status = "Dibatalkan Admin";
                                 }
                                 if (strtoupper($row['transac_type']) == strtoupper("delivery")) {
                                     $link = "order_detail_delivery.php";
+                                    $rincian = "delivery_rincian.php";
                                 } elseif (strtoupper($row['transac_type']) == strtoupper("catering")) {
                                     $link = "order_detail_catering.php";
+                                    $rincian = "catering_rincian.php";
                                 } elseif (strtoupper($row['transac_type']) == strtoupper("reservasi")) {
                                     $link = "order_detail_reservasi.php";
+                                    $rincian = "reservasi_rincian.php";
                                 }
                                 echo '<tr>';
                                 echo '<td>' . $no++ . '</td>';
@@ -84,7 +95,7 @@ if (!isset($_SESSION["cid"])) {
                                 echo '<td>' . $row['reservation_date_time'] . '</td>';
                                 if ($row['status'] == "pending") {
                                 echo '<td><a type="button" class="btn-detail"
-                                        href="catering_rincian.php?&no_transaksi=' . $row['transac_code'] . '">
+                                        href="' . $rincian . '?&no_transaksi=' . $row['transac_code'] . '">
                                         <span class="material-icons">
                                             Detail
                                         </span>

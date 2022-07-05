@@ -16,6 +16,8 @@ $result = mysqli_query($db, $query) or die(mysqli_error($db));
 $row = mysqli_fetch_array($result);
 $jumlah = $row['jumlah'];
 $total = $row['total_price'];
+$pajak = $total * 0.10;
+$total_bayar = $total + $pajak;
 ?>
 
 
@@ -38,14 +40,17 @@ $total = $row['total_price'];
             <div class="row">
                 <div class="col-md-6">
                     <div class="form_container">
-                        <form action="controller/delivery_controller.php?action=savetrf" method="POST" enctype="multipart/form-data">
+                        <form action="controller/delivery_controller.php?action=savetrf" method="POST"
+                            enctype="multipart/form-data">
                             <div>
                                 <label for="">No Transaksi</label>
-                                <input type="text" class="form-control" name="transac_code" value="<?= $_GET['no_transaksi'] ?>" readonly />
+                                <input type="text" class="form-control" name="transac_code"
+                                    value="<?= $_GET['no_transaksi'] ?>" readonly />
                             </div>
                             <div>
                                 <label for="">Nama Pemesan</label>
-                                <input type="text" class="form-control" value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" readonly />
+                                <input type="text" class="form-control"
+                                    value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" readonly />
                             </div>
                             <div>
                                 <label for="">Jumlah Pesanan</label>
@@ -53,21 +58,35 @@ $total = $row['total_price'];
                             </div>
                             <div>
                                 <label for="">Alamat Pengirim</label>
-                                <textarea name="alamat" id="" class="form-control" cols="30" rows="10" readonly><?= $_SESSION['address'] ?></textarea>
+                                <?php 
+                                    $query = 'SELECT * FROM `tblcustomer`a JOIN `tblalamat`b ON a.C_ADRESSID=b.id_alamat WHERE a.C_ID = "'.$_SESSION["cid"].'"';
+                                    $result = mysqli_query($db, $query) or die(mysqli_error($db));
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $alamat = $row['alamat'];
+                                    }
+                                ?>
+                                <textarea name="alamat" id="" class="form-control" cols="30" rows="10"
+                                    readonly><?= $alamat ?></textarea>
+                            </div>
+                            <div>
+                                <label for="">Pajak 10%</label>
+                                <input type="text" class="form-control"
+                                    value="Rp. <?= number_format($pajak, 0, ',', '.'); ?>" readonly />
                             </div>
                             <div>
                                 <label for="">Jumlah yang harus dibayar</label>
-                                <input type="text" class="form-control" value="Rp. <?= number_format($total, 0, ',', '.'); ?>" readonly />
-                                <span>
-                                    <b>*silahkan melakukan pembayaran ke rekening (No.rekening), Jika sudah silahkan
-                                        upload bukti transfer dibawah ini.
-                                    </b>
+                                <input type="text" class="form-control"
+                                    value="Rp. <?= number_format($total_bayar, 0, ',', '.'); ?>" readonly />
+                                <span>*silahkan melakukan pembayaran ke rekening <b>BANK BCA (525 019 1873) atas nama
+                                        Yanuar R. Arief</b> , Jika sudah silahkan
+                                    upload bukti transfer dibawah ini.
                                 </span>
                             </div>
                             <br>
                             <div>
                                 <label for="upload">Upload Bukti Transfer</label>
-                                <input type="file" class="form-control" id="upload" name="upload" accept=".jpeg, .jpg, .png">
+                                <input type="file" class="form-control" id="upload" name="upload"
+                                    accept=".jpeg, .jpg, .png">
                             </div>
                             <div class="btn-box">
                                 <button type="submit" class="btn-konfirmasi-pembayaran" name="confirm">

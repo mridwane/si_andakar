@@ -2,9 +2,10 @@
 session_start();
 if (isset($_SESSION['C_ID'])) ?>
 <?php include('includes/connection.php'); ?>
-<?php $page = "Delivery"; ?>
+<?php $page = "Delivery Checkout"; ?>
 <!--header area-->
-<?php include 'includes/header.php'; ?>
+<?php include 'includes/header.php'; 
+?>
 
 
 <body class="sub_page" data-page="<?= $page ?>">
@@ -24,7 +25,8 @@ if (isset($_SESSION['C_ID'])) ?>
                 </h2>
             </div>
             <!-- Informasi personal -->
-            <form action="#" method="POST" class="row">
+            <form action="controller/delivery_controller.php?action=save&kd_cart=<?= $_GET['kd_cart'] ?>" method="POST"
+                class="row">
                 <div class="col-md-6">
                     <div class="form_container">
                         <div>
@@ -43,88 +45,107 @@ if (isset($_SESSION['C_ID'])) ?>
                 </div>
                 <div class="col-md-6">
                     <div class="form_container">
+                        <label for="date">Alamat Pengiriman</label>
                         <div>
-                            <input type="text" class="form-control" name="transac_code" value="<?= $_GET['nt'] ?>"
-                                readonly />
-                        </div>
-                        <div>
-                            <textarea class="form-control" name="" id="" cols="30" rows="4" readonly>
-                                    <?= $_SESSION['address'] ?>
-                                </textarea>
-                        </div>
-                        <div>
-                            <span>Ingin merubah alamat dan data lainnya? <a href="profil.php">Rubah data</a></span>
+                            <?php 
+                            $query = 'SELECT * FROM `tblcustomer`a JOIN `tblalamat`b ON a.C_ADRESSID=b.id_alamat WHERE a.C_ID = "'.$_SESSION["cid"].'"';
+                            $result = mysqli_query($db, $query) or die(mysqli_error($db));
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $alamat = $row['alamat'];
+                            }
+                            ?>
+                            <?php
+                            
+                            $query = 'SELECT C_ADRESSID FROM `tblcustomer` WHERE C_ID = "'.$_SESSION["cid"].'"';
+                            $result = mysqli_query($db, $query) or die(mysqli_error($db));
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $address = $row['C_ADRESSID'];
+                            }
+                            if($address == 0){ ?>
+                            <textarea name="" id="" cols="30" rows="4" disabled>Anda belum memilih alamat</textarea>
+                            <?php } else{ ?>
+                            <textarea name="" id="" cols="30" rows="4" disabled><?= $alamat; ?></textarea>
+                            <?php } ?>
                         </div>
                         <div class="btn-box">
-                            <button>
-                                <a href="delivery_rincian_pemesanan.php?&no_transaksi=<?= $_GET['nt'] ?>">
-                                    Pesan Sekarang
-                                </a>
-                            </button>
+                            <button type="submit" id="pesan_catering" name="pesan_catering"
+                                class="btn btn-primary">Pesan Sekarang</button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
     </section>
-    <section class="food_section layout_padding">
+    <section class="food_section">
         <!-- Product Tables -->
-        <div class="card mb-3">
-            <div class="card-header">
-                <Center>
-                    <h3>Makanan/Minuman yang dipilih</h3>
-                </Center>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%"
-                            cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Qty</th>
-                                    <th>Jenis</th>
-                                    <!-- <th>Edit</th> -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                    $query = 'SELECT * FROM `tbltransacdetail` a inner join `tblproducts` b on a.`product_code` = b.`product_id` inner join `tblsaus` c on a.`kd_saus` = c.`id_saus` WHERE a.`transac_code` = "' . $_GET['nt'] . '"';
-                                    $result = mysqli_query($db, $query) or die(mysqli_error($db));
-                                    // membuat nomer otomatis untuk di tabel
-                                    $no = 1;
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        // cek Status Pending atau disetujui
-                                        if ($row['status'] == "0") {
-                                            $status = "Pending";
-                                        } elseif ($row['status'] == "1") {
-                                            $status = "Disetujui";
-                                        } else {
-                                            $status = "Dibatalkan";
-                                        }
-                                        echo '<tr>';
-                                        echo '<td>' . $no++ . '</td>';
-                                        if($row['id_saus'] == 'S100'){
-                                            echo '<td>' . $row['product_name'] .'</td>';
-                                        }
-                                        else {
-                                            echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . '</td>';
-                                        }                                        
-                                        echo '<td>' . $row['qty'] . '</td>';
-                                        echo '<td>' . $row['type'] . '</td>';
-                                        // echo '<td><a type="button" class="btn-detail" data-toggle="modal"
-                                        //         data-target="#cartReservasi"
-                                        // href="detail_list_permintaan.php?&no_permintaan=' . $row['transac_code'] . '">
-                                        //     <span class="material-icons">
-                                        //         Edit
-                                        //     </span>
-                                        //     </a>
-                                        //     </td>';
-                                        echo '</tr> ';
+        <div class="container">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <Center>
+                        <h3>Makanan/Minuman yang dipilih</h3>
+                    </Center>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%"
+                                cellspacing="0">
+                                <thead>
+                                    <tr class="table-primary">
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Qty</th>
+                                        <th>Jenis</th>
+                                        <th>Harga</th>
+                                        <!-- <th>Edit</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                $query = 'SELECT * FROM `tblcartdetail` a inner join `tblproducts` b on a.`kd_menu` = b.`product_id` inner join `tblsaus` c on a.`kd_saus` = c.`id_saus` WHERE a.`kd_cart` = "' . $_GET['kd_cart'] . '"';
+                                $result = mysqli_query($db, $query) or die(mysqli_error($db));
+                                // membuat nomer otomatis untuk di tabel
+                                $no = 1;
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    // cek Status Pending atau disetujui
+                                    if ($row['status'] == "0") {
+                                        $status = "Pending";
+                                    } elseif ($row['status'] == "1") {
+                                        $status = "Disetujui";
+                                    } else {
+                                        $status = "Dibatalkan";
                                     }
-                                    ?>
-                            </tbody>
-                        </table>
+                                    echo '<tr>';
+                                    echo '<td>' . $no++ . '</td>';
+                                    if ($row['id_saus'] == 'S100') {
+                                        echo '<td>' . $row['product_name'] . '</td>';
+                                    } else {
+                                        echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . '</td>';
+                                    }
+                                    echo '<td>' . $row['qty'] . '</td>';
+                                    echo '<td>' . $row['type'] . '</td>';
+                                    echo '<td>Rp. ' . number_format($row['harga'] ,0,',','.'). '</td>';
+                                    // echo '<td><a type="button" class="btn-detail" data-toggle="modal"
+                                    //         data-target="#cartReservasi"
+                                    // href="detail_list_permintaan.php?&no_permintaan=' . $row['transac_code'] . '">
+                                    //     <span class="material-icons">
+                                    //         Edit
+                                    //     </span>
+                                    //     </a>
+                                    //     </td>';
+                                    echo '</tr> ';
+                                }
+                                ?>
+                                    <!-- <tr class="table-warning">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Total</td>
+                                        <td>
+                                            Rp. 100.000
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -143,7 +164,8 @@ if (isset($_SESSION['C_ID'])) ?>
                 </div>
                 <form action="controller/reservasi_controller.php?action=updatePesanan" method="POST">
                     <div class="modal-body">
-                        <input type="text" class="form-control" name="transac_code" value="<?= $_GET['nt'] ?>" hidden />
+                        <input type="text" class="form-control" name="transac_code" value="<?= $_GET['kd_cart'] ?>"
+                            hidden />
                         <table class="show-cart table">
 
                         </table>
@@ -163,3 +185,12 @@ if (isset($_SESSION['C_ID'])) ?>
 
     <!--footer area-->
     <?php include 'includes/footer.php'; ?>
+
+    <script>
+        $('#date').on('change', function () {
+            var selected_date = $(this).val();
+            var today = new Date();
+            var formattedDate = moment(date).format('YYYYMMDD');
+            alert(selected_dat)
+        });
+    </script>

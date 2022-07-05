@@ -27,24 +27,38 @@ if (!isset($_SESSION["userid"])) {
           </thead>
           <tbody>
             <?php
-              $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name FROM tbltransac a, tblcustomer b WHERE a.`customer_id`=b.`C_ID` AND NOT a.`status`="paid" AND NOT a.`status`="cancel" AND NOT a.`status`="deny_adm_dp"';
+              $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name FROM tbltransac a JOIN tblcustomer b ON a.`customer_id`=b.`C_ID` WHERE a.`status`="pending" OR  a.`status`="paid" OR a.`status`="dp"';
               $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
               while ($row = mysqli_fetch_assoc($result)) {
                 if ($row['status'] == "pending") {
-                  $status = "Pending";
+                $status = "Pending";
                 } elseif ($row['status'] == "paid") {
-                  $status = "Sudah Bayar";
+                $status = "Sudah Bayar";
                 } elseif ($row['status'] == "dp") {
-                  $status = "Sudah Bayar DP";
+                $status = "Sudah Bayar DP";
+                } elseif ($row['status'] == "revisi_dp") {
+                $status = "DP Tidak Sesuai";
+                } elseif ($row['status'] == "after_revision") {
+                $status = "Sudah Bayar Ulang DP";
+                } elseif ($row['status'] == "pelunasan") {
+                $status = "Sudah Bayar Pelunasan";
+                } elseif ($row['status'] == "revisi_pelunasan") {
+                $status = "Pelunasan Tidak Sesuai";
+                } elseif ($row['status'] == "after_revision_lns") {
+                $status = "Sudah Bayar Ulang Pelunasan";
+                } elseif ($row['status'] == "lunas") {
+                $status = "Lunas";
                 } elseif ($row['status'] == "confirmed") {
-                  $status = "Disetujui";
+                $status = "Disetujui";
                 } elseif ($row['status'] == "sending") {
-                  $status = "Dikirim";
+                $status = "Dikirim";
                 } elseif ($row['status'] == "done") {
-                  $status = "Selesai";
-                } else {
-                  $status = "Dibatalkan";
+                $status = "Selesai";
+                } elseif ($row['status'] == "cancel") {
+                $status = "Dibatalkan Customer";
+                } elseif ($row['status'] == "deny_adm_dp" || $row['status'] == "deny_adm_lns") {
+                $status = "Dibatalkan Admin";
                 }
                 echo '<tr>';
                 echo '<td>' . $row['transac_code'] . '</td>';

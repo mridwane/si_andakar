@@ -17,21 +17,58 @@ while ($row = mysqli_fetch_assoc($result)) {
     $jenis = $row['transac_type'];
     // cek Status Pending atau disetujui atau batal
     if ($row['status'] == "pending") {
-        $status = "Pending";
+    $status = "Pending";
     } elseif ($row['status'] == "paid") {
-        $status = "Sudah Bayar";
+    $status = "Sudah Bayar";
     } elseif ($row['status'] == "dp") {
-        $status = "Sudah Bayar DP";
+    $status = "Sudah Bayar DP";
+    } elseif ($row['status'] == "revisi_dp") {
+    $status = "DP Tidak Sesuai";
+    } elseif ($row['status'] == "after_revision") {
+    $status = "Sudah Bayar Ulang DP";
+    } elseif ($row['status'] == "pelunasan") {
+    $status = "Sudah Bayar Pelunasan";
+    } elseif ($row['status'] == "revisi_pelunasan") {
+    $status = "Pelunasan Tidak Sesuai";
+    } elseif ($row['status'] == "after_revision_lns") {
+    $status = "Sudah Bayar Ulang";
+    } elseif ($row['status'] == "lunas") {
+    $status = "Lunas";
     } elseif ($row['status'] == "confirmed") {
-        $status = "Disetujui";
+    $status = "Disetujui";
     } elseif ($row['status'] == "sending") {
-        $status = "Dikirim";
+    $status = "Dikirim";
     } elseif ($row['status'] == "done") {
-        $status = "Selesai";
+    $status = "Selesai";
+    } elseif ($row['status'] == "deny_adm_dp" || $row['status'] == "deny_adm_lns") {
+    $status = "Dibatalkan Admin";
+    $query3 = 'SELECT * FROM `tblbuktitransfer` WHERE no_transac = "' . $_GET["no_transaksi"] . '" AND user="admin" AND
+    status = "deny_adm_dp" OR status = "deny_adm_lns" ';
+    $result3 = mysqli_query($db, $query3) or die(mysqli_error($db));
+    $file_name_dp = "";
+    $file_name_lunas = "";
+    $besar_dana = 0;
+    while ($row3 = mysqli_fetch_array($result3)) {
+
+    $file_name_dp = $row3["file_name"];
+    $besar_dana = $row3["nominal_trf"];
+    }
+    $query2 = 'SELECT * FROM `tblbuktitransfer` WHERE no_transac = "' . $_GET["no_transaksi"] . '" AND user="customer"
+    AND status = "deny_adm_dp" OR status = "deny_adm_lns" ';
+    $result2 = mysqli_query($db, $query2) or die(mysqli_error($db));
+    $note_admin = "";
+    while ($row2 = mysqli_fetch_array($result2)) {
+
+    $note_admin = $row2["note"];
+    }
+    } elseif ($row['status'] == "deny_adm_lns") {
+    $status = "Dibatalkan Admin";
     } else {
-        $status = "Dibatalkan";
+    $status = "Dibatalkan";
     }
     $total = $row['total_price'];
+    $pajak = $row["total_price"] * 0.10;
+    $subtotal = $total+$pajak;
 }
 ?>
 
@@ -58,7 +95,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <form action="controller/delivery_controller.php?action=selesai" method="POST">
                             <div>
                                 <label for="">No Transaksi</label>
-                                <input type="text" class="form-control" name="transac_code" value="<?= $_GET['no_transaksi'] ?>" readonly />
+                                <input type="text" class="form-control" name="transac_code"
+                                    value="<?= $_GET['no_transaksi'] ?>" readonly />
                             </div>
                             <div>
                                 <label for="">Jenis Pesanan</label>
@@ -70,29 +108,43 @@ while ($row = mysqli_fetch_assoc($result)) {
                             </div>
                             <div>
                                 <label for="">Total Pesanan</label>
-                                <input type="text" class="form-control" value="Rp. <?= number_format($total, 0, ',', '.'); ?>" readonly />
+                                <input type="text" class="form-control"
+                                    value="Rp. <?= number_format($subtotal, 0, ',', '.'); ?>" readonly />
                             </div>
                             <?php if ($status == "Pending") { ?>
-                                <span>*Pesanan Anda Belum Selesai</span>
-                            <?php } elseif ($status == "Sudah Bayar") { ?>
-                                <h4>Pesanan kamu sedang kami proses, mohon untuk menunggu.</h4>
-                            <?php } elseif ($status == "Sudah Bayar DP") { ?>
-                                <h4>Terima kasih telah membayar down payment, Mohon menunggu konfirmasi dari kami</h4>
+                            <span>*Pesanan Anda Belum Selesai</span>
+                            <?php } elseif ($status == "Sudah Bayar" || $status == "Sudah Bayar Ulang") { ?>
+                            <h4>Pesanan kamu sedang kami proses, mohon untuk menunggu.</h4>
                             <?php } elseif ($status == "Dikirim") { ?>
-                                <h4>Pesanan anda telah kami kirim ke alamat anda.</h4>
-                                <span>*Jika pesanan anda telah selesai, silahkan klik tombol selesai.</span>
-                                <div class="btn-box">
-                                    <button type="submit">Pesanan Selesai</button>
-                                </div>
+                            <h4>Pesanan anda telah kami kirim ke alamat anda.</h4>
+                            <span>*Jika pesanan anda telah selesai, silahkan klik tombol selesai.</span>
+                            <div class="btn-box">
+                                <button type="submit">Pesanan Selesai</button>
+                            </div>
                             <?php } elseif ($status == "Selesai") { ?>
-                                <h4>Pesanan anda telah selesai.</h4>
-                                <!-- tombol tomtol untuk pesanan delivery -->
+                            <h4>Pesanan anda telah selesai.</h4>
+                            <!-- tombol tomtol untuk pesanan delivery -->
                             <?php } elseif ($status == "Disetujui" && strtoupper($jenis) == strtoupper("delivery")) { ?>
-                                <h4>Pesanan anda sedang kami buat, mohon untuk menunggu.</h4>
-                            <?php } elseif ($status == "Disetujui" && strtoupper($jenis) == strtoupper("catering")) { ?>
-                                <h4>Pesanan anda telah kami terima. Mohon melakukan pelunasan maksimal h-2 dari jadwal yang telah dipilih.</h4>
-                                <label for="upload">Upload Bukti Transfer Pelusanan</label>
-                                <input type="file" class="form-control" id="upload_pelunasan" name="upload_pelunasan" accept=".jpeg, .jpg, .png">
+                            <h4>Pesanan anda sedang kami buat, mohon untuk menunggu.</h4>
+                            <?php } elseif ($status == "Pelunasan Tidak Sesuai" && strtoupper($jenis) == strtoupper("delivery")) { ?>
+                            <h4>Transfer Pelunasan yang telah anda lakukan tidak sesuai dengan nominal seharusnya, klik
+                                disini untuk melihat rincian dan lakukan ulang pembayaran</h4>
+                            <a href="delivery_revisi_lns.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>"
+                                class="btn btn-danger">Lihat Rincian / Upload Ulang</a>
+                            <?php } elseif ($status == "Disetujui" && strtoupper($jenis) == strtoupper("delivery")) { ?>
+                            <h4>Pesanan anda telah kami terima. Mohon melakukan pelunasan SISA BAYAR maksimal h-2 dari
+                                jadwal yang telah dipilih.</h4>
+                            <div>
+                                <label for="">Anda Harus Membayar Sebesar</label>
+                                <input type="text" class="form-control"
+                                    value="Rp. <?= number_format(($subtotal + $pajak), 0, ',', '.'); ?>" readonly />
+                            </div>
+                            <label for="upload">Upload Bukti Transfer Pelusanan</label>
+                            <input type="file" class="form-control" id="upload_pelunasan" name="upload_pelunasan"
+                                accept=".jpeg, .jpg, .png">
+                            <div class="btn-box">
+                                <button type="submit" name="submit_pelunasan">Submit Pelunasan</button>
+                            </div>
                             <?php } ?>
                         </form>
                         <div class="btn-black">
