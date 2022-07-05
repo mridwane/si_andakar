@@ -177,7 +177,7 @@ $pdf->Cell(34, 5, number_format($invoice['total_price'] + $service + $pajak), 1,
 
 $pdf->Cell(50, 5, '', 0, 0);
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(105, 5, 'Pemabayaran DP(50%)', 0, 0, 'R');
+$pdf->Cell(105, 5, 'Pembayaran ' . $status  . ' (50%)', 0, 0, 'R');
 $pdf->Cell(34, 5, number_format(($invoice['total_price'] + $service + $pajak) / 2), 1, 1, 'C'); //end of line
 
 $pdf->SetFont('Arial', '', 10);
