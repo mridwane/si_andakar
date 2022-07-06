@@ -36,7 +36,7 @@ class myPDF extends FPDF
         $this->Cell(0, 10, "Terimakasih Sudah Memesan...", 10, 0, 'C');
     }
 }
-$pdf = new myPDF('P', 'mm', array(100,180));
+$pdf = new myPDF('P', 'mm', array(100,1000));
 
 //add new page
 $pdf->AddPage();
