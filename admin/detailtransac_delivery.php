@@ -209,7 +209,9 @@ if (!isset($_SESSION["userid"])) {
         <?php } elseif (strtoupper($row["status"]) == strtoupper('confirmed') && strtoupper($row["transac_type"]) == strtoupper("delivery")) { ?>
 
         <a href="controller/admin_delivery_controller.php?no_transac=<?php echo $cd; ?>&action=send"
-          class="btn btn-xs btn-primary"><i class="fas fa-sign-out-alt"></i>Kirimkan Pesanan</a>
+          class="btn btn-xs btn-primary btn-kirim disabled"><i class="fas fa-sign-out-alt"></i>Kirimkan Pesanan</a>
+        <a href="print/receipt_delivery.php?no_transaksi=<?php echo $_GET['id']; ?>"
+          class="btn btn-xs btn-success print-struk" target="_blank"><i class="fas fa-sign-out-alt"></i>Cetak Struk</a>
         <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
         <?php } ?>
 
@@ -232,6 +234,12 @@ if (!isset($_SESSION["userid"])) {
               }
             }
           }
+          const printStruk = document.querySelector(".print-struk");
+
+          printStruk.addEventListener("click", function () {
+            const btnKirim = document.querySelector(".btn-kirim");
+            btnKirim.classList.remove("disabled");
+          });
         </script>
 
 

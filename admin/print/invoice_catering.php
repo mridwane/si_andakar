@@ -169,7 +169,7 @@ $pdf->Cell(25, 5, 'Sub Total', 0, 0, 'R');
 $pdf->Cell(34, 5, number_format($invoice['total_price']), 1, 1, 'C'); //end of line
 
 $pdf->Cell(130, 5, '', 0, 0);
-$pdf->Cell(25, 5, 'Service (15%)', 0, 0, 'R');
+$pdf->Cell(25, 5, 'Service (5%)', 0, 0, 'R');
 $pdf->Cell(34, 5, number_format($service), 1, 1, 'C'); //end of line
 
 $pdf->Cell(130, 5, '', 0, 0);
