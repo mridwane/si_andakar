@@ -28,7 +28,7 @@ class myPDF extends FPDF
     {
         $this->SetY(-25);
         $this->SetFont('Arial', 'B', 14);
-        $this->Cell(0, 10, "Andakar (Ayam Iga Bakar)", 10, 0, 'C');
+        $this->Cell(0, 10, "Andakar (Aneka Daging Bakar)", 10, 0, 'C');
         $this->LN(7);
         $this->SetFont('Arial', 'I', 12);
         $this->Cell(0, 10, "Jl Duren 3 No. 11, Jakarta.", 10, 0, 'C');
@@ -147,7 +147,11 @@ $amount = 0; //total amount
 
 //display the items
 while ($item = mysqli_fetch_assoc($result2)) {
+    if($item['nama_saus'] == "Tanpa Saus"){
+    $pdf->Cell(85, 5, $item['product_name'], 1, 0,);
+    }else{
     $pdf->Cell(85, 5, $item['product_name'] . " + " . $item['nama_saus'], 1, 0,);
+    }
     //add thousand separator using number_format function
     $pdf->Cell(25, 5, number_format($item['qty']), 1, 0, 'C');
     $pdf->Cell(45, 5, number_format($item['price'] + $item['harga_saus']), 1, 0, 'C'); //end of line
