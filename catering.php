@@ -4,7 +4,7 @@ if (isset($_SESSION['C_ID'])) ?>
 <?php include('includes/connection.php'); ?>
 <?php $page = "Catering Checkout"; ?>
 <!--header area-->
-<?php include 'includes/header.php'; 
+<?php include 'includes/header.php';
 ?>
 
 
@@ -25,21 +25,17 @@ if (isset($_SESSION['C_ID'])) ?>
                 </h2>
             </div>
             <!-- Informasi personal -->
-            <form action="controller/catering_controller.php?action=save&kd_cart=<?= $_GET['kd_cart'] ?>" method="POST"
-                class="row">
+            <form action="controller/catering_controller.php?action=save&kd_cart=<?= $_GET['kd_cart'] ?>" method="POST" class="row">
                 <div class="col-md-6">
                     <div class="form_container">
                         <div>
-                            <input type="text" class="form-control" placeholder="Your Name"
-                                value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" disabled />
+                            <input type="text" class="form-control" placeholder="Your Name" value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" disabled />
                         </div>
                         <div>
-                            <input type="text" class="form-control" placeholder="Phone Number"
-                                value="<?= $_SESSION['contact'] ?>" disabled />
+                            <input type="text" class="form-control" placeholder="Phone Number" value="<?= $_SESSION['contact'] ?>" disabled />
                         </div>
                         <div>
-                            <input type="email" class="form-control" placeholder="Your Email"
-                                value="<?= $_SESSION['email'] ?>" disabled />
+                            <input type="email" class="form-control" placeholder="Your Email" value="<?= $_SESSION['email'] ?>" disabled />
                         </div>
                     </div>
                 </div>
@@ -47,24 +43,24 @@ if (isset($_SESSION['C_ID'])) ?>
                     <div class="form_container">
                         <label for="date">Alamat</label>
                         <div>
-                            <?php 
-                            $query = 'SELECT * FROM `tblcustomer`a JOIN `tblalamat`b ON a.C_ADRESSID=b.id_alamat WHERE a.C_ID = "'.$_SESSION["cid"].'"';
+                            <?php
+                            $query = 'SELECT * FROM `tblcustomer`a JOIN `tblalamat`b ON a.C_ADRESSID=b.id_alamat WHERE a.C_ID = "' . $_SESSION["cid"] . '"';
                             $result = mysqli_query($db, $query) or die(mysqli_error($db));
                             while ($row = mysqli_fetch_assoc($result)) {
                                 $alamat = $row['alamat'];
                             }
                             ?>
                             <?php
-                            
-                            $query = 'SELECT C_ADRESSID FROM `tblcustomer` WHERE C_ID = "'.$_SESSION["cid"].'"';
+
+                            $query = 'SELECT C_ADRESSID FROM `tblcustomer` WHERE C_ID = "' . $_SESSION["cid"] . '"';
                             $result = mysqli_query($db, $query) or die(mysqli_error($db));
                             while ($row = mysqli_fetch_assoc($result)) {
                                 $address = $row['C_ADRESSID'];
                             }
-                            if($address == 0){ ?>
-                            <textarea name="" id="" cols="30" rows="4" disabled>Anda belum memilih alamat</textarea>
-                            <?php } else{ ?>
-                            <textarea name="" id="" cols="30" rows="4" disabled><?= $alamat; ?></textarea>
+                            if ($address == 0) { ?>
+                                <textarea name="" id="" cols="30" rows="4" disabled>Anda belum memilih alamat</textarea>
+                            <?php } else { ?>
+                                <textarea name="" id="" cols="30" rows="4" disabled><?= $alamat; ?></textarea>
                             <?php } ?>
                         </div>
                         <div>
@@ -72,8 +68,7 @@ if (isset($_SESSION['C_ID'])) ?>
                             <input type="datetime-local" class="form-control" id="date" name="date">
                         </div>
                         <div class="btn-box">
-                            <button type="submit" id="pesan_catering" name="pesan_catering"
-                                class="btn btn-primary">Pesan Sekarang</button>
+                            <button type="submit" id="pesan_catering" name="pesan_catering" class="btn btn-primary">Pesan Sekarang</button>
                         </div>
                     </div>
                 </div>
@@ -90,8 +85,7 @@ if (isset($_SESSION['C_ID'])) ?>
                     </Center>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%"
-                                cellspacing="0">
+                            <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr class="table-primary">
                                         <th>No</th>
@@ -104,40 +98,40 @@ if (isset($_SESSION['C_ID'])) ?>
                                 </thead>
                                 <tbody>
                                     <?php
-                                $query = 'SELECT * FROM `tblcartdetail` a inner join `tblproducts` b on a.`kd_menu` = b.`product_id` inner join `tblsaus` c on a.`kd_saus` = c.`id_saus` WHERE a.`kd_cart` = "' . $_GET['kd_cart'] . '"';
-                                $result = mysqli_query($db, $query) or die(mysqli_error($db));
-                                // membuat nomer otomatis untuk di tabel
-                                $no = 1;
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    // cek Status Pending atau disetujui
-                                    if ($row['status'] == "0") {
-                                        $status = "Pending";
-                                    } elseif ($row['status'] == "1") {
-                                        $status = "Disetujui";
-                                    } else {
-                                        $status = "Dibatalkan";
+                                    $query = 'SELECT * FROM `tblcartdetail` a inner join `tblproducts` b on a.`kd_menu` = b.`product_id` inner join `tblsaus` c on a.`kd_saus` = c.`id_saus` WHERE a.`kd_cart` = "' . $_GET['kd_cart'] . '"';
+                                    $result = mysqli_query($db, $query) or die(mysqli_error($db));
+                                    // membuat nomer otomatis untuk di tabel
+                                    $no = 1;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        // cek Status Pending atau disetujui
+                                        if ($row['status'] == "0") {
+                                            $status = "Pending";
+                                        } elseif ($row['status'] == "1") {
+                                            $status = "Disetujui";
+                                        } else {
+                                            $status = "Dibatalkan";
+                                        }
+                                        echo '<tr>';
+                                        echo '<td>' . $no++ . '</td>';
+                                        if ($row['id_saus'] == 'S100') {
+                                            echo '<td>' . $row['product_name'] . '</td>';
+                                        } else {
+                                            echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . '</td>';
+                                        }
+                                        echo '<td>' . $row['qty'] . '</td>';
+                                        echo '<td>' . $row['type'] . '</td>';
+                                        echo '<td>Rp. ' . number_format($row['harga'], 0, ',', '.') . '</td>';
+                                        // echo '<td><a type="button" class="btn-detail" data-toggle="modal"
+                                        //         data-target="#cartReservasi"
+                                        // href="detail_list_permintaan.php?&no_permintaan=' . $row['transac_code'] . '">
+                                        //     <span class="material-icons">
+                                        //         Edit
+                                        //     </span>
+                                        //     </a>
+                                        //     </td>';
+                                        echo '</tr> ';
                                     }
-                                    echo '<tr>';
-                                    echo '<td>' . $no++ . '</td>';
-                                    if ($row['id_saus'] == 'S100') {
-                                        echo '<td>' . $row['product_name'] . '</td>';
-                                    } else {
-                                        echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . '</td>';
-                                    }
-                                    echo '<td>' . $row['qty'] . '</td>';
-                                    echo '<td>' . $row['type'] . '</td>';
-                                    echo '<td>Rp. ' . number_format($row['harga'] ,0,',','.'). '</td>';
-                                    // echo '<td><a type="button" class="btn-detail" data-toggle="modal"
-                                    //         data-target="#cartReservasi"
-                                    // href="detail_list_permintaan.php?&no_permintaan=' . $row['transac_code'] . '">
-                                    //     <span class="material-icons">
-                                    //         Edit
-                                    //     </span>
-                                    //     </a>
-                                    //     </td>';
-                                    echo '</tr> ';
-                                }
-                                ?>
+                                    ?>
                                     <!-- <tr class="table-warning">
                                         <td></td>
                                         <td></td>
@@ -156,8 +150,7 @@ if (isset($_SESSION['C_ID'])) ?>
         </div>
     </section>
 
-    <div class="modal fade" id="cartReservasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="cartReservasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -168,8 +161,7 @@ if (isset($_SESSION['C_ID'])) ?>
                 </div>
                 <form action="controller/reservasi_controller.php?action=updatePesanan" method="POST">
                     <div class="modal-body">
-                        <input type="text" class="form-control" name="transac_code" value="<?= $_GET['kd_cart'] ?>"
-                            hidden />
+                        <input type="text" class="form-control" name="transac_code" value="<?= $_GET['kd_cart'] ?>" hidden />
                         <table class="show-cart table">
 
                         </table>
@@ -191,10 +183,15 @@ if (isset($_SESSION['C_ID'])) ?>
     <?php include 'includes/footer.php'; ?>
 
     <script>
-        $('#date').on('change', function () {
+        $('#date').on('change', function() {
             var selected_date = $(this).val();
             var today = new Date();
             var formattedDate = moment(date).format('YYYYMMDD');
             alert(selected_dat)
         });
+
+        function validationDate() {
+            alert("test")
+            // document.getElementById("date").style.color = "red";
+        }
     </script>
