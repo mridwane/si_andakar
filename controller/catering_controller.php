@@ -4,86 +4,102 @@ include('../includes/connection.php');
 
 session_start();
 if ($_GET['action'] == 'save') {
-  $random = rand(10, 100);
-  $tgl = date("dmYhis");
-  $no_transac = "CAT" . $tgl . $random;
-  $date = date("Y/m/d");
+  $catering_date_time = date("Y-m-d", strtotime($_POST["date"]));
+  $selected_date = date("Y-m-d H:i:s", strtotime($_POST["date"]));
+  $date = date("Y-m-d");
+  $margin_date = date("d", strtotime($catering_date_time)) - date("d", strtotime($date));
   $user_id = $_SESSION['cid'];
   $type = "Catering";
-  $kd_cart = $type.$user_id;
-  // $kode_produk = $_POST['product_code'];
-  // $jml = $_POST['qty'];
-  // $jml_total = 120000;
-  // $total_barang = $_POST['total_barang'];
+  if ($margin_date < 2) {
+    echo ("<script language='JavaScript'>
+    window.location.href='../catering.php?kd_cart=$type.$user_id';
+    window.alert('Minimal Pemesanan Catering H+2 Dari Tanggal Saat Ini')
+    </script>");
+  } else if ($margin_date >= 2) {
+    if ($margin_date == 2) {
+      echo ("<script language='JavaScript'>
+      window.alert('Karena pemesanan Catering Minimal H+2 dari tanggal saat ini,  Mohon lakukan pembayaran dp dan pelunasan hari ini juga')
+      </script>");
+    }
+    $random = rand(10, 100);
+    $tgl = date("dmYhis");
+    $no_transac = "CAT" . $tgl . $random;
+
+    $kd_cart = $type . $user_id;
+    $kode_produk = $_POST['product_code'];
+    $jml = $_POST['qty'];
+    $jml_total = 120000;
+    $total_barang = $_POST['total_barang'];
 
 
 
-  // jika berhasil eksekusi
-  // $data = array([
-  //   'kode_produk' => $_POST['product_code'],
-  //   'jml' => $_POST['qty']
-  // ]);
+    // jika berhasil eksekusi
+    $data = array([
+      'kode_produk' => $_POST['product_code'],
+      'jml' => $_POST['qty']
+    ]);
 
-  // untuk memasukan ke table tbltransac
-  $hitung_total = mysqli_query($db, 'SELECT SUM(a.harga) as total FROM tblcartdetail a JOIN tblcart b ON a.kd_cart = b.kd_cart
-  JOIN tblproducts c
-  ON
-  a.kd_menu = c.product_id JOIN tblsaus d ON
-  a.kd_saus = d.id_saus WHERE b.c_id = "' . $user_id . '" AND b.kd_cart = "' . $kd_cart . '"');
+    // untuk memasukan ke table tbltransac
+    $hitung_total = mysqli_query($db, 'SELECT SUM(a.harga) as total FROM tblcartdetail a JOIN tblcart b ON a.kd_cart = b.kd_cart
+    JOIN tblproducts c
+    ON
+    a.kd_menu = c.product_id JOIN tblsaus d ON
+    a.kd_saus = d.id_saus WHERE b.c_id = "' . $user_id . '" AND b.kd_cart = "' . $kd_cart . '"');
 
-  $ht = mysqli_fetch_array($hitung_total);
-  $jml_total = $ht['total'];
+    $ht = mysqli_fetch_array($hitung_total);
+    $jml_total = $ht['total'];
 
-  $queryCek = mysqli_query($db, 'SELECT * FROM tbltransac WHERE customer_id = "' . $user_id . '" AND transac_type = "' . $type . '" AND transac_code = "' . $no_transac . '" ');
-  $cek = mysqli_num_rows($queryCek);
-  if ($cek > 0) {
-    $uptransac = "UPDATE tbltransac SET transac_code = '$no_transac', total_price = '$jml_total' WHERE customer_id = '". $user_id . "'";
-    mysqli_query($db, $uptransac) or die('Error, gagal menyimpan data catering');
-  } else {
-    $instransac = "INSERT INTO tbltransac (transac_code, date, transac_type, status, total_price, customer_id)
-    VALUES ('$no_transac','$date','Catering','pending','$jml_total','$user_id')";
-    mysqli_query($db, $instransac) or die('Error, gagal menyimpan data catering');
+    $queryCek = mysqli_query($db, 'SELECT * FROM tbltransac WHERE customer_id = "' . $user_id . '" AND transac_type = "' . $type . '" AND transac_code = "' . $no_transac . '" ');
+    $cek = mysqli_num_rows($queryCek);
+    if ($cek > 0) {
+      $uptransac = "UPDATE tbltransac SET transac_code = '$no_transac', reservation_date_time = '$selected_date', total_price = '$jml_total' WHERE customer_id = '" . $user_id . "'";
+      mysqli_query($db, $uptransac) or die('Error, gagal menyimpan data catering');
+    } else {
+      $instransac = "INSERT INTO tbltransac (transac_code, date, transac_type, status, total_price, reservation_date_time ,customer_id)
+      VALUES ('$no_transac','$date','Catering','pending','$jml_total','$selected_date','$user_id')";
+      mysqli_query($db, $instransac) or die('Error, gagal menyimpan data catering');
+    }
+
+    // untuk memasukan ke table tbltransacdetail
+    $query_select = mysqli_query($db, 'SELECT * FROM tblcartdetail a JOIN tblcart b ON a.kd_cart = b.kd_cart
+    JOIN tblproducts c
+    ON
+    a.kd_menu = c.product_id JOIN tblsaus d ON
+    a.kd_saus = d.id_saus WHERE b.kd_cart = "' . $kd_cart . '"');
+    while ($row = mysqli_fetch_array($query_select)) {
+      $query2 = "INSERT INTO tbltransacdetail (product_code, kd_saus, qty, transac_code, harga)
+      VALUES ('" . $row['kd_menu'] . "', '" . $row['kd_saus'] . "', '" . $row['qty'] . "', '$no_transac' ,
+      '" . $row['harga'] . "')";
+      mysqli_query($db, $query2) or die('Error, gagal menyimpan data catering');
+    }
+
+    // query delete cart dan cart detail
+    $deletecart = 'DELETE From tblcartdetail WHERE kd_cart = "' . $kd_cart . '"';
+    mysqli_query($db, $deletecart) or die(mysqli_error($db));
+    $deletecartdetail = 'DELETE From tblcart WHERE kd_cart = "' . $kd_cart . '"';
+    mysqli_query($db, $deletecartdetail) or die(mysqli_error($db));
+
+    echo ("<script language='JavaScript'>
+      window.location.href = '../catering_rincian.php?no_transaksi=$no_transac';
+      window.alert('Data Catering berhasil disimpan. Mohon Lakukan pembayaran Down Payment')
+    </script>");
   }
 
-  // untuk memasukan ke table tbltransacdetail
-  $query_select = mysqli_query($db, 'SELECT * FROM tblcartdetail a JOIN tblcart b ON a.kd_cart = b.kd_cart
-  JOIN tblproducts c
-  ON
-  a.kd_menu = c.product_id JOIN tblsaus d ON
-  a.kd_saus = d.id_saus WHERE b.kd_cart = "' .$kd_cart. '"');
-  while ($row = mysqli_fetch_array($query_select)) {
-    $query2 = "INSERT INTO tbltransacdetail (product_code, kd_saus, qty, transac_code, harga)
-    VALUES ('" . $row['kd_menu'] . "', '" . $row['kd_saus'] . "', '" . $row['qty'] . "', '$no_transac' ,
-    '" . $row['harga'] . "')";
-    mysqli_query($db, $query2) or die('Error, gagal menyimpan data catering');
+  if (isset($_POST['pesan_catering'])) {
+    if ($_GET['action'] == 'todetail') {
+      $transac_code = $_GET['no_transaksi'];
+      $date_time = $_POST['date'];
+
+      //Update table transac
+      $query2 = "UPDATE tbltransac SET reservation_date_time = '" . $date_time . "' WHERE transac_code='" . $transac_code . "'";
+      mysqli_query($db, $query2) or die(mysqli_error($db));
+      echo ("<script language='JavaScript'>
+             window.location.href='../catering_rincian.php?no_transaksi=$transac_code';
+             window.alert('Data Catering berhasil disimpan. Mohon Lakukan pembayaran Down Payment')
+           </script>");
+    }
   }
-
-  // query delete cart dan cart detail
-  $deletecart = 'DELETE From tblcartdetail WHERE kd_cart = "' .$kd_cart. '"';
-  mysqli_query($db, $deletecart) or die(mysqli_error($db));
-  $deletecartdetail = 'DELETE From tblcart WHERE kd_cart = "' .$kd_cart. '"';
-  mysqli_query($db, $deletecartdetail) or die(mysqli_error($db));
-
-  echo ("<script language='JavaScript'>
-    window.location.href = '../catering_rincian.php?no_transaksi=$no_transac';
-    window.alert('Data Catering berhasil disimpan. Mohon Lakukan pembayaran Down Payment')
-  </script>");
 }
-
-// if (isset($_POST['pesan_catering'])) {
-//   if ($_GET['action'] == 'todetail') {
-//     $transac_code = $_GET['no_transaksi'];
-//     $date_time = $_POST['date'];
-
-//     //Update table transac
-//     $query2 = "UPDATE tbltransac SET reservation_date_time = '" . $date_time . "' WHERE transac_code='" . $transac_code . "'";
-//     mysqli_query($db, $query2) or die(mysqli_error($db));
-//     echo ("<script language='JavaScript'>
-//            window.location.href='../catering_rincian.php?no_transaksi=$transac_code';
-//            window.alert('Data Catering berhasil disimpan. Mohon Lakukan pembayaran Down Payment')
-//          </script>");
-//   }
-// }
 
 
 if ($_GET['action'] == 'cancel') {
@@ -160,10 +176,10 @@ if ($_GET['action'] == 'savetrf') {
       }
     } else {
 ?>
-<script type="text/javascript">
-  alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
-</script>
-<?php
+      <script type="text/javascript">
+        alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
+      </script>
+    <?php
     }
   }
 }
@@ -232,10 +248,10 @@ if ($_GET['action'] == 'savetrfrvs') {
       }
     } else {
     ?>
-<script type="text/javascript">
-  alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
-</script>
-<?php
+      <script type="text/javascript">
+        alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
+      </script>
+    <?php
     }
   }
 }
@@ -301,10 +317,10 @@ if ($_GET['action'] == 'savetrfrvslns') {
       }
     } else {
     ?>
-<script type="text/javascript">
-  alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
-</script>
-<?php
+      <script type="text/javascript">
+        alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
+      </script>
+    <?php
     }
   }
 }
@@ -367,15 +383,35 @@ if ($_GET['action'] == 'savetrflunas') {
       }
     } else {
     ?>
-<script type="text/javascript">
-  alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
-</script>
+      <script type="text/javascript">
+        alert("Silahkan pilih foto bukti transfer terlebih dahulu untuk di upload");
+      </script>
 <?php
     }
   }
 }
 
-
+if (isset($_POST["ubah_jadwal"]) && $_GET['action']=="ubah_jadwal") {
+  $transac_code = $_POST["transac_code"];
+  $date = $_POST["date"];
+  $catering_date_time = date("Y-m-d", strtotime($date));
+  $selected_date = date("Y-m-d H:i:s", strtotime($date));
+  $date = date("Y-m-d");
+  $margin_date = date("d", strtotime($catering_date_time)) - date("d", strtotime($date));
+  if ($margin_date < 2) {
+    echo ("<script language='JavaScript'>
+    window.location.href='../catering_rincian.php?no_transaksi=$transac_code';
+    window.alert('Minimal Pemesanan Catering H+2 Dari Tanggal Saat Ini')
+    </script>");
+  } else {
+    $query2 = "UPDATE tbltransac SET reservation_date_time = '" . $selected_date . "' WHERE transac_code='" . $transac_code . "'";
+    mysqli_query($db, $query2) or die(mysqli_error($db));
+    echo ("<script language='JavaScript'>
+               window.location.href='../catering_rincian.php?no_transaksi=$transac_code';
+               window.alert('Perubahan Jadwal Berhasil')
+             </script>");
+  }
+}
 
 ?>
 <script src="../assets/js/cart.js"></script>
