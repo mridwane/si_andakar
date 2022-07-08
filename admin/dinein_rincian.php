@@ -66,6 +66,14 @@ $total_bayar = $total + $pajak;
                                     value="Rp. <?= number_format($total_bayar, 0, ',', '.'); ?>" readonly />
                             </div>
                         </form>
+                        <div class="btn-box">
+                            <a href="print/receipt_dinein.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>"
+                                target="_blank">
+                                <button>
+                                    Cetak Struk
+                                </button>
+                            </a>
+                        </div>
                         <div class="btn-black">
                             <a href="pos.php">
                                 <button>

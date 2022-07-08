@@ -28,7 +28,8 @@ if (!isset($_SESSION["userid"])) {
           <tbody>
             <?php
               $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name FROM tbltransac a JOIN tblcustomer b ON
-              a.`customer_id`=b.`C_ID` WHERE a.`status`="done" OR a.`status`="cancel" OR a.`status`="deny_adm_dp" OR a.`status`="deny_adm_lns"';
+              a.`customer_id`=b.`C_ID` WHERE a.`status`="done" OR a.`status`="cancel" OR a.`status`="deny_adm_dp" OR
+              a.`status`="lunas" OR a.`status`="deny_adm_lns"';
               $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
               while ($row = mysqli_fetch_assoc($result)) {
