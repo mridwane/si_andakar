@@ -26,18 +26,18 @@ if ($_GET['action'] == 'save') {
     $no_transac = "CAT" . $tgl . $random;
 
     $kd_cart = $type . $user_id;
-    $kode_produk = $_POST['product_code'];
-    $jml = $_POST['qty'];
-    $jml_total = 120000;
-    $total_barang = $_POST['total_barang'];
+    // $kode_produk = $_POST['product_code'];
+    // $jml = $_POST['qty'];
+    // $jml_total = 120000;
+    // $total_barang = $_POST['total_barang'];
 
 
 
-    // jika berhasil eksekusi
-    $data = array([
-      'kode_produk' => $_POST['product_code'],
-      'jml' => $_POST['qty']
-    ]);
+    // // jika berhasil eksekusi
+    // $data = array([
+    //   'kode_produk' => $_POST['product_code'],
+    //   'jml' => $_POST['qty']
+    // ]);
 
     // untuk memasukan ke table tbltransac
     $hitung_total = mysqli_query($db, 'SELECT SUM(a.harga) as total FROM tblcartdetail a JOIN tblcart b ON a.kd_cart = b.kd_cart
@@ -85,20 +85,20 @@ if ($_GET['action'] == 'save') {
     </script>");
   }
 
-  if (isset($_POST['pesan_catering'])) {
-    if ($_GET['action'] == 'todetail') {
-      $transac_code = $_GET['no_transaksi'];
-      $date_time = $_POST['date'];
+  // if (isset($_POST['pesan_catering'])) {
+  //   if ($_GET['action'] == 'todetail') {
+  //     $transac_code = $_GET['no_transaksi'];
+  //     $date_time = $_POST['date'];
 
-      //Update table transac
-      $query2 = "UPDATE tbltransac SET reservation_date_time = '" . $date_time . "' WHERE transac_code='" . $transac_code . "'";
-      mysqli_query($db, $query2) or die(mysqli_error($db));
-      echo ("<script language='JavaScript'>
-             window.location.href='../catering_rincian.php?no_transaksi=$transac_code';
-             window.alert('Data Catering berhasil disimpan. Mohon Lakukan pembayaran Down Payment')
-           </script>");
-    }
-  }
+  //     //Update table transac
+  //     $query2 = "UPDATE tbltransac SET reservation_date_time = '" . $date_time . "' WHERE transac_code='" . $transac_code . "'";
+  //     mysqli_query($db, $query2) or die(mysqli_error($db));
+  //     echo ("<script language='JavaScript'>
+  //            window.location.href='../catering_rincian.php?no_transaksi=$transac_code';
+  //            window.alert('Data Catering berhasil disimpan. Mohon Lakukan pembayaran Down Payment')
+  //          </script>");
+  //   }
+  // }
 }
 
 
@@ -391,7 +391,7 @@ if ($_GET['action'] == 'savetrflunas') {
   }
 }
 
-if (isset($_POST["ubah_jadwal"]) && $_GET['action']=="ubah_jadwal") {
+if (isset($_POST["ubah_jadwal"]) && $_GET['action'] == "ubah_jadwal") {
   $transac_code = $_POST["transac_code"];
   $date = $_POST["date"];
   $catering_date_time = date("Y-m-d", strtotime($date));
