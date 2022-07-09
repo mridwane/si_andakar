@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Jul 2022 pada 16.53
--- Versi server: 10.4.24-MariaDB
--- Versi PHP: 7.4.29
+-- Generation Time: Jul 09, 2022 at 11:09 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblalamat`
+-- Table structure for table `tblalamat`
 --
 
 CREATE TABLE `tblalamat` (
@@ -34,7 +34,7 @@ CREATE TABLE `tblalamat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tblalamat`
+-- Dumping data for table `tblalamat`
 --
 
 INSERT INTO `tblalamat` (`id_alamat`, `alamat`, `c_id`) VALUES
@@ -48,7 +48,7 @@ INSERT INTO `tblalamat` (`id_alamat`, `alamat`, `c_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblautonumber`
+-- Table structure for table `tblautonumber`
 --
 
 CREATE TABLE `tblautonumber` (
@@ -60,7 +60,7 @@ CREATE TABLE `tblautonumber` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tblautonumber`
+-- Dumping data for table `tblautonumber`
 --
 
 INSERT INTO `tblautonumber` (`id`, `start`, `end`, `increment`, `desc`) VALUES
@@ -69,7 +69,7 @@ INSERT INTO `tblautonumber` (`id`, `start`, `end`, `increment`, `desc`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblbuktitransfer`
+-- Table structure for table `tblbuktitransfer`
 --
 
 CREATE TABLE `tblbuktitransfer` (
@@ -85,7 +85,7 @@ CREATE TABLE `tblbuktitransfer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tblbuktitransfer`
+-- Dumping data for table `tblbuktitransfer`
 --
 
 INSERT INTO `tblbuktitransfer` (`id`, `date`, `file_name`, `status`, `nominal_trf`, `user`, `margin`, `note`, `no_transac`) VALUES
@@ -116,12 +116,15 @@ INSERT INTO `tblbuktitransfer` (`id`, `date`, `file_name`, `status`, `nominal_tr
 (26, '2022-07-05 16:42:36', 'BTCAT0507202204422629.jpg', 'dp', 0, 'customer', '', '', 'CAT0507202204422629'),
 (27, '2022-07-05 16:43:26', 'BTLNSCAT0507202204422629.jpg', 'lunas', 0, 'customer', '', '', 'CAT0507202204422629'),
 (28, '2022-07-05 16:50:49', 'BTCAT0507202204503918.jpg', 'dp', 0, 'customer', '', '', 'CAT0507202204503918'),
-(29, '2022-07-05 16:51:47', 'BTLNSCAT0507202204503918.jpg', 'lunas', 0, 'customer', '', '', 'CAT0507202204503918');
+(29, '2022-07-05 16:51:47', 'BTLNSCAT0507202204503918.jpg', 'lunas', 0, 'customer', '', '', 'CAT0507202204503918'),
+(30, '2022-07-05 16:55:37', 'BTCAT0507202204524824.jpg', 'dp', 0, 'customer', '', '', 'CAT0507202204524824'),
+(31, '2022-07-05 16:56:12', 'BTLNSCAT0507202204524824.jpg', 'lunas', 0, 'customer', '', '', 'CAT0507202204524824'),
+(32, '2022-07-06 05:49:12', 'BTDEL0607202205484834.jpg', 'paid', 0, 'customer', '', '', 'DEL0607202205484834');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblcart`
+-- Table structure for table `tblcart`
 --
 
 CREATE TABLE `tblcart` (
@@ -133,7 +136,7 @@ CREATE TABLE `tblcart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tblcart`
+-- Dumping data for table `tblcart`
 --
 
 INSERT INTO `tblcart` (`kd_cart`, `jenis_cart`, `total`, `date`, `c_id`) VALUES
@@ -142,7 +145,7 @@ INSERT INTO `tblcart` (`kd_cart`, `jenis_cart`, `total`, `date`, `c_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblcartdetail`
+-- Table structure for table `tblcartdetail`
 --
 
 CREATE TABLE `tblcartdetail` (
@@ -155,7 +158,7 @@ CREATE TABLE `tblcartdetail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tblcartdetail`
+-- Dumping data for table `tblcartdetail`
 --
 
 INSERT INTO `tblcartdetail` (`id`, `kd_cart`, `kd_menu`, `kd_saus`, `qty`, `harga`) VALUES
@@ -166,7 +169,7 @@ INSERT INTO `tblcartdetail` (`id`, `kd_cart`, `kd_menu`, `kd_saus`, `qty`, `harg
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblcategory`
+-- Table structure for table `tblcategory`
 --
 
 CREATE TABLE `tblcategory` (
@@ -175,7 +178,7 @@ CREATE TABLE `tblcategory` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tblcategory`
+-- Dumping data for table `tblcategory`
 --
 
 INSERT INTO `tblcategory` (`category_id`, `category`) VALUES
@@ -195,7 +198,7 @@ INSERT INTO `tblcategory` (`category_id`, `category`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblcustomer`
+-- Table structure for table `tblcustomer`
 --
 
 CREATE TABLE `tblcustomer` (
@@ -206,6 +209,7 @@ CREATE TABLE `tblcustomer` (
   `C_ADRESSID` int(25) NOT NULL,
   `C_PNUMBER` varchar(50) NOT NULL,
   `C_GENDER` varchar(50) NOT NULL,
+  `C_AKSES` varchar(25) NOT NULL,
   `C_EMAILADD` varchar(50) NOT NULL,
   `ZIPCODE` varchar(50) NOT NULL,
   `username` varchar(50) NOT NULL,
@@ -213,18 +217,19 @@ CREATE TABLE `tblcustomer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tblcustomer`
+-- Dumping data for table `tblcustomer`
 --
 
-INSERT INTO `tblcustomer` (`C_ID`, `C_FNAME`, `C_LNAME`, `C_AGE`, `C_ADRESSID`, `C_PNUMBER`, `C_GENDER`, `C_EMAILADD`, `ZIPCODE`, `username`, `password`) VALUES
-(4, 'Nadya', 'Minerva', 25, 11, '082346578919', 'Perempuan', 'emak@gmail.com', 'asd', 'admin', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
-(5, 'sumail', 'cofeen', 20, 25, '0823123123', 'Laki-Laki', 'sumail@gmail.com', '40222', 'sumail', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
-(6, 'ridwan', 'remin', 21, 0, '312312', 'Laki-Laki', '123@gmail.com', '4321', 'ridwan12', '$2y$10$XZw1u9HtZtDpLXMsUtbHUe4m0ztA8kUttAhXpVxD71cFb9GFnkpn2');
+INSERT INTO `tblcustomer` (`C_ID`, `C_FNAME`, `C_LNAME`, `C_AGE`, `C_ADRESSID`, `C_PNUMBER`, `C_GENDER`, `C_AKSES`, `C_EMAILADD`, `ZIPCODE`, `username`, `password`) VALUES
+(4, 'Nadya', 'Minerva', 25, 11, '082346578919', 'Perempuan', 'Customer', 'emak@gmail.com', 'asd', 'admin', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
+(5, 'sumail', 'cofeen', 20, 25, '0823123123', 'Laki-Laki', 'Customer', 'sumail@gmail.com', '40222', 'sumail', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
+(6, 'ridwan', 'remin', 21, 0, '312312', 'Laki-Laki', 'Customer', '123@gmail.com', '4321', 'ridwan12', '$2y$10$XZw1u9HtZtDpLXMsUtbHUe4m0ztA8kUttAhXpVxD71cFb9GFnkpn2'),
+(10, 'Muhammad', 'Ridwan', 25, 0, '83894799380', 'Laki-Laki', 'Customer', 'mridwane01@gmail.com', '4321', 'mridwane', '$2y$10$AulcbLT6OHkAt4Ttilh0zewV82HrFDURcR0P/fzqd/wQAWmJug1c2');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbldelivery`
+-- Table structure for table `tbldelivery`
 --
 
 CREATE TABLE `tbldelivery` (
@@ -235,7 +240,7 @@ CREATE TABLE `tbldelivery` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbldelivery`
+-- Dumping data for table `tbldelivery`
 --
 
 INSERT INTO `tbldelivery` (`id`, `transac_code`, `receiver`, `dated`) VALUES
@@ -246,7 +251,7 @@ INSERT INTO `tbldelivery` (`id`, `transac_code`, `receiver`, `dated`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbldetailrequestmitra`
+-- Table structure for table `tbldetailrequestmitra`
 --
 
 CREATE TABLE `tbldetailrequestmitra` (
@@ -258,7 +263,7 @@ CREATE TABLE `tbldetailrequestmitra` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tbldetailrequestmitra`
+-- Dumping data for table `tbldetailrequestmitra`
 --
 
 INSERT INTO `tbldetailrequestmitra` (`id`, `date`, `note`, `status`, `user_id`) VALUES
@@ -268,7 +273,7 @@ INSERT INTO `tbldetailrequestmitra` (`id`, `date`, `note`, `status`, `user_id`) 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblproducts`
+-- Table structure for table `tblproducts`
 --
 
 CREATE TABLE `tblproducts` (
@@ -285,7 +290,7 @@ CREATE TABLE `tblproducts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tblproducts`
+-- Dumping data for table `tblproducts`
 --
 
 INSERT INTO `tblproducts` (`product_id`, `product_name`, `date_in`, `category_id`, `user_id`, `status`, `type`, `price`, `image`, `detail_product`) VALUES
@@ -300,7 +305,7 @@ INSERT INTO `tblproducts` (`product_id`, `product_name`, `date_in`, `category_id
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblreq`
+-- Table structure for table `tblreq`
 --
 
 CREATE TABLE `tblreq` (
@@ -313,7 +318,7 @@ CREATE TABLE `tblreq` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tblreq`
+-- Dumping data for table `tblreq`
 --
 
 INSERT INTO `tblreq` (`no_permintaan`, `user_id`, `tgl_input`, `jml_barang`, `jml_qty`, `status`) VALUES
@@ -325,7 +330,7 @@ INSERT INTO `tblreq` (`no_permintaan`, `user_id`, `tgl_input`, `jml_barang`, `jm
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblreqdetail`
+-- Table structure for table `tblreqdetail`
 --
 
 CREATE TABLE `tblreqdetail` (
@@ -336,7 +341,7 @@ CREATE TABLE `tblreqdetail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tblreqdetail`
+-- Dumping data for table `tblreqdetail`
 --
 
 INSERT INTO `tblreqdetail` (`id`, `no_permintaan`, `product_code`, `qty`) VALUES
@@ -371,7 +376,7 @@ INSERT INTO `tblreqdetail` (`id`, `no_permintaan`, `product_code`, `qty`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblrequestmitra`
+-- Table structure for table `tblrequestmitra`
 --
 
 CREATE TABLE `tblrequestmitra` (
@@ -385,7 +390,7 @@ CREATE TABLE `tblrequestmitra` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tblrequestmitra`
+-- Dumping data for table `tblrequestmitra`
 --
 
 INSERT INTO `tblrequestmitra` (`id`, `regis_no`, `date_req`, `file`, `status`, `note`, `C_ID`) VALUES
@@ -394,7 +399,7 @@ INSERT INTO `tblrequestmitra` (`id`, `regis_no`, `date_req`, `file`, `status`, `
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblsaus`
+-- Table structure for table `tblsaus`
 --
 
 CREATE TABLE `tblsaus` (
@@ -408,7 +413,7 @@ CREATE TABLE `tblsaus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tblsaus`
+-- Dumping data for table `tblsaus`
 --
 
 INSERT INTO `tblsaus` (`id_saus`, `nama_saus`, `harga_saus`, `stok_saus`, `keterangan`, `user_id`, `date`) VALUES
@@ -420,7 +425,7 @@ INSERT INTO `tblsaus` (`id_saus`, `nama_saus`, `harga_saus`, `stok_saus`, `keter
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblstockhistory`
+-- Table structure for table `tblstockhistory`
 --
 
 CREATE TABLE `tblstockhistory` (
@@ -432,7 +437,7 @@ CREATE TABLE `tblstockhistory` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `tblstockhistory`
+-- Dumping data for table `tblstockhistory`
 --
 
 INSERT INTO `tblstockhistory` (`id`, `date`, `qty`, `user_id`, `product_code`) VALUES
@@ -448,7 +453,7 @@ INSERT INTO `tblstockhistory` (`id`, `date`, `qty`, `user_id`, `product_code`) V
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbltransac`
+-- Table structure for table `tbltransac`
 --
 
 CREATE TABLE `tbltransac` (
@@ -464,7 +469,7 @@ CREATE TABLE `tbltransac` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbltransac`
+-- Dumping data for table `tbltransac`
 --
 
 INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`, `total_price`, `reservation_date_time`, `person_count`, `customer_id`) VALUES
@@ -482,12 +487,14 @@ INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`
 (22, 'DINEIN0507202203503454', '2022/07/05', 'Dinein', 'done', 217000, '2022-07-05 20:50:34', 0, 2),
 (23, 'CAT0507202204422629', '2022/07/05', 'Catering', 'lunas', 6898000, '2022-07-05 21:42:26', 0, 4),
 (24, 'CAT0507202204503918', '2022/07/05', 'Catering', 'lunas', 7350000, '2022-07-05 21:50:39', 0, 4),
-(25, 'CAT0507202204524824', '2022/07/05', 'Catering', 'pending', 6270000, '2022-07-05 21:52:48', 0, 4);
+(25, 'CAT0507202204524824', '2022/07/05', 'Catering', 'lunas', 6270000, '2022-07-05 21:52:48', 0, 4),
+(26, 'DEL0607202205484834', '2022/07/06', 'Delivery', 'confirmed', 217000, '2022-07-06 10:48:48', 0, 4),
+(27, 'DINEIN0607202209103085', '2022/07/06', 'Dinein', 'done', 1363000, '2022-07-06 14:10:30', 0, 2);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbltransacdetail`
+-- Table structure for table `tbltransacdetail`
 --
 
 CREATE TABLE `tbltransacdetail` (
@@ -500,7 +507,7 @@ CREATE TABLE `tbltransacdetail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbltransacdetail`
+-- Dumping data for table `tbltransacdetail`
 --
 
 INSERT INTO `tbltransacdetail` (`id`, `product_code`, `kd_saus`, `qty`, `transac_code`, `harga`) VALUES
@@ -535,12 +542,19 @@ INSERT INTO `tbltransacdetail` (`id`, `product_code`, `kd_saus`, `qty`, `transac
 (61, '52', 'S100', 21, 'CAT0507202204422629', 210000),
 (62, '46', 'S002', 30, 'CAT0507202204503918', 6210000),
 (63, '49', 'S002', 20, 'CAT0507202204503918', 1140000),
-(64, '46', 'S001', 30, 'CAT0507202204524824', 6270000);
+(64, '46', 'S001', 30, 'CAT0507202204524824', 6270000),
+(65, '46', 'S002', 1, 'DEL0607202205484834', 207000),
+(66, '52', 'S100', 1, 'DEL0607202205484834', 10000),
+(67, '49', 'S001', 1, 'DINEIN0607202209103085', 59000),
+(68, '46', 'S002', 3, 'DINEIN0607202209103085', 621000),
+(69, '54', 'S002', 1, 'DINEIN0607202209103085', 197000),
+(70, '46', 'S003', 2, 'DINEIN0607202209103085', 416000),
+(71, '52', 'S100', 7, 'DINEIN0607202209103085', 70000);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tblusers`
+-- Table structure for table `tblusers`
 --
 
 CREATE TABLE `tblusers` (
@@ -556,7 +570,7 @@ CREATE TABLE `tblusers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tblusers`
+-- Dumping data for table `tblusers`
 --
 
 INSERT INTO `tblusers` (`user_id`, `fname`, `lname`, `email`, `contact`, `address`, `position`, `username`, `pass`) VALUES
@@ -567,205 +581,205 @@ INSERT INTO `tblusers` (`user_id`, `fname`, `lname`, `email`, `contact`, `addres
 --
 
 --
--- Indeks untuk tabel `tblalamat`
+-- Indexes for table `tblalamat`
 --
 ALTER TABLE `tblalamat`
   ADD PRIMARY KEY (`id_alamat`);
 
 --
--- Indeks untuk tabel `tblautonumber`
+-- Indexes for table `tblautonumber`
 --
 ALTER TABLE `tblautonumber`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tblbuktitransfer`
+-- Indexes for table `tblbuktitransfer`
 --
 ALTER TABLE `tblbuktitransfer`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tblcart`
+-- Indexes for table `tblcart`
 --
 ALTER TABLE `tblcart`
   ADD PRIMARY KEY (`kd_cart`);
 
 --
--- Indeks untuk tabel `tblcartdetail`
+-- Indexes for table `tblcartdetail`
 --
 ALTER TABLE `tblcartdetail`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tblcategory`
+-- Indexes for table `tblcategory`
 --
 ALTER TABLE `tblcategory`
   ADD PRIMARY KEY (`category_id`);
 
 --
--- Indeks untuk tabel `tblcustomer`
+-- Indexes for table `tblcustomer`
 --
 ALTER TABLE `tblcustomer`
   ADD PRIMARY KEY (`C_ID`);
 
 --
--- Indeks untuk tabel `tbldelivery`
+-- Indexes for table `tbldelivery`
 --
 ALTER TABLE `tbldelivery`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tbldetailrequestmitra`
+-- Indexes for table `tbldetailrequestmitra`
 --
 ALTER TABLE `tbldetailrequestmitra`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tblproducts`
+-- Indexes for table `tblproducts`
 --
 ALTER TABLE `tblproducts`
   ADD PRIMARY KEY (`product_id`),
   ADD KEY `FK_tblproducts_tblsupplier` (`user_id`);
 
 --
--- Indeks untuk tabel `tblreq`
+-- Indexes for table `tblreq`
 --
 ALTER TABLE `tblreq`
   ADD PRIMARY KEY (`no_permintaan`);
 
 --
--- Indeks untuk tabel `tblreqdetail`
+-- Indexes for table `tblreqdetail`
 --
 ALTER TABLE `tblreqdetail`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tblrequestmitra`
+-- Indexes for table `tblrequestmitra`
 --
 ALTER TABLE `tblrequestmitra`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tblsaus`
+-- Indexes for table `tblsaus`
 --
 ALTER TABLE `tblsaus`
   ADD PRIMARY KEY (`id_saus`);
 
 --
--- Indeks untuk tabel `tblstockhistory`
+-- Indexes for table `tblstockhistory`
 --
 ALTER TABLE `tblstockhistory`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tbltransac`
+-- Indexes for table `tbltransac`
 --
 ALTER TABLE `tbltransac`
   ADD PRIMARY KEY (`id`),
   ADD KEY `FK_tbltransac_details_tblcustomer` (`customer_id`);
 
 --
--- Indeks untuk tabel `tbltransacdetail`
+-- Indexes for table `tbltransacdetail`
 --
 ALTER TABLE `tbltransacdetail`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tblusers`
+-- Indexes for table `tblusers`
 --
 ALTER TABLE `tblusers`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `tblalamat`
+-- AUTO_INCREMENT for table `tblalamat`
 --
 ALTER TABLE `tblalamat`
   MODIFY `id_alamat` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT untuk tabel `tblautonumber`
+-- AUTO_INCREMENT for table `tblautonumber`
 --
 ALTER TABLE `tblautonumber`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `tblbuktitransfer`
+-- AUTO_INCREMENT for table `tblbuktitransfer`
 --
 ALTER TABLE `tblbuktitransfer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
--- AUTO_INCREMENT untuk tabel `tblcartdetail`
+-- AUTO_INCREMENT for table `tblcartdetail`
 --
 ALTER TABLE `tblcartdetail`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
--- AUTO_INCREMENT untuk tabel `tblcategory`
+-- AUTO_INCREMENT for table `tblcategory`
 --
 ALTER TABLE `tblcategory`
   MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT untuk tabel `tblcustomer`
+-- AUTO_INCREMENT for table `tblcustomer`
 --
 ALTER TABLE `tblcustomer`
-  MODIFY `C_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `C_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `tbldelivery`
+-- AUTO_INCREMENT for table `tbldelivery`
 --
 ALTER TABLE `tbldelivery`
   MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `tbldetailrequestmitra`
+-- AUTO_INCREMENT for table `tbldetailrequestmitra`
 --
 ALTER TABLE `tbldetailrequestmitra`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `tblproducts`
+-- AUTO_INCREMENT for table `tblproducts`
 --
 ALTER TABLE `tblproducts`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
--- AUTO_INCREMENT untuk tabel `tblreqdetail`
+-- AUTO_INCREMENT for table `tblreqdetail`
 --
 ALTER TABLE `tblreqdetail`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT untuk tabel `tblrequestmitra`
+-- AUTO_INCREMENT for table `tblrequestmitra`
 --
 ALTER TABLE `tblrequestmitra`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `tblstockhistory`
+-- AUTO_INCREMENT for table `tblstockhistory`
 --
 ALTER TABLE `tblstockhistory`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `tbltransac`
+-- AUTO_INCREMENT for table `tbltransac`
 --
 ALTER TABLE `tbltransac`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- AUTO_INCREMENT untuk tabel `tbltransacdetail`
+-- AUTO_INCREMENT for table `tbltransacdetail`
 --
 ALTER TABLE `tbltransacdetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
--- AUTO_INCREMENT untuk tabel `tblusers`
+-- AUTO_INCREMENT for table `tblusers`
 --
 ALTER TABLE `tblusers`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
