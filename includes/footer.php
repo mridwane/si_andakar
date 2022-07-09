@@ -32,11 +32,10 @@
              <div class="col-md-4 footer-col">
                  <div class="footer_detail">
                      <a href="" class="footer-logo">
-                         Feane
+                         Andakar
                      </a>
                      <p>
-                         Necessary, making this the first true generator on the Internet. It uses a dictionary of over
-                         200 Latin words, combined with
+                         Andakar adalah restoran yang menjual aneka daging bakar.
                      </p>
                      <div class="footer_social">
                          <a href="">
@@ -71,11 +70,7 @@
          </div>
          <div class="footer-info">
              <p>
-                 &copy; <span id="displayYear"></span> All Rights Reserved By
-                 <a href="https://html.design/">Free Html Templates</a><br><br>
-                 &copy; <span id="displayYear"></span> Distributed By
-                 <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-             </p>
+                 &copy; <span id="displayYear"></span> ANDAKAR<br><br>
          </div>
      </div>
  </footer>
