@@ -7,7 +7,7 @@ include('../includes/connection.php');
 include 'theme/header.php';
 include 'theme/sidebar.php';
 ?>
-<form action="print/report_penjualan.php" method="post" target="_blank">
+<form action="print/report_catering.php" method="post" target="_blank">
   <label for="month" id="idmonth">Bulan</label>
   <input type="month" id="month" name="month" />
   <button type="submit" name="generate" class="btn btn-xs btn-info">Generate</button>

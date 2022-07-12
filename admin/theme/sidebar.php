@@ -49,21 +49,16 @@
         </div>
       </li>
 
-      <!-- <li class="nav-item">
+      <li class="nav-item">
         <a title="Reports" class="nav-link" href="reportpage.php">
           <i class="fas fa-fw fa-user-tie"></i>
           <span>Laporan Penjualan</span></a>
       </li>
       <li class="nav-item">
-        <a title="Reports" class="nav-link" href="reportstock.php">
+        <a title="Reports" class="nav-link" href="reportcatering.php">
           <i class="fas fa-fw fa-user-tie"></i>
-          <span>Laporan Penyetokan</span></a>
+          <span>Laporan Catering</span></a>
       </li>
-      <li class="nav-item">
-        <a title="Reports" class="nav-link" href="reportdelivery.php">
-          <i class="fas fa-fw fa-user-tie"></i>
-          <span>Laporan Pengiriman</span></a>
-      </li> -->
     </ul>
     <?php }} ?>
     <div id="content-wrapper">
