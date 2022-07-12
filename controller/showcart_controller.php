@@ -39,8 +39,7 @@ $kd_cart = $jenis.$cid;?>
         <?php } ?>
     </table>
     <?php if(empty($total)){?>
-    <div>Total price: Rp. <span class="priceTotal" data-price="<?= $total; ?>" data-jenis="<?= $jenis; ?>"> </span>
-    </div>
+    <div>Keranjang Kosong</div>
     <?php }else { ?>
     <div>Total price: Rp. <span class="priceTotal" data-price="<?= $total; ?>"
             data-jenis="<?= $jenis; ?>"><?= number_format($total ,0,',','.') ?>
