@@ -31,7 +31,8 @@ class myPDF extends FPDF
         $this->Cell(0, 10, "Andakar (Aneka Daging Bakar)", 10, 0, 'C');
         $this->LN(7);
         $this->SetFont('Arial', 'I', 12);
-        $this->Cell(0, 10, "Jl Duren 3 No. 11, Jakarta.", 10, 0, 'C');
+        $this->Cell(0, 10, "Jl. Warung Buncit Raya No.1, RT.12/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan,
+        Daerah Khusus Ibukota Jakarta", 10, 0, 'C');
         $this->LN(5);
         $this->Cell(0, 10, "Telp. 021-79198184", 10, 0, 'C');
     }
