@@ -11,47 +11,56 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <?php if(empty($_SESSION['akses'])){ ?>
                 <ul class="navbar-nav  mx-auto">
-                    <li class="nav-item <?php if ($page == "Home") {
-                                            echo "active";
-                                        } ?>">
+                    <li class="nav-item <?php if ($page == "Home") { echo "active"; } ?>">
                         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item <?php if ($page == "Delivery"  || $page == "Delivery Checkout") {
-                                            echo "active";
-                                        } ?>">
+                    <li
+                        class="nav-item <?php if ($page == "Delivery"  || $page == "Delivery Checkout") {  echo "active"; } ?>">
                         <a class="nav-link" href="delivery_menu.php">Delivery</a>
                     </li>
-                    <li class="nav-item <?php if ($page == "Reservasi"  || $page == "Reservasi Checkout") {
-                                            echo "active";
-                                        } ?>">
+                    <li
+                        class="nav-item <?php if ($page == "Reservasi"  || $page == "Reservasi Checkout") { echo "active"; } ?>">
                         <a class="nav-link" href="reservasi_menu.php">Reservasi</a>
                     </li>
-                    <li class="nav-item <?php if ($page == "Catering" || $page == "Catering Checkout") {
-                                            echo "active";
-                                        } ?>">
+                    <li
+                        class="nav-item <?php if ($page == "Catering" || $page == "Catering Checkout") { echo "active"; } ?>">
                         <a class="nav-link" href="catering_menu.php">Catering</a>
                     </li>
-                    <li class="nav-item <?php if ($page == "Kemitraan") {
-                                            echo "active";
-                                        } ?>">
+                    <li class="nav-item <?php if ($page == "Kemitraan") { echo "active"; } ?>">
                         <a class="nav-link" href="kemitraan.php">Kemitraan</a>
                     </li>
                 </ul>
-                <!-- <ul class="navbar-nav  mx-auto">
-                    <li class="nav-item active">
+                <?php }elseif($_SESSION['akses'] == "Customer"){ ?>
+                <ul class="navbar-nav  mx-auto">
+                    <li class="nav-item <?php if ($page == "Home") { echo "active"; } ?>">
                         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="menu_utama.php">Delivery</a>
+                    <li
+                        class="nav-item <?php if ($page == "Delivery"  || $page == "Delivery Checkout") {  echo "active"; } ?>">
+                        <a class="nav-link" href="delivery_menu.php">Delivery</a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="menu_utama.php">Reservasi</a>
+                    <li
+                        class="nav-item <?php if ($page == "Reservasi"  || $page == "Reservasi Checkout") { echo "active"; } ?>">
+                        <a class="nav-link" href="reservasi_menu.php">Reservasi</a>
                     </li>
-                    <li class="nav-item ">
+                    <li
+                        class="nav-item <?php if ($page == "Catering" || $page == "Catering Checkout") { echo "active"; } ?>">
+                        <a class="nav-link" href="catering_menu.php">Catering</a>
+                    </li>
+                </ul>
+                <?php }elseif($_SESSION['akses'] == "Mitra"){ ?>
+                <ul class="navbar-nav  mx-auto">
+                    <li class="nav-item <?php if ($page == "Home") { echo "active"; } ?>">
+                        <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item <?php if ($page == "Kemitraan") { echo "active"; } ?>">
                         <a class="nav-link" href="kemitraan.php">Kemitraan</a>
                     </li>
-                </ul> -->
+                </ul>
+                <?php } ?>
+
                 <div class="user_option">
                     <?php if ($page == "Reservasi") { ?>
                     <a class="cart_link" href="#" data-toggle="modal" data-jenis="<?= $page ?>" data-target="#cartMenu">

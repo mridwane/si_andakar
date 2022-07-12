@@ -35,6 +35,7 @@ else{
 				$_SESSION['C_LNAME'] = $row['C_LNAME'];
 				$_SESSION['address'] = $row['C_ADDRESS'];
 				$_SESSION['contact'] = $row['C_PNUMBER'];
+				$_SESSION['akses'] = $row['C_AKSES'];
 				
 				if (isset($_SESSION["cart"])) 
 				{
