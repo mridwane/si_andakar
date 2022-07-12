@@ -41,9 +41,9 @@ $(document).ready(function () {
                 jenis: jenis,
             },
             success: function (data) {
-                $('.total-count').text(data);
                 if (data > 0) {
                     $(".nextOrder").removeAttr('disabled');
+                    $('.total-count').text(data);
                 } else {
                     $(".nextOrder").attr('disabled', 'disabled');
                 }
