@@ -99,7 +99,8 @@ echo ("<script language='JavaScript'>
 //code save bukti transfer dp
 
 if ($_GET['action'] == 'savetrf') {
-
+  $total_price = $_POST['total_price'];
+  
   if (isset($_POST['confirm'])) {
     if ($_FILES['upload']['name'] != "") {
 
@@ -141,7 +142,8 @@ if ($_GET['action'] == 'savetrf') {
         mysqli_query($db, $query) or die(mysqli_error($db));
 
         // update status
-        $query_update = "UPDATE tbltransac SET status = '" . $status_transfer . "' WHERE
+        $query_update = "UPDATE tbltransac SET status = '" . $status_transfer . "', total_price = '" . $total_price . "'
+        WHERE
         transac_code='" . $transac_code . "'";
         mysqli_query($db, $query_update) or die(mysqli_error($db));
 

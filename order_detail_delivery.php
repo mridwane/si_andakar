@@ -67,8 +67,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     $status = "Dibatalkan";
     }
     $total = $row['total_price'];
-    $pajak = $row["total_price"] * 0.10;
-    $subtotal = $total+$pajak;
 }
 ?>
 
@@ -109,7 +107,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <div>
                                 <label for="">Total Pesanan</label>
                                 <input type="text" class="form-control"
-                                    value="Rp. <?= number_format($subtotal, 0, ',', '.'); ?>" readonly />
+                                    value="Rp. <?= number_format($total, 0, ',', '.'); ?>" readonly />
                             </div>
                             <?php if ($status == "Pending") { ?>
                             <span>*Pesanan Anda Belum Selesai</span>

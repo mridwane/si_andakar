@@ -17,7 +17,8 @@ $row = mysqli_fetch_array($result);
 $jumlah = $row['jumlah'];
 $total = $row['total_price'];
 $pajak = $total * 0.10;
-$total_bayar = $total + $pajak;
+$biayakirim = 10000;
+$total_bayar = $total + $pajak + $biayakirim;
 ?>
 
 
@@ -74,7 +75,13 @@ $total_bayar = $total + $pajak;
                                     value="Rp. <?= number_format($pajak, 0, ',', '.'); ?>" readonly />
                             </div>
                             <div>
+                                <label for="">Biaya Kirim</label>
+                                <input type="text" class="form-control"
+                                    value="Rp. <?= number_format($biayakirim, 0, ',', '.'); ?>" readonly />
+                            </div>
+                            <div>
                                 <label for="">Jumlah yang harus dibayar</label>
+                                <input type="text" name="total_price" value="<?= $total_bayar ?>" hidden>
                                 <input type="text" class="form-control"
                                     value="Rp. <?= number_format($total_bayar, 0, ',', '.'); ?>" readonly />
                                 <span>*silahkan melakukan pembayaran ke rekening <b>BANK BCA (525 019 1873) atas nama
