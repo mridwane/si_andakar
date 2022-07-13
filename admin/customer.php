@@ -6,31 +6,31 @@ if(!isset($_SESSION["userid"])){
 include('../includes/connection.php');
 include 'theme/header.php';
 include 'theme/sidebar.php';
-?> 
+?>
 
-          <div class="card mb-3">
-            <div class="card-header">
-              <h2>Pelanggan </h2> 
-           <!--    <a href="#" data-toggle="modal" data-target="#logoutModal5" class="btn btn-lg btn-info fas fa-plus"> Add New</a>  -->
-            <div class="card-body">
-              <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped"id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nama Pelanggan</th>
-                                          <th>Umur</th>
-                                        <th>Alamat</th>
-                                        <th>Nomor Kontak</th>
-                                        <th>Jenis Kelamin</th> 
-                                        <th>Alamat Email</th>
-                                          <th>Zipcode</th>                                          
-                                          <th>Detail</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                  <?php                  
-                $query = 'SELECT * FROM tblcustomer';
+<div class="card mb-3">
+  <div class="card-header">
+    <h2>Pelanggan </h2>
+    <!--    <a href="#" data-toggle="modal" data-target="#logoutModal5" class="btn btn-lg btn-info fas fa-plus"> Add New</a>  -->
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama Pelanggan</th>
+              <th>Umur</th>
+              <th>Alamat</th>
+              <th>Nomor Kontak</th>
+              <th>Jenis Kelamin</th>
+              <th>Alamat Email</th>
+              <th>Zipcode</th>
+              <th>Detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php                  
+                    $query = 'SELECT * FROM tblcustomer a INNER JOIN tblalamat b ON a.C_ADRESSID = b.id_alamat';
                     $result = mysqli_query($db, $query) or die (mysqli_error($db));
                   
                         while ($row = mysqli_fetch_assoc($result)) {
@@ -41,7 +41,12 @@ include 'theme/sidebar.php';
                                 echo '<td>'. $row['C_FNAME']. ', '. $row['C_LNAME'].'</td>';
                            // echo '<td>'. .'</td>';                  
                             echo '<td>'. $row['C_AGE'].'</td>';
-                            echo '<td>'. $row['C_ADDRESS'].'</td>';  
+                            if($row['C_ADRESSID'] == 0){
+                              echo '<td>Alamat Belum ada</td>';
+                            }
+                            else{
+                              echo '<td>'. $row['alamat'].'</td>';
+                            }                            
                             echo '<td>'. $row['C_PNUMBER'].'</td>';  
                             echo '<td>'. $row['C_GENDER'].'</td>';  
                             echo '<td>'. $row['C_EMAILADD'].'</td>';
@@ -56,17 +61,17 @@ include 'theme/sidebar.php';
                            
                             echo '</tr> ';
                 }
-            ?> 
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-            </div>
-           
-          </div>
+            ?>
 
-          
-        </div>
-        <!-- /.container-fluid -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+<!-- /.container-fluid -->
 
 <?php include 'theme/footer.php'; }?>
