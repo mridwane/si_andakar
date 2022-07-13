@@ -21,20 +21,27 @@ class myPDF extends FPDF
 {
     function header()
     {
-        $this->Image('../../assets/images/logo.png', 50, -25, 100);
-        $this->LN(30);
+    $this->Image('../../assets/images/logo.png', 50, -25, 100);
+    $this->LN(20);
+    $this->SetFont('Arial', 'B', 18);
+    $this->Cell(0, 10, "LAPORAN PENJUALAN", 10, 0,
+    'C');
+    $this->LN(15);
+    $this->SetFont('Arial', '', 12);
+    $this->Cell(0, 5, "RESTORANT ANDAKAR STEAK", 10, 0,
+    'C');
+    $this->LN();
+    $this->SetFont('Arial', 'I', 10);
+    $this->Cell(0, 10, "Jl. Warung Buncit Raya No.1, RT.12/RW.5, Kalibata, Kec. Pancoran, Jakarta Selatan", 10, 0, 'C');
+    $this->LN(30);
     }
     function footer()
     {
-        $this->SetY(-25);
-        $this->SetFont('Arial', 'B', 14);
-        $this->Cell(0, 10, "Andakar (Aneka Daging Bakar)", 10, 0, 'C');
-        $this->LN(7);
-        $this->SetFont('Arial', 'I', 12);
-        $this->Cell(0, 10, "Jl. Warung Buncit Raya No.1, RT.12/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan,
-        Daerah Khusus Ibukota Jakarta", 10, 0, 'C');
-        $this->LN(5);
-        $this->Cell(0, 10, "Telp. 021-79198184", 10, 0, 'C');
+    $this->SetY(-25);
+    $this->SetFont('Arial', 'B', 14);
+    $this->Cell(0, 10, "Andakar (Aneka Daging Bakar)", 10, 0, 'C');
+    $this->LN(10);
+    $this->Cell(0, 10, "Telp. 021-79198184", 10, 0, 'C');
     }
 }
 

@@ -1,10 +1,10 @@
 <?php
 
 require_once('../../assets/fpdf17/fpdf.php');
-
+session_start();
 //db connection
 include('../../includes/connection.php');
-
+date_default_timezone_set('Asia/Jakarta');
 //get invoices data
 $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name,`C_PNUMBER` FROM `tbltransac` a INNER JOIN
 `tblcustomer` b on a.customer_id=b.C_ID INNER JOIN
@@ -21,121 +21,57 @@ class myPDF extends FPDF
 {
     function header()
     {
-        $this->Image('../../assets/images/logo.png', 50, -25, 100);
-        $this->LN(30);
+        $this->SetY(10);
+        $this->SetFont('Arial', 'B', 10);
+        $this->Cell(0, 10, "Andakar (Aneka Daging Bakar)", 10, 0, 'C');
+        $this->LN(7);
+        $this->SetFont('Arial', 'I', 8);
+        $this->Cell(0, 10, "Jl. Warung Buncit Raya No.1, RT.12/RW.5, Kalibata", 10, 0, 'C');
+        $this->LN(5);
+        $this->Cell(0, 10, "Kec. Pancoran, Kota Jakarta Selatan", 10, 0, 'C');
+        $this->LN(5);
+        $this->Cell(0, 10, "Daerah Khusus Ibukota Jakarta", 10, 0, 'C');
+        $this->LN(5);
+        $this->Cell(0, 10, "Telp. 021-79198184", 10, 0, 'C');
+        $this->LN();
     }
     function footer()
     {
         $this->SetY(-25);
-        $this->SetFont('Arial', 'B', 14);
-        $this->Cell(0, 10, "Andakar (Aneka Daging Bakar)", 10, 0, 'C');
-        $this->LN(7);
-        $this->SetFont('Arial', 'I', 12);
-        $this->Cell(0, 10, "Jl. Warung Buncit Raya No.1, RT.12/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan,
-        Daerah Khusus Ibukota Jakarta", 10, 0, 'C');
-        $this->LN(5);
-        $this->Cell(0, 10, "Telp. 021-79198184", 10, 0, 'C');
+        $this->SetFont('Arial', 'I', 10);
+        $this->Cell(0, 10, "Terimakasih Sudah Memesan...", 10, 0, 'C');
     }
 }
-
-function penyebut($nilai)
-{
-    $nilai = abs($nilai);
-    $huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
-    $temp = "";
-    if ($nilai < 12) {
-        $temp = " " . $huruf[$nilai];
-    } else if ($nilai < 20) {
-        $temp = penyebut($nilai - 10) . " belas";
-    } else if ($nilai < 100) {
-        $temp = penyebut($nilai / 10) . " puluh" . penyebut($nilai % 10);
-    } else if ($nilai < 200) {
-        $temp = " seratus" . penyebut($nilai - 100);
-    } else if ($nilai < 1000) {
-        $temp = penyebut($nilai / 100) . " ratus" . penyebut($nilai % 100);
-    } else if ($nilai < 2000) {
-        $temp = " seribu" . penyebut($nilai - 1000);
-    } else if ($nilai < 1000000) {
-        $temp = penyebut($nilai / 1000) . " ribu" . penyebut($nilai % 1000);
-    } else if ($nilai < 1000000000) {
-        $temp = penyebut($nilai / 1000000) . " juta" . penyebut($nilai % 1000000);
-    } else if ($nilai < 1000000000000) {
-        $temp = penyebut($nilai / 1000000000) . " milyar" . penyebut(fmod($nilai, 1000000000));
-    } else if ($nilai < 1000000000000000) {
-        $temp = penyebut($nilai / 1000000000000) . " trilyun" . penyebut(fmod($nilai, 1000000000000));
-    }
-    return $temp;
-}
-
-function terbilang($nilai)
-{
-    if ($nilai < 0) {
-        $hasil = "minus " . trim(penyebut($nilai));
-    } else {
-        $hasil = trim(penyebut($nilai));
-    }
-    return $hasil;
-}
-$pdf = new myPDF('P', 'mm', 'A4');
+$pdf = new myPDF('P', 'mm', array(100,1000));
 
 //add new page
 $pdf->AddPage();
 
 //set font to arial, bold, 14pt
-$pdf->SetFont('Arial', 'B', 14);
 
-//Cell(width , height , text , border , end line , [align] )
-
-$pdf->Cell(100, 5, 'Kepada', 0, 0);
-$pdf->SetFont('Arial', 'B', 18);
-$pdf->Cell(59, 5, 'INVOICE', 0, 1); //end of line
-$pdf->LN();
 
 //set font to arial, regular, 10pt
-$pdf->SetFont('Arial', '', 10);
-
-$pdf->Cell(100, 5, 'Nama    : ' . $invoice['name'], 0, 0);
-$pdf->Cell(25, 5, 'Tanggal', 0, 0);
-$pdf->Cell(34, 5, date("Y/m/d"), 0, 1); //end of line
-
-$pdf->Cell(100, 5, 'Fax        : -', 0, 0);
-$pdf->Cell(25, 5, 'No   ', 0, 0);
-$pdf->Cell(34, 5, $invoice['transac_code'], 0, 1); //end of line
-
-$pdf->Cell(100, 5, 'Telp       : ' . $invoice['C_PNUMBER'], 0, 0);
-$pdf->Cell(25, 5, 'Perihal ', 0, 0);
-$status = "";
-if ($invoice['status'] == "dp") {
-    $status = "Down Payment";
-} else {
-    $status = "Pelunasan";
-}
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(34, 5, "Pembayaran " . $status . " 50%", 0, 1); //end of line
-$pdf->SetFont('Arial', '', 10);
-$pdf->Cell(100, 15, '', 0, 0);
-$pdf->Cell(25, 5, '', 0, 0);
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(34, 5, 'atas Pemesanan Reservasi Tgl ' . $invoice['date'], 0, 1); //end of line
-$pdf->SetFont('Arial', '', 10);
-
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(0, 5, '================================================', 0, 1);
+$pdf->Cell(0, 5, 'Nama : ' . $_SESSION['fname'].' '. $_SESSION['lname'], 0, 1);
+$pdf->Cell(0, 5, 'Tanggal : ' . date("d/m/Y"), 0, 1);
+$pdf->Cell(0, 5, 'Waktu : ' . date('h:i:s A'), 0, 1);
+$pdf->Cell(0, 5, 'Jenis Transaksi : Reservasi', 0, 1);
+$pdf->LN(2);
 //billing address
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->MultiCell(100, 5, "Alamat Pengiriman", 0, 1);
-$pdf->SetFont('Arial', '', 10);
-$pdf->MultiCell(100, 5, $invoice['alamat'], 0, 1); //end of line
-
-$pdf->LN();
-
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->MultiCell(0, 5, "Alamat Pengiriman", 0, 1);
+$pdf->SetFont('Arial', '', 8);
+$pdf->MultiCell(0, 5, $invoice['alamat'], 0, 1); //end of line
+$pdf->LN(2);
 //invoice contents
-$pdf->SetFont('Arial', 'B', 10);
-
-$pdf->Cell(85, 5, 'Makanan/Minuman', 1, 0);
-$pdf->Cell(25, 5, 'Qty', 1, 0, 'C');
-$pdf->Cell(45, 5, 'Harga Makanan + Saus', 1, 0, 'C');
-$pdf->Cell(34, 5, 'Total', 1, 1, 'C'); //end of line
-
+$border = 0;
+$pdf->Cell(0, 5, '================================================', 0, 1);
 $pdf->SetFont('Arial', '', 10);
+$pdf->Cell(55, 10, 'Menu', $border, 0);
+$pdf->Cell(5, 10, 'Qty', $border, 0, 'C');
+$pdf->Cell(20, 10, 'Harga', $border, 1, 'R');
+$pdf->SetFont('Arial', '', 8);
 
 //Numbers are right-aligned so we give 'R' after new line parameter
 
@@ -149,48 +85,48 @@ $amount = 0; //total amount
 //display the items
 while ($item = mysqli_fetch_assoc($result2)) {
     if($item['nama_saus'] == "Tanpa Saus"){
-        $pdf->Cell(85, 5, $item['product_name'], 1, 0,);
+        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->Cell(55, 5, $item['product_name'], $border, 1);
+        $pdf->SetFont('Arial', 'I', 8);
+        $pdf->Cell(55, 5, '   @ '.number_format($item['price']), $border, 0);
     }else{
-        $pdf->Cell(85, 5, $item['product_name'] . " + " . $item['nama_saus'], 1, 0,);
-    }    
-    //add thousand separator using number_format function
-    $pdf->Cell(25, 5, number_format($item['qty']), 1, 0, 'C');
-    $pdf->Cell(45, 5, number_format($item['price'] + $item['harga_saus']), 1, 0, 'C'); //end of line
-    $pdf->Cell(34, 5, number_format(($item['price'] + $item['harga_saus']) * $item['qty']), 1, 1, 'C');
+        $pdf->SetFont('Arial', 'B', 8);
+        $pdf->Cell(55, 5, $item['product_name'] . " + " . $item['nama_saus'], $border, 1);
+        $pdf->SetFont('Arial', 'I', 8);
+        $pdf->Cell(55, 5, '   @ '.number_format($item['price'])." + ".number_format($item['harga_saus']), $border,
+        0);
+    } 
+    $pdf->SetFont('Arial', '', 8);
+    $pdf->Cell(5, 5, number_format($item['qty']), $border, 0,'C');
+    $pdf->Cell(20, 5, number_format(($item['price'] + $item['harga_saus'])*$item['qty']), $border, 1, 'R');
     //accumulate tax and amount
     $tax += $item['price'];
     $amount += $item['price'];
 }
+$pdf->Cell(0, 10, '================================================', 0, 1);
+$pdf->Cell(40, 5, '', $border, 0);
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(20, 5, 'Sub Total :', $border, 0, 'R');
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(20, 5, number_format($invoice["total_price"]), $border, 1, 'R');
+$pdf->SetFont('Arial', '', 8);
 
-//summary
-$service = $invoice["total_price"] * 0.05;
 $pajak = $invoice["total_price"] * 0.10;
-$pdf->Cell(130, 5, '', 0, 0);
-$pdf->Cell(25, 5, 'Sub Total', 0, 0, 'R');
-$pdf->Cell(34, 5, number_format($invoice['total_price']), 1, 1, 'C'); //end of line
+$pdf->Cell(40, 5, '', $border, 0);
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(20, 5, 'Pajak 10% :', $border, 0, 'R');
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(20, 5, number_format($pajak), $border, 1, 'R');
+$pdf->SetFont('Arial', '', 8);
 
-$pdf->Cell(130, 5, '', 0, 0);
-$pdf->Cell(25, 5, 'Pajak (10%)', 0, 0, 'R');
-$pdf->Cell(34, 5, number_format($pajak), 1, 1, 'C'); //end of line
-
-$pdf->Cell(130, 5, '', 0, 0);
-$pdf->Cell(25, 5, 'Grand Total', 0, 0, 'R');
-$pdf->Cell(34, 5, number_format($invoice['total_price'] + $pajak), 1, 1, 'C');
-
-$pdf->Cell(50, 5, '', 0, 0);
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(105, 5, 'Pembayaran ' . $status  . ' (50%)', 0, 0, 'R');
-$pdf->Cell(34, 5, number_format(($invoice['total_price'] + $pajak) / 2), 1, 1, 'C'); //end of line
-
-$pdf->SetFont('Arial', '', 10);
-$pdf->Cell(50, 5, '', 0, 0);
-$pdf->Cell(105, 5, 'Sisa Pembayaran', 0, 0, 'R');
-$pdf->Cell(34, 5, "-", 1, 1, 'C'); //end of line
-$total_terbilang = terbilang(($invoice['total_price'] + $pajak) / 2);
-$pdf->SetFont('Arial', 'BI', 12);
-$pdf->LN();
-$pdf->Cell(200, 5, "Terbilang : ## " . ucwords($total_terbilang) . " Rupiah ##", 0, 0);
-
+$gt = $invoice["total_price"] + $pajak;
+$pdf->Cell(0, 2, '-----------------------------------------', 0, 1, 'R');
+$pdf->Cell(40, 5, '', $border, 0);
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(20, 5, 'Grand Total :', $border, 0, 'R');
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(20, 5, number_format($gt), $border, 1, 'R');
+$pdf->SetFont('Arial', '', 8);
 
 $filename = "invoice_" . $invoice['transac_code'] . ".pdf";
 

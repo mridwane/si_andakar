@@ -1,7 +1,7 @@
 <?php
 
 require_once('../../assets/fpdf17/fpdf.php');
-
+session_start();
 //db connection
 include('../../includes/connection.php');
 date_default_timezone_set('Asia/Jakarta');
@@ -26,8 +26,11 @@ class myPDF extends FPDF
         $this->Cell(0, 10, "Andakar (Aneka Daging Bakar)", 10, 0, 'C');
         $this->LN(7);
         $this->SetFont('Arial', 'I', 8);
-        $this->Cell(0, 10, "Jl. Warung Buncit Raya No.1, RT.12/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan,
-        Daerah Khusus Ibukota Jakarta", 10, 0, 'C');
+        $this->Cell(0, 10, "Jl. Warung Buncit Raya No.1, RT.12/RW.5, Kalibata", 10, 0, 'C');
+        $this->LN(5);
+        $this->Cell(0, 10, "Kec. Pancoran, Kota Jakarta Selatan", 10, 0, 'C');
+        $this->LN(5);
+        $this->Cell(0, 10, "Daerah Khusus Ibukota Jakarta", 10, 0, 'C');
         $this->LN(5);
         $this->Cell(0, 10, "Telp. 021-79198184", 10, 0, 'C');
         $this->LN();
@@ -50,9 +53,10 @@ $pdf->AddPage();
 //set font to arial, regular, 10pt
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(0, 5, '================================================', 0, 1);
-$pdf->Cell(0, 5, 'Nama    : ' . $invoice['name'], 0, 1);
+$pdf->Cell(0, 5, 'Nama : ' . $_SESSION['fname'].' '. $_SESSION['lname'], 0, 1);
 $pdf->Cell(0, 5, 'Tanggal : ' . date("d/m/Y"), 0, 1);
 $pdf->Cell(0, 5, 'Waktu : ' . date('h:i:s A'), 0, 1);
+$pdf->Cell(0, 5, 'Jenis Transaksi : Delivery', 0, 1);
 $pdf->LN(2);
 //billing address
 $pdf->SetFont('Arial', 'B', 8);

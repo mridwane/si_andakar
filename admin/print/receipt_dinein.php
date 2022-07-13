@@ -19,16 +19,19 @@ class myPDF extends FPDF
 {
     function header()
     {
-        $this->SetY(10);
-        $this->SetFont('Arial', 'B', 10);
-        $this->Cell(0, 10, "Andakar (Aneka Daging Bakar)", 10, 0, 'C');
-        $this->LN(7);
-        $this->SetFont('Arial', 'I', 8);
-        $this->Cell(0, 10, "Jl. Warung Buncit Raya No.1, RT.12/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan,
-        Daerah Khusus Ibukota Jakarta", 10, 0, 'C');
-        $this->LN(5);
-        $this->Cell(0, 10, "Telp. 021-79198184", 10, 0, 'C');
-        $this->LN();
+         $this->SetY(10);
+         $this->SetFont('Arial', 'B', 10);
+         $this->Cell(0, 10, "Andakar (Aneka Daging Bakar)", 10, 0, 'C');
+         $this->LN(7);
+         $this->SetFont('Arial', 'I', 8);
+         $this->Cell(0, 10, "Jl. Warung Buncit Raya No.1, RT.12/RW.5, Kalibata", 10, 0, 'C');
+         $this->LN(5);
+         $this->Cell(0, 10, "Kec. Pancoran, Kota Jakarta Selatan", 10, 0, 'C');
+         $this->LN(5);
+         $this->Cell(0, 10, "Daerah Khusus Ibukota Jakarta", 10, 0, 'C');
+         $this->LN(5);
+         $this->Cell(0, 10, "Telp. 021-79198184", 10, 0, 'C');
+         $this->LN();
     }
     function footer()
     {
@@ -51,6 +54,7 @@ $pdf->Cell(0, 5, '================================================', 0, 1);
 $pdf->Cell(0, 5, 'Kasir : '.$_SESSION['fname'].' '.$_SESSION['lname'], 0, 1);
 $pdf->Cell(0, 5, 'Tanggal : ' . date("d/m/Y"), 0, 1);
 $pdf->Cell(0, 5, 'Waktu : ' . date('h:i:s A'), 0, 1);
+$pdf->Cell(0, 5, 'Jenis Transaksi : Dinein', 0, 1);
 $pdf->LN(2);
 //invoice contents
 $border = 0;

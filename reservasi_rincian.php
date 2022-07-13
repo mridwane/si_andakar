@@ -32,7 +32,7 @@ $query = 'SELECT *, SUM(b.qty) as jumlah FROM `tbltransac` a INNER JOIN `tbltran
         <!-- navigation strats -->
         <?php include 'includes/navigation.php'; ?>
         <!-- end navigation-->
-    </div>reservasi_controller
+    </div>
     <section class="book_section layout_padding">
         <div class="container">
             <div class="heading_container">
@@ -79,6 +79,11 @@ $query = 'SELECT *, SUM(b.qty) as jumlah FROM `tbltransac` a INNER JOIN `tbltran
                                 ?>
                                 <textarea name="alamat" id="" class="form-control" cols="30" rows="10"
                                     readonly><?= $alamat ?></textarea>
+                            </div>
+                            <div>
+                                <label for="">Sub Total</label>
+                                <input type="text" class="form-control"
+                                    value="Rp. <?= number_format($total, 0, ',', '.'); ?>" readonly />
                             </div>
                             <div>
                                 <label for="">Pajak 10%</label>
