@@ -24,67 +24,15 @@ if (isset($_SESSION['cid']))
                                 <div class="col-md-7 col-lg-6 ">
                                     <div class="detail-box">
                                         <h1>
-                                            Fast Food Restaurant
+                                            Selamat Datang di Andakar Steak
                                         </h1>
                                         <p>
-                                            Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad
-                                            mollitia laborum quam quisquam esse error unde. Tempora ex doloremque,
-                                            labore,
-                                            sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
+                                            Andakar Steak memiliki menu yang bervariasi, diantaranya:
+                                            Steak Sirloin, Tenderloin, Wagyu, Lamb Shank (Betis Domba), Barbar Rib, JC
+                                            Rib, dan Tomahawk
+                                            yang
+                                            merupakan salah satu Menu Spesial yang disajikan Andakar Steak.
                                         </p>
-                                        <div class="btn-box">
-                                            <a href="" class="btn1">
-                                                Order Now
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item ">
-                        <div class="container ">
-                            <div class="row">
-                                <div class="col-md-7 col-lg-6 ">
-                                    <div class="detail-box">
-                                        <h1>
-                                            Fast Food Restaurant
-                                        </h1>
-                                        <p>
-                                            Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad
-                                            mollitia laborum quam quisquam esse error unde. Tempora ex doloremque,
-                                            labore,
-                                            sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
-                                        </p>
-                                        <div class="btn-box">
-                                            <a href="" class="btn1">
-                                                Order Now
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="container ">
-                            <div class="row">
-                                <div class="col-md-7 col-lg-6 ">
-                                    <div class="detail-box">
-                                        <h1>
-                                            Fast Food Restaurant
-                                        </h1>
-                                        <p>
-                                            Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad
-                                            mollitia laborum quam quisquam esse error unde. Tempora ex doloremque,
-                                            labore,
-                                            sunt repellat dolore, iste magni quos nihil ducimus libero ipsam.
-                                        </p>
-                                        <div class="btn-box">
-                                            <a href="" class="btn1">
-                                                Order Now
-                                            </a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -102,6 +50,149 @@ if (isset($_SESSION['cid']))
 
         </section>
     </div>
+    <section class="about_section layout_padding">
+        <div class="container  ">
+            <div class="row">
+                <div class="col-md-6 ">
+                    <div class="img-box">
+                        <img src="assets/images/logo.png" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="detail-box">
+                        <div class="heading_container">
+                            <h2>
+                                Tentang Kami
+                            </h2>
+                        </div>
+                        <p>
+                            Andakar Steak Mulai Dikenal Sejak Tahun 2007 sebagai Restoran Steak Keluarga Indonesia
+                            yang memiliki olahan utama Daging Segar. Melalui bahan baku berkualitas dan teknik
+                            panggangan
+                            mutakhir, Andakar Steak mampu menghadirkan steak cita rasa terbaik dengan level steak
+                            Internasional
+                            dan harga yang terjangkau.
+                        </p>
+                        <p>
+                            Andakar Steak memiliki menu yang bervariasi, diantaranya:
+                            Steak Sirloin, Tenderloin, Wagyu, Lamb Shank (Betis Domba), Barbar Rib, JC Rib, dan Tomahawk
+                            yang
+                            merupakan salah satu Menu Spesial yang disajikan Andakar Steak.
+                        </p>
+                        <p>
+                            Andakar Steak akan senantiasa memberikan yang terbaik kepada pelanggan melalui penyajian
+                            produk
+                            berkualitas tinggi serta pelayanan yang maksimal kepada setiap konsumen.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <section class="food_section layout_padding-bottom">
+        <div class="container">
+            <div class="heading_container heading_center">
+                <h2>
+                    Galeri
+                </h2>
+            </div>
+
+            <!-- <ul class="filters_menu">
+                <li class="active" data-filter="*">All</li>
+                <li data-filter=".burger">Burger</li>
+                <li data-filter=".pizza">Pizza</li>
+                <li data-filter=".pasta">Pasta</li>
+                <li data-filter=".fries">Fries</li>
+            </ul> -->
+
+            <div class="filters-content">
+                <div class="row grid">
+                    <div class="col-sm-6 col-lg-4 all">
+                        <div class="box">
+                            <div>
+                                <div class="img-box">
+                                    <img src="assets/images/galery/galery (1).jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 all">
+                        <div class="box">
+                            <div>
+                                <div class="img-box">
+                                    <img src="assets/images/galery/galery (2).jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 all">
+                        <div class="box">
+                            <div>
+                                <div class="img-box">
+                                    <img src="assets/images/galery/galery (3).jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 all">
+                        <div class="box">
+                            <div>
+                                <div class="img-box">
+                                    <img src="assets/images/galery/galery (4).jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 all">
+                        <div class="box">
+                            <div>
+                                <div class="img-box">
+                                    <img src="assets/images/galery/galery (5).jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 all">
+                        <div class="box">
+                            <div>
+                                <div class="img-box">
+                                    <img src="assets/images/galery/galery (6).jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 all">
+                        <div class="box">
+                            <div>
+                                <div class="img-box">
+                                    <img src="assets/images/galery/galery (7).jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 all">
+                        <div class="box">
+                            <div>
+                                <div class="img-box">
+                                    <img src="assets/images/galery/galery (8).jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4 all">
+                        <div class="box">
+                            <div>
+                                <div class="img-box">
+                                    <img src="assets/images/galery/galery (9).jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!--footer area-->
     <?php include 'includes/footer.php'; ?>
