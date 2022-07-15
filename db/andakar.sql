@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 12 Jul 2022 pada 16.02
+-- Waktu pembuatan: 15 Jul 2022 pada 05.44
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -43,7 +43,8 @@ INSERT INTO `tblalamat` (`id_alamat`, `alamat`, `c_id`) VALUES
 (12, 'Jl Prof Dr Latumeten Kompl Grogol Permai Bl C/41-44, Dki Jakarta', 4),
 (13, 'Jl Jend Sudirman Kav 52-53 Ged Artha Graha, Dki Jakarta', 4),
 (14, 'Mandiri Building 5th Floor, JL. Imam Bonjol No. 16D, Medan', 4),
-(25, 'alamat 2', 5);
+(25, 'alamat 2', 5),
+(27, 'jalan kampung tuyul', 11);
 
 -- --------------------------------------------------------
 
@@ -64,7 +65,7 @@ CREATE TABLE `tblautonumber` (
 --
 
 INSERT INTO `tblautonumber` (`id`, `start`, `end`, `increment`, `desc`) VALUES
-(1, 1000, 62, 1, 'PROD');
+(1, 1000, 64, 1, 'PROD');
 
 -- --------------------------------------------------------
 
@@ -119,7 +120,10 @@ INSERT INTO `tblbuktitransfer` (`id`, `date`, `file_name`, `status`, `nominal_tr
 (29, '2022-07-05 16:51:47', 'BTLNSCAT0507202204503918.jpg', 'lunas', 0, 'customer', '', '', 'CAT0507202204503918'),
 (30, '2022-07-05 16:55:37', 'BTCAT0507202204524824.jpg', 'dp', 0, 'customer', '', '', 'CAT0507202204524824'),
 (31, '2022-07-05 16:56:12', 'BTLNSCAT0507202204524824.jpg', 'lunas', 0, 'customer', '', '', 'CAT0507202204524824'),
-(32, '2022-07-06 05:49:12', 'BTDEL0607202205484834.jpg', 'paid', 0, 'customer', '', '', 'DEL0607202205484834');
+(32, '2022-07-06 05:49:12', 'BTDEL0607202205484834.jpg', 'paid', 0, 'customer', '', '', 'DEL0607202205484834'),
+(33, '2022-07-13 09:28:09', 'BTDEL1307202209221376.jpg', 'paid', 0, 'customer', '', '', 'DEL1307202209221376'),
+(34, '2022-07-13 09:43:27', 'BTRES1307202209405789.jpg', 'dp', 0, 'customer', '', '', 'RES1307202209405789'),
+(35, '2022-07-13 09:43:45', 'BTLNSRES1307202209405789.jpg', 'lunas', 0, 'customer', '', '', 'RES1307202209405789');
 
 -- --------------------------------------------------------
 
@@ -135,13 +139,6 @@ CREATE TABLE `tblcart` (
   `c_id` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `tblcart`
---
-
-INSERT INTO `tblcart` (`kd_cart`, `jenis_cart`, `total`, `date`, `c_id`) VALUES
-('Reservasi4', 'Reservasi', 275000, '2022-07-04', 4);
-
 -- --------------------------------------------------------
 
 --
@@ -156,15 +153,6 @@ CREATE TABLE `tblcartdetail` (
   `qty` int(10) NOT NULL,
   `harga` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tblcartdetail`
---
-
-INSERT INTO `tblcartdetail` (`id`, `kd_cart`, `kd_menu`, `kd_saus`, `qty`, `harga`) VALUES
-(38, 'Reservasi4', 49, 'S001', 2, 118000),
-(39, 'Reservasi4', 51, 'S002', 1, 127000),
-(40, 'Reservasi4', 52, 'S100', 3, 30000);
 
 -- --------------------------------------------------------
 
@@ -224,7 +212,7 @@ INSERT INTO `tblcustomer` (`C_ID`, `C_FNAME`, `C_LNAME`, `C_AGE`, `C_ADRESSID`, 
 (4, 'Nadya', 'Minerva', 25, 11, '082346578919', 'Perempuan', 'Customer', 'emak@gmail.com', 'asd', 'admin', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
 (5, 'sumail', 'cofeen', 20, 25, '0823123123', 'Laki-Laki', 'Customer', 'sumail@gmail.com', '40222', 'sumail', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
 (6, 'ridwan', 'remin', 21, 0, '312312', 'Laki-Laki', 'Customer', '123@gmail.com', '4321', 'ridwan12', '$2y$10$XZw1u9HtZtDpLXMsUtbHUe4m0ztA8kUttAhXpVxD71cFb9GFnkpn2'),
-(11, 'Muhammad', 'Ridwan', 22, 0, '83894799380', 'Laki-Laki', 'Mitra', 'mridwane01@gmail.com', '4321', 'mridwane', '$2y$10$Ga3NPy50IwrLygWc940t/.saCTH.YdlaeOFc6VnV0ogeklgVZEWrG');
+(11, 'Muhammad', 'Ridwan', 22, 27, '83894799380', 'Laki-Laki', 'Mitra', 'mridwane01@gmail.com', '4321', 'mridwane', '$2y$10$Ga3NPy50IwrLygWc940t/.saCTH.YdlaeOFc6VnV0ogeklgVZEWrG');
 
 -- --------------------------------------------------------
 
@@ -394,7 +382,8 @@ CREATE TABLE `tblrequestmitra` (
 --
 
 INSERT INTO `tblrequestmitra` (`id`, `regis_no`, `date_req`, `file`, `status`, `note`, `C_ID`) VALUES
-(4, 'MITREG2006202203225689', '2022-06-20', 'MITREG2006202203225689_4_kemitraan.docx', 'semi-accepted', 'Selamat anda diterima sebagai mitra kami', 4);
+(4, 'MITREG2006202203225689', '2022-06-20', 'MITREG2006202203225689_4_kemitraan.docx', 'interview', 'Selamat anda diterima sebagai mitra kami', 4),
+(5, 'MITREG1507202204320195', '2022-07-15', 'MITREG1507202204320195_11_kemitraan.docx', 'interview', 'Selamat anda Lolos administrasi', 11);
 
 -- --------------------------------------------------------
 
@@ -406,7 +395,7 @@ CREATE TABLE `tblsaus` (
   `id_saus` varchar(10) NOT NULL,
   `nama_saus` varchar(255) NOT NULL,
   `harga_saus` int(25) NOT NULL,
-  `stok_saus` int(10) NOT NULL,
+  `stok_saus` varchar(55) NOT NULL,
   `keterangan` text NOT NULL,
   `user_id` varchar(255) NOT NULL,
   `date_saus` date NOT NULL
@@ -417,10 +406,10 @@ CREATE TABLE `tblsaus` (
 --
 
 INSERT INTO `tblsaus` (`id_saus`, `nama_saus`, `harga_saus`, `stok_saus`, `keterangan`, `user_id`, `date_saus`) VALUES
-('S001', 'Saus Keju', 9000, 50, '-', '2', '2022-06-22'),
-('S002', 'Saus BBQ', 7000, 50, '-', '2', '2022-06-22'),
-('S003', 'Saus Tartar', 8000, 50, '-', '2', '2022-06-22'),
-('S100', 'Tanpa Saus', 0, 10000, '-', '2', '2022-06-24');
+('S001', 'Saus Keju', 10000, 'Tersedia', '-', '2', '2022-06-22'),
+('S002', 'Saus BBQ', 7000, 'Tersedia', '-', '2', '2022-06-22'),
+('S003', 'Saus Tartar', 8000, 'Tersedia', '-', '2', '2022-06-22'),
+('S100', 'Tanpa Saus', 0, 'Tersedia', '-', '2', '2022-06-24');
 
 -- --------------------------------------------------------
 
@@ -489,7 +478,12 @@ INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`
 (24, 'CAT0507202204503918', '2022/07/05', 'Catering', 'lunas', 7350000, '2022-07-05 21:50:39', 0, 4),
 (25, 'CAT0507202204524824', '2022/07/05', 'Catering', 'lunas', 6270000, '2022-07-05 21:52:48', 0, 4),
 (26, 'DEL0607202205484834', '2022/07/06', 'Delivery', 'confirmed', 217000, '2022-07-06 10:48:48', 0, 4),
-(27, 'DINEIN0607202209103085', '2022/07/06', 'Dinein', 'done', 1363000, '2022-07-06 14:10:30', 0, 2);
+(27, 'DINEIN0607202209103085', '2022/07/06', 'Dinein', 'done', 1363000, '2022-07-06 14:10:30', 0, 2),
+(28, 'DEL1307202208544940', '2022/07/13', 'Delivery', 'pending', 438000, '2022-07-13 13:54:49', 0, 4),
+(29, 'DEL1307202209083928', '2022/07/13', 'Delivery', 'pending', 85900, '2022-07-13 14:08:39', 0, 4),
+(30, 'DEL1307202209112649', '2022/07/13', 'Delivery', 'pending', 84800, '2022-07-13 14:11:26', 0, 4),
+(31, 'DEL1307202209221376', '2022/07/13', 'Delivery', 'done', 84800, '2022-07-13 14:22:13', 0, 4),
+(32, 'RES1307202209405789', '2022/07/13', 'Reservasi', 'lunas', 275000, '2022-07-15 14:42:00', 3, 4);
 
 -- --------------------------------------------------------
 
@@ -549,7 +543,18 @@ INSERT INTO `tbltransacdetail` (`id`, `product_code`, `kd_saus`, `qty`, `transac
 (68, '46', 'S002', 3, 'DINEIN0607202209103085', 621000),
 (69, '54', 'S002', 1, 'DINEIN0607202209103085', 197000),
 (70, '46', 'S003', 2, 'DINEIN0607202209103085', 416000),
-(71, '52', 'S100', 7, 'DINEIN0607202209103085', 70000);
+(71, '52', 'S100', 7, 'DINEIN0607202209103085', 70000),
+(72, '46', 'S001', 2, 'DEL1307202208544940', 418000),
+(73, '52', 'S100', 2, 'DEL1307202208544940', 20000),
+(74, '49', 'S001', 1, 'DEL1307202209083928', 59000),
+(75, '52', 'S100', 1, 'DEL1307202209083928', 10000),
+(76, '49', 'S003', 1, 'DEL1307202209112649', 58000),
+(77, '52', 'S100', 1, 'DEL1307202209112649', 10000),
+(78, '49', 'S003', 1, 'DEL1307202209221376', 58000),
+(79, '52', 'S100', 1, 'DEL1307202209221376', 10000),
+(80, '49', 'S001', 2, 'RES1307202209405789', 118000),
+(81, '51', 'S002', 1, 'RES1307202209405789', 127000),
+(82, '52', 'S100', 3, 'RES1307202209405789', 30000);
 
 -- --------------------------------------------------------
 
@@ -702,7 +707,7 @@ ALTER TABLE `tblusers`
 -- AUTO_INCREMENT untuk tabel `tblalamat`
 --
 ALTER TABLE `tblalamat`
-  MODIFY `id_alamat` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_alamat` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblautonumber`
@@ -714,13 +719,13 @@ ALTER TABLE `tblautonumber`
 -- AUTO_INCREMENT untuk tabel `tblbuktitransfer`
 --
 ALTER TABLE `tblbuktitransfer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcartdetail`
 --
 ALTER TABLE `tblcartdetail`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcategory`
@@ -762,7 +767,7 @@ ALTER TABLE `tblreqdetail`
 -- AUTO_INCREMENT untuk tabel `tblrequestmitra`
 --
 ALTER TABLE `tblrequestmitra`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblstockhistory`
@@ -774,13 +779,13 @@ ALTER TABLE `tblstockhistory`
 -- AUTO_INCREMENT untuk tabel `tbltransac`
 --
 ALTER TABLE `tbltransac`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbltransacdetail`
 --
 ALTER TABLE `tbltransacdetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblusers`
