@@ -12,7 +12,7 @@ if (!isset($_SESSION['email'])) {
 
 <body class="sub_page">
     <?php 
-    $cek = mysqli_query($db, 'SELECT C_ID FROM tblrequestmitra WHERE C_ID = "'.$_SESSION["cid"].'" AND status = "semi-accepted" OR C_ID = "'.$_SESSION["cid"].'" AND status = "unconfirmed"'); 
+    $cek = mysqli_query($db, 'SELECT C_ID FROM tblrequestmitra WHERE C_ID = "'.$_SESSION["cid"].'" AND status = "interview" OR C_ID = "'.$_SESSION["cid"].'" AND status = "unconfirmed"'); 
     if ($cek->num_rows > 0) {
     ?>
     <div class="hero_area">

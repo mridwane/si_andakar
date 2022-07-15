@@ -19,7 +19,7 @@
                             <label>Keputusan</label>
                             <select name="action" id="action" class="form-control nice-select wide">
                                 <option value="" disabled selected> Pilih Keputusan </option>
-                                <option value="semi-accepted" data-names="accepted">Terima Wawancara</option>
+                                <option value="interview" data-names="accepted">Terima Wawancara</option>
                                 <option value="denied" data-names="denied">Tolak</option>
                                 </option>
                             </select>
