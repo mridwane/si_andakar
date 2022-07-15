@@ -185,8 +185,6 @@ if (!isset($_SESSION["userid"])) {
           class="btn btn-xs btn-info"><i class="fas fa-sign-out-alt"></i>Terima Pesanan</a>
         <button type="button" class="btn btn-danger" data-toggle="modal"
           data-target="#deny_modal<?php echo $_GET['id']; ?>">Tolak Pesanan</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal"
-          data-target="#update_modal<?php echo $_GET['id']; ?>">Transfer Tidak Sesuai</button>
         <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
 
         <?php } elseif (strtoupper($row["status"]) == strtoupper("after_revision_lns") && strtoupper($row["transac_type"]) == strtoupper("delivery")) { ?>
@@ -194,8 +192,6 @@ if (!isset($_SESSION["userid"])) {
           class="btn btn-xs btn-info"><i class="fas fa-sign-out-alt"></i>Buat Pesanan</a>
         <button type="button" class="btn btn-danger" data-toggle="modal"
           data-target="#deny_modal<?php echo $_GET['id']; ?>">Tolak Pesanan</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal"
-          data-target="#update_modal<?php echo $_GET['id']; ?>">Transfer Tidak Sesuai</button>
         <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
 
         <?php } elseif (strtoupper($row["status"]) == strtoupper('revisi_pelunasan') && strtoupper($row["transac_type"]) == strtoupper("delivery")) { ?>
