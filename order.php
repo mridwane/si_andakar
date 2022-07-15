@@ -43,7 +43,8 @@ if (!isset($_SESSION["cid"])) {
                         </thead>
                         <tbody>
                             <?php
-                            $query = 'SELECT * FROM `tbltransac` WHERE customer_id = "' . $_SESSION["cid"] . '"';
+                            $query = 'SELECT * FROM `tbltransac` WHERE customer_id = "' . $_SESSION["cid"] . '" ORDER BY
+                            reservation_date_time DESC';
                             $result = mysqli_query($db, $query) or die(mysqli_error($db));
                             // membuat nomer otomatis untuk di tabel
                             $no = 1;

@@ -14,7 +14,7 @@ if (!isset($_SESSION["userid"])) {
     <h2>Transaksi diproses</h2>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-bordered table-hover table-striped" width="100%" cellspacing="0">
           <thead>
             <tr>
               <th>No. Pemesanan</th>
@@ -29,7 +29,8 @@ if (!isset($_SESSION["userid"])) {
             <?php
               $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name FROM tbltransac a JOIN tblcustomer b ON
               a.`customer_id`=b.`C_ID` WHERE a.`status`="revisi_dp" OR a.`status`="after_revision" OR
-              a.`status`="pelunasan" OR a.`status`="revisi_pelunasan" OR a.`status`="after_revision_lns" OR a.`status`="confirmed" OR a.`status`="sending"';
+              a.`status`="pelunasan" OR a.`status`="revisi_pelunasan" OR a.`status`="after_revision_lns" OR
+              a.`status`="confirmed" OR a.`status`="sending" ORDER BY `reservation_date_time` DESC';
               $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
               while ($row = mysqli_fetch_assoc($result)) {

@@ -9,27 +9,27 @@ if (!isset($_SESSION["userid"])) {
 ?>
 
 
-  <div class="card mb-3">
-    <div class="card-header">
-      <h2>Pengiriman</h2>
-      <div class="card-body">
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-              <tr>
-                <th>No. Pengiriman</th>
-                <th>Pelanggan</th>
-                <th>Tanggal Pemesanan</th>
-                <th>Tanggal pengiriman</th>
-                <th>Total Harga</th>
-                <th>Status</th>
-                <th>Detail</th>
-                <th>Pilihan</th>
+<div class="card mb-3">
+  <div class="card-header">
+    <h2>Pengiriman</h2>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>No. Pengiriman</th>
+              <th>Pelanggan</th>
+              <th>Tanggal Pemesanan</th>
+              <th>Tanggal pengiriman</th>
+              <th>Total Harga</th>
+              <th>Status</th>
+              <th>Detail</th>
+              <th>Pilihan</th>
 
-              </tr>
-            </thead>
-            <tbody>
-              <?php
+            </tr>
+          </thead>
+          <tbody>
+            <?php
               $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name FROM tbltransacdetail a, tblcustomer b WHERE a.`customer_id`=b.`C_ID` AND a.status="Confirmed" and a.pay_met="COD"';
               $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
@@ -50,21 +50,27 @@ if (!isset($_SESSION["userid"])) {
                                   </a> ';
                 echo '<td class="bungkus-tombol">';
                 if ($row['status'] == 'Pending') { ?>
-                  <a title="Tolak" type="button" class="btn-cancel btn-danger" onclick="return confirm('Yakin ingin menolak transaksi?')" href="confirm.php?action=edit & cancel=<?php echo $row['transac_code']; ?> ">
-                    <span class="material-icons">
-                      cancel
-                    </span>
-                  </a>
-                  <a title="Konfirmasi" type="button" class="btn-confirm btn-primary" onclick="return confirm('Yakin ingin Mengkonfimasi Transaksi?')" href="confirm.php?action=edit & confirm=<?php echo $row['transac_code']; ?>">
-                    <span class="material-icons">
-                      check
-                    </span>
-                  </a>
-                <?php
+            <a title="Tolak" type="button" class="btn-cancel btn-danger"
+              onclick="return confirm('Yakin ingin menolak transaksi?')"
+              href="confirm.php?action=edit & cancel=<?php echo $row['transac_code']; ?> ">
+              <span class="material-icons">
+                cancel
+              </span>
+            </a>
+            <a title="Konfirmasi" type="button" class="btn-confirm btn-primary"
+              onclick="return confirm('Yakin ingin Mengkonfimasi Transaksi?')"
+              href="confirm.php?action=edit & confirm=<?php echo $row['transac_code']; ?>">
+              <span class="material-icons">
+                check
+              </span>
+            </a>
+            <?php
                 } elseif ($row['status'] == 'Confirmed') { ?>
-                  <a title="Cancel" type="button" class="btn btn-xs btn-danger " onclick="return confirm('Yakin ingin menolak transaksi?')" href="confirm.php?action=edit & cancel=<?php echo $row['transac_code']; ?> ">Cancel</a>
+            <a title="Cancel" type="button" class="btn btn-xs btn-danger "
+              onclick="return confirm('Yakin ingin menolak transaksi?')"
+              href="confirm.php?action=edit & cancel=<?php echo $row['transac_code']; ?> ">Cancel</a>
 
-              <?php
+            <?php
                 }
 
 
@@ -73,16 +79,16 @@ if (!isset($_SESSION["userid"])) {
               }
               ?>
 
-            </tbody>
-          </table>
-        </div>
+          </tbody>
+        </table>
       </div>
-
     </div>
 
-
   </div>
-  <!-- /.container-fluid -->
+
+
+</div>
+<!-- /.container-fluid -->
 
 <?php include 'theme/footer.php';
 } ?>

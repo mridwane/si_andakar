@@ -120,7 +120,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                                 <button type="submit">Pesanan Selesai</button>
                             </div>
                             <?php } elseif ($status == "Selesai") { ?>
-                            <h4>Pesanan anda telah selesai.</h4>
+                            <h4>Pesanan anda telah kami kirim ke alamat anda. Terimakasih sudah memesan dikami.</h4>
                             <!-- tombol tomtol untuk pesanan delivery -->
                             <?php } elseif ($status == "Disetujui" && strtoupper($jenis) == strtoupper("delivery")) { ?>
                             <h4>Pesanan anda sedang kami buat, mohon untuk menunggu.</h4>
