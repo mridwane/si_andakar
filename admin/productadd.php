@@ -64,10 +64,10 @@ $autonum = $r['autonum'];
           <label>Jenis</label>
           <select class="form-control" name="type" id="type">
             <option selected disabled>Pilih Jenis</option>
-            <option value="Makanan Utama">Makanan Utama</option>
-            <option value="Makanan Pendamping">Makanan Pendamping</option>
-            <option value="Makanan Penutup">Makanan Penutup</option>
-            <option value="Saus">Saus</option>
+            <option value="Starter">Makanan Pembuka</option>
+            <option value="Makanan-Utama">Makanan Utama</option>
+            <option value="Makanan-Pendamping">Makanan Pendamping</option>
+            <option value="Makanan-Penutup">Makanan Penutup</option>
             <option value="Minuman">Minuman</option>
           </select>
         </div>
@@ -97,7 +97,7 @@ $autonum = $r['autonum'];
         </div>
         <div class="form-group">
           <label>Detail Produk / Keterangan</label>
-          <textarea class="form-control" rows="4" cols="50" maxlength="200" name="detail_product"></textarea>
+          <textarea class="form-control" rows="4" cols="50" maxlength="100" name="detail_product"></textarea>
         </div>
 
         <button type="submit" name="submit" class="btn btn-info">Simpan</button>

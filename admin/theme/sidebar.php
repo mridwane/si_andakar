@@ -80,8 +80,6 @@ if (isset($_SESSION['userid'])) { ?>
         <a class="dropdown-item" href="product_saus.php">Saus</a>
       </div>
     </li>
-
-    <?php }elseif($_SESSION['position']=='Kasir'){ ?>
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
@@ -101,7 +99,6 @@ if (isset($_SESSION['userid'])) { ?>
         <i class="fas fa-fw fa-shopping-cart"></i>
         <span>Dinein</span></a>
     </li>
-
     <?php }elseif($_SESSION['position']=='Admin Finance'){ ?>
     <li class="nav-item">
       <a title="Reports" class="nav-link" href="reportpage.php">

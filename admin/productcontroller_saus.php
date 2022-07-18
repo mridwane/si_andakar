@@ -5,7 +5,8 @@ session_start();
 if (isset($_POST['submit'])) {
 
 	if ($_GET['action'] == 'add') {
-		$code2 = $_POST['code'];
+		// $random = rand(123,999);
+		// $id_saus = "S-".$random;
 		$product = $_POST['product'];
 		$price = $_POST['price'];
 		$detail_product = $_POST['detail_product'];
@@ -22,9 +23,9 @@ if (isset($_POST['submit'])) {
 			$date = $_POST['date'];
 			$user = $_POST['user'];
 
-			$query = "INSERT INTO `tblsaus`(`nama_saus`, `harga_saus`, `date_saus`, `user_id`, `stok_saus`,`keterangan`)
+			$query = "INSERT INTO `tblsaus`(`id_saus`,`nama_saus`, `harga_saus`, `date_saus`, `user_id`, `stok_saus`,`keterangan`)
 			VALUES
-			('" . $product . "','" . $price . "','" . $date . "','" . $user . "','Tersedia','" . $detail_product . "')";
+			('" . $code . "','" . $product . "','" . $price . "','" . $date . "','" . $user . "','Tersedia','" . $detail_product . "')";
 			mysqli_query($db, $query) or die(mysqli_error($db));
 			$sql = "UPDATE `tblautonumber` SET `end`=`end`+`increment` WHERE `desc` = 'PROD'";
 			mysqli_query($db, $sql) or die(mysqli_error($db));
