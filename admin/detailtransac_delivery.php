@@ -178,29 +178,44 @@ if (!isset($_SESSION["userid"])) {
 
         <?php if (strtoupper($row["status"]) == strtoupper("pending") && strtoupper($row["transac_type"]) == "delivery") { ?>
         <span>Menunggu Customer Melakukan pembayaran</span>
-        <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
+        <button class="btn btn-xs btn-warning" onclick="history.back()"><i
+            class="fas fa-sign-out-alt"></i>Kembali</button>
         <?php } elseif (strtoupper($row["status"]) == strtoupper("paid") && strtoupper($row["transac_type"]) == strtoupper("delivery")) { ?>
 
         <a href="controller/admin_delivery_controller.php?no_transac=<?php echo $cd; ?>&action=confirm"
           class="btn btn-xs btn-info"><i class="fas fa-sign-out-alt"></i>Terima Pesanan</a>
         <button type="button" class="btn btn-danger" data-toggle="modal"
           data-target="#deny_modal<?php echo $_GET['id']; ?>">Tolak Pesanan</button>
-        <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
+        <button class="btn btn-xs btn-warning" onclick="history.back()"><i
+            class="fas fa-sign-out-alt"></i>Kembali</button>
 
         <?php } elseif (strtoupper($row["status"]) == strtoupper("after_revision_lns") && strtoupper($row["transac_type"]) == strtoupper("delivery")) { ?>
         <a href="controller/admin_delivery_controller.php?no_transac=<?php echo $cd; ?>&action=lunas"
           class="btn btn-xs btn-info"><i class="fas fa-sign-out-alt"></i>Buat Pesanan</a>
         <button type="button" class="btn btn-danger" data-toggle="modal"
           data-target="#deny_modal<?php echo $_GET['id']; ?>">Tolak Pesanan</button>
-        <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
+        <button class="btn btn-xs btn-warning" onclick="history.back()"><i
+            class="fas fa-sign-out-alt"></i>Kembali</button>
 
         <?php } elseif (strtoupper($row["status"]) == strtoupper('revisi_pelunasan') && strtoupper($row["transac_type"]) == strtoupper("delivery")) { ?>
         <span>Menunggu Customer Melakukan pembayaran ulang</span>
+        <button class="btn btn-xs btn-warning" onclick="history.back()"><i
+            class="fas fa-sign-out-alt"></i>Kembali</button>
 
         <?php } elseif (strtoupper($row["status"]) == strtoupper('lunas') && strtoupper($row["transac_type"]) == strtoupper("delivery")) { ?>
         <span>Pesanan harus dikirimkan sesuai dengan tanggal yang tertera</span><br>
         <a href="print/invoice_delivery.php?no_transaksi=<?php echo $_GET['id']; ?>" class="btn btn-xs btn-warning"><i
             class="fas fa-sign-out-alt"></i>Cetak Nota</a>
+        <button class="btn btn-xs btn-warning"  onclick="history.back()"><i class="fas fa-sign-out-alt"></i>Kembali</button>
+
+        <?php } elseif (strtoupper($row["status"]) == strtoupper('sending') && strtoupper($row["transac_type"]) == strtoupper("delivery")) { ?>
+        <span>Pesanan Sedang dikirimkan</span><br>
+        <button class="btn btn-xs btn-warning" onclick="history.back()"><i
+            class="fas fa-sign-out-alt"></i>Kembali</button>
+            <?php } elseif (strtoupper($row["status"]) == strtoupper('done') && strtoupper($row["transac_type"]) == strtoupper("delivery")) { ?>
+        <span>Pesanan Telah selesai</span><br>
+        <button class="btn btn-xs btn-warning" onclick="history.back()"><i
+            class="fas fa-sign-out-alt"></i>Kembali</button>
 
         <?php } elseif (strtoupper($row["status"]) == strtoupper('confirmed') && strtoupper($row["transac_type"]) == strtoupper("delivery")) { ?>
 
@@ -208,7 +223,8 @@ if (!isset($_SESSION["userid"])) {
           class="btn btn-xs btn-primary btn-kirim disabled"><i class="fas fa-sign-out-alt"></i>Kirimkan Pesanan</a>
         <a href="print/receipt_delivery.php?no_transaksi=<?php echo $_GET['id']; ?>"
           class="btn btn-xs btn-success print-struk" target="_blank"><i class="fas fa-sign-out-alt"></i>Cetak Struk</a>
-        <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
+        <button class="btn btn-xs btn-warning" onclick="history.back()"><i
+            class="fas fa-sign-out-alt"></i>Kembali</button>
         <?php } ?>
 
         <?php    }  ?>
