@@ -9,7 +9,7 @@ if (isset($_SESSION['userid'])) { ?>
         <span>Beranda</span>
       </a>
     </li>
-    <?php if ($_SESSION['position']=='Admin') { ?>
+    <?php if ($_SESSION['position']=='Admin Master') { ?>
     <li class="nav-item">
       <a title="Admins" class="nav-link" href="user.php">
         <i class="fas fa-fw fa-user-secret"></i>

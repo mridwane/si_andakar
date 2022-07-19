@@ -97,7 +97,6 @@
                       <option value="" selected disabled>Pilih Posisi</option>
                       <option>Crew</option>
                       <option>Admin Finance</option>
-                      <option>Oprational Manager</option>
                     </select>
                   </div>
                 </div>
