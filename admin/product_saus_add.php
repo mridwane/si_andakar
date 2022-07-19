@@ -73,7 +73,7 @@ $autonum = $r['autonum'];
         </div>
         <div class="form-group">
           <label>Detail Produk / Keterangan</label>
-          <textarea class="form-control" rows="4" cols="50" maxlength="200" name="detail_product"></textarea>
+          <textarea class="form-control" rows="4" cols="50" maxlength="100" name="detail_product"></textarea>
         </div>
 
         <button type="submit" name="submit" class="btn btn-info">Simpan</button>

@@ -67,8 +67,11 @@ if (!isset($_SESSION["userid"])) {
             <span>Jenis</span>
             <select class="form-control" name="type">
               <option selected hidden value="<?php echo $type; ?>"><?php echo $type; ?></option>
+              <option value="Starter">Makanan Pembuka</option>
+              <option value="Makanan-Utama">Makanan Utama</option>
+              <option value="Makanan-Pendamping">Makanan Pendamping</option>
+              <option value="Makanan-Penutup">Makanan Penutup</option>
               <option value="Minuman">Minuman</option>
-              <option value="Makanan">Makanan</option>
             </select>
           </div>
           <div class="form-group">

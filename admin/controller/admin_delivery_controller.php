@@ -24,7 +24,7 @@ if (isset($_GET['no_transac']) && $_GET['action'] == "confirm") {
 
 if (isset($_GET['no_transac']) && $_GET['action'] == "send") {
     require_once('../../includes/connection.php');
-    $status = "done";
+    $status = "sending";
     $no_transac = $_GET['no_transac'];
     // update table transac
     $query_update = "UPDATE tbltransac SET status = '" . $status . "' WHERE transac_code='" . $_GET['no_transac'] . "'";

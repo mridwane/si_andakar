@@ -96,9 +96,7 @@
                     <select type="text" id="inputGender" name="C_ROLE" class="form-control" placeholder="Posisi">
                       <option value="" selected disabled>Pilih Posisi</option>
                       <option>Crew</option>
-                      <option>Kasir</option>
                       <option>Admin Finance</option>
-                      <option>Oprational Manager</option>
                     </select>
                   </div>
                 </div>
@@ -137,7 +135,7 @@
               </form>
               <div class="text-center">
                 <!--   <a class="d-block small mt-3" href="login.php">Login</a> -->
-                <a class="d-block small mt-3" href="admin.php">Kembali</a>
+                <a class="d-block small mt-3" href="login.php">Kembali</a>
               </div>
             </div>
           </div>

@@ -10,7 +10,7 @@ include 'theme/sidebar.php';
 
 <div class="card mb-3">
             <div class="card-header">
-              <a href="useradd.php" type="button" class="btn btn-info fas fa-plus">Tambah Pengguna</a>
+              <!-- <a href="useradd.php" type="button" class="btn btn-info fas fa-plus">Tambah Pengguna</a> -->
             <div class="card-body">
             <div class="card-body">
               <div class="table-responsive">

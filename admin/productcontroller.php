@@ -36,9 +36,7 @@ if (isset($_POST['submit'])) {
 				$date = $_POST['date'];
 				$user = $_POST['user'];
 
-				$query = "INSERT INTO `tblproducts`(`product_name`, `price`, `date_in`, `category_id`, `user_id`, `type`, `status`,`image`,`detail_product`)
-					VALUES
-					('" . $product . "','" . $price . "','" . $date . "','" . $category . "','" . $user . "','" . $type . "','Tersedia','" . $fotobaru . "','" . $detail_product . "')";
+				$query = "INSERT INTO `tblproducts`(`product_name`, `price`, `date_in`, `category_id`, `user_id`, `type`, `status`,`image`,`detail_product`) VALUES ('" . $product . "','" . $price . "','" . $date . "','" . $category . "','" . $user . "','" . $type . "','Tersedia','" . $fotobaru . "','" . $detail_product . "')";
 				mysqli_query($db, $query) or die(mysqli_error($db));
 				$sql = "UPDATE `tblautonumber` SET `end`=`end`+`increment` WHERE `desc` = 'PROD'";
 				mysqli_query($db, $sql) or die(mysqli_error($db));
