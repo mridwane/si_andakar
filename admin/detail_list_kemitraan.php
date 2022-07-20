@@ -7,7 +7,7 @@ if (!isset($_SESSION["userid"])) {
     include 'theme/header.php';
     include 'theme/sidebar.php';
 
-    $query = 'SELECT * ,concat(b.`c_fname`," ",b.`c_lname`)as name FROM tblrequestmitra a left join tblcustomer b on a.`c_id` = b.`c_id` left join tblalamat c on b.`C_ADRESSID` = c.`id_alamat` WHERE a.`regis_no` = "' . $_GET['no_regis'] . '" ';
+    $query = 'SELECT * ,concat(b.`c_fname`," ",b.`c_lname`)as name FROM tblrequestmitra a left join tblcustomer b on a.`c_id` = b.`c_id` left join tblalamat c on b.`C_ADRESSID` = c.`id_alamat` WHERE a.`regis_no` = "' . $_GET['no_regis'] . '"';
     $result = mysqli_query($db, $query) or die(mysqli_error($db));
     while ($row = mysqli_fetch_array($result)) {
         $no_regis = $row['regis_no'];
@@ -88,13 +88,28 @@ if (!isset($_SESSION["userid"])) {
                         </div>
                         <input type="text" class="form-control" value="<?php echo $email; ?>" readonly>
                     </div>
+                    <?php if ($status == "active") { ?>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><b>Status Mitra:</b></span>
+                        </div>
+                        <input type="text" class="form-control" value="<?php echo $status; ?>" readonly>
+                    </div>
+                    <?php  } ?>
 
-                    <?php if ($status == "unconfirmed" || $status == "semi-accepted") { ?>
+                    <?php if ($status == "unconfirmed" || $status == "interview") { ?>
                     <div class="col-8">
                         <button type="button" class="btn btn-primary" data-toggle="modal"
                             data-target="#update_modal<?php echo $_GET['no_regis']; ?>">
                             <span>Konfirmasi Permintaan</span>
                         </button>
+                    </div>
+                    <?php  } ?>
+                    <?php if ($status == "active") { ?>
+                    <div class="col-8">
+                        <a  type="button" class="btn btn-danger">
+                            <span>Nonaktifkan</span>
+                        </a>
                     </div>
                     <?php  } ?>
                 </div>

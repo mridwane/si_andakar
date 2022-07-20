@@ -6,7 +6,7 @@ if (isset($_POST['submit'])) {
 
         $random = rand(10, 100);
         $tgl = date("dmYhis");
-        $no_regis = "MITREG" . $tgl . $random;
+        $no_regis = "MIT" . $tgl . $random;
         $tanggal = date('Y-m-d H:i:s');
         // get file
         $file = $_FILES['upload']['name'];
@@ -15,13 +15,10 @@ if (isset($_POST['submit'])) {
 
         $user_id = $_SESSION['cid'];
 
-
         // Rename nama file
         $filenew = $no_regis . "_" . $user_id . "_kemitraan." . $type;
         // Set path folder tempat menyimpan fotonya
         $path = "../assets/file_kemitraan/" . $filenew;
-
-
 
         // Cek apakah gambar berhasil diupload atau tidak
         $status = false;
@@ -31,16 +28,22 @@ if (isset($_POST['submit'])) {
         if ($status == false) {
 
             // Proses simpan ke Database
-
             $nama = "";
 
             if ($type != "") {
                 $nama = $filenew;
             }
 
-            $query = "INSERT INTO `tblrequestmitra`(`regis_no`, `date_req`, `file`, `status`, `c_id`)
-            VALUES ('" . $no_regis . "','" . $tanggal . "','" . $nama . "','unconfirmed','" . $user_id . "')";
-            mysqli_query($db, $query) or die(mysqli_error($db));
+            $cek = mysqli_query($db, 'SELECT C_ID FROM tblrequestmitra WHERE C_ID = "'.$_SESSION["cid"].'"');
+            if ($cek->num_rows > 0) {
+                $query1 = "UPDATE tblrequestmitra SET date_req = '$tanggal', file = '$nama', status = 'unconfirmed', note = '-' WHERE C_ID = '".$_SESSION["cid"]."'";
+                mysqli_query($db, $query1) or die(mysqli_error($db));
+            }
+            else {
+                $query = "INSERT INTO `tblrequestmitra`(`regis_no`, `date_req`, `file`, `status`, `c_id`)
+                VALUES ('" . $no_regis . "','" . $tanggal . "','" . $nama . "','unconfirmed','" . $user_id . "')";
+                mysqli_query($db, $query) or die(mysqli_error($db));
+            }
 
             ?>
 <script type="text/javascript">

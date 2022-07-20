@@ -28,7 +28,7 @@ if (!isset($_SESSION["userid"])) {
                         </thead>
                         <tbody>
                             <?php
-                            $query = 'SELECT * ,concat(b.`c_fname`," ",b.`c_lname`)as name FROM tblrequestmitra a inner join tblcustomer b on a.`c_id` = b.`c_id` WHERE b.`C_AKSES` = "Mitra" AND a.`status` = "unconfirmed" OR a.`status` = "interview"';
+                            $query = 'SELECT * ,concat(b.`c_fname`," ",b.`c_lname`)as name FROM tblrequestmitra a inner join tblcustomer b on a.`c_id` = b.`c_id` WHERE b.`C_AKSES` = "Mitra" AND a.`status` = "denied" OR a.`status` = "denied-interview"';
                             $result = mysqli_query($db, $query) or die(mysqli_error($db));
                             // membuat nomer otomatis untuk di tabel
                             $no = 1;
