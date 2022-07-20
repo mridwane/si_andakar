@@ -97,11 +97,9 @@ $monthyear = $_POST['month'];
             $pdf->LN(10);
             $pdf->SetFont('Arial', 'B', 10);
             $pdf->Cell(10, 5, 'No.', 1, 0);
-            $pdf->Cell(50, 5, 'Kode Transaksi', 1, 0, 'C');
-            $pdf->Cell(30, 5, 'Type Transaksi', 1, 0, 'C');
+            $pdf->Cell(70, 5, 'Kode Transaksi', 1, 0, 'C');
+            $pdf->Cell(55, 5, 'Type Transaksi', 1, 0, 'C');
             $pdf->Cell(25, 5, 'Tanggal', 1, 0, 'C');
-            $pdf->Cell(25, 5, 'Sub total', 1, 0, 'C');
-            $pdf->Cell(20, 5, 'Pajak 10%', 1, 0, 'C');
             $pdf->Cell(30, 5, 'Total', 1, 1, 'C'); //end of line
 
             $pdf->SetFont('Arial', '', 10);
@@ -121,14 +119,11 @@ $monthyear = $_POST['month'];
             //display the items
             while ($row = mysqli_fetch_assoc($result)) {
                 $pdf->Cell(10, 5, $no++, 1, 0,);
-                $pdf->Cell(50, 5, $row['transac_code'], 1, 0,);
-                $pdf->Cell(30, 5, $row['transac_type'], 1, 0, 'C');
+                $pdf->Cell(70, 5, $row['transac_code'], 1, 0,);
+                $pdf->Cell(55, 5, $row['transac_type'], 1, 0, 'C');
                 $pdf->Cell(25, 5, $row['date'], 1, 0, 'C');
-                $pdf->Cell(25, 5, number_format($row['total_price']), 1, 0, 'R');
-                $pdf->Cell(20, 5, number_format($row['total_price']*0.10), 1, 0, 'R');
-                $pdf->Cell(30, 5, number_format(($row['total_price']*0.10)+$row['total_price']), 1, 1, 'R');
-
-                $grandtotal += ($row['total_price']*0.10)+$row['total_price'];
+                $pdf->Cell(30, 5, number_format($row['total_price']), 1, 1, 'R');
+                $grandtotal += $row['total_price'];
             }
              //summary
             // $service = $invoice["total_price"] * 0.05;

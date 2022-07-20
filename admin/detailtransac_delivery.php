@@ -145,21 +145,27 @@ if (!isset($_SESSION["userid"])) {
         </table>
         <br>
         <?php
-                $query = 'SELECT * FROM tbltransac
+                $query = 'SELECT * FROM tbltransacdetail
                 WHERE
                 transac_code ="' . $_GET['id'] . '"';
                 $result = mysqli_query($db, $query) or die(mysqli_error($db));
-                $pajak = 0;
                 $subtotal = 0;
+                $pajak = 0;
+                $total = 0;
                 while ($row2 = mysqli_fetch_array($result)) {
-                  $pajak = $row2["total_price"] * 0.10;
-                  $subtotal = $row2["total_price"];
+                  $subtotal += $row2["harga"];
+                  $pajak = $subtotal * 0.10;
+                  $ongkir = 10000;
+                  $total = $subtotal + $pajak + $ongkir;
                 }
-                echo "SUB TOTAL : Rp. " . number_format($subtotal);
+                echo "Subtotal : Rp. " . number_format(($subtotal));
                 echo "<br>";
-                echo "PAJAK 10% : Rp. " . number_format($pajak);
+                echo "Pajak 10% : Rp. " . number_format(($pajak));
                 echo "<br>";
-                echo "TOTAL KESELURUHAN : Rp. " . number_format(($subtotal + $pajak));
+                echo "Biaya Kirim : Rp. " . number_format(($ongkir));
+                echo "<br>";
+                echo "TOTAL KESELURUHAN : Rp. " . number_format(($total));
+                echo "<br>";
                 echo "<br>";
                 echo "<br>";
                 echo "<br>";
@@ -182,8 +188,10 @@ if (!isset($_SESSION["userid"])) {
             class="fas fa-sign-out-alt"></i>Kembali</button>
         <?php } elseif (strtoupper($row["status"]) == strtoupper("paid") && strtoupper($row["transac_type"]) == strtoupper("delivery")) { ?>
 
-        <a href="controller/admin_delivery_controller.php?no_transac=<?php echo $cd; ?>&action=confirm"
-          class="btn btn-xs btn-info"><i class="fas fa-sign-out-alt"></i>Terima Pesanan</a>
+        <!-- <a href="controller/admin_delivery_controller.php?no_transac=<?php echo $cd; ?>&action=confirm"
+          class="btn btn-xs btn-info"><i class="fas fa-sign-out-alt"></i>Terima Pesanan</a> -->
+        <button type="button" class="btn btn-primary" data-toggle="modal"
+            data-target="#accept_modal<?php echo $_GET['id']; ?>">Terima Pesanan</button>
         <button type="button" class="btn btn-danger" data-toggle="modal"
           data-target="#deny_modal<?php echo $_GET['id']; ?>">Tolak Pesanan</button>
         <button class="btn btn-xs btn-warning" onclick="history.back()"><i

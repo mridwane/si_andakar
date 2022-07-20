@@ -64,6 +64,11 @@ $pdf->MultiCell(0, 5, "Alamat Pengiriman", 0, 1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->MultiCell(0, 5, $invoice['alamat'], 0, 1); //end of line
 $pdf->LN(2);
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->MultiCell(0, 5, "Catatan", 0, 1);
+$pdf->SetFont('Arial', '', 8);
+$pdf->MultiCell(0, 5, $invoice['catatan'], 0, 1); //end of line
+$pdf->LN(2);
 //invoice contents
 $border = 0;
 $pdf->Cell(0, 5, '================================================', 0, 1);

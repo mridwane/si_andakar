@@ -6,8 +6,9 @@ if (isset($_GET['no_transac']) && $_GET['action'] == "confirm") {
     require_once('../../includes/connection.php');
     $status = "confirmed";
     $no_transac = $_GET['no_transac'];
+    $catatan = $_POST['note'];
     // update table transac
-    $query_update = "UPDATE tbltransac SET status = '" . $status . "' WHERE transac_code='" . $_GET['no_transac'] . "'";
+    $query_update = "UPDATE tbltransac SET status = '" . $status . "', catatan = '" . $catatan . "' WHERE transac_code='" . $_GET['no_transac'] . "'";
     mysqli_query($db, $query_update) or die(mysqli_error($db));
 
 
@@ -314,7 +315,7 @@ if (isset($_POST['save_ketidaksesuaian'])) {
                         <div class="form-group">
                             <label>Nominal Transfer Seharusnya</label>
                             <input type="text" name="transfer_seharusnya" id="transfer_seharusnya"
-                                value="<?php echo number_format($subtotal + $pajak) ?>" class="form-control" readonly />
+                                value="<?php echo number_format($total) ?>" class="form-control" readonly />
                         </div>
                         <div class="form-group">
                             <label>Nominal Transfer Customer</label>
@@ -369,7 +370,7 @@ if (isset($_POST['save_ketidaksesuaian'])) {
                         <div class="form-group">
                             <label>Nominal Transfer Seharusnya</label>
                             <input type="text" name="transfer_seharusnya" id="transfer_seharusnya"
-                                value="<?php echo number_format($subtotal + $pajak) ?>" class="form-control" readonly />
+                                value="<?php echo number_format($total) ?>" class="form-control" readonly />
                         </div>
                         <div class="form-group">
                             <label>Nominal Transfer Customer</label>
@@ -405,30 +406,104 @@ if (isset($_POST['save_ketidaksesuaian'])) {
 </div>
 </div>
 
+<!-- modal untuk accept -->
+<div class="modal fade" id="accept_modal<?php echo $_GET['id']; ?>" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="controller/admin_delivery_controller.php?no_transac=<?php echo $_GET['id']; ?>&action=confirm" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h3 class="modal-title">Terima Pesanan</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>No Pemesanan</label>
+                            <input type="text" name="transac_code" value="<?php echo $_GET['id'] ?>"
+                                class="form-control" readonly />
+                            <input type="text" name="status" value="<?php echo $stats ?>" class="form-control" hidden />
+                        </div>
+                        <div class="form-group">
+                            <label>Nominal Transfer Seharusnya</label>
+                            <input type="text" name="transfer_seharusnya" id="transfer_seharusnya" value="<?php echo number_format($total) ?>" class="form-control" readonly />
+                            <input type="text" value="<?= $total ?>" class="form-control nominal" hidden />
+                        </div>
+                        <div class="form-group">
+                            <label>Jumlah Transfer</label>
+                            <input type="number" name="cust_transfer" id="cust_transfer" class="form-control cust_transfer" required="required"/>
+                        </div>                      
+                        <div class="form-group">
+                            <label>Catatan</label>
+                            <textarea type="text" name="note" class="form-control note" required="required"></textarea>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+                <div class="modal-footer">
+                    <button type="submit" name="save_deny" id="save_accept" class="btn btn-primary"><span
+                            class="glyphicon glyphicon-edit"></span>Simpan</button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal"><span
+                            class="glyphicon glyphicon-remove"></span> Cancel</button>
+                </div>
+            </form>
+        </div>        
+    </div>
+</div>
+
 <script type="text/javascript">
-    function validateTransfer() {
-        var transfer_seharusnya = document.getElementById("transfer_seharusnya").value;
-        var cust_tramsfer = document.getElementById("cust_transfer").value;
-        var count = parseInt(transfer_seharusnya.replace(/[^0-9]/g, '')) - parseInt(cust_tramsfer);
-        document.getElementById('margin').value = parseInt(cust_tramsfer.replace(/[^0-9]/g, '')) - parseInt(
-            transfer_seharusnya.replace(/[^0-9]/g, ''));
-        if (count < 0) {
-            count_string = Math.abs(count)
-            document.getElementById('count').innerHTML = "Lebih " + count_string.toLocaleString('en-US');
-            document.getElementById("simpan").disabled = false;
-        } else if (count > 0) {
-            count_string = Math.abs(count)
-            document.getElementById('count').innerHTML = "Kurang " + count.toLocaleString('en-US');
-            document.getElementById("simpan").disabled = false;
-        } else if (count == 0 || count == "" || isNaN(count)) {
-            count_string = Math.abs(count)
-            document.getElementById('count').innerHTML = "Kurang " + transfer_seharusnya.toLocaleString('en-US');
-            document.getElementById("simpan").disabled = false;
-        } else {
-            document.getElementById('count').innerHTML = "Sesuai";
-            document.getElementById("simpan").disabled = true;
+    // function validateTransfer() {
+    //     var transfer_seharusnya = document.getElementById("transfer_seharusnya").value;
+    //     var cust_tramsfer = document.getElementById("cust_transfer").value;
+    //     var count = parseInt(transfer_seharusnya.replace(/[^0-9]/g, '')) - parseInt(cust_tramsfer);
+    //     console.log(parseInt(cust_tramsfer));
+
+    //     document.getElementById('margin').value = parseInt(cust_tramsfer.replace(/[^0-9]/g, '')) - parseInt(transfer_seharusnya.replace(/[^0-9]/g, ''));
+    //     if (count < 0) {
+    //         count_string = Math.abs(count)
+    //         document.getElementById('count').innerHTML = "Lebih " + count_string.toLocaleString('en-US');
+    //         document.getElementById("save_accept").disabled = false;
+    //     } else if (count > 0) {
+    //         count_string = Math.abs(count)
+    //         document.getElementById('count').innerHTML = "Kurang " + count.toLocaleString('en-US');
+    //         document.getElementById("save_accept").disabled = false;
+    //     } else if (count == 0 || count == "" || isNaN(count)) {
+    //         count_string = Math.abs(count)
+    //         document.getElementById('count').innerHTML = "Kurang " + transfer_seharusnya.toLocaleString('en-US');
+    //         document.getElementById("save_accept").disabled = false;
+    //     } else {
+    //         document.getElementById('count').innerHTML = "Sesuai";
+    //         document.getElementById("save_accept").disabled = true;
+    //     }
+
+    // }
+    $(document).ready(function () {
+
+        // converter mata uang
+        const Rupiah = (number)=>{
+            return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+            }).format(number);
         }
 
+        $('.cust_transfer').keyup(function() {            
+            var input = $(this).val();
+            var nominal = $('.nominal').val();
+            var hasil = parseInt(input) - parseInt(nominal);
 
-    }
+            if(hasil < 0){
+                $('.note').text("Jumlah Pembayaran Kurang " + Rupiah(hasil));
+            }
+            else if(hasil > 0){
+                $('.note').text("Jumlah Pembayaran Lebih " + Rupiah(hasil));
+            }
+            else {
+                $('.note').text("transfer Sesuai.");
+            }
+
+            
+        });
+
+    });
 </script>
