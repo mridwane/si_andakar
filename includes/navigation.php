@@ -249,7 +249,7 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <?= $_SESSION['C_FNAME'].' '. $_SESSION['C_LNAME'] ?>
                         </a>
-                        <?php if ($page == "Kemitraan" || $page == "Status kemitraan") {
+                        <?php if ($page == "Kemitraan" || $page == "Status kemitraan" || $_SESSION['akses'] == "Mitra") {
                             $cek = mysqli_query($db, 'SELECT C_ID FROM tblrequestmitra WHERE C_ID = "'.$_SESSION["cid"].'"');   
                             if ($cek->num_rows > 0) {
                         ?>

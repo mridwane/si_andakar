@@ -88,7 +88,7 @@ if (!isset($_SESSION["userid"])) {
                         </div>
                         <input type="text" class="form-control" value="<?php echo $email; ?>" readonly>
                     </div>
-                    <?php if ($status == "active") { ?>
+                    <?php if ($status == "active" || $status == "nonactive") { ?>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><b>Status Mitra:</b></span>
@@ -107,8 +107,16 @@ if (!isset($_SESSION["userid"])) {
                     <?php  } ?>
                     <?php if ($status == "active") { ?>
                     <div class="col-8">
-                        <a  type="button" class="btn btn-danger">
-                            <span>Nonaktifkan</span>
+                        <a href="controller/kemitraan_status.php?no_regis=<?php echo $_GET['no_regis']; ?>&action=nonactive"
+                            type="button" class="btn btn-danger">
+                            <span>Nonaktifkan Mitra</span>
+                        </a>
+                    </div>
+                    <?php  } else{ ?>
+                    <div class="col-8">
+                        <a href="controller/kemitraan_status.php?no_regis=<?php echo $_GET['no_regis']; ?>&action=active"
+                            type="button" class="btn btn-success">
+                            <span>Aktifkan Mitran</span>
                         </a>
                     </div>
                     <?php  } ?>

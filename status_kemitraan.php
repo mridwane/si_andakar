@@ -91,12 +91,24 @@
                                 <span><b><?= $keterangan ?></b></span>
 
                                 <?php }elseif($status == "active") {?>
-                                <span><b><?= $keterangan ?></b></span>
+                                <div>
+                                    <label for="">Status Kemitraan</label>
+                                    <input type="text" class="form-control" name="transac_code"
+                                        value="<?= $status ?>" readonly />
+                                </div>
+                                <span><b>Sekarang anda tergabung dalam mitra kami.</b></span>
+                                <?php }elseif($status == "nonactive") {?>
+                                <div>
+                                    <label for="">Status Kemitraan</label>
+                                    <input type="text" class="form-control" name="transac_code" value="<?= $status ?>"
+                                        readonly />
+                                </div>
+                                <span><b>Maaf untuk sementara akun anda kami nonaktifkan.</b></span>
                                 <?php } ?>
                                 <!-- </form> -->
                                 <div class="btn-black">
-                                    <button>
-                                        <a href="kemitraan.php">
+                                    <button >
+                                        <a href="index.php">
                                             Kembali
                                         </a>
                                     </button>
@@ -111,7 +123,7 @@
                         <img src="assets/images/status_ditolak.svg" alt="">
                         <?php }elseif($status == "interview") {?>
                         <img src="assets/images/interview.svg" alt="" width="550px">
-                        <?php }elseif($status == "active") {?>
+                        <?php }elseif($status == "active" || $status == "nonactive") {?>
                         <img src="assets/images/status_diterima.svg" alt="">
                         <?php } ?>
                     </div>
