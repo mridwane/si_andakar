@@ -56,7 +56,7 @@
                         <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item <?php if ($page == "Kemitraan") { echo "active"; } ?>">
-                        <a class="nav-link" href="kemitraan.php">Kemitraan</a>
+                        <a class="nav-link" href="status_kemitraan.php">Kemitraan</a>
                     </li>
                 </ul>
                 <?php } ?>
@@ -249,10 +249,25 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <?= $_SESSION['C_FNAME'].' '. $_SESSION['C_LNAME'] ?>
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="profil.php">Profil</a>
-                            <a class="dropdown-item" href="order.php">Pesanan Kamu</a>
-                        </div>
+                        <?php if ($page == "Kemitraan" || $page == "Status kemitraan" || $_SESSION['akses'] == "Mitra") {
+                            $cek = mysqli_query($db, 'SELECT C_ID FROM tblrequestmitra WHERE C_ID = "'.$_SESSION["cid"].'"');   
+                            if ($cek->num_rows > 0) {
+                        ?>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="profil.php">Profil</a>
+                                <a class="dropdown-item" href="status_kemitraan.php">Status kemitraan</a>
+                            </div>
+                        <?php  } else {?>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="profil.php">Profil</a>
+                            </div>
+                        <?php }} else { ?>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="profil.php">Profil</a>
+                                <a class="dropdown-item" href="order.php">Pesanan Kamu</a>
+                            </div>
+                        <?php } ?>
+                        
                     </div>
                     <a href="#" class="order_online" data-toggle="modal" data-target="#logoutModal">
                         Keluar

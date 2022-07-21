@@ -10,7 +10,7 @@
     }
 
     $query = 'SELECT regis_no, date_req, status, note FROM `tblrequestmitra` WHERE
-    C_ID = "'.$_SESSION["cid"].'" AND regis_no = "'.$_GET["regis_no"].'"';
+    C_ID = "'.$_SESSION["cid"].'"';
     $result = mysqli_query($db, $query) or die(mysqli_error($db));
     // membuat nomer otomatis untuk di tabel
     $no = 1;
@@ -36,62 +36,101 @@
         <?php include 'includes/navigation.php'; ?>
         <!-- end navigation-->
     </div>
-    <?php if ($cek->num_rows > 0) {?>
-    <section class="book_section layout_padding">
-        <div class="container">
-            <div class="heading_container">
-                <h2>
-                    Status Kemitraan
-                </h2>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form_container">
-                        <form action="controller/kemitraan_controller.php" method="POST" enctype="multipart/form-data">
-                            <div>
-                                <label for="">No Transaksi</label>
-                                <input type="text" class="form-control" name="transac_code" value="<?= $regis_no ?>"
-                                    readonly />
-                            </div>
-                            <div>
-                                <label for="">Tanggal Request</label>
-                                <input type="text" class="form-control" value="<?= $tgl ?>" readonly />
-                            </div>
-                            <?php if ($status == "unconfirmed") { ?>
-                            <span>Silahkan tunggu konfirmasi dari pihak admin.</span>
-                            <?php }elseif($status == "denied") {?>
-                            <span>Maaf pengajuan kemitraan anda kami tolak karena <b><?= $keterangan ?></b>.</span>
-                            <br>
-                            <?php }elseif($status == "interview") {?>
-                            <span><b><?= $keterangan ?></b></span>
-                            <?php }elseif($status == "accepted") {?>
-                            <span><b><?= $keterangan ?></b></span>
-                            <?php } ?>
-                            <!-- </form> -->
-                            <div class="btn-black">
-                                <button>
-                                    <a href="kemitraan.php">
-                                        Kembali
-                                    </a>
-                                </button>
-                            </div>
-                        </form>
+    <?php if ($cek->num_rows > 0) {
+            if($status == "denied"){
+    ?>
+        <section class="book_section layout_padding">
+            <div class="container">
+                <div class="heading_container">
+                    <h2>
+                        Status Kemitraan
+                    </h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form_container">
+                            <h3><b> Maaf Pengajuan anda kami tolak</b></h3>
+                        </div>
+                        <div class="btn-box">
+                            <a href="kemitraan.php" class="btn btn-warning">
+                                Mulai Mengajukan ulang Kemitraan
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="assets/images/denied.svg" alt="" width="450px">
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <?php if ($status == "unconfirmed") { ?>
-                    <img src="assets/images/status_menunggu.svg" alt="">
-                    <?php }elseif($status == "denied") {?>
-                    <img src="assets/images/status_ditolak.svg" alt="">
-                    <?php }elseif($status == "interview") {?>
-                    <img src="assets/images/interview.svg" alt="" width="550px">
-                    <?php }elseif($status == "accepted") {?>
-                    <img src="assets/images/status_diterima.svg" alt="">
-                    <?php } ?>
+            </div>
+        </section>
+        <?php }else { ?>
+        <section class="book_section layout_padding">
+            <div class="container">
+                <div class="heading_container">
+                    <h2>
+                        Status Kemitraan
+                    </h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form_container">
+                            <form action="controller/kemitraan_controller.php" method="POST" enctype="multipart/form-data">
+                                <div>
+                                    <label for="">No Transaksi</label>
+                                    <input type="text" class="form-control" name="transac_code" value="<?= $regis_no ?>"
+                                        readonly />
+                                </div>
+                                <?php if ($status == "unconfirmed") { ?>
+                                <span>Silahkan tunggu konfirmasi dari pihak admin.</span>
+
+                                <?php }elseif($status == "denied") {?>
+                                <span>Maaf pengajuan kemitraan anda kami tolak karena <b><?= $keterangan ?></b>.</span>
+                                <br>
+
+                                <?php }elseif($status == "interview") {?>
+                                <span><b><?= $keterangan ?></b></span>
+
+                                <?php }elseif($status == "active") {?>
+                                <div>
+                                    <label for="">Status Kemitraan</label>
+                                    <input type="text" class="form-control" name="transac_code"
+                                        value="<?= $status ?>" readonly />
+                                </div>
+                                <span><b>Sekarang anda tergabung dalam mitra kami.</b></span>
+                                <?php }elseif($status == "nonactive") {?>
+                                <div>
+                                    <label for="">Status Kemitraan</label>
+                                    <input type="text" class="form-control" name="transac_code" value="<?= $status ?>"
+                                        readonly />
+                                </div>
+                                <span><b>Maaf untuk sementara akun anda kami nonaktifkan.</b></span>
+                                <?php } ?>
+                                <!-- </form> -->
+                                <div class="btn-black">
+                                    <button >
+                                        <a href="index.php">
+                                            Kembali
+                                        </a>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <?php if ($status == "unconfirmed") { ?>
+                        <img src="assets/images/status_menunggu.svg" alt="">
+                        <?php }elseif($status == "denied") {?>
+                        <img src="assets/images/status_ditolak.svg" alt="">
+                        <?php }elseif($status == "interview") {?>
+                        <img src="assets/images/interview.svg" alt="" width="550px">
+                        <?php }elseif($status == "active" || $status == "nonactive") {?>
+                        <img src="assets/images/status_diterima.svg" alt="">
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+        <?php } ?>
     <?php }else{ ?>
     <section class="book_section layout_padding">
         <div class="container">

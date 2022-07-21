@@ -27,15 +27,21 @@ if (isset($_SESSION['userid'])) { ?>
         <span>Menu</span>
       </a>
       <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-        <!-- <h6 class="dropdown-header">Login Screens:</h6> -->
         <a class="dropdown-item" href="product.php">Makanan/Minuman</a>
         <a class="dropdown-item" href="product_saus.php">Saus</a>
       </div>
     </li>
-    <li class="nav-item">
-      <a title="Kemitraan" class="nav-link" href="list_kemitraan_admin.php">
-        <i class="fas fa-fw fa-shopping-cart"></i>
-        <span>Kemitraan</span></a>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Kemitraan</span>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+        <a class="dropdown-item" href="list_kemitraan_admin.php">Calon Mitra</a>
+        <a class="dropdown-item" href="list_kemitraan_diterima.php">Mitra Diterima</a>
+        <a class="dropdown-item" href="list_kemitraan_ditolak.php">Mitra Ditolak</a>
+      </div>
     </li>
     <li class="nav-item">
       <a title="Kemitraan" class="nav-link" href="pos.php">
@@ -75,7 +81,6 @@ if (isset($_SESSION['userid'])) { ?>
         <span>Menu</span>
       </a>
       <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-        <!-- <h6 class="dropdown-header">Login Screens:</h6> -->
         <a class="dropdown-item" href="product.php">Makanan/Minuman</a>
         <a class="dropdown-item" href="product_saus.php">Saus</a>
       </div>
@@ -112,12 +117,18 @@ if (isset($_SESSION['userid'])) { ?>
     </li>
 
     <?php }elseif($_SESSION['position']=='Oprational Manager'){ ?>
-    <li class="nav-item">
-      <a title="Kemitraan" class="nav-link" href="list_kemitraan_admin.php">
-        <i class="fas fa-fw fa-shopping-cart"></i>
-        <span>Kemitraan</span></a>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Kemitraan</span>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+        <a class="dropdown-item" href="list_kemitraan_admin.php">Calon Mitra</a>
+        <a class="dropdown-item" href="list_kemitraan_diterima.php">Mitra Diterima</a>
+        <a class="dropdown-item" href="list_kemitraan_ditolak.php">Mitra Ditolak</a>
+      </div>
     </li>
-
     <?php } }?>
   </ul>
   <div id="content-wrapper">
