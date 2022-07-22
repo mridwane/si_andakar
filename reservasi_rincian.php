@@ -17,9 +17,9 @@ $query = 'SELECT *, SUM(b.qty) as jumlah FROM `tbltransac` a INNER JOIN `tbltran
     $jumlah = $row['jumlah'];
     $person_count = $row['person_count'];
     $reservation_date_time = $row['reservation_date_time'];
-    $total = $row['total_price'];
-    $pajak = $total * 0.10;
-    $totalkeseluruhan = $total + $pajak;
+    $subtotal = $row['subtotal'];
+    $pajak = $row['tax_sepuluh'];
+    $totalkeseluruhan = $row['total_price'];
     $dp = $totalkeseluruhan * 0.5;
 ?>
 
@@ -83,7 +83,7 @@ $query = 'SELECT *, SUM(b.qty) as jumlah FROM `tbltransac` a INNER JOIN `tbltran
                             <div>
                                 <label for="">Sub Total</label>
                                 <input type="text" class="form-control"
-                                    value="Rp. <?= number_format($total, 0, ',', '.'); ?>" readonly />
+                                    value="Rp. <?= number_format($subtotal, 0, ',', '.'); ?>" readonly />
                             </div>
                             <div>
                                 <label for="">Pajak 10%</label>

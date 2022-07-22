@@ -106,8 +106,6 @@ if (!isset($_SESSION["userid"])) {
               <th>Produk</th>
               <th>Tanggal Pesanan</th>
               <th>Jumlah</th>
-              <th>Harga Makanan</th>
-              <th>Harga Saus</th>
               <th>Total</th>
             </tr>
           </thead>
@@ -125,9 +123,7 @@ if (!isset($_SESSION["userid"])) {
                 echo '<td>' . $row['product_name'] .  "+" . $row["nama_saus"] . '</td>';
                 echo '<td>' . $row['date'] . '</td>';
                 echo '<td>' . $row['qty'] . '</td>';
-                echo '<td>' . number_format($row['price']) . '</td>';
-                echo '<td>' . number_format($row['harga_saus']) . '</td>';
-                echo '<td>' . number_format(($row['price'] + $row['harga_saus']) * $row['qty']) . '</td>';
+                echo '<td>' . number_format($row['harga']) . '</td>';
                 echo '<td>  ';
                 /*echo '<center> <a  type="button" class="btn btn-lg btn-info fas fa-cart-plus" href="addtransacdetail.php?action=edit & id='.$row['transac_id'] . '"></a> </td></center>';*/
                 echo '</tr> ';
@@ -179,16 +175,18 @@ if (!isset($_SESSION["userid"])) {
                 $pajak = 0;
                 $subtotal = 0;
                 while ($row2 = mysqli_fetch_array($result)) {
-                  $pajak = $row2["total_price"] * 0.10;
-                  $subtotal = $row2["total_price"];
+                  $subtotal = $row2["subtotal"];
+                  $pajak = $row2["tax_sepuluh"];
+                  $biaya_kirim = $row2["biaya_kirim"];
+                  $total_price = $row2["total_price"];
                 }
                 echo "SUB TOTAL : Rp. " . number_format($subtotal);
                 echo "<br>";
                 echo "PAJAK 10% : Rp. " . number_format($pajak);
                 echo "<br>";
-                echo "TOTAL KESELURUHAN : Rp. " . number_format(($subtotal + $pajak));
+                echo "TOTAL KESELURUHAN : Rp. " . number_format(($total_price));
                 echo "<br>";
-                echo "DP YANG HARUS DIBAYAR : Rp. " . number_format(($subtotal + $pajak) / 2);
+                echo "DP YANG HARUS DIBAYAR : Rp. " . number_format(($total_price) / 2);
                 echo "<br>";
                 echo "<br>";
 
@@ -261,9 +259,9 @@ if (!isset($_SESSION["userid"])) {
         <?php } elseif (strtoupper($row["status"]) == strtoupper('confirmed') && strtoupper($row["transac_type"]) == strtoupper("reservasi")) { ?>
         <span>Menunggu Customer Melakukan Pelunasan</span>
         <?php } elseif (strtoupper($row["status"]) == strtoupper('lunas') && strtoupper($row["transac_type"]) == strtoupper("reservasi")) { ?>
-        <span>Pesanan harus dikirimkan sesuai dengan tanggal yang tertera</span><br>
-        <a href="print/invoice_reservasi.php?no_transaksi=<?php echo $_GET['id']; ?>" class="btn btn-xs btn-warning"><i
-            class="fas fa-sign-out-alt"></i>Cetak Nota</a>
+        <span></span><br>
+        <a href="print/invoice_reservasi.php?no_transaksi=<?php echo $_GET['id']; ?>" target="_blank" class="btn btn-xs btn-warning"><i
+            class="fas fa-sign-out-alt" ></i>Cetak Nota</a>
         <?php } elseif (strtoupper($row["status"]) == 'confirmed' && strtoupper($row["transac_type"]) == "reservasi") { ?>
         <a href="controller/admin_delivery_controller.php?no_transac=<?php echo $cd; ?>&action=send"
           class="btn btn-xs btn-danger"><i class="fas fa-sign-out-alt"></i>Kirimkan Pesanan</a>

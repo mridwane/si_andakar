@@ -68,8 +68,8 @@ while ($row = mysqli_fetch_assoc($result)) {
         $status = "Dibatalkan";
     }
     $total = $row['total_price'];
-    $pajak = $row["total_price"] * 0.10;
-    $subtotal = $row["total_price"];
+    $pajak = $row["tax-sepuluh"];
+    $subtotal = $row["subtotal"];
 }
 ?>
 
@@ -115,7 +115,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <div>
                                 <label for="">Total Pesanan</label>
                                 <input type="text" class="form-control"
-                                    value="Rp. <?= number_format(($subtotal + $pajak)) ?>" readonly />
+                                    value="Rp. <?= number_format(($total)) ?>" readonly />
                             </div>
                             <?php if ($status == "Pending") { ?>
                             <span>*Pesanan Anda Belum Selesai</span>
@@ -164,7 +164,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <div>
                                 <label for="">Anda Harus Membayar Sebesar</label>
                                 <input type="text" class="form-control"
-                                    value="Rp. <?= number_format(($subtotal + $pajak) / 2, 0, ',', '.'); ?>" readonly />
+                                    value="Rp. <?= number_format(($total) / 2, 0, ',', '.'); ?>" readonly />
                             </div>
                             <label for="upload">Upload Bukti Transfer Pelusanan</label>
                             <input type="file" class="form-control" id="upload_pelunasan" name="upload_pelunasan"

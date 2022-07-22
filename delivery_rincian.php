@@ -15,10 +15,10 @@ $query = 'SELECT *, SUM(b.qty) as jumlah FROM `tbltransac` a INNER JOIN `tbltran
 $result = mysqli_query($db, $query) or die(mysqli_error($db));
 $row = mysqli_fetch_array($result);
 $jumlah = $row['jumlah'];
-$total = $row['total_price'];
-$pajak = $total * 0.10;
-$biayakirim = 10000;
-$total_bayar = $total + $pajak + $biayakirim;
+$subtotal = $row['subtotal'];
+$pajak = $row['tax_sepuluh'];
+$biayakirim = $row['biaya_kirim'];
+$total_bayar = $row['total_price'];
 ?>
 
 
@@ -68,6 +68,11 @@ $total_bayar = $total + $pajak + $biayakirim;
                                 ?>
                                 <textarea name="alamat" id="" class="form-control" cols="30" rows="10"
                                     readonly><?= $alamat ?></textarea>
+                            </div>
+                            <div>
+                                <label for="">Subtotal</label>
+                                <input type="text" class="form-control"
+                                    value="Rp. <?= number_format($subtotal, 0, ',', '.'); ?>" readonly />
                             </div>
                             <div>
                                 <label for="">Pajak 10%</label>

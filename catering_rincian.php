@@ -15,12 +15,12 @@ $query = 'SELECT *, SUM(b.qty) as jumlah FROM `tbltransac` a INNER JOIN `tbltran
 $result = mysqli_query($db, $query) or die(mysqli_error($db));
 $row = mysqli_fetch_array($result);
 $jumlah = $row['jumlah'];
-$total = $row['total_price'];
+$subtotal = $row['subtotal'];
 $selected_date = $row['reservation_date_time'];
-$pajak = $total * 0.10;
-$biayaservice = $total * 0.05;
-$totalkeseluruhan = $total + $pajak + $biayaservice;
-$dp = $totalkeseluruhan * 0.5;
+$pajak = $row['tax_sepuluh'];
+$biayaservice = $row['tax_lima'];
+$total = $row['total_price'];
+$dp = $total * 0.5;
 ?>
 
 
@@ -82,6 +82,10 @@ $dp = $totalkeseluruhan * 0.5;
                                 <textarea name="alamat" id="" class="form-control" cols="30" rows="10" readonly><?= $alamat ?></textarea>
                             </div>
                             <div>
+                                <label for="">Subtotal</label>
+                                <input type="text" class="form-control" value="Rp. <?= number_format($subtotal, 0, ',', '.'); ?>" readonly />
+                            </div>
+                            <div>
                                 <label for="">Service 5% (Ongkos Kirim, Layanan, Packing)</label>
                                 <input type="text" class="form-control" value="Rp. <?= number_format($biayaservice, 0, ',', '.'); ?>" readonly />
                             </div>
@@ -91,7 +95,7 @@ $dp = $totalkeseluruhan * 0.5;
                             </div>
                             <div>
                                 <label for="">Jumlah Total (Sudah termasuk biaya Service dan pajak)</label>
-                                <input type="text" class="form-control" value="Rp. <?= number_format($totalkeseluruhan, 0, ',', '.'); ?>" readonly />
+                                <input type="text" class="form-control" value="Rp. <?= number_format($total, 0, ',', '.'); ?>" readonly />
 
                             </div>
                             <div>

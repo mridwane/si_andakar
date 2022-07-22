@@ -23,21 +23,23 @@ if ($_GET['action'] == 'save') {
    a.kd_saus = d.id_saus WHERE b.c_id = "' . $user_id . '"');
 
    $ht = mysqli_fetch_array($hitung_total);
-   $jml_total = $ht['total'];
+   $subtotal = $ht['total'];
+   $tax_sepuluh = $subtotal * 0.10;
+   $total_price = $subtotal + $tax_sepuluh;
 
    $queryCek = mysqli_query($db, 'SELECT * FROM tbltransac WHERE customer_id = "' . $user_id . '" AND transac_type = "'
    . $type . '" AND transac_code = "' . $no_transac . '" ');
    $cek = mysqli_num_rows($queryCek);
 
    if ($cek > 0) {
-   $uptransac = "UPDATE tbltransac SET transac_code = '$no_transac', total_price = '$jml_total' WHERE customer_id = '".
+   $uptransac = "UPDATE tbltransac SET transac_code = '$no_transac',subtotal = '$subtotal', tax_sepuluh = '$tax_sepuluh', total_price = '$total_price' WHERE customer_id = '".
    $user_id . "'";
    mysqli_query($db, $uptransac) or die('Error, gagal menyimpan data Reservasi');
    }
    else {
-   $instransac = "INSERT INTO tbltransac (transac_code, date, transac_type, status, total_price, reservation_date_time,
+   $instransac = "INSERT INTO tbltransac (transac_code, date, transac_type, status, subtotal, tax_sepuluh, total_price, reservation_date_time,
    person_count, customer_id)
-   VALUES ('$no_transac','$dateins','Reservasi','pending','$jml_total','$date_time','$person_count','$user_id')";
+   VALUES ('$no_transac','$dateins','Reservasi','pending','$subtotal','$tax_sepuluh','$total_price','$date_time','$person_count','$user_id')";
    mysqli_query($db, $instransac) or die('Error, gagal menyimpan data Reservasi');
    }
 

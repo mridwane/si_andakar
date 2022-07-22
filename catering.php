@@ -65,7 +65,7 @@ if (isset($_SESSION['C_ID'])) ?>
                         </div>
                         <div>
                             <label for="date">Tanggal Catering?</label>
-                            <input type="datetime-local" class="form-control" id="date" name="date">
+                            <input type="datetime-local" class="form-control" id="date" name="date" required>
                         </div>
                         <div class="btn-box">
                             <button type="submit" id="pesan_catering" name="pesan_catering" class="btn btn-primary">Pesan Sekarang</button>

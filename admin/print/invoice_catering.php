@@ -170,11 +170,11 @@ while ($item = mysqli_fetch_assoc($result2)) {
 }
 
 //summary
-$service = $invoice["total_price"] * 0.05;
-$pajak = $invoice["total_price"] * 0.10;
+$service = $invoice["tax_lima"];
+$pajak = $invoice["tax_sepuluh"];
 $pdf->Cell(130, 5, '', 0, 0);
 $pdf->Cell(25, 5, 'Sub Total', 0, 0, 'R');
-$pdf->Cell(34, 5, number_format($invoice['total_price']), 1, 1, 'C'); //end of line
+$pdf->Cell(34, 5, number_format($invoice['subtotal']), 1, 1, 'C'); //end of line
 
 $pdf->Cell(130, 5, '', 0, 0);
 $pdf->Cell(25, 5, 'Service (5%)', 0, 0, 'R');
@@ -186,18 +186,23 @@ $pdf->Cell(34, 5, number_format($pajak), 1, 1, 'C'); //end of line
 
 $pdf->Cell(130, 5, '', 0, 0);
 $pdf->Cell(25, 5, 'Grand Total', 0, 0, 'R');
-$pdf->Cell(34, 5, number_format($invoice['total_price'] + $service + $pajak), 1, 1, 'C');
+$pdf->Cell(34, 5, number_format($invoice['total_price']), 1, 1, 'C');
+
+$pdf->Cell(50, 5, '', 0, 0);
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(105, 5, 'Pembayaran DP (50%)', 0, 0, 'R');
+$pdf->Cell(34, 5, number_format(($invoice['total_price']) / 2), 1, 1, 'C'); //end of line
 
 $pdf->Cell(50, 5, '', 0, 0);
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(105, 5, 'Pembayaran ' . $status  . ' (50%)', 0, 0, 'R');
-$pdf->Cell(34, 5, number_format(($invoice['total_price'] + $service + $pajak) / 2), 1, 1, 'C'); //end of line
+$pdf->Cell(34, 5, number_format(($invoice['total_price']) / 2), 1, 1, 'C'); //end of line
 
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(50, 5, '', 0, 0);
 $pdf->Cell(105, 5, 'Sisa Pembayaran', 0, 0, 'R');
 $pdf->Cell(34, 5, "-", 1, 1, 'C'); //end of line
-$total_terbilang = terbilang(($invoice['total_price'] + $service + $pajak) / 2);
+$total_terbilang = terbilang(($invoice['total_price']) / 2);
 $pdf->SetFont('Arial', 'BI', 12);
 $pdf->LN();
 $pdf->Cell(200, 5, "Terbilang : ## " . ucwords($total_terbilang) . " Rupiah ##", 0, 0);

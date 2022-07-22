@@ -32,16 +32,20 @@ if ($_GET['action'] == 'save') {
   a.kd_saus = d.id_saus WHERE b.c_id = "' . $user_id . '" AND b.kd_cart = "' . $kd_cart . '"');
 
   $ht = mysqli_fetch_array($hitung_total);
-  $jml_total = $ht['total'];
+  $subtotal = $ht['total'];
+  $tax_sepuluh = $subtotal * 0.10;
+  $biaya_kirim = 10000;
+  $total_price = $subtotal + $tax_sepuluh + $biaya_kirim;
 
   $queryCek = mysqli_query($db, 'SELECT * FROM tbltransac WHERE customer_id = "' . $user_id . '" AND transac_type = "' . $type . '" AND transac_code = "' . $no_transac . '" ');
   $cek = mysqli_num_rows($queryCek);
   if ($cek > 0) {
-    $uptransac = "UPDATE tbltransac SET transac_code = '$no_transac', total_price = '$jml_total' WHERE customer_id = '". $user_id . "'";
+    $uptransac = "UPDATE tbltransac SET transac_code = '$no_transac', subtotal = '$subtotal', tax_sepuluh = '$tax_sepuluh', biaya_kirim =
+    '$biaya_kirim', total_price = '$total_price' WHERE customer_id = '". $user_id . "'";
     mysqli_query($db, $uptransac) or die('Error, gagal menyimpan data delivery');
   } else {
-    $instransac = "INSERT INTO tbltransac (transac_code, date, transac_type, status, total_price, customer_id)
-    VALUES ('$no_transac','$date','Delivery','pending','$jml_total','$user_id')";
+    $instransac = "INSERT INTO tbltransac (transac_code, date, transac_type, status, subtotal, tax_sepuluh, biaya_kirim, total_price, customer_id)
+    VALUES ('$no_transac','$date','Delivery','pending','$subtotal','$tax_sepuluh','$biaya_kirim','$total_price','$user_id')";
     mysqli_query($db, $instransac) or die('Error, gagal menyimpan data delivery');
   }
 

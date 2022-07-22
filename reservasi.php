@@ -47,7 +47,7 @@ if (isset($_SESSION['C_ID'])) ?>
                     <div class="form_container">
                         <form action="controller/reservasi_controller.php?action=save" method="POST">
                             <div>
-                                <select class="form-control nice-select wide" id="person_count" name="person_count">
+                                <select class="form-control nice-select wide" id="person_count" name="person_count" required>
                                     <option value="" disabled selected> Untuk Berapa Orang? </option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -63,11 +63,11 @@ if (isset($_SESSION['C_ID'])) ?>
                             </div>
                             <div>
                                 <label for="date">Tanggal Reservasi?</label>
-                                <input type="date" class="form-control" id="date" name="date">
+                                <input type="date" class="form-control" id="date" name="date" required>
                             </div>
                             <div>
                                 <label for="time">Waktu Reservasi?</label>
-                                <input type="time" class="form-control" id="time" name="time">
+                                <input type="time" class="form-control" id="time" name="time" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Reservasi Sekarang
                             </button>

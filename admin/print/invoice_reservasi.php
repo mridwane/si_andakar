@@ -111,7 +111,7 @@ $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(20, 5, number_format($invoice["total_price"]), $border, 1, 'R');
 $pdf->SetFont('Arial', '', 8);
 
-$pajak = $invoice["total_price"] * 0.10;
+$pajak = $invoice["tax_sepuluh"];
 $pdf->Cell(40, 5, '', $border, 0);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(20, 5, 'Pajak 10% :', $border, 0, 'R');
@@ -119,7 +119,7 @@ $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(20, 5, number_format($pajak), $border, 1, 'R');
 $pdf->SetFont('Arial', '', 8);
 
-$gt = $invoice["total_price"] + $pajak;
+$gt = $invoice["total_price"];
 $pdf->Cell(0, 2, '-----------------------------------------', 0, 1, 'R');
 $pdf->Cell(40, 5, '', $border, 0);
 $pdf->SetFont('Arial', 'B', 8);

@@ -103,7 +103,7 @@ while ($item = mysqli_fetch_assoc($result2)) {
     } 
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(5, 5, number_format($item['qty']), $border, 0,'C');
-    $pdf->Cell(20, 5, number_format($item['price'] + $item['harga_saus']), $border, 1, 'R');
+    $pdf->Cell(20, 5, number_format($item['harga']), $border, 1, 'R');
     //accumulate tax and amount
     $tax += $item['price'];
     $amount += $item['price'];
@@ -113,10 +113,10 @@ $pdf->Cell(40, 5, '', $border, 0);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(20, 5, 'Sub Total :', $border, 0, 'R');
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(20, 5, number_format($invoice["total_price"]), $border, 1, 'R');
+$pdf->Cell(20, 5, number_format($invoice["subtotal"]), $border, 1, 'R');
 $pdf->SetFont('Arial', '', 8);
 
-$pajak = $invoice["total_price"] * 0.10;
+$pajak = $invoice["tax_sepuluh"];
 $pdf->Cell(40, 5, '', $border, 0);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(20, 5, 'Pajak 10% :', $border, 0, 'R');
@@ -124,7 +124,15 @@ $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(20, 5, number_format($pajak), $border, 1, 'R');
 $pdf->SetFont('Arial', '', 8);
 
-$gt = $invoice["total_price"] + $pajak;
+$biaya_kirim = $invoice["biaya_kirim"];
+$pdf->Cell(40, 5, '', $border, 0);
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(20, 5, 'Biaya Kirim :', $border, 0, 'R');
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(20, 5, number_format($biaya_kirim), $border, 1, 'R');
+$pdf->SetFont('Arial', '', 8);
+
+$gt = $invoice["total_price"];
 $pdf->Cell(0, 2, '-----------------------------------------', 0, 1, 'R');
 $pdf->Cell(40, 5, '', $border, 0);
 $pdf->SetFont('Arial', 'B', 8);
