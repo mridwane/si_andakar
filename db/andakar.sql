@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Jul 2022 pada 10.12
+-- Waktu pembuatan: 22 Jul 2022 pada 17.03
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -44,7 +44,9 @@ INSERT INTO `tblalamat` (`id_alamat`, `alamat`, `c_id`) VALUES
 (13, 'Jl Jend Sudirman Kav 52-53 Ged Artha Graha, Dki Jakarta', 4),
 (14, 'Mandiri Building 5th Floor, JL. Imam Bonjol No. 16D, Medan', 4),
 (25, 'alamat 2', 5),
-(27, 'jalan kampung tuyul', 11);
+(27, 'jalan kampung', 11),
+(28, 'Bandung', 13),
+(29, 'Jalanudin', 12);
 
 -- --------------------------------------------------------
 
@@ -65,7 +67,7 @@ CREATE TABLE `tblautonumber` (
 --
 
 INSERT INTO `tblautonumber` (`id`, `start`, `end`, `increment`, `desc`) VALUES
-(1, 1000, 92, 1, 'PROD');
+(1, 1000, 96, 1, 'PROD');
 
 -- --------------------------------------------------------
 
@@ -131,7 +133,15 @@ INSERT INTO `tblbuktitransfer` (`id`, `date`, `file_name`, `status`, `nominal_tr
 (40, '2022-07-17 17:32:09', 'BTCAT1707202205315175.jpg', 'dp', 0, 'customer', '', '', 'CAT1707202205315175'),
 (41, '2022-07-17 17:32:40', 'BTLNSCAT1707202205315175.jpg', 'lunas', 0, 'customer', '', '', 'CAT1707202205315175'),
 (42, '2022-07-20 04:41:02', 'BTDEL2007202204403662.jpg', 'paid', 0, 'customer', '', '', 'DEL2007202204403662'),
-(43, '2022-07-20 05:06:24', 'BTDEL2007202204503223.jpg', 'paid', 0, 'customer', '', '', 'DEL2007202204503223');
+(43, '2022-07-20 05:06:24', 'BTDEL2007202204503223.jpg', 'paid', 0, 'customer', '', '', 'DEL2007202204503223'),
+(44, '2022-07-22 15:24:09', 'BTDEL2207202203232242.jpg', 'paid', 0, 'customer', '', '', 'DEL2207202203232242'),
+(45, '2022-07-22 15:46:52', 'BTDEL2207202203431181.jpg', 'paid', 0, 'customer', '', '', 'DEL2207202203431181'),
+(46, '2022-07-22 16:10:58', 'BTRES2207202204045462.jpg', 'dp', 0, 'customer', '', '', 'RES2207202204045462'),
+(47, '2022-07-22 16:16:23', 'BTLNSRES2207202204045462.jpg', 'lunas', 0, 'customer', '', '', 'RES2207202204045462'),
+(48, '2022-07-22 16:28:46', 'BTRES2207202204250062.jpg', 'dp', 0, 'customer', '', '', 'RES2207202204250062'),
+(49, '2022-07-22 16:32:15', 'BTLNSRES2207202204250062.jpg', 'lunas', 0, 'customer', '', '', 'RES2207202204250062'),
+(50, '2022-07-22 16:49:18', 'BTCAT2207202204431849.jpg', 'dp', 0, 'customer', '', '', 'CAT2207202204431849'),
+(51, '2022-07-22 16:51:43', 'BTLNSCAT2207202204431849.jpg', 'lunas', 0, 'customer', '', '', 'CAT2207202204431849');
 
 -- --------------------------------------------------------
 
@@ -220,7 +230,9 @@ INSERT INTO `tblcustomer` (`C_ID`, `C_FNAME`, `C_LNAME`, `C_AGE`, `C_ADRESSID`, 
 (4, 'Nadya', 'Minerva', 25, 11, '082346578919', 'Perempuan', 'Customer', 'emak@gmail.com', 'asd', 'admin', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
 (5, 'sumail', 'cofeen', 20, 25, '0823123123', 'Laki-Laki', 'Customer', 'sumail@gmail.com', '40222', 'sumail', '$2y$10$Nz4hwMNDYxc63dBtJ7TGl.zgvt6UXNIylukyWgRxdgvosgy5wtQOy'),
 (6, 'ridwan', 'remin', 21, 0, '312312', 'Laki-Laki', 'Customer', '123@gmail.com', '4321', 'ridwan12', '$2y$10$XZw1u9HtZtDpLXMsUtbHUe4m0ztA8kUttAhXpVxD71cFb9GFnkpn2'),
-(11, 'Muhammad', 'Ridwan', 22, 27, '83894799380', 'Laki-Laki', 'Mitra', 'mridwane01@gmail.com', '4321', 'mridwane', '$2y$10$Ga3NPy50IwrLygWc940t/.saCTH.YdlaeOFc6VnV0ogeklgVZEWrG');
+(11, 'Muhammad', 'Ridwan', 22, 27, '83894799380', 'Laki-Laki', 'Mitra', 'mridwane01@gmail.com', '4321', 'mridwane', '$2y$10$Ga3NPy50IwrLygWc940t/.saCTH.YdlaeOFc6VnV0ogeklgVZEWrG'),
+(12, 'udin', 'pertama', 22, 29, '83894799380', 'Laki-Laki', 'Mitra', 'udin@gmail.com', '4321', 'udin', '$2y$10$bvzNCK3Zhtxynas4F3OCNeP7tzecIlrf7plV.0yYR.V6d1fmg0jci'),
+(13, 'sandria', 'maulana', 25, 28, '0819929292', 'Laki-Laki', 'Mitra', 'sandria@gmail.com', '4321', 'sandria', '$2y$10$XiMjxrBLAePl58w5vHpXqOQxyekDx4CpMKo0CYRwydk5K6kZtamem');
 
 -- --------------------------------------------------------
 
@@ -258,14 +270,6 @@ CREATE TABLE `tbldetailrequestmitra` (
   `user_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data untuk tabel `tbldetailrequestmitra`
---
-
-INSERT INTO `tbldetailrequestmitra` (`id`, `date`, `note`, `status`, `user_id`) VALUES
-(2, '2022-06-20 16:39:35', 'Masih ada dokumen yang belum lengkap', 'denied', '4'),
-(3, '2022-06-21 16:45:30', '-', 'accepted', '4');
-
 -- --------------------------------------------------------
 
 --
@@ -294,23 +298,23 @@ INSERT INTO `tblproducts` (`product_id`, `product_name`, `date_in`, `category_id
 (56, 'Rib Eye Lokal', '2022-07-17', 1, 2, 'Tersedia', 'Makanan-Utama', 96000, '1067rib-eye.jpg', 'Rib Eye merupakan bagian sekitar tulang rusuk pada sapi. Daging pada bagian yang sering dikenal dengan tulang iga ini mempunyai tingkat keempukan yang hampir sempurna.'),
 (57, 'Sirloin Lokal', '2022-07-17', 1, 2, 'Tersedia', 'Makanan-Utama', 92000, '1068sirloin2.jpg', 'Sirloin merupakan bagian daging yang mengandung lemak lebih banyak dibandingkan tenderloin. Bila dimasak dengan tepat dan baik akan menghasilkan steak yang juicy (berair), gurih, dan empuk.'),
 (58, 'Tenderloin Import', '2022-07-17', 1, 2, 'Tersedia', 'Makanan-Utama', 125000, '1069tenderloin-steak.jpg', 'Steak tenderloin juga biasa disebut khas dalam, fillet, atau fillet mignon. Dagingnya terletak di bagian tengah sapi.'),
-(59, 'Rib Eye Import', '2022-07-17', 1, 2, 'Tersedia', 'Makanan Utama', 104000, '1070prime-ribeye.jpg', ''),
-(60, 'Sirloin Import', '2022-07-17', 1, 2, 'Tersedia', 'Makanan Utama', 100000, '1071sirloin3.jpg', ''),
-(61, 'T-Bone Import', '2022-07-17', 1, 2, 'Tersedia', 'Makanan Utama', 145000, '1072t-bone.jpg', 'Berat 300gr'),
-(62, 'Iga Panggang Regular', '2022-07-17', 2, 2, 'Tersedia', 'Makanan Utama', 85000, '1073iga-reguler.jpg', ''),
-(63, 'Iga Barbar', '2022-07-17', 2, 2, 'Tersedia', 'Makanan Utama', 160000, '1074iga-barbar2.jpg', ''),
-(64, 'Chris Ribs', '2022-07-17', 2, 2, 'Tersedia', 'Makanan Utama', 175000, '1075chris-ribs3.jpg', ''),
-(65, 'Lamb Shank', '2022-07-17', 3, 2, 'Tersedia', 'Makanan Utama', 92000, '1076lamb-shank.jpg', 'potongan daging betis atau sengkel kambing'),
-(66, 'Chicken Wings', '2022-07-17', 5, 2, 'Tersedia', 'Makanan Utama', 40000, '1077bbq-chicken-wings3.jpg', '6 Pieces with french fries'),
-(67, 'Boneless Chicken Steak', '2022-07-17', 5, 2, 'Tersedia', 'Makanan Utama', 55000, '1078boneless-chicken3.jpg', ''),
-(68, 'Dorry Fillet', '2022-07-17', 6, 2, 'Tersedia', 'Makanan Utama', 62000, '1079dory-steak.jpg', ''),
-(69, 'Fish and Chips', '2022-07-17', 6, 2, 'Tersedia', 'Makanan Utama', 75000, '1080fish-and-cips2.jpg', 'Fish and Chips adalah daging ikan berbalut tepung yang disajikan dengan kentang.'),
-(70, 'Salmon Steak', '2022-07-17', 6, 2, 'Tersedia', 'Makanan Utama', 105000, '1081salmon-steak3.jpg', ''),
+(59, 'Rib Eye Import', '2022-07-17', 1, 2, 'Tersedia', 'Makanan-Utama', 104000, '1070prime-ribeye.jpg', ''),
+(60, 'Sirloin Import', '2022-07-17', 1, 2, 'Tersedia', 'Makanan-Utama', 100000, '1071sirloin3.jpg', ''),
+(61, 'T-Bone Import', '2022-07-17', 1, 2, 'Tersedia', 'Makanan-Utama', 145000, '1072t-bone.jpg', 'Berat 300gr'),
+(62, 'Iga Panggang Regular', '2022-07-17', 2, 2, 'Tersedia', 'Makanan-Utama', 85000, '1073iga-reguler.jpg', ''),
+(63, 'Iga Barbar', '2022-07-17', 2, 2, 'Tersedia', 'Makanan-Utama', 160000, '1074iga-barbar2.jpg', ''),
+(64, 'Chris Ribs', '2022-07-17', 2, 2, 'Tersedia', 'Makanan-Utama', 175000, '1075chris-ribs3.jpg', ''),
+(65, 'Lamb Shank', '2022-07-17', 3, 2, 'Tersedia', 'Makanan-Utama', 92000, '1076lamb-shank.jpg', 'potongan daging betis atau sengkel kambing'),
+(66, 'Chicken Wings', '2022-07-17', 5, 2, 'Tersedia', 'Makanan-Utama', 40000, '1077bbq-chicken-wings3.jpg', '6 Pieces with french fries'),
+(67, 'Boneless Chicken Steak', '2022-07-17', 5, 2, 'Tersedia', 'Makanan-Utama', 55000, '1078boneless-chicken3.jpg', ''),
+(68, 'Dorry Fillet', '2022-07-17', 6, 2, 'Tersedia', 'Makanan-Utama', 62000, '1079dory-steak.jpg', ''),
+(69, 'Fish and Chips', '2022-07-17', 6, 2, 'Tersedia', 'Makanan-Utama', 75000, '1080fish-and-cips2.jpg', 'Fish and Chips adalah daging ikan berbalut tepung yang disajikan dengan kentang.'),
+(70, 'Salmon Steak', '2022-07-17', 6, 2, 'Tersedia', 'Makanan-Utama', 105000, '1081salmon-steak3.jpg', ''),
 (71, 'Potato Wedges', '2022-07-17', 7, 2, 'Tersedia', 'Makanan-Pendamping', 20000, '1082potato-wedges.jpg', ''),
-(72, 'Mix Vagatable', '2022-07-17', 7, 2, 'Tersedia', 'Makanan Pendamping', 25000, '1083mix-vagatables.jpg', ''),
-(73, 'Sosis', '2022-07-17', 7, 2, 'Tersedia', 'Makanan Pendamping', 20000, '1084sosis bakar.jpg', ''),
-(74, 'Pie Apel', '2022-07-17', 8, 2, 'Tersedia', 'Makanan Penutup', 23000, '1085pie2.jpg', 'Pie Isi Apel'),
-(75, 'Complete Burger', '2022-07-17', 9, 2, 'Tersedia', 'Makanan Utama', 70000, '1086complete-burger.jpg', ''),
+(72, 'Mix Vagatable', '2022-07-17', 7, 2, 'Tersedia', 'Makanan-Pendamping', 25000, '1083mix-vagatables.jpg', ''),
+(73, 'Sosis', '2022-07-17', 7, 2, 'Tersedia', 'Makanan-Pendamping', 20000, '1084sosis bakar.jpg', ''),
+(74, 'Pie Apel', '2022-07-17', 8, 2, 'Tersedia', 'Makanan-Penutup', 23000, '1085pie2.jpg', 'Pie Isi Apel'),
+(75, 'Complete Burger', '2022-07-17', 9, 2, 'Tersedia', 'Makanan-Utama', 70000, '1086complete-burger.jpg', ''),
 (76, 'Strawberry Milkshake', '2022-07-17', 10, 2, 'Tersedia', 'Minuman', 37000, '1087strawberry-milkshake.jpg', ''),
 (77, 'Jus Mangga', '2022-07-17', 13, 2, 'Tersedia', 'Minuman', 31000, '1088jus-mangga.jpg', '');
 
@@ -406,8 +410,7 @@ CREATE TABLE `tblrequestmitra` (
 --
 
 INSERT INTO `tblrequestmitra` (`id`, `regis_no`, `date_req`, `file`, `status`, `note`, `C_ID`) VALUES
-(4, 'MITREG2006202203225689', '2022-06-20', 'MITREG2006202203225689_4_kemitraan.docx', 'interview', 'Selamat anda diterima sebagai mitra kami', 4),
-(5, 'MITREG1507202204320195', '2022-07-15', 'MITREG1507202204320195_11_kemitraan.docx', 'interview', 'Selamat anda Lolos administrasi', 11);
+(8, 'MIT20072022045711100', '2022-07-20', 'MIT2007202205391368_12_kemitraan.docx', 'nonactive', 'selamat', 12);
 
 -- --------------------------------------------------------
 
@@ -430,9 +433,13 @@ CREATE TABLE `tblsaus` (
 --
 
 INSERT INTO `tblsaus` (`id_saus`, `nama_saus`, `harga_saus`, `stok_saus`, `keterangan`, `user_id`, `date_saus`) VALUES
-('', 'BBQ ', 0, 'Tersedia', 'Saus Baebeque', '2', '2022-07-17'),
 ('S100', 'Tanpa Saus', 0, 'Tersedia', '-', '2', '2022-06-24'),
-('S1091', 'Tar Tar Sauce', 8000, 'Tersedia', 'Saus ', '2', '2022-07-20');
+('S1091', 'Tar Tar Sauce', 8000, 'Tersedia', 'Saus ', '2', '2022-07-20'),
+('S1092', 'ABC', 6000, 'Tersedia', 'pedas', '2', '2022-07-22'),
+('S1093', 'saussss2', 8000, 'Tersedia', 'pedas', '2', '2022-07-22'),
+('S1094', 'says', 4000, 'Tersedia', 'pedas', '2', '2022-07-22'),
+('S1095', 'barbar saus', 4000, 'Tersedia', 'pedas', '2', '2022-07-22'),
+('S1096', 'BBQ ', 0, 'Tersedia', 'Saus Baebeque', '2', '2022-07-17');
 
 -- --------------------------------------------------------
 
@@ -474,7 +481,11 @@ CREATE TABLE `tbltransac` (
   `date` varchar(50) NOT NULL,
   `transac_type` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
-  `total_price` int(11) NOT NULL,
+  `subtotal` int(50) NOT NULL,
+  `tax_sepuluh` int(20) NOT NULL,
+  `tax_lima` int(20) NOT NULL,
+  `biaya_kirim` int(20) NOT NULL,
+  `total_price` int(50) NOT NULL,
   `reservation_date_time` datetime NOT NULL DEFAULT current_timestamp(),
   `person_count` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
@@ -485,12 +496,11 @@ CREATE TABLE `tbltransac` (
 -- Dumping data untuk tabel `tbltransac`
 --
 
-INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`, `total_price`, `reservation_date_time`, `person_count`, `customer_id`, `catatan`) VALUES
-(34, 'DEL1707202205171165', '2022/07/17', 'Delivery', 'done', 115600, '2022-07-17 22:17:11', 0, 4, ''),
-(35, 'RES1707202205250117', '2022/07/17', 'Reservasi', 'lunas', 96000, '2022-07-17 01:24:00', 1, 4, ''),
-(36, 'CAT1707202205315175', '2022-07-17', 'Catering', 'lunas', 5074000, '2022-07-21 02:31:00', 0, 4, ''),
-(37, 'DEL2007202204403662', '2022/07/20', 'Delivery', 'paid', 158500, '2022-07-20 09:40:36', 0, 4, ''),
-(38, 'DEL2007202204503223', '2022/07/20', 'Delivery', 'confirmed', 165100, '2022-07-20 09:50:32', 0, 4, 'Jumlah Pembayaran Kurang -Rp 15.100,00');
+INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`, `subtotal`, `tax_sepuluh`, `tax_lima`, `biaya_kirim`, `total_price`, `reservation_date_time`, `person_count`, `customer_id`, `catatan`) VALUES
+(2, 'DEL2207202203431181', '2022/07/22', 'Delivery', 'sending', 806000, 80600, 0, 10000, 886600, '2022-07-22 20:43:11', 0, 4, 'transfer Sesuai.'),
+(3, 'RES2207202204045462', '2022-07-26', 'Reservasi', 'lunas', 813000, 81300, 0, 0, 894300, '2022-07-26 13:00:00', 5, 4, ''),
+(4, 'RES2207202204250062', '2022/07/22', 'Reservasi', 'lunas', 503000, 50300, 0, 0, 553300, '2022-07-27 13:00:00', 2, 4, ''),
+(5, 'CAT2207202204431849', '2022-07-22', 'Catering', 'lunas', 7160000, 716000, 358000, 0, 8234000, '2022-07-26 13:00:00', 0, 4, '');
 
 -- --------------------------------------------------------
 
@@ -512,15 +522,19 @@ CREATE TABLE `tbltransacdetail` (
 --
 
 INSERT INTO `tbltransacdetail` (`id`, `product_code`, `kd_saus`, `qty`, `transac_code`, `harga`) VALUES
-(85, '56', 'S100', 1, 'DEL1707202205171165', 96000),
-(86, '56', 'S100', 1, 'RES1707202205250117', 96000),
-(87, '56', 'S100', 37, 'CAT1707202205315175', 3552000),
-(88, '57', 'S100', 11, 'CAT1707202205315175', 1012000),
-(89, '55', 'S100', 5, 'CAT1707202205315175', 510000),
-(90, '77', 'S100', 1, 'DEL2007202204403662', 31000),
-(91, '56', 'S1091', 1, 'DEL2007202204403662', 104000),
-(92, '76', 'S100', 1, 'DEL2007202204503223', 37000),
-(93, '56', 'S1091', 1, 'DEL2007202204503223', 104000);
+(4, '57', 'S1096', 3, 'DEL2207202203431181', 276000),
+(5, '58', 'S1092', 2, 'DEL2207202203431181', 262000),
+(6, '60', 'S1095', 1, 'DEL2207202203431181', 104000),
+(7, '63', 'S1095', 1, 'DEL2207202203431181', 164000),
+(8, '56', 'S1091', 1, 'RES2207202204045462', 104000),
+(9, '60', 'S1092', 1, 'RES2207202204045462', 106000),
+(10, '59', 'S1091', 4, 'RES2207202204045462', 448000),
+(11, '77', 'S100', 5, 'RES2207202204045462', 155000),
+(12, '55', 'S1093', 1, 'RES2207202204250062', 110000),
+(13, '58', 'S1092', 3, 'RES2207202204250062', 393000),
+(14, '56', 'S1091', 20, 'CAT2207202204431849', 2080000),
+(15, '57', 'S1096', 20, 'CAT2207202204431849', 1840000),
+(16, '60', 'S1091', 30, 'CAT2207202204431849', 3240000);
 
 -- --------------------------------------------------------
 
@@ -671,7 +685,7 @@ ALTER TABLE `tblusers`
 -- AUTO_INCREMENT untuk tabel `tblalamat`
 --
 ALTER TABLE `tblalamat`
-  MODIFY `id_alamat` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_alamat` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblautonumber`
@@ -683,13 +697,13 @@ ALTER TABLE `tblautonumber`
 -- AUTO_INCREMENT untuk tabel `tblbuktitransfer`
 --
 ALTER TABLE `tblbuktitransfer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcartdetail`
 --
 ALTER TABLE `tblcartdetail`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcategory`
@@ -701,7 +715,7 @@ ALTER TABLE `tblcategory`
 -- AUTO_INCREMENT untuk tabel `tblcustomer`
 --
 ALTER TABLE `tblcustomer`
-  MODIFY `C_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `C_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbldelivery`
@@ -731,7 +745,7 @@ ALTER TABLE `tblreqdetail`
 -- AUTO_INCREMENT untuk tabel `tblrequestmitra`
 --
 ALTER TABLE `tblrequestmitra`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblstockhistory`
@@ -743,13 +757,13 @@ ALTER TABLE `tblstockhistory`
 -- AUTO_INCREMENT untuk tabel `tbltransac`
 --
 ALTER TABLE `tbltransac`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbltransacdetail`
 --
 ALTER TABLE `tbltransacdetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblusers`
