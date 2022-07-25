@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Jul 2022 pada 17.03
+-- Waktu pembuatan: 25 Jul 2022 pada 16.24
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 7.4.29
 
@@ -141,7 +141,18 @@ INSERT INTO `tblbuktitransfer` (`id`, `date`, `file_name`, `status`, `nominal_tr
 (48, '2022-07-22 16:28:46', 'BTRES2207202204250062.jpg', 'dp', 0, 'customer', '', '', 'RES2207202204250062'),
 (49, '2022-07-22 16:32:15', 'BTLNSRES2207202204250062.jpg', 'lunas', 0, 'customer', '', '', 'RES2207202204250062'),
 (50, '2022-07-22 16:49:18', 'BTCAT2207202204431849.jpg', 'dp', 0, 'customer', '', '', 'CAT2207202204431849'),
-(51, '2022-07-22 16:51:43', 'BTLNSCAT2207202204431849.jpg', 'lunas', 0, 'customer', '', '', 'CAT2207202204431849');
+(51, '2022-07-22 16:51:43', 'BTLNSCAT2207202204431849.jpg', 'lunas', 0, 'customer', '', '', 'CAT2207202204431849'),
+(52, '2022-07-25 13:50:25', 'BTDEL2507202201500459.jpg', 'paid', 0, 'customer', '', '', 'DEL2507202201500459'),
+(53, '2022-07-25 13:51:49', 'BTRES2507202201514021.jpg', 'deny_adm_dp', 222000, 'customer', '', 'Jumlah Pembayaran Kurang -Rp 750,00', 'RES2507202201514021'),
+(54, '0000-00-00 00:00:00', '', 'deny_adm_dp', 222000, 'admin', '', '', 'RES2507202201514021'),
+(55, '0000-00-00 00:00:00', '', 'deny_adm_dp', 222000, 'admin', '', '', 'RES2507202201514021'),
+(56, '0000-00-00 00:00:00', 'BTDPRES2507202201514021.jpg', 'deny_adm_dp', 222750, 'admin', '', '', 'RES2507202201514021'),
+(57, '0000-00-00 00:00:00', '', 'deny_adm_dp', 222000, 'admin', '', '', 'RES2507202201514021'),
+(58, '2022-07-25 14:52:09', 'BTLNSRES2507202201514021.jpg', 'lunas', 0, 'customer', '', '', 'RES2507202201514021'),
+(59, '2022-07-25 15:08:39', 'BTCAT2507202203080374.jpg', 'dp', 0, 'customer', '', '', 'CAT2507202203080374'),
+(60, '2022-07-25 15:22:44', 'BTLNSCAT2507202203080374.jpg', 'lunas', 0, 'customer', '', '', 'CAT2507202203080374'),
+(61, '2022-07-25 16:00:01', 'BTLNSCAT2507202203080374.jpg', 'lunas', 0, 'customer', '', '', 'CAT2507202203080374'),
+(62, '2022-07-25 16:14:30', 'BTLNSRES2507202201514021.jpg', 'lunas', 0, 'customer', '', '', 'RES2507202201514021');
 
 -- --------------------------------------------------------
 
@@ -485,6 +496,8 @@ CREATE TABLE `tbltransac` (
   `tax_sepuluh` int(20) NOT NULL,
   `tax_lima` int(20) NOT NULL,
   `biaya_kirim` int(20) NOT NULL,
+  `dp` int(25) NOT NULL,
+  `pelunasan` int(25) NOT NULL,
   `total_price` int(50) NOT NULL,
   `reservation_date_time` datetime NOT NULL DEFAULT current_timestamp(),
   `person_count` int(11) NOT NULL,
@@ -496,11 +509,14 @@ CREATE TABLE `tbltransac` (
 -- Dumping data untuk tabel `tbltransac`
 --
 
-INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`, `subtotal`, `tax_sepuluh`, `tax_lima`, `biaya_kirim`, `total_price`, `reservation_date_time`, `person_count`, `customer_id`, `catatan`) VALUES
-(2, 'DEL2207202203431181', '2022/07/22', 'Delivery', 'sending', 806000, 80600, 0, 10000, 886600, '2022-07-22 20:43:11', 0, 4, 'transfer Sesuai.'),
-(3, 'RES2207202204045462', '2022-07-26', 'Reservasi', 'lunas', 813000, 81300, 0, 0, 894300, '2022-07-26 13:00:00', 5, 4, ''),
-(4, 'RES2207202204250062', '2022/07/22', 'Reservasi', 'lunas', 503000, 50300, 0, 0, 553300, '2022-07-27 13:00:00', 2, 4, ''),
-(5, 'CAT2207202204431849', '2022-07-22', 'Catering', 'lunas', 7160000, 716000, 358000, 0, 8234000, '2022-07-26 13:00:00', 0, 4, '');
+INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`, `subtotal`, `tax_sepuluh`, `tax_lima`, `biaya_kirim`, `dp`, `pelunasan`, `total_price`, `reservation_date_time`, `person_count`, `customer_id`, `catatan`) VALUES
+(2, 'DEL2207202203431181', '2022/07/22', 'Delivery', 'done', 806000, 80600, 0, 10000, 0, 0, 886600, '2022-07-22 20:43:11', 0, 4, 'transfer Sesuai.'),
+(3, 'RES2207202204045462', '2022-07-26', 'Reservasi', 'lunas', 813000, 81300, 0, 0, 0, 0, 894300, '2022-07-26 13:00:00', 5, 4, ''),
+(4, 'RES2207202204250062', '2022/07/22', 'Reservasi', 'lunas', 503000, 50300, 0, 0, 0, 0, 553300, '2022-07-27 13:00:00', 2, 4, ''),
+(5, 'CAT2207202204431849', '2022-07-22', 'Catering', 'lunas', 7160000, 716000, 358000, 0, 0, 0, 8234000, '2022-07-26 13:00:00', 0, 4, ''),
+(6, 'DEL2507202201500459', '2022/07/25', 'Delivery', 'paid', 744000, 74400, 0, 10000, 0, 0, 828400, '2022-07-25 18:50:04', 0, 4, ''),
+(7, 'RES2507202201514021', '2022/07/25', 'Reservasi', 'done', 405000, 40500, 0, 0, 200000, 200000, 445500, '2022-07-28 20:00:00', 3, 4, 'Jumlah Pembayaran Kurang -Rp 45.500,00'),
+(8, 'CAT2507202203080374', '2022-07-25', 'Catering', 'done', 5040000, 504000, 252000, 0, 2000000, 3700000, 5796000, '2022-07-28 20:00:00', 0, 4, 'Jumlah Pembayaran Kurang -Rp 96.000,00');
 
 -- --------------------------------------------------------
 
@@ -534,7 +550,14 @@ INSERT INTO `tbltransacdetail` (`id`, `product_code`, `kd_saus`, `qty`, `transac
 (13, '58', 'S1092', 3, 'RES2207202204250062', 393000),
 (14, '56', 'S1091', 20, 'CAT2207202204431849', 2080000),
 (15, '57', 'S1096', 20, 'CAT2207202204431849', 1840000),
-(16, '60', 'S1091', 30, 'CAT2207202204431849', 3240000);
+(16, '60', 'S1091', 30, 'CAT2207202204431849', 3240000),
+(17, '55', 'S1091', 2, 'DEL2507202201500459', 220000),
+(18, '57', 'S1091', 4, 'DEL2507202201500459', 400000),
+(19, '77', 'S100', 4, 'DEL2507202201500459', 124000),
+(20, '56', 'S1091', 3, 'RES2507202201514021', 312000),
+(21, '77', 'S100', 3, 'RES2507202201514021', 93000),
+(22, '57', 'S1091', 40, 'CAT2507202203080374', 4000000),
+(23, '56', 'S1091', 10, 'CAT2507202203080374', 1040000);
 
 -- --------------------------------------------------------
 
@@ -697,13 +720,13 @@ ALTER TABLE `tblautonumber`
 -- AUTO_INCREMENT untuk tabel `tblbuktitransfer`
 --
 ALTER TABLE `tblbuktitransfer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcartdetail`
 --
 ALTER TABLE `tblcartdetail`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcategory`
@@ -757,13 +780,13 @@ ALTER TABLE `tblstockhistory`
 -- AUTO_INCREMENT untuk tabel `tbltransac`
 --
 ALTER TABLE `tbltransac`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbltransacdetail`
 --
 ALTER TABLE `tbltransacdetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblusers`
