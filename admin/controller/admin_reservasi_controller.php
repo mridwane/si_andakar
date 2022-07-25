@@ -369,9 +369,10 @@ if (isset($_GET['no_transac']) && $_GET['action'] == "accept") {
     require_once('../../includes/connection.php');
     $status = "done";
     $no_transac = $_GET['no_transac'];
+    $pelunasan = $_POST['cust_transfer_sisa'];
     $catatan = $_POST['note'];
     // update table transac
-    $query_update = "UPDATE tbltransac SET status = '" . $status . "', catatan = '" . $catatan . "' WHERE transac_code='" . $_GET['no_transac'] . "'";
+    $query_update = "UPDATE tbltransac SET status = '" . $status . "', pelunasan = '" . $pelunasan . "', catatan = '" . $catatan . "' WHERE transac_code='" . $_GET['no_transac'] . "'";
     mysqli_query($db, $query_update) or die(mysqli_error($db));
 
 

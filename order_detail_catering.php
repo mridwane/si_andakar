@@ -68,7 +68,10 @@ while ($row = mysqli_fetch_assoc($result)) {
     } else {
         $status = "Dibatalkan";
     }
+
     $total = $row['total_price'];
+    $dp = $row['dp'];
+    $sisa = $total - $dp;
 }
 ?>
 
@@ -155,12 +158,17 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <a href="catering_revisi_lns.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>"
                                 class="btn btn-danger">Lihat Rincian / Upload Ulang</a>
                             <?php } elseif ($status == "Disetujui" && strtoupper($jenis) == strtoupper("catering")) { ?>
-                            <h4>Pesanan anda telah kami terima. Mohon melakukan pelunasan SISA BAYAR maksimal h-2 dari
-                                jadwal yang telah dipilih.</h4>
+                            <div>
+                                <label for="">DP yang anda bayarkan</label>
+                                <input type="text" class="form-control"
+                                    value="Rp. <?= number_format(($dp)) ?>" readonly />
+                            </div>
+                            <p><b>Pesanan anda telah kami terima. Mohon melakukan pelunasan SISA BAYAR maksimal h-2 dari
+                                jadwal yang telah dipilih.</b></p>
                             <div>
                                 <label for="">Anda Harus Membayar Sebesar</label>
                                 <input type="text" class="form-control"
-                                    value="Rp. <?= number_format(($total) / 2, 0, ',', '.'); ?>"
+                                    value="Rp. <?= number_format($sisa, 0, ',', '.'); ?>"
                                     readonly />
                             </div>
                             <label for="upload">Upload Bukti Transfer Pelusanan</label>

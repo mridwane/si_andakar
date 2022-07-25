@@ -134,6 +134,13 @@ $pdf->MultiCell(100, 5, $invoice['alamat'], 0, 1); //end of line
 
 $pdf->LN();
 
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->MultiCell(100, 5, "Catatan", 0, 1);
+$pdf->SetFont('Arial', '', 10);
+$pdf->MultiCell(100, 5, $invoice['catatan'], 0, 1); //end of line
+
+$pdf->LN();
+
 //invoice contents
 $pdf->SetFont('Arial', 'B', 10);
 
@@ -191,18 +198,21 @@ $pdf->Cell(34, 5, number_format($invoice['total_price']), 1, 1, 'C');
 $pdf->Cell(50, 5, '', 0, 0);
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(105, 5, 'Pembayaran DP (50%)', 0, 0, 'R');
-$pdf->Cell(34, 5, number_format(($invoice['total_price']) / 2), 1, 1, 'C'); //end of line
+$pdf->Cell(34, 5, number_format($invoice['dp']), 1, 1, 'C'); //end of line
 
+$sisa = $invoice['total_price'] - $invoice['dp'];
 $pdf->Cell(50, 5, '', 0, 0);
 $pdf->SetFont('Arial', 'B', 10);
 $pdf->Cell(105, 5, 'Pembayaran ' . $status  . ' (50%)', 0, 0, 'R');
-$pdf->Cell(34, 5, number_format(($invoice['total_price']) / 2), 1, 1, 'C'); //end of line
+$pdf->Cell(34, 5, number_format($invoice['pelunasan']), 1, 1, 'C'); //end of line
 
+$total_pembayaran = $invoice['dp'] + $invoice['pelunasan'];
+$kekurangan = $total_pembayaran - $invoice['total_price'];
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(50, 5, '', 0, 0);
 $pdf->Cell(105, 5, 'Sisa Pembayaran', 0, 0, 'R');
-$pdf->Cell(34, 5, "-", 1, 1, 'C'); //end of line
-$total_terbilang = terbilang(($invoice['total_price']) / 2);
+$pdf->Cell(34, 5, number_format($kekurangan), 1, 1, 'C'); //end of line
+$total_terbilang = terbilang($invoice['total_price']);
 $pdf->SetFont('Arial', 'BI', 12);
 $pdf->LN();
 $pdf->Cell(200, 5, "Terbilang : ## " . ucwords($total_terbilang) . " Rupiah ##", 0, 0);

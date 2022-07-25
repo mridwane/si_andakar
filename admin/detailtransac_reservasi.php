@@ -178,17 +178,45 @@ if (!isset($_SESSION["userid"])) {
                   $subtotal = $row2["subtotal"];
                   $pajak = $row2["tax_sepuluh"];
                   $biaya_kirim = $row2["biaya_kirim"];
-                  $dp = $row2["dp"];
-                  $total_price = $row2["total_price"];
-                  $sisa = $total_price - $dp;
+                  $total = $row['total_price'];
+                  $dp = $row['dp'];
+                  $pelunasan = $row['pelunasan'];
+                  $sisa = $total - $dp;
+                  $total_pembayaran = $dp + $pelunasan;
                 }
                 echo "SUB TOTAL : Rp. " . number_format($subtotal);
                 echo "<br>";
                 echo "PAJAK 10% : Rp. " . number_format($pajak);
                 echo "<br>";
-                echo "TOTAL KESELURUHAN : Rp. " . number_format(($total_price));
-                echo "<br>";
-                echo "DP YANG HARUS DIBAYAR : Rp. " . number_format(($total_price) / 2);
+                echo "TOTAL KESELURUHAN : Rp. " . number_format(($total));
+                if ($stats == "pelunasan"){
+                  echo "<br>";
+                  echo "DP YANG DIBAYARKAN : Rp. " . number_format($dp);
+                  echo "<br>";
+                  echo "PELUNASAN YANG HARUS DIBAYAR : Rp. " . number_format($sisa);
+                }
+                elseif ($stats == "confirmed") {
+                  echo "<br>";
+                  echo "DP YANG HARUS DIBAYAR : Rp. " . number_format($total / 2);
+                  echo "<br>";
+                  echo "DP YANG DIBAYARKAN : Rp. " . number_format($dp);
+                }
+                elseif ($stats == "lunas") {
+                  echo "<br>";
+                  echo "DP YANG DIBAYAR : Rp. " . number_format($dp);
+                  echo "<br>";
+                  echo "PELUNASAN YANG DIBAYAR : Rp. " . number_format($sisa);
+                  echo "<br>";
+                  echo "SISA PEMBAYARAN : Rp. " . number_format($sisa);
+                }
+                elseif ($stats == "done") {
+                  echo "<br>";
+                  echo "DP YANG DIBAYAR : Rp. " . number_format($dp);
+                  echo "<br>";
+                  echo "PELUNASAN YANG DIBAYAR : Rp. " . number_format($pelunasan);
+                  echo "<br>";
+                  echo "SISA PEMBAYARAN : Rp. " . number_format($total_pembayaran - $total);
+                }
                 echo "<br>";
                 echo "<br>";
 
@@ -251,14 +279,13 @@ if (!isset($_SESSION["userid"])) {
           data-target="#deny_modal<?php echo $_GET['id']; ?>">Tolak Pesanan</button>
         <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
         <?php } elseif (strtoupper($row["status"]) == strtoupper("pelunasan") || strtoupper($row["status"]) == strtoupper("after_revision_lns") && strtoupper($row["transac_type"]) == strtoupper("reservasi")) { ?>
-        <button type="button" class="btn btn-info" data-toggle="modal"
-          data-target="#accept_modal<?php echo $_GET['id']; ?>">Buat Pesanan</button>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#accept_modal<?php echo $_GET['id']; ?>">Buat Pesanan</button>
         <button type="button" class="btn btn-danger" data-toggle="modal"
           data-target="#deny_modal<?php echo $_GET['id']; ?>">Tolak Pesanan</button>
         <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
         <?php } elseif (strtoupper($row["status"]) == strtoupper('confirmed') && strtoupper($row["transac_type"]) == strtoupper("reservasi")) { ?>
         <span>Menunggu Customer Melakukan Pelunasan</span>
-        <?php } elseif (strtoupper($row["status"]) == strtoupper('lunas') && strtoupper($row["transac_type"]) == strtoupper("reservasi")) { ?>
+        <?php } elseif (strtoupper($row["status"]) == strtoupper('done') && strtoupper($row["transac_type"]) == strtoupper("reservasi")) { ?>
         <span></span><br>
         <a href="print/invoice_reservasi.php?no_transaksi=<?php echo $_GET['id']; ?>" target="_blank" class="btn btn-xs btn-warning"><i
             class="fas fa-sign-out-alt" ></i>Cetak Nota</a>

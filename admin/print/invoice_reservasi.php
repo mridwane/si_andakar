@@ -64,6 +64,12 @@ $pdf->MultiCell(0, 5, "Alamat Pengiriman", 0, 1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->MultiCell(0, 5, $invoice['alamat'], 0, 1); //end of line
 $pdf->LN(2);
+
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->MultiCell(0, 5, "Catatan", 0, 1);
+$pdf->SetFont('Arial', '', 8);
+$pdf->MultiCell(0, 5, $invoice['catatan'], 0, 1); //end of line
+$pdf->LN(2);
 //invoice contents
 $border = 0;
 $pdf->Cell(0, 5, '================================================', 0, 1);
@@ -120,13 +126,49 @@ $pdf->Cell(20, 5, number_format($pajak), $border, 1, 'R');
 $pdf->SetFont('Arial', '', 8);
 
 $gt = $invoice["total_price"];
+$dp = $invoice["dp"];
+$pelunasan = $invoice["pelunasan"];
+$total_pembayaran = $dp + $pelunasan;
+$sisa_pembayaran = $total_pembayaran - $gt;
+
 $pdf->Cell(0, 2, '-----------------------------------------', 0, 1, 'R');
+
 $pdf->Cell(40, 5, '', $border, 0);
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(20, 5, 'Grand Total :', $border, 0, 'R');
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(20, 5, number_format($gt), $border, 1, 'R');
 $pdf->SetFont('Arial', '', 8);
+
+$pdf->Cell(40, 5, '', $border, 0);
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(20, 5, 'Down Payment :', $border, 0, 'R');
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(20, 5, number_format($dp), $border, 1, 'R');
+$pdf->SetFont('Arial', '', 8);
+
+$pdf->Cell(40, 5, '', $border, 0);
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(20, 5, 'Pelunasan :', $border, 0, 'R');
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(20, 5, number_format($pelunasan), $border, 1, 'R');
+$pdf->SetFont('Arial', '', 8);
+
+$pdf->Cell(40, 5, '', $border, 0);
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(20, 5, 'Total pembayaran :', $border, 0, 'R');
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(20, 5, number_format($total_pembayaran), $border, 1, 'R');
+$pdf->SetFont('Arial', '', 8);
+
+$pdf->Cell(40, 5, '', $border, 0);
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(20, 5, 'Sisa pembayaran :', $border, 0, 'R');
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(20, 5, number_format($sisa_pembayaran), $border, 1, 'R');
+$pdf->SetFont('Arial', '', 8);
+
+
 
 $filename = "invoice_" . $invoice['transac_code'] . ".pdf";
 
