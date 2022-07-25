@@ -55,6 +55,97 @@
     </div>
 </div>
 </div>
+
+<!-- dp modal -->
+
+<div class="modal fade" id="dp_modal<?php echo $_GET['id']; ?>" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="controller/admin_reservasi_controller.php?no_transac=<?php echo $_GET['id']; ?>&action=dp">
+                <div class="modal-header">
+                    <h3 class="modal-title">Terima Pesanan</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>No Pemesanan</label>
+                            <input type="text" name="transac_code" value="<?php echo $_GET['id'] ?>"
+                                class="form-control" readonly />
+                            <input type="text" name="status" value="<?php echo $stats ?>" class="form-control" hidden />
+                        </div>
+                        <div class="form-group">
+                            <label>Nominal Transfer Seharusnya</label>
+                            <input type="text" name="transfer_seharusnya" id="transfer_seharusnya" value="<?php echo number_format(($total_price) / 2) ?>" class="form-control" readonly />
+                            <input type="text" value="<?= ($total_price) / 2 ?>" class="form-control nominal" hidden />
+                        </div>
+                        <div class="form-group">
+                            <label>Jumlah Transfer</label>
+                            <input type="number" name="cust_transfer" id="cust_transfer" class="form-control cust_transfer" required="required"/>
+                        </div>                      
+                        <div class="form-group">
+                            <label>Catatan</label>
+                            <textarea type="text" name="note" class="form-control note" required="required"></textarea>
+                        </div>                        
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+                <div class="modal-footer">
+                    <button type="submit"  class="btn btn-primary"><span
+                            class="glyphicon glyphicon-edit"></span>Simpan</button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal"><span
+                            class="glyphicon glyphicon-remove"></span> Cancel</button>
+                </div>
+            </form>
+        </div>        
+    </div>
+</div>
+
+<!-- accept modal -->
+
+<div class="modal fade" id="accept_modal<?php echo $_GET['id']; ?>" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="controller/admin_reservasi_controller.php?no_transac=<?php echo $_GET['id']; ?>&action=accept">
+                <div class="modal-header">
+                    <h3 class="modal-title">Buat Pesanan</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label>No Pemesanan</label>
+                            <input type="text" name="transac_code" value="<?php echo $_GET['id'] ?>"
+                                class="form-control" readonly />
+                            <input type="text" name="status" value="<?php echo $stats ?>" class="form-control" hidden />
+                        </div>
+                        <div class="form-group">
+                            <label>Nominal Transfer Seharusnya</label>
+                            <input type="text" name="transfer_seharusnya" id="transfer_seharusnya" value="<?php echo number_format($sisa) ?>" class="form-control" readonly />
+                            <input type="text" value="<?= $sisa ?>" class="form-control nominal-sisa" hidden />
+                        </div>
+                        <div class="form-group">
+                            <label>Jumlah Transfer</label>
+                            <input type="number" name="cust_transfer_sisa" id="cust_transfer_sisa" class="form-control cust_transfer_sisa" required="required"/>
+                        </div>                      
+                        <div class="form-group">
+                            <label>Catatan</label>
+                            <textarea type="text" name="note" class="form-control note" required="required"></textarea>
+                        </div>                        
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+                <div class="modal-footer">
+                    <button type="submit"  class="btn btn-primary"><span
+                            class="glyphicon glyphicon-edit"></span>Simpan</button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal"><span
+                            class="glyphicon glyphicon-remove"></span> Cancel</button>
+                </div>
+            </form>
+        </div>        
+    </div>
+</div>
+
 <!-- modal untuk tolak pesanan -->
 <div class="modal fade" id="deny_modal<?php echo $_GET['id']; ?>" aria-hidden="true">
     <div class="modal-dialog">
@@ -75,7 +166,7 @@
                         <div class="form-group">
                             <label>Nominal Transfer Seharusnya</label>
                             <input type="text" name="transfer_seharusnya" id="transfer_seharusnya"
-                                value="<?php echo number_format(($subtotal + $pajak) / 2) ?>" class="form-control"
+                                value="<?php echo number_format(($total_price) / 2) ?>" class="form-control"
                                 readonly />
                         </div>
                         <div class="form-group">
@@ -135,10 +226,56 @@
             document.getElementById('count').innerHTML = "Sesuai";
             document.getElementById("simpan").disabled = true;
         }
-
-
     }
+
+    $(document).ready(function () {
+
+        // converter mata uang
+        const Rupiah = (number)=>{
+            return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+            }).format(number);
+        }
+
+        $('.cust_transfer').keyup(function() {            
+            var input = $(this).val();
+            var nominal = $('.nominal').val();
+            var hasil = parseInt(input) - parseInt(nominal);
+
+            if(hasil < 0){
+                $('.note').text("Jumlah Pembayaran Kurang " + Rupiah(hasil));
+            }
+            else if(hasil > 0){
+                $('.note').text("Jumlah Pembayaran Lebih " + Rupiah(hasil));
+            }
+            else {
+                $('.note').text("transfer Sesuai.");
+            }            
+        });
+
+        $('.cust_transfer_sisa').keyup(function() {            
+            var input = $(this).val();
+            var nominal = $('.nominal-sisa').val();
+            var hasil = parseInt(input) - parseInt(nominal);
+
+            if(hasil < 0){
+                $('.note').text("Jumlah Pembayaran Kurang " + Rupiah(hasil));
+            }
+            else if(hasil > 0){
+                $('.note').text("Jumlah Pembayaran Lebih " + Rupiah(hasil));
+            }
+            else {
+                $('.note').text("transfer Sesuai.");
+            }
+
+            
+        });
+
+    });
 </script>
+
+
 
 <?php
 
@@ -204,6 +341,57 @@ if (isset($_GET['no_transac']) && $_GET['action'] == "deny") {
 <?php
 
 }
+
+if (isset($_GET['no_transac']) && $_GET['action'] == "dp") {
+    require_once('../../includes/connection.php');
+    $status = "confirmed";
+    $no_transac = $_GET['no_transac'];
+    $dp = $_POST['cust_transfer'];
+    $catatan = $_POST['note'];
+    // update table transac
+    $query_update = "UPDATE tbltransac SET status = '" . $status . "', dp = '" . $dp . "', catatan = '" . $catatan . "' WHERE transac_code='" . $_GET['no_transac'] . "'";
+    mysqli_query($db, $query_update) or die(mysqli_error($db));
+
+
+    // //insert ke table detail, berfungsi untuk melihat hisoty siapa yang accept atau dengan alesan apa
+    // $query_insert = "INSERT INTO tbldetailrequestmitra(date,note,status,user_id)values('" . $datetime . "','" . $note . "','" . $status . "','" . $user_id . "')";
+    // mysqli_query($db, $query_insert) or die(mysqli_error($db));
+?>
+<script type="text/javascript">
+    window.location.href = '../detailtransac_reservasi.php?id=<?php echo $no_transac ?>';
+    alert("Pesanan Telah Diterima, menunggu customer membayar pelunasan.");
+</script>
+<?php
+
+}
+
+if (isset($_GET['no_transac']) && $_GET['action'] == "accept") {
+    require_once('../../includes/connection.php');
+    $status = "done";
+    $no_transac = $_GET['no_transac'];
+    $catatan = $_POST['note'];
+    // update table transac
+    $query_update = "UPDATE tbltransac SET status = '" . $status . "', catatan = '" . $catatan . "' WHERE transac_code='" . $_GET['no_transac'] . "'";
+    mysqli_query($db, $query_update) or die(mysqli_error($db));
+
+
+    // //insert ke table detail, berfungsi untuk melihat hisoty siapa yang accept atau dengan alesan apa
+    // $query_insert = "INSERT INTO tbldetailrequestmitra(date,note,status,user_id)values('" . $datetime . "','" . $note . "','" . $status . "','" . $user_id . "')";
+    // mysqli_query($db, $query_insert) or die(mysqli_error($db));
+?>
+<script type="text/javascript">
+    window.location.href = '../detailtransac_reservasi.php?id=<?php echo $no_transac ?>';
+    alert("Pesanan Telah Selesai, silahkan membuat pesanan untuk reservasi.");
+</script>
+<?php
+
+}
+
+
+
+
+
+
 
 // tombol save untuk pengembalian transfer ketika pesanan ditolak
 if (isset($_POST['save_deny'])) {
@@ -447,3 +635,5 @@ if (isset($_POST['save_ketidaksesuaian'])) {
 }
 
 ?>
+
+

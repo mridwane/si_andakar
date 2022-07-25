@@ -68,8 +68,11 @@ while ($row = mysqli_fetch_assoc($result)) {
         $status = "Dibatalkan";
     }
     $total = $row['total_price'];
-    $pajak = $row["tax-sepuluh"];
+    $pajak = $row["tax_sepuluh"];
     $subtotal = $row["subtotal"];
+    $catatan = $row["catatan"];
+    $dp = $row["dp"];
+    $sisa = $total - $dp;
 }
 ?>
 
@@ -116,7 +119,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                                 <label for="">Total Pesanan</label>
                                 <input type="text" class="form-control"
                                     value="Rp. <?= number_format(($total)) ?>" readonly />
-                            </div>
+                            </div>                            
                             <?php if ($status == "Pending") { ?>
                             <span>*Pesanan Anda Belum Selesai</span>
                             <?php } elseif ($status == "Sudah Bayar") { ?>
@@ -136,7 +139,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                                 <button type="submit">Pesanan Selesai</button>
                             </div>
                             <?php } elseif ($status == "Selesai") { ?>
-                            <h4>Pesanan anda telah selesai.</h4>
+                            
+                            <h4>Pesanan anda telah selesai dan <?= $catatan ?></h4>
                             <!-- tombol tomtol untuk pesanan reservasi -->
                             <?php } elseif ($status == "DP Tidak Sesuai" && strtoupper($jenis) == strtoupper("reservasi")) { ?>
                             <h4>Transfer Down Payement (DP) yang telah anda lakukan tidak sesuai dengan nominal
@@ -159,12 +163,17 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <a href="reservasi_revisi_lns.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>"
                                 class="btn btn-danger">Lihat Rincian / Upload Ulang</a>
                             <?php } elseif ($status == "Disetujui" && strtoupper($jenis) == strtoupper("reservasi")) { ?>
+                            <div>
+                                <label for="">DP yang anda bayarkan</label>
+                                <input type="text" class="form-control" value="Rp. <?= number_format(($dp)) ?>"
+                                    readonly />
+                            </div>
                             <h4>Pesanan anda telah kami terima. Mohon melakukan pelunasan SISA BAYAR maksimal h-2 dari
                                 jadwal yang telah dipilih.</h4>
                             <div>
-                                <label for="">Anda Harus Membayar Sebesar</label>
+                                <label for="">Sisa Pembayaran anda</label>
                                 <input type="text" class="form-control"
-                                    value="Rp. <?= number_format(($total) / 2, 0, ',', '.'); ?>" readonly />
+                                    value="Rp. <?= number_format($sisa, 0, ',', '.'); ?>" readonly />
                             </div>
                             <label for="upload">Upload Bukti Transfer Pelusanan</label>
                             <input type="file" class="form-control" id="upload_pelunasan" name="upload_pelunasan"

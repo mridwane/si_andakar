@@ -178,7 +178,9 @@ if (!isset($_SESSION["userid"])) {
                   $subtotal = $row2["subtotal"];
                   $pajak = $row2["tax_sepuluh"];
                   $biaya_kirim = $row2["biaya_kirim"];
+                  $dp = $row2["dp"];
                   $total_price = $row2["total_price"];
+                  $sisa = $total_price - $dp;
                 }
                 echo "SUB TOTAL : Rp. " . number_format($subtotal);
                 echo "<br>";
@@ -241,20 +243,18 @@ if (!isset($_SESSION["userid"])) {
 
         <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
         <?php } elseif (strtoupper($row["status"]) == strtoupper("dp") || strtoupper($row["status"]) == strtoupper("after_revision") && strtoupper($row["transac_type"]) == strtoupper("reservasi")) { ?>
-        <a href="controller/admin_reservasi_controller.php?no_transac=<?php echo $cd; ?>&action=confirm"
-          class="btn btn-xs btn-info"><i class="fas fa-sign-out-alt"></i>Terima Pesanan</a>
+        <!-- <a href="controller/admin_reservasi_controller.php?no_transac=<?php echo $cd; ?>&action=confirm"
+          class="btn btn-xs btn-info"><i class="fas fa-sign-out-alt"></i>Terima Pesanan</a> -->
+        <button type="button" class="btn btn-info" data-toggle="modal"
+          data-target="#dp_modal<?php echo $_GET['id']; ?>">Terima Pesanan</button>
         <button type="button" class="btn btn-danger" data-toggle="modal"
           data-target="#deny_modal<?php echo $_GET['id']; ?>">Tolak Pesanan</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal"
-          data-target="#update_modal<?php echo $_GET['id']; ?>">Transfer Tidak Sesuai</button>
         <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
         <?php } elseif (strtoupper($row["status"]) == strtoupper("pelunasan") || strtoupper($row["status"]) == strtoupper("after_revision_lns") && strtoupper($row["transac_type"]) == strtoupper("reservasi")) { ?>
-        <a href="controller/admin_reservasi_controller.php?no_transac=<?php echo $cd; ?>&action=lunas"
-          class="btn btn-xs btn-info"><i class="fas fa-sign-out-alt"></i>Buat Pesanan</a>
+        <button type="button" class="btn btn-info" data-toggle="modal"
+          data-target="#accept_modal<?php echo $_GET['id']; ?>">Buat Pesanan</button>
         <button type="button" class="btn btn-danger" data-toggle="modal"
           data-target="#deny_modal<?php echo $_GET['id']; ?>">Tolak Pesanan</button>
-        <button type="button" class="btn btn-primary" data-toggle="modal"
-          data-target="#update_modal<?php echo $_GET['id']; ?>">Transfer Tidak Sesuai</button>
         <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a>
         <?php } elseif (strtoupper($row["status"]) == strtoupper('confirmed') && strtoupper($row["transac_type"]) == strtoupper("reservasi")) { ?>
         <span>Menunggu Customer Melakukan Pelunasan</span>
@@ -294,7 +294,7 @@ if (!isset($_SESSION["userid"])) {
       </div>
     </div>
     <?php
-      $query = 'SELECT * FROM tbltransacdetail
+      $query = 'SELECT * FROM tbltransac
               WHERE
               transac_code ="' . $_GET['id'] . '"';
       $result = mysqli_query($db, $query) or die(mysqli_error($db));
