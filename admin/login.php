@@ -52,97 +52,86 @@ else{
 }?>
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Login</title>
-
-  <!-- Bootstrap core CSS-->
-  <link rel="stylesheet" href="css/tambahan-admin.css">
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-  <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
-
-  <link rel="stylesheet" type="text/css" href="css/sb-new.css">
-</head>
-
-<body class="login">
-  <div class="container">
-    <div class="row">
-      <div class="col-6">
-        <div class="container">
-          <div class="card card-login mx-auto mt-5">
-            <div class="card-header">
-              <h3>Masuk</h3>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Login - SB Admin</title>
+        <!-- Custom fonts for this template-->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="css/styles.css" rel="stylesheet" />
+        <style>
+          /* custom css */
+          .bg-auth {
+            position: fixed;
+            width: 100%;
+          }
+        </style>
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="bg-warning">
+      <img src="../assets/images/bg-auth.jpg" class="bg-auth" alt="">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-5">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                                    <div class="card-body">
+                                      <?php session_start();
+                                      if (isset($_GET['error'])) {
+                                        if ($_GET["error"]=="wrongpwd") {
+                                          echo '<p class="signuperror">Username/Password Salah!</p>';
+                                        }
+                                      }     
+                                      ?>
+                                        <form ction="login.php" method="post">
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="inputEmail" name="mailuid" class="form-control" placeholder="Email/Username" required autofocus="autofocus"/>
+                                                <label for="inputEmail">Email/Username</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input id="inputPassword" type="password" name="pwd" class="form-control" placeholder="Password" required/>
+                                                <label for="inputPassword">Password</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
+                                                <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                                <button type="submit" class="btn btn-primary" name="login-submit">Login</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- <div class="card-footer text-center py-3">
+                                        <div class="small"><a href="register.php">Belum Punya Akun? </a></div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
             </div>
-            <div class="card-body">
-              <?php session_start();
-            if (isset($_GET['error'])) {
-              if ($_GET["error"]=="wrongpwd") {
-                echo '<p class="signuperror">Username/Password Salah!</p>';
-              }
-              
-              } 
-              
-          
-            ?>
-              <form action="login.php" method="post">
-                <div class="form-group">
-                  <div class="form-label-group">
-                    <input type="text" id="inputEmail" name="mailuid" class="form-control" placeholder="Email/Username"
-                      required autofocus="autofocus">
-                    <label for="inputEmail">Email/Nama Pengguna</label>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="form-label-group">
-                    <input type="password" id="inputPassword" name="pwd" class="form-control" placeholder="Password">
-                    <label for="inputPassword">Kata Sandi</label>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value="remember-me">
-                      Ingatkan Kata Sandi
-                    </label>
-                  </div>
-                </div>
-                <button class="btn btn-primary btn-block" name="login-submit">Masuk</button>
-              </form>
-              <div class="text-center">
-                <a class="d-block small mt-3" href="register.php">Signup</a>
-                <a class="d-block small mt-3" href="index.php">Home</a>
-              </div>
-            </div>
-          </div>
+            <!-- <div id="layoutAuthentication_footer">
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div> -->
         </div>
-      </div>
-
-      <div class="col-6 center-position">
-        <img src="images/login.svg" alt="" width="300px">
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-</body>
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+    </body>
 </html>

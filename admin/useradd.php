@@ -50,14 +50,14 @@ include 'theme/sidebar.php';
           <div class="form-row">
             <div class="col-md-6">
               <div class="form-label-group">
-                <input type="text" id="firstName" name="firstname" class="form-control" placeholder="First name"
+                <input type="text" id="firstName" name="C_FNAME" class="form-control" placeholder="First name"
                   autofocus="autofocus">
                 <label for="firstName">Nama Depan</label>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-label-group">
-                <input type="text" id="lastName" name="lastname" class="form-control" placeholder="Last name">
+                <input type="text" id="lastName" name="C_LNAME" class="form-control" placeholder="Last name">
                 <label for="lastName">Nama Belakang</label>
               </div>
             </div>
@@ -65,42 +65,37 @@ include 'theme/sidebar.php';
         </div>
         <div class="form-group">
           <div class="form-label-group">
-            <input type="text" id="inputEmail" name="mail" class="form-control" placeholder="Email address">
-            <label for="inputEmail">Email</label>
+            <input type="number" maxlength="11" id="inputpnumber" name="C_PNUMBER" class="form-control"
+              placeholder="Phone Number">
+            <label for="inputpnumber">Nomor HP</label>
           </div>
         </div>
         <div class="form-group">
           <div class="form-label-group">
-            <select type="text" id="inputEmail2" name="pos" class="form-control" placeholder="Position">
-              <option>Crew Restoran</option>
+            <select type="text" id="inputGender" name="C_ROLE" class="form-control" placeholder="Posisi">
+              <option value="" selected disabled>Pilih Posisi</option>
+              <option>Crew</option>
               <option>Admin Finance</option>
-              <option>Operational Manajer</option>
             </select>
           </div>
         </div>
         <div class="form-group">
           <div class="form-label-group">
-            <input type="hidden" id="inputContact" name="con" class="form-control" placeholder="Email address">
-            <label for="inputContact">Contact</label>
+            <input type="text" id="inputEmail" name="C_EMAILADD" class="form-control" placeholder="Email Address">
+            <label for="inputEmail">Alamat Email</label>
           </div>
         </div>
         <div class="form-group">
           <div class="form-label-group">
-            <input type="hidden" id="inputAddress" name="addre" class="form-control" placeholder="Email address">
-            <label for="inputAddress">Alamat</label>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="form-label-group">
-            <input type="text" id="inputEmail1" name="uid" class="form-control" placeholder="User Name">
-            <label for="inputEmail1">Nama Pengguna</label>
+            <input type="text" id="inputuser" name="username" class="form-control" placeholder="Username">
+            <label for="inputuser">Nama Pengguna</label>
           </div>
         </div>
         <div class="form-group">
           <div class="form-row">
             <div class="col-md-6">
               <div class="form-label-group">
-                <input type="password" id="inputPassword" name="pwd" class="form-control" placeholder="Password">
+                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password">
                 <label for="inputPassword">Kata Sandi</label>
               </div>
             </div>
@@ -113,7 +108,7 @@ include 'theme/sidebar.php';
             </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block" name="signup-submit">Simpan</button>
+        <button type="submit" class="btn btn-primary btn-block" name="signups-submit">Registrasi</button>
       </form>
     </div>
   </div>
