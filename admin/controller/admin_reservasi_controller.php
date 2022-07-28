@@ -76,8 +76,8 @@
                         </div>
                         <div class="form-group">
                             <label>Nominal Transfer Seharusnya</label>
-                            <input type="text" name="transfer_seharusnya" id="transfer_seharusnya" value="<?php echo number_format(($total_price) / 2) ?>" class="form-control" readonly />
-                            <input type="text" value="<?= ($total_price) / 2 ?>" class="form-control nominal" hidden />
+                            <input type="text" name="transfer_seharusnya" id="transfer_seharusnya" value="<?php echo number_format(($total) / 2) ?>" class="form-control" readonly />
+                            <input type="text" value="<?= ($total) / 2 ?>" class="form-control nominal" hidden />
                         </div>
                         <div class="form-group">
                             <label>Jumlah Transfer</label>
@@ -166,7 +166,7 @@
                         <div class="form-group">
                             <label>Nominal Transfer Seharusnya</label>
                             <input type="text" name="transfer_seharusnya" id="transfer_seharusnya"
-                                value="<?php echo number_format(($total_price) / 2) ?>" class="form-control"
+                                value="<?php echo number_format(($total) / 2) ?>" class="form-control"
                                 readonly />
                         </div>
                         <div class="form-group">
