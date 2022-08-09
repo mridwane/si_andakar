@@ -51,13 +51,13 @@ include 'theme/sidebar.php';
             <div class="col-md-6">
               <div class="form-label-group">
                 <input type="text" id="firstName" name="C_FNAME" class="form-control" placeholder="First name"
-                  autofocus="autofocus">
+                  autofocus="autofocus" required>
                 <label for="firstName">Nama Depan</label>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-label-group">
-                <input type="text" id="lastName" name="C_LNAME" class="form-control" placeholder="Last name">
+                <input type="text" id="lastName" name="C_LNAME" class="form-control" placeholder="Last name" required>
                 <label for="lastName">Nama Belakang</label>
               </div>
             </div>
@@ -66,13 +66,13 @@ include 'theme/sidebar.php';
         <div class="form-group">
           <div class="form-label-group">
             <input type="number" maxlength="11" id="inputpnumber" name="C_PNUMBER" class="form-control"
-              placeholder="Phone Number">
+              placeholder="Phone Number" required>
             <label for="inputpnumber">Nomor HP</label>
           </div>
         </div>
         <div class="form-group">
           <div class="form-label-group">
-            <select type="text" id="inputGender" name="C_ROLE" class="form-control" placeholder="Posisi">
+            <select type="text" id="inputGender" name="C_ROLE" class="form-control" placeholder="Posisi" required>
               <option value="" selected disabled>Pilih Posisi</option>
               <option>Crew</option>
               <option>Admin Finance</option>
@@ -81,13 +81,14 @@ include 'theme/sidebar.php';
         </div>
         <div class="form-group">
           <div class="form-label-group">
-            <input type="text" id="inputEmail" name="C_EMAILADD" class="form-control" placeholder="Email Address">
+            <input type="text" id="inputEmail" name="C_EMAILADD" class="form-control" placeholder="Email Address"
+              required>
             <label for="inputEmail">Alamat Email</label>
           </div>
         </div>
         <div class="form-group">
           <div class="form-label-group">
-            <input type="text" id="inputuser" name="username" class="form-control" placeholder="Username">
+            <input type="text" id="inputuser" name="username" class="form-control" placeholder="Username" required>
             <label for="inputuser">Nama Pengguna</label>
           </div>
         </div>
@@ -95,14 +96,15 @@ include 'theme/sidebar.php';
           <div class="form-row">
             <div class="col-md-6">
               <div class="form-label-group">
-                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password">
+                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password"
+                  required>
                 <label for="inputPassword">Kata Sandi</label>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-label-group">
                 <input type="password" id="confirmPassword" name="pwdcon" class="form-control"
-                  placeholder="Confirm password">
+                  placeholder="Confirm password" required>
                 <label for="confirmPassword">Konfirmasi Kata Sandi</label>
               </div>
             </div>
