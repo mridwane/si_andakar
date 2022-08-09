@@ -35,6 +35,38 @@
         <!-- navigation strats -->
         <?php include 'includes/navigation.php'; ?>
         <!-- end navigation-->
+        <?php if ($cek->num_rows > 0) { } else { ?>
+            <section class="slider_section">
+                <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="container ">
+                                <div class="row">
+                                    <div class="col-md-7 col-lg-6 ">
+                                        <div class="detail-box">
+                                            <h1>
+                                                Hi calon mitra,
+                                            </h1>
+                                            <h5>
+                                                Disini anda bisa membuka restorant steak dengan modal hanya 700 JUTA*
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <ol class="carousel-indicators">
+                            <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+                            <li data-target="#customCarousel1" data-slide-to="1"></li>
+                            <li data-target="#customCarousel1" data-slide-to="2"></li>
+                        </ol>
+                    </div>
+                </div>
+
+            </section>
+        <?php } ?>
     </div>
     <?php if ($cek->num_rows > 0) {
             if($status == "denied"){
@@ -132,6 +164,113 @@
         </section>
         <?php } ?>
     <?php }else{ ?>
+    <section class="about_section layout_padding">
+        <div class="container  ">
+            <div class="row">
+                <div class="col-md-6 ">
+                    <div class="img-box">
+                        <img src="assets/images/logo.png" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="detail-box">
+                        <div class="heading_container">
+                            <h2>
+                                Keuntungan Kemitraan dengan kami?
+                            </h2>
+                        </div>
+                        <br>
+                        <ul>
+                            <li>
+                                Brand sudah bersertifkat HKI
+                            </li>
+                            <li>
+                                Sistem Management administrasi transparant
+                            </li>
+                            <li>
+                                Kerja sama yang menguntungkan
+                            </li>
+                            <li>
+                                Produk bersertifikat halal MUI
+                            </li>
+                            <li>
+                                Buka bisnis musiman dan tidak terpengaruh oleh musim
+                            </li>
+                            <li>
+                                Jaminan ketersediaan bahan
+                            </li>
+                        </ul>                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br>
+    <section class="client_section layout_padding-bottom">
+        <div class="container">
+            <div class="heading_container heading_center psudo_white_primary mb_45">
+                <h2>
+                    Bagaimana caranya menjadi mitra kami?
+                </h2>
+            </div>
+            <div class="carousel-wrap row ">
+                <div class="owl-carousel client_owl-carousel">
+                    <div class="item">
+                        <div class="box">
+                            <div class="detail-box">
+                                <h6>
+                                    1. Registrasi
+                                </h6>
+                                <br>
+                                <p>
+                                   Calon mitra melakukan registrasi dengan membuat akun dan mengapload dokumen persyaratan.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="box">
+                            <div class="detail-box">
+                                <h6>
+                                    2. Verifikasi
+                                </h6>
+                                <br>
+                                <p>
+                                    Verifikasi dokumen dan mengundang untuk wawancara.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="box">
+                            <div class="detail-box">
+                                <h6>
+                                    3. Wawancara
+                                </h6>
+                                <br>
+                                <p>
+                                    Calon mitra melakukan wawancara.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="box">
+                            <div class="detail-box">
+                                <h6>
+                                    4. ACC
+                                </h6>
+                                <br>
+                                <p>
+                                    Calon mitra yang sesuai akan di ACC dan masuk kedalam daftar mitra.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="book_section layout_padding">
         <div class="container">
             <div class="heading_container">
