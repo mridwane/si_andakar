@@ -24,7 +24,6 @@ include 'theme/sidebar.php';
               <th>Nomor Kontak</th>
               <th>Jenis Kelamin</th>
               <th>Alamat Email</th>
-              <th>Zipcode</th>
               <th>Detail</th>
             </tr>
           </thead>
@@ -50,7 +49,6 @@ include 'theme/sidebar.php';
                             echo '<td>'. $row['C_PNUMBER'].'</td>';  
                             echo '<td>'. $row['C_GENDER'].'</td>';  
                             echo '<td>'. $row['C_EMAILADD'].'</td>';
-                            echo '<td>'. $row['ZIPCODE'].'</td>';
                             echo '<td>  ';
                             echo '<a  type="button" class="btn-detail" href="customerdetail.php?action=view & id='.$row['C_ID'] . '">
                                     <span class="material-icons">
