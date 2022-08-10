@@ -13,7 +13,7 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link rel="shortcut icon" href="images/favicon.png" type="">
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="">
 
     <title> Andakar - <?= $page ?></title>
 
