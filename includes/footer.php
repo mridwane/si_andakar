@@ -11,19 +11,19 @@
                          <a href="">
                              <i class="fa fa-map-marker" aria-hidden="true"></i>
                              <span>
-                                 Location
+                                  Jl. Warung Buncit Raya No.1, RT.12/RW.5, Kalibata, Kec. Pancoran, Kota Jakarta Selatan
                              </span>
                          </a>
                          <a href="">
                              <i class="fa fa-phone" aria-hidden="true"></i>
                              <span>
-                                 Call +01 1234567890
+                                 Call (021) 7901360
                              </span>
                          </a>
                          <a href="">
                              <i class="fa fa-envelope" aria-hidden="true"></i>
                              <span>
-                                 demo@gmail.com
+                                 andakarsteak@yahoo.com
                              </span>
                          </a>
                      </div>
@@ -64,7 +64,7 @@
                      Everyday
                  </p>
                  <p>
-                     10.00 Am -10.00 Pm
+                    11.00 Am - 21.00 Pm
                  </p>
              </div>
          </div>
