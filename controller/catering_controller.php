@@ -12,7 +12,7 @@ if ($_GET['action'] == 'save') {
   $type = "Catering";
   if ($margin_date < 2) {
     echo ("<script language='JavaScript'>
-    window.location.href='../catering.php?kd_cart=$type.$user_id';
+    window.location.href='../catering.php?kd_cart=$type$user_id';
     window.alert('Minimal Pemesanan Catering H+2 Dari Tanggal Saat Ini')
     </script>");
   } else if ($margin_date >= 2) {
