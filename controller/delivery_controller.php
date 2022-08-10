@@ -70,7 +70,7 @@ if ($_GET['action'] == 'save') {
 
   echo ("<script language='JavaScript'>
     window.location.href = '../delivery_rincian.php?no_transaksi=$no_transac';
-    window.alert('Data delivery berhasil disimpan. Mohon Lakukan pembayaran Down Payment')
+    window.alert('Data delivery berhasil disimpan.')
   </script>");
 }
 
