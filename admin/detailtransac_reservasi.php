@@ -73,26 +73,55 @@ if (!isset($_SESSION["userid"])) {
 <div class="card">
   <div class="card-header">
     <div style="margin-bottom: 30px">
-      <h5>No. Pemesanan : <?php echo $cd; ?></h5>
-      <h5>Nama : <?php echo $name; ?></h5>
-      <h5>Kontak : 0<?php echo $contact; ?></h5>
-      <h5>Alamat : <?php echo $address; ?></h5>
-      <h5>Jenis Pesanan : <?php echo $order_type; ?></h5>
-      <h5>Status Pesanan : <?php echo $status_strng; ?></h5>
-      <h5>Tanggal & Waktu : <?php echo $tgl_reservasi; ?></h5>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">No. Pemesanan : </span>
+        </div>
+        <input type="text" class="form-control" value="<?php echo $cd; ?>" readonly>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Nama : </span>
+        </div>
+        <input type="text" class="form-control" value="<?php echo $name; ?>" readonly>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Kontak : </span>
+        </div>
+        <input type="text" class="form-control" value="<?php echo $contact; ?>" readonly>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Alamat : </span>
+        </div>
+        <input type="text" class="form-control" value="<?php echo $address; ?>" readonly>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Status Pesanan : </span>
+        </div>
+        <input type="text" class="form-control" value="<?php echo $status_strng; ?>" readonly>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Tanggal & Waktu : </span>
+        </div>
+        <input type="text" class="form-control" value="<?php echo $tgl_reservasi; ?>" readonly>
+      </div>
       <?php if (strtoupper($order_type) == strtoupper("delivery") || strtoupper($order_type) == strtoupper("reservasi")) { ?>
       <?php if ($stats == "paid" || $stats == "dp" || $stats == "lunas" || $stats == "pelunasan" || $stats == "after_revision_lns" || $stats == "after_revision") { ?>
-      <h5>Bukti Transfer <?php if ($order_type == "Reservasi") {
+      <p>Bukti Transfer <?php if ($order_type == "Reservasi") {
                                   echo " DP";
                                 } ?>:
-        <?php echo '<a href="controller/download_file_transaksi.php?file_name=' . $file_name_dp . '&no_transac=' . $cd . '">Download Bukti Transfer</a>'; ?>
-      </h5>
+        <?php echo '<a class="btn btn-primary" href="controller/download_file_transaksi.php?file_name=' . $file_name_dp . '&no_transac=' . $cd . '">Download Bukti Transfer</a>'; ?>
+      </p>
 
       <?php }
           if ($stats == "lunas" || $stats == "pelunasan" || $stats == "after_revision_lns") { ?>
-      <h5>Bukti Transfer Pelunasan :
-        <?php echo '<a href="controller/download_file_transaksi.php?file_name=' . $file_name_lunas . '&no_transac=' . $cd . '">Download Bukti Transfer</a>'; ?>
-      </h5>
+      <p>Bukti Transfer Pelunasan :
+        <?php echo '<a class="btn btn-primary" href="controller/download_file_transaksi.php?file_name=' . $file_name_lunas . '&no_transac=' . $cd . '">Download Bukti Transfer</a>'; ?>
+      </p>
       <?php
           }
         }  ?>
@@ -100,8 +129,8 @@ if (!isset($_SESSION["userid"])) {
     <div class="card-body">
       <h4 style="color: blue">Informasi Pemesanan</h4>
       <div class="table-responsive">
-        <table cellpadding="5" width="100%" cellspacing="0">
-          <thead>
+        <table class="table" cellpadding="5" width="100%" cellspacing="0">
+          <thead class="table-primary">
             <tr>
               <th>Produk</th>
               <th>Tanggal Pesanan</th>
@@ -109,7 +138,7 @@ if (!isset($_SESSION["userid"])) {
               <th>Total</th>
             </tr>
           </thead>
-          <tbody style="font-size: 20px">
+          <tbody>
             <?php
               // $query = 'SELECT * FROM `tbltransac` a, `tblproducts` b, `tbltransacdetail` c WHERE
               // c.product_code=b.product_id AND a.transac_code="'.$_GET['id'].'"';
@@ -137,33 +166,6 @@ if (!isset($_SESSION["userid"])) {
               while ($row = mysqli_fetch_array($result)) {
 
               ?>
-
-            <!-- <tr>
-              <td colspan="5" align="right"><br>
-                <h5> Subtotal :</h5>
-              </td>
-              <td><br>
-                <h5> Rp. <?php echo $row["total_price"]; ?></h5>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="5" align="right">
-                <h5> Biaya pengiriman :</h5>
-              </td>
-              <td>
-                <h5> Rp. 10000</h5>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="5" align="right">
-                <h5> Total :</h5>
-              </td>
-              <td>
-                <h5> Rp. <?php echo $zz; ?></h5>
-              </td>
-            </tr> -->
-
-
           </tbody>
         </table>
         <br>
@@ -183,44 +185,97 @@ if (!isset($_SESSION["userid"])) {
                   $pelunasan = $row['pelunasan'];
                   $sisa = $total - $dp;
                   $total_pembayaran = $dp + $pelunasan;
-                }
-                echo "SUB TOTAL : Rp. " . number_format($subtotal);
-                echo "<br>";
-                echo "PAJAK 10% : Rp. " . number_format($pajak);
-                echo "<br>";
-                echo "TOTAL KESELURUHAN : Rp. " . number_format(($total));
-                if ($stats == "pelunasan"){
-                  echo "<br>";
-                  echo "DP YANG DIBAYARKAN : Rp. " . number_format($dp);
-                  echo "<br>";
-                  echo "PELUNASAN YANG HARUS DIBAYAR : Rp. " . number_format($sisa);
-                }
-                elseif ($stats == "confirmed") {
-                  echo "<br>";
-                  echo "DP YANG HARUS DIBAYAR : Rp. " . number_format($total / 2);
-                  echo "<br>";
-                  echo "DP YANG DIBAYARKAN : Rp. " . number_format($dp);
-                }
-                elseif ($stats == "lunas") {
-                  echo "<br>";
-                  echo "DP YANG DIBAYAR : Rp. " . number_format($dp);
-                  echo "<br>";
-                  echo "PELUNASAN YANG DIBAYAR : Rp. " . number_format($sisa);
-                  echo "<br>";
-                  echo "SISA PEMBAYARAN : Rp. " . number_format($sisa);
-                }
-                elseif ($stats == "done") {
-                  echo "<br>";
-                  echo "DP YANG DIBAYAR : Rp. " . number_format($dp);
-                  echo "<br>";
-                  echo "PELUNASAN YANG DIBAYAR : Rp. " . number_format($pelunasan);
-                  echo "<br>";
-                  echo "SISA PEMBAYARAN : Rp. " . number_format($total_pembayaran - $total);
-                }
-                echo "<br>";
-                echo "<br>";
-
-          ?>
+                }?>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">SUB TOTAL : </span>
+                      </div>
+                      <input type="text" class="form-control" value="Rp. <?= number_format($subtotal); ?>" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">PAJAK 10%: </span>
+                      </div>
+                      <input type="text" class="form-control" value="Rp. <?= number_format($pajak); ?>" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">TOTAL KESELURUHAN : </span>
+                      </div>
+                      <input type="text" class="form-control" value="Rp. <?= number_format($total); ?>" readonly>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <?php if ($stats == "pelunasan"){ ?>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">DP YANG DIBAYARKAN : </span>
+                        </div>
+                        <input type="text" class="form-control" value="Rp. <?= number_format($dp); ?>" readonly>
+                      </div>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">PELUNASAN YANG HARUS DIBAYAR : </span>
+                        </div>
+                        <input type="text" class="form-control" value="Rp. <?= number_format($sisa); ?>" readonly>
+                      </div>
+                    <?php } elseif ($stats == "confirmed") { ?>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">DP YANG HARUS DIBAYAR : </span>
+                        </div>
+                        <input type="text" class="form-control" value="Rp. <?= number_format($total / 2); ?>" readonly>
+                      </div>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">DP YANG DIBAYAR : </span>
+                        </div>
+                        <input type="text" class="form-control" value="Rp. <?= number_format($dp); ?>" readonly>
+                      </div>
+                    <?php } elseif ($stats == "lunas") { ?>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">DP YANG DIBAYAR : </span>
+                        </div>
+                        <input type="text" class="form-control" value="Rp. <?= number_format($dp); ?>" readonly>
+                      </div>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">PELUNASAN YANG HARUS DIBAYAR : </span>
+                        </div>
+                        <input type="text" class="form-control" value="Rp. <?= number_format($sisa); ?>" readonly>
+                      </div>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">SISA PEMBAYARAN : </span>
+                        </div>
+                        <input type="text" class="form-control" value="Rp. <?= number_format($sisa); ?>" readonly>
+                      </div>
+                    <?php } elseif ($stats == "done") { ?>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">DP YANG DIBAYAR : </span>
+                        </div>
+                        <input type="text" class="form-control" value="Rp. <?= number_format($dp); ?>" readonly>
+                      </div>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">PELUNASAN YANG HARUS DIBAYAR : </span>
+                        </div>
+                        <input type="text" class="form-control" value="Rp. <?= number_format($sisa); ?>" readonly>
+                      </div>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">SISA PEMBAYARAN : </span>
+                        </div>
+                        <input type="text" class="form-control"
+                          value="Rp. <?= number_format($sisa); ?>" readonly>
+                      </div>
+                    <?php } ?>
+                  </div>
+                </div>
 
         <!-- daftar tombol untuk type transaksi delivery -->
         <?php if (strtoupper($row["status"]) == '0' && strtoupper($row["transac_type"]) == strtoupper("delivery")) { ?>

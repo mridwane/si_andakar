@@ -72,25 +72,55 @@ if (!isset($_SESSION["userid"])) {
 <div class="card">
   <div class="card-header">
     <div style="margin-bottom: 30px">
-      <h5>No. Pemesanan : <?php echo $cd; ?></h5>
-      <h5>Nama : <?php echo $name; ?></h5>
-      <h5>Kontak : 0<?php echo $contact; ?></h5>
-      <h5>Alamat : <?php echo $address; ?></h5>
-      <h5>Jenis Pesanan : <?php echo $order_type; ?></h5>
-      <h5>Status Pesanan : <?php echo $status_strng; ?></h5>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">No. Pemesanan : </span>
+        </div>
+        <input type="text" class="form-control" value="<?php echo $cd; ?>" readonly>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Nama : </span>
+        </div>
+        <input type="text" class="form-control" value="<?php echo $name; ?>" readonly>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Kontak : </span>
+        </div>
+        <input type="text" class="form-control" value="<?php echo $contact; ?>" readonly>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Alamat : </span>
+        </div>
+        <input type="text" class="form-control" value="<?php echo $address; ?>" readonly>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Jenis Pesanan : </span>
+        </div>
+        <input type="text" class="form-control" value="<?php echo $order_type; ?>" readonly>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Status Pesanan : </span>
+        </div>
+        <input type="text" class="form-control" value="<?php echo $status_strng; ?>" readonly>
+      </div>
       <?php if (strtoupper($order_type) == strtoupper("delivery")) { ?>
       <?php if ($stats == "paid") { ?>
-      <h5>Bukti Transfer <?php if ($order_type == "Delivery") {
+      <p>Bukti Transfer <?php if ($order_type == "Delivery") {
                                   echo "";
                                 } ?>:
-        <?php echo '<a href="controller/download_file_transaksi.php?file_name=' . $file_name_dp . '&no_transac=' . $cd . '">Download Bukti Transfer</a>'; ?>
-      </h5>
+        <?php echo '<a class="btn btn-primary" href="controller/download_file_transaksi.php?file_name=' . $file_name_dp . '&no_transac=' . $cd . '">Download Bukti Transfer</a>'; ?>
+      </p>
 
       <?php }
           if ($stats == "after_revision_lns") { ?>
-      <h5>Bukti Transfer Ulang :
-        <?php echo '<a href="controller/download_file_transaksi.php?file_name=' . $file_name_lunas . '&no_transac=' . $cd . '">Download Bukti Transfer</a>'; ?>
-      </h5>
+      <p>Bukti Transfer Ulang :
+        <?php echo '<a class="btn btn-primary" href="controller/download_file_transaksi.php?file_name=' . $file_name_lunas . '&no_transac=' . $cd . '">Download Bukti Transfer</a>'; ?>
+      </p>
       <?php
           }
         }  ?>
@@ -98,8 +128,8 @@ if (!isset($_SESSION["userid"])) {
     <div class="card-body">
       <h4 style="color: blue">Informasi Pemesanan</h4>
       <div class="table-responsive">
-        <table cellpadding="5" width="100%" cellspacing="0">
-          <thead>
+        <table class="table" cellpadding="5" width="100%" cellspacing="0">
+          <thead class="thead-primary">
             <tr>
               <th>Produk</th>
               <th>Tanggal Pesanan</th>
@@ -109,7 +139,7 @@ if (!isset($_SESSION["userid"])) {
               <th>Total</th>
             </tr>
           </thead>
-          <tbody style="font-size: 20px">
+          <tbody>
             <?php
               // $query = 'SELECT * FROM `tbltransac` a, `tblproducts` b, `tbltransacdetail` c WHERE
               // c.product_code=b.product_id AND a.transac_code="'.$_GET['id'].'"';
@@ -157,20 +187,31 @@ if (!isset($_SESSION["userid"])) {
                   $pajak = $subtotal * 0.10;
                   $ongkir = 10000;
                   $total = $subtotal + $pajak + $ongkir;
-                }
-                echo "Subtotal : Rp. " . number_format(($subtotal));
-                echo "<br>";
-                echo "Pajak 10% : Rp. " . number_format(($pajak));
-                echo "<br>";
-                echo "Biaya Kirim : Rp. " . number_format(($ongkir));
-                echo "<br>";
-                echo "TOTAL KESELURUHAN : Rp. " . number_format(($total));
-                echo "<br>";
-                echo "<br>";
-                echo "<br>";
-                echo "<br>";
-
-          ?>
+                }?>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">SUB TOTAL : </span>
+                  </div>
+                  <input type="text" class="form-control" value="Rp. <?= number_format($subtotal); ?>" readonly>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">PAJAK 10%: </span>
+                  </div>
+                  <input type="text" class="form-control" value="Rp. <?= number_format($pajak); ?>" readonly>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">BIAYA KIRIM: </span>
+                  </div>
+                  <input type="text" class="form-control" value="Rp. <?= number_format($ongkir); ?>" readonly>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">TOTAL KESELURUHAN : </span>
+                  </div>
+                  <input type="text" class="form-control" value="Rp. <?= number_format($total); ?>" readonly>
+                </div>
 
         <!-- daftar tombol untuk type transaksi delivery -->
 

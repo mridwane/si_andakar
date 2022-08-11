@@ -26,8 +26,7 @@ if (!isset($_SESSION["userid"])) {
           </thead>
           <tbody>
             <?php
-              $query = 'SELECT * FROM tbltransac WHERE status="done" OR status="cancel" OR status="deny_adm_dp" OR
-              status="lunas" OR status="deny_adm_lns" ORDER BY `date` DESC';
+              $query = 'SELECT * FROM tbltransac WHERE status="done" OR status="cancel" OR status="deny_adm_dp" OR status="lunas" OR status="deny_adm_lns" ORDER BY `date` DESC';
               $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
               while ($row = mysqli_fetch_assoc($result)) {
