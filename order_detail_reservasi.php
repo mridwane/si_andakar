@@ -119,7 +119,13 @@ while ($row = mysqli_fetch_assoc($result)) {
                                 <label for="">Total Pesanan</label>
                                 <input type="text" class="form-control"
                                     value="Rp. <?= number_format(($total)) ?>" readonly />
-                            </div>                            
+                            </div> 
+                            <span>
+                                *silahkan melakukan pembayaran ke rekening <b>BANK BCA (525 019 1873) atas nama
+                                    Yanuar R. Arief</b> sesuai dengan DP (DOWN
+                                PAYMENT, BUKAN TOTAL KESELURUHAN), Jika sudah silahkan
+                                upload bukti transfer dibawah ini.
+                            </span>
                             <?php if ($status == "Pending") { ?>
                             <span>*Pesanan Anda Belum Selesai</span>
                             <?php } elseif ($status == "Sudah Bayar") { ?>
