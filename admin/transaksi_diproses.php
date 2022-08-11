@@ -18,7 +18,6 @@ if (!isset($_SESSION["userid"])) {
           <thead>
             <tr>
               <th>No. Pemesanan</th>
-              <th>Pelanggan</th>
               <th>Tanggal Pemesanan</th>
               <th>Jenis Pesanan</th>
               <th>Status</th>
@@ -27,10 +26,9 @@ if (!isset($_SESSION["userid"])) {
           </thead>
           <tbody>
             <?php
-              $query = 'SELECT *,concat(`C_FNAME`," ",`C_LNAME`)as name FROM tbltransac a JOIN tblcustomer b ON
-              a.`customer_id`=b.`C_ID` WHERE a.`status`="revisi_dp" OR a.`status`="after_revision" OR
-              a.`status`="pelunasan" OR a.`status`="revisi_pelunasan" OR a.`status`="after_revision_lns" OR
-              a.`status`="confirmed" OR a.`status`="sending" ORDER BY `reservation_date_time` DESC';
+              $query = 'SELECT * FROM tbltransac WHERE status="revisi_dp" OR status="after_revision" OR
+              status="pelunasan" OR status="revisi_pelunasan" OR status="after_revision_lns" OR
+              status="confirmed" OR status="sending" ORDER BY `date` DESC';
               $result = mysqli_query($db, $query) or die(mysqli_error($db));
 
               while ($row = mysqli_fetch_assoc($result)) {
@@ -65,8 +63,7 @@ if (!isset($_SESSION["userid"])) {
                 }
                 echo '<tr>';
                 echo '<td>' . $row['transac_code'] . '</td>';
-                echo '<td>' . $row['name'] . '</td>';
-                echo '<td>' . $row['reservation_date_time'] . '</td>';
+                echo '<td>' . $row['date'] . '</td>';
                 echo '<td>' . $row['transac_type'] . '</td>';
                 echo '<td>' . $status . '</td>';
                 if($row['transac_type'] == "Catering"){
@@ -93,6 +90,14 @@ if (!isset($_SESSION["userid"])) {
                     </span>
                   </a></td>';
                 }
+                else {
+                echo '<td class="bungkus-tombol"><a title="View list Of Ordered" type="button" class="btn-detail"
+                    href="detailtransac_dinein.php?id=' . $row['transac_code'] . '">
+                    <span class="material-icons">
+                      visibility
+                    </span>
+                  </a></td>';
+                }
                 echo '</tr> ';
               }
               ?>
@@ -110,4 +115,3 @@ if (!isset($_SESSION["userid"])) {
 
 <?php include 'theme/footer.php';
 } ?>
-<?php include 'addtransac.php'; ?>
