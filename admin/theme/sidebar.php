@@ -72,6 +72,11 @@ if (isset($_SESSION['userid'])) { ?>
         <i class="fas fa-fw fa-user-tie"></i>
         <span>Laporan Catering</span></a>
     </li>
+    <li class="nav-item">
+      <a title="Reports" class="nav-link" href="reportkemitraan.php">
+        <i class="fas fa-fw fa-user-tie"></i>
+        <span>Laporan Kemitraan</span></a>
+    </li>
 
     <?php }elseif($_SESSION['position']=='Crew'){ ?>
     <li class="nav-item dropdown">
@@ -114,6 +119,11 @@ if (isset($_SESSION['userid'])) { ?>
       <a title="Reports" class="nav-link" href="reportcatering.php">
         <i class="fas fa-fw fa-user-tie"></i>
         <span>Laporan Catering</span></a>
+    </li>
+    <li class="nav-item">
+      <a title="Reports" class="nav-link" href="reportkemitraan.php">
+        <i class="fas fa-fw fa-user-tie"></i>
+        <span>Laporan Kemitraan</span></a>
     </li>
 
     <?php }elseif($_SESSION['position']=='Oprational Manager'){ ?>
