@@ -7,6 +7,7 @@
     // if (isset($_SESSION['C_ID']))
     $page = "Profil"; 
     include 'includes/header.php';
+    unset($_SESSION['page']);
     }
 
      $query = 'SELECT * FROM `tblcustomer` WHERE C_ID = "'.$_SESSION["cid"].'"';
