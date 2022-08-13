@@ -145,8 +145,8 @@ if (!isset($_SESSION["userid"])) {
             </div>
           </div>
         </div>
-        <a href="print/tag_order.php?no_transaksi=<?php echo $_GET['id']; ?>" target="_blank"
-          class="btn btn-xs btn-success"><i class="fas fa-sign-out-alt"></i>Cetak Tag Order</a>
+        <!-- <a href="print/tag_order.php?no_transaksi=<?php echo $_GET['id']; ?>" target="_blank"
+          class="btn btn-xs btn-success"><i class="fas fa-sign-out-alt"></i>Cetak Tag Order</a> -->
         <!-- <a href="detail.php" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Kembali</a> -->
         <?php    }  ?>
 
