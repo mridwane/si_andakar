@@ -358,10 +358,12 @@ if (!isset($_SESSION["userid"])) {
           <?php } elseif (strtoupper($row["status"]) == strtoupper('confirmed') && strtoupper($row["transac_type"]) == strtoupper("catering")) { ?>
             <span>Menunggu Customer Melakukan Pelunasan</span>
 
-          <?php } elseif (strtoupper($row["status"]) == strtoupper('done') && strtoupper($row["transac_type"]) == strtoupper("catering")) { ?>
+          <?php } elseif (strtoupper($row["status"]) == strtoupper('lunas') && strtoupper($row["transac_type"]) == strtoupper("catering")) { ?>
             <span></span><br>
 
-            <a href="print/invoice_catering.php?no_transaksi=<?php echo $_GET['id']; ?>" target="_blank" class="btn btn-xs btn-warning"><i class="fas fa-sign-out-alt"></i>Cetak Invoice</a>
+            <a href="print/invoice_catering.php?no_transaksi=<?php echo $_GET['id']; ?>" target="_blank" class="btn btn-xs btn-primary"><i class="fas fa-sign-out-alt"></i>Cetak Invoice</a>
+            <a href="print/tag_order.php?no_transaksi=<?php echo $_GET['id']; ?>" target="_blank" class="btn btn-xs btn-success"><i
+            class="fas fa-sign-out-alt" ></i>Cetak Tag Order</a>
 
           <?php } elseif (strtoupper($row["status"]) == 'confirmed' && strtoupper($row["transac_type"]) == "catering") { ?>
             <a href="controller/admin_delivery_controller.php?no_transac=<?php echo $cd; ?>&action=send" class="btn btn-xs btn-danger"><i class="fas fa-sign-out-alt"></i>Kirimkan Pesanan</a>

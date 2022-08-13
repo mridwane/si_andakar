@@ -253,8 +253,10 @@ if (!isset($_SESSION["userid"])) {
 
         <?php } elseif (strtoupper($row["status"]) == strtoupper('lunas') && strtoupper($row["transac_type"]) == strtoupper("delivery")) { ?>
         <span>Pesanan harus dikirimkan sesuai dengan tanggal yang tertera</span><br>
-        <a href="print/invoice_delivery.php?no_transaksi=<?php echo $_GET['id']; ?>" class="btn btn-xs btn-warning"><i
+        <a href="print/invoice_delivery.php?no_transaksi=<?php echo $_GET['id']; ?>" class="btn btn-xs btn-primary"><i
             class="fas fa-sign-out-alt"></i>Cetak Nota</a>
+        <a href="print/tag_order.php?no_transaksi=<?php echo $_GET['id']; ?>" target="_blank"
+          class="btn btn-xs btn-success"><i class="fas fa-sign-out-alt"></i>Cetak Tag Order</a>
         <button class="btn btn-xs btn-warning"  onclick="history.back()"><i class="fas fa-sign-out-alt"></i>Kembali</button>
 
         <?php } elseif (strtoupper($row["status"]) == strtoupper('sending') && strtoupper($row["transac_type"]) == strtoupper("delivery")) { ?>
