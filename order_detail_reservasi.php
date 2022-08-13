@@ -96,12 +96,10 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class="row">
                 <div class="col-md-6">
                     <div class="form_container">
-                        <form action="controller/reservasi_controller.php?action=savetrflunas" method="POST"
-                            enctype="multipart/form-data">
+                        <form action="controller/reservasi_controller.php?action=savetrflunas" method="POST" enctype="multipart/form-data">
                             <div>
                                 <label for="">No Transaksi</label>
-                                <input type="text" class="form-control" name="transac_code"
-                                    value="<?= $_GET['no_transaksi'] ?>" readonly />
+                                <input type="text" class="form-control" name="transac_code" value="<?= $_GET['no_transaksi'] ?>" readonly />
                             </div>
                             <div>
                                 <label for="">Jenis Pesanan</label>
@@ -117,9 +115,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                             </div>
                             <div>
                                 <label for="">Total Pesanan</label>
-                                <input type="text" class="form-control"
-                                    value="Rp. <?= number_format(($total)) ?>" readonly />
-                            </div> 
+                                <input type="text" class="form-control" value="Rp. <?= number_format(($total)) ?>" readonly />
+                            </div>
                             <span>
                                 *silahkan melakukan pembayaran ke rekening <b>BANK BCA (525 019 1873) atas nama
                                     Yanuar R. Arief</b> sesuai dengan DP (DOWN
@@ -127,66 +124,69 @@ while ($row = mysqli_fetch_assoc($result)) {
                                 upload bukti transfer dibawah ini.
                             </span>
                             <?php if ($status == "Pending") { ?>
-                            <span>*Pesanan Anda Belum Selesai</span>
+                                <span>*Pesanan Anda Belum Selesai</span>
                             <?php } elseif ($status == "Sudah Bayar") { ?>
-                            <h4>Pesanan kamu sedang kami proses, mohon untuk menunggu.</h4>
+                                <h4>Pesanan kamu sedang kami proses, mohon untuk menunggu.</h4>
                             <?php } elseif ($status == "Sudah Bayar DP" || $status == "Sudah Bayar Ulang DP") { ?>
-                            <h4>Terima kasih telah membayar down payment, Mohon menunggu konfirmasi dari kami</h4>
+                                <h4>Terima kasih telah membayar down payment, Mohon menunggu konfirmasi dari kami</h4>
                             <?php } elseif ($status == "Sudah Bayar Pelunasan" || $status == "Sudah Bayar Ulang Pelunasan") { ?>
-                            <h4>Terima kasih telah membayar Pelunasan, Mohon menunggu konfirmasi dari kami</h4>
+                                <h4>Terima kasih telah membayar Pelunasan, Mohon menunggu konfirmasi dari kami</h4>
                             <?php } elseif ($status == "Lunas") { ?>
-                            <h4>Terima kasih telah membayar pelunasan, Kami tunggu kedatangan anda. </h4>
-                            <br>
-                            <h6>*Jika ada yang ditanyakan silahkan hubungi kontak kami</h6>
+                                <h4>Terima kasih telah membayar pelunasan, Kami tunggu kedatangan anda. </h4>
+                                <br>
+                                <h6>*Jika ada yang ditanyakan silahkan hubungi kontak kami</h6>
                             <?php } elseif ($status == "Dikirim") { ?>
-                            <h4>Pesanan anda telah kami kirim ke alamat anda.</h4>
-                            <span>*Jika pesanan anda telah selesai, silahkan klik tombol selesai.</span>
-                            <div class="btn-box">
-                                <button type="submit">Pesanan Selesai</button>
-                            </div>
+                                <h4>Pesanan anda telah kami kirim ke alamat anda.</h4>
+                                <span>*Jika pesanan anda telah selesai, silahkan klik tombol selesai.</span>
+                                <div class="btn-box">
+                                    <button type="submit">Pesanan Selesai</button>
+                                </div>
                             <?php } elseif ($status == "Selesai") { ?>
-                            
-                            <h4>Pesanan anda telah selesai dan <?= $catatan ?></h4>
-                            <!-- tombol tomtol untuk pesanan reservasi -->
+
+                                <h4>Pesanan anda telah selesai dan <?= $catatan ?></h4>
+                                <!-- tombol tomtol untuk pesanan reservasi -->
                             <?php } elseif ($status == "DP Tidak Sesuai" && strtoupper($jenis) == strtoupper("reservasi")) { ?>
-                            <h4>Transfer Down Payement (DP) yang telah anda lakukan tidak sesuai dengan nominal
-                                seharusnya, klik disini untuk melihat rincian dan lakukan ulang pembayaran</h4>
-                            <a href="reservasi_revisi.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>"
-                                class="btn btn-danger">Lihat Rincian / Upload Ulang</a>
+                                <h4>Transfer Down Payement (DP) yang telah anda lakukan tidak sesuai dengan nominal
+                                    seharusnya, klik disini untuk melihat rincian dan lakukan ulang pembayaran</h4>
+                                <a href="reservasi_revisi.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>" class="btn btn-danger">Lihat Rincian / Upload Ulang</a>
                             <?php } elseif (strtoupper($status) == strtoupper("Dibatalkan Admin") && strtoupper($jenis) == strtoupper("reservasi")) { ?>
-                            <div>
-                                <label for="">Alasan Pembatalan</label>
-                                <textarea class="form-control" readonly><?= $note_admin ?></textarea>
-                            </div>
-                            <h4>Pesanan Anda telah dibatalkan. dana telah dikembalikan sebesar Rp.
-                                <?= number_format($besar_dana) ?></h4>
-                            <a
-                                href="controller/download_file_transaksi.php?file_name=<?php echo $file_name_dp ?>&no_transac=<?php echo $_GET['no_transaksi'] ?>">Lihat
-                                Bukti Pengembalian Dana</a>
+                                <div>
+                                    <label for="">Alasan Pembatalan</label>
+                                    <textarea class="form-control" readonly><?= $note_admin ?></textarea>
+                                </div>
+                                <h4>Pesanan Anda telah dibatalkan. dana telah dikembalikan sebesar Rp.
+                                    <?= number_format($besar_dana) ?></h4>
+                                <a href="controller/download_file_transaksi.php?file_name=<?php echo $file_name_dp ?>&no_transac=<?php echo $_GET['no_transaksi'] ?>">Lihat
+                                    Bukti Pengembalian Dana</a>
                             <?php } elseif ($status == "Pelunasan Tidak Sesuai" && strtoupper($jenis) == strtoupper("reservasi")) { ?>
-                            <h4>Transfer Pelunasan yang telah anda lakukan tidak sesuai dengan nominal seharusnya, klik
-                                disini untuk melihat rincian dan lakukan ulang pembayaran</h4>
-                            <a href="reservasi_revisi_lns.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>"
-                                class="btn btn-danger">Lihat Rincian / Upload Ulang</a>
-                            <?php } elseif ($status == "Disetujui" && strtoupper($jenis) == strtoupper("reservasi")) { ?>
-                            <div>
-                                <label for="">DP yang anda bayarkan</label>
-                                <input type="text" class="form-control" value="Rp. <?= number_format(($dp)) ?>"
-                                    readonly />
-                            </div>
-                            <h4>Pesanan anda telah kami terima. Mohon melakukan pelunasan SISA BAYAR maksimal h-2 dari
-                                jadwal yang telah dipilih.</h4>
-                            <div>
-                                <label for="">Sisa Pembayaran anda</label>
-                                <input type="text" class="form-control"
-                                    value="Rp. <?= number_format($sisa, 0, ',', '.'); ?>" readonly />
-                            </div>
-                            <label for="upload">Upload Bukti Transfer Pelusanan</label>
-                            <input type="file" class="form-control" id="upload_pelunasan" name="upload_pelunasan"
-                                accept=".jpeg, .jpg, .png">
-                            <div class="btn-box">
-                                <button type="submit" name="submit_pelunasan">Submit Pelunasan</button>
-                            </div>
+                                <h4>Transfer Pelunasan yang telah anda lakukan tidak sesuai dengan nominal seharusnya, klik
+                                    disini untuk melihat rincian dan lakukan ulang pembayaran</h4>
+                                <a href="reservasi_revisi_lns.php?no_transaksi=<?php echo $_GET['no_transaksi']; ?>" class="btn btn-danger">Lihat Rincian / Upload Ulang</a>
+                                <?php } elseif ($status == "Disetujui" && strtoupper($jenis) == strtoupper("reservasi")) {
+                                $date = date("Y-m-d");
+                                $margin_date2 = date("d", strtotime($waktu_reservasi)) - date("d", strtotime($date));
+                                if ($margin_date2 < 0) { ?>
+                                    <h4>Sudah melebihi batas waktu bayar pelunasan (hubungi kami untuk info lebih lanjut)</h4>
+                                <?php
+                                } else { ?>
+                                    <div>
+                                        <label for="">DP yang anda bayarkan</label>
+                                        <input type="text" class="form-control" value="Rp. <?= number_format(($dp)) ?>" readonly />
+                                    </div>
+                                    <h4>Pesanan anda telah kami terima. Mohon melakukan pelunasan SISA BAYAR. jika sampai tanggal yang telah dipilih (waktu reservasi) belum melakukan pelunasan, maka pesanan akan di batalkan.</h4>
+                                    <div>
+                                        <label for="">Sisa Pembayaran anda</label>
+                                        <input type="text" class="form-control" value="Rp. <?= number_format($sisa, 0, ',', '.'); ?>" readonly />
+                                    </div>
+                                    <label for="upload">Upload Bukti Transfer Pelusanan</label>
+                                    <input type="file" class="form-control" id="upload_pelunasan" name="upload_pelunasan" accept=".jpeg, .jpg, .png">
+                                    <div class="btn-box">
+                                        <button type="submit" name="submit_pelunasan">Submit Pelunasan</button>
+                                    </div>
+                                <?php
+                                }
+                                ?>
+
                             <?php } ?>
                         </form>
                         <div class="btn-black">
