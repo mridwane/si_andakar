@@ -50,7 +50,7 @@ $kd_cart = $jenis.$cid;?>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
     <!-- <button type="submit" class="btn btn-primary nextOrder disabled">Minimal Order 5.000.000</button> -->
-    <button type="submit" class="btn btn-primary nextOrder disabled">Checkout</button>
+    <button type="submit" class="btn btn-primary nextOrder" disabled>Checkout</button>
 </div>
 
 
@@ -64,15 +64,15 @@ $kd_cart = $jenis.$cid;?>
             console.log(jenis);
             if (jenis == 'Catering') {
                 if (total <= 5000000) {
-                    $('.nextOrder').addClass('disabled');
+                    $('.nextOrder').attr('disabled');
                     $('.nextOrder').text('Minimal Order 5.000.000');
                 } else {
-                    $('.nextOrder').removeClass('disabled');
+                    $('.nextOrder').removeAttr('disabled');
                     $('.nextOrder').text('Checkout');
                 }
             } else {
                 if (total > 0) {
-                    $('.nextOrder').removeClass('disabled');
+                    $('.nextOrder').removeAttr('disabled');
                 } else {
                     $('.nextOrder').addClass('disabled');
                 }
