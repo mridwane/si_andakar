@@ -6,7 +6,7 @@ session_start();
 if ($_GET['action'] == 'save') {
   $catering_date_time = date("Y-m-d", strtotime($_POST["date"]));
   $selected_date = date("Y-m-d H:i:s", strtotime($_POST["date"]));
-  $date = date("Y-m-d");
+  $date = date("Y/m/d");
   $margin_date = date("d", strtotime($catering_date_time)) - date("d", strtotime($date));
   $user_id = $_SESSION['cid'];
   $type = "Catering";
@@ -399,8 +399,8 @@ if (isset($_POST["ubah_jadwal"]) && $_GET['action'] == "ubah_jadwal") {
   $transac_code = $_POST["transac_code"];
   $date = $_POST["date"];
   $catering_date_time = date("Y-m-d", strtotime($date));
-  $selected_date = date("Y-m-d H:i:s", strtotime($date));
-  $date = date("Y-m-d");
+  $selected_date = date("Y/m/d H:i:s", strtotime($date));
+  $date = date("Y/m/d");
   $margin_date = date("d", strtotime($catering_date_time)) - date("d", strtotime($date));
   if ($margin_date < 2) {
     echo ("<script language='JavaScript'>
