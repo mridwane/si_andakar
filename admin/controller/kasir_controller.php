@@ -8,7 +8,7 @@ if ($_GET['action'] == 'save') {
   $tgl = date("dmYhis");
   $no_transac = "DIN" . $tgl . $random;
   $date = date("Y/m/d");
-  $user_id = 0;
+  $user_id = $_SESSION['userid'];
   $type = "Dinein";
   $kd_cart = $type.$user_id;
   // $kode_produk = $_POST['product_code'];
@@ -25,14 +25,10 @@ if ($_GET['action'] == 'save') {
   // ]);
 
   // untuk memasukan ke table tbltransac
-  $hitung_total = mysqli_query($db, 'SELECT SUM(a.harga) as total FROM tblcartdetail a JOIN tblcart b ON a.kd_cart = b.kd_cart
-  JOIN tblproducts c
-  ON
-  a.kd_menu = c.product_id JOIN tblsaus d ON
-  a.kd_saus = d.id_saus WHERE b.c_id = "' . $user_id . '" AND b.kd_cart = "' . $kd_cart . '"');
-
+  $hitung_total = mysqli_query($db, 'SELECT SUM(a.harga) as total FROM tblcartdetail a JOIN tblcart b ON a.kd_cart = b.kd_cart JOIN tblproducts c ON a.kd_menu = c.product_id JOIN tblsaus d ON a.kd_saus = d.id_saus WHERE b.c_id = "' . $user_id . '" AND b.kd_cart = "' . $kd_cart . '"');
   $ht = mysqli_fetch_array($hitung_total);
   $jml_total = $ht['total'];
+  echo $jml_total;
 
   $queryCek = mysqli_query($db, 'SELECT * FROM tbltransac WHERE customer_id = "' . $user_id . '" AND transac_type = "' . $type . '" AND transac_code = "' . $no_transac . '" ');
   $cek = mysqli_num_rows($queryCek);
@@ -47,10 +43,7 @@ if ($_GET['action'] == 'save') {
 
   // untuk memasukan ke table tbltransacdetail
   $query_select = mysqli_query($db, 'SELECT * FROM tblcartdetail a JOIN tblcart b ON a.kd_cart = b.kd_cart
-  JOIN tblproducts c
-  ON
-  a.kd_menu = c.product_id JOIN tblsaus d ON
-  a.kd_saus = d.id_saus WHERE b.kd_cart = "' .$kd_cart. '"');
+  JOIN tblproducts c ON a.kd_menu = c.product_id JOIN tblsaus d ON a.kd_saus = d.id_saus WHERE b.kd_cart = "' .$kd_cart. '"');
   while ($row = mysqli_fetch_array($query_select)) {
     $query2 = "INSERT INTO tbltransacdetail (product_code, kd_saus, qty, transac_code, harga)
     VALUES ('" . $row['kd_menu'] . "', '" . $row['kd_saus'] . "', '" . $row['qty'] . "', '$no_transac' ,

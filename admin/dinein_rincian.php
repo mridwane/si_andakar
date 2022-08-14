@@ -9,9 +9,7 @@ if (!isset($_SESSION["userid"])) {
     include 'includes/header.php';
 }
 
-$query = 'SELECT *, SUM(b.qty) as jumlah FROM `tbltransac` a INNER JOIN `tbltransacdetail` b ON
-    a.transac_code = b.transac_code WHERE
-    a.transac_code = "' . $_GET["no_transaksi"] . '"';
+$query = 'SELECT *, SUM(b.qty) as jumlah FROM `tbltransac` a INNER JOIN `tbltransacdetail` b ON a.transac_code = b.transac_code WHERE a.transac_code = "' . $_GET['no_transaksi'] . '"';
 $result = mysqli_query($db, $query) or die(mysqli_error($db));
 $row = mysqli_fetch_array($result);
 $jumlah = $row['jumlah'];
