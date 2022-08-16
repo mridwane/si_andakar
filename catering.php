@@ -3,6 +3,7 @@ session_start();
 if (isset($_SESSION['C_ID'])) ?>
 <?php include('includes/connection.php'); ?>
 <?php $page = "Catering Checkout"; ?>
+<?php $_SESSION['page'] = "Catering"; ?>
 <!--header area-->
 <?php include 'includes/header.php';
 ?>
@@ -52,16 +53,17 @@ if (isset($_SESSION['C_ID'])) ?>
                             ?>
                             <?php
 
-                            $query = 'SELECT C_ADRESSID FROM `tblcustomer` WHERE C_ID = "' . $_SESSION["cid"] . '"';
-                            $result = mysqli_query($db, $query) or die(mysqli_error($db));
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $address = $row['C_ADRESSID'];
-                            }
-                            if ($address == 0) { ?>
-                                <textarea name="" id="" cols="30" rows="4" disabled>Anda belum memilih alamat</textarea>
+                            // $query = 'SELECT C_ADRESSID FROM `tblcustomer` WHERE C_ID = "' . $_SESSION["cid"] . '"';
+                            // $result = mysqli_query($db, $query) or die(mysqli_error($db));
+                            // while ($row = mysqli_fetch_assoc($result)) {
+                            //     $address = $row['C_ADRESSID'];
+                            // }
+                            if (empty($alamat)) { ?>
+                                <textarea name="" id="" cols="60" rows="4" disabled>Anda belum memilih alamat</textarea>
                             <?php } else { ?>
-                                <textarea name="" id="" cols="30" rows="4" disabled><?= $alamat; ?></textarea>
+                                <textarea name="" id="" cols="60" rows="4" disabled><?= $alamat; ?></textarea>
                             <?php } ?>
+                            <a href="profil_alamat.php">Klik disini untuk mengganti alamat</a>
                         </div>
                         <div>
                             <label for="date">Tanggal Catering?</label>

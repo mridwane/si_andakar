@@ -342,8 +342,10 @@ if (!isset($_SESSION["userid"])) {
         <span>Menunggu Customer Melakukan Pelunasan</span>
         <?php } elseif (strtoupper($row["status"]) == strtoupper('done') && strtoupper($row["transac_type"]) == strtoupper("reservasi")) { ?>
         <span></span><br>
-        <a href="print/invoice_reservasi.php?no_transaksi=<?php echo $_GET['id']; ?>" target="_blank" class="btn btn-xs btn-warning"><i
+        <a href="print/invoice_reservasi.php?no_transaksi=<?php echo $_GET['id']; ?>" target="_blank" class="btn btn-xs btn-primary"><i
             class="fas fa-sign-out-alt" ></i>Cetak Nota</a>
+        <a href="print/tag_order.php?no_transaksi=<?php echo $_GET['id']; ?>" target="_blank"
+          class="btn btn-xs btn-success"><i class="fas fa-sign-out-alt"></i>Cetak Tag Order</a>
         <?php } elseif (strtoupper($row["status"]) == 'confirmed' && strtoupper($row["transac_type"]) == "reservasi") { ?>
         <a href="controller/admin_delivery_controller.php?no_transac=<?php echo $cd; ?>&action=send"
           class="btn btn-xs btn-danger"><i class="fas fa-sign-out-alt"></i>Kirimkan Pesanan</a>

@@ -64,12 +64,12 @@
                             <input type="text" name="status" value="<?php echo $stats ?>" class="form-control" hidden />
                         </div>
                         <div class="form-group">
-                            <label>Nominal Transfer Seharusnya</label>
+                            <label>Nominal Transfer Customer</label>
                             <input type="text" name="transfer_seharusnya" id="transfer_seharusnya" value="<?php echo number_format(($subtotal + $pajak + $service) / 2) ?>" class="form-control" readonly />
                         </div>
                         <div class="form-group">
-                            <label>Nominal Transfer Customer</label>
-                            <input type="number" name="cust_transfer" id="cust_transfer" class="form-control" onkeyup="validateTransfer();" />
+                            <!-- <label>Transfer Kembali ke Customer</label> -->
+                            <input type="number" name="cust_transfer" id="cust_transfer" class="form-control" value="<?= ($subtotal + $pajak + $service) / 2 ?>" class="form-control" hidden/>
                         </div>
                         <div class="form-group">
                             <label>Alasan Penolakan</label>
@@ -304,15 +304,11 @@ if (isset($_GET['no_transac']) && $_GET['action'] == "lunas") {
 if (isset($_GET['no_transac']) && $_GET['action'] == "deny") {
     require_once('../../includes/connection.php');
     $status = "deny";
+    $note = $_POST['note'];
     $no_transac = $_GET['no_transac'];
     // update table transac
-    $query_update = "UPDATE tbltransac SET status = '" . $status . "' WHERE transac_code='" . $_GET['no_transac'] . "'";
+    $query_update = "UPDATE tbltransac SET status = '" . $status . "', catatan = '" . $note . "' WHERE transac_code='" . $_GET['no_transac'] . "'";
     mysqli_query($db, $query_update) or die(mysqli_error($db));
-
-
-    // //insert ke table detail, berfungsi untuk melihat hisoty siapa yang accept atau dengan alesan apa
-    // $query_insert = "INSERT INTO tbldetailrequestmitra(date,note,status,user_id)values('" . $datetime . "','" . $note . "','" . $status . "','" . $user_id . "')";
-    // mysqli_query($db, $query_insert) or die(mysqli_error($db));
 ?>
     <script type="text/javascript">
         window.location.href = '../detailtransac.php?id=<?php echo $no_transac ?>';

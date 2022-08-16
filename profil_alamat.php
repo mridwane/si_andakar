@@ -96,9 +96,17 @@
                                 <button type="submit" class="btn btn-primary">
                                     Simpan Alamat
                                 </button>
-                                <button onclick="history.back()" class="btn btn-dark">
-                                    Kembali
-                                </button>
+                                <?php if(isset($_SESSION['page'])){ ?>
+                                    <?php if($_SESSION['page'] == "Catering"){ ?>
+                                    <a href="catering.php?kd_cart=Catering<?= $_SESSION['cid'] ?>" class="btn btn-dark">Kembali</a>
+                                    <?php } elseif($_SESSION['page'] == "Delivery"){ ?>
+                                    <a href="delivery.php?kd_cart=Delivery<?= $_SESSION['cid'] ?>" class="btn btn-dark">Kembali</a>
+                                    <?php } else { ?>
+                                    <a href="profil.php" class="btn btn-dark">Kembali</a>
+                                    <?php } ?>
+                                <?php }else { ?>
+                                <a href="profil.php" class="btn btn-dark">Kembali</a>
+                                <?php } ?>
                             </div>
                         </form>
                     </div>
