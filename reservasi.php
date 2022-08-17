@@ -29,16 +29,13 @@ if (isset($_SESSION['C_ID'])) ?>
                     <div class="form_container">
 
                         <div>
-                            <input type="text" class="form-control" placeholder="Your Name"
-                                value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" disabled />
+                            <input type="text" class="form-control" placeholder="Your Name" value="<?= $_SESSION['C_FNAME'] . ' ' . $_SESSION['C_LNAME'] ?>" disabled />
                         </div>
                         <div>
-                            <input type="text" class="form-control" placeholder="Phone Number"
-                                value="<?= $_SESSION['contact'] ?>" disabled />
+                            <input type="text" class="form-control" placeholder="Phone Number" value="<?= $_SESSION['contact'] ?>" disabled />
                         </div>
                         <div>
-                            <input type="email" class="form-control" placeholder="Your Email"
-                                value="<?= $_SESSION['email'] ?>" disabled />
+                            <input type="email" class="form-control" placeholder="Your Email" value="<?= $_SESSION['email'] ?>" disabled />
                         </div>
                     </div>
                 </div>
@@ -63,18 +60,17 @@ if (isset($_SESSION['C_ID'])) ?>
                             </div>
                             <div>
                                 <label for="date">Tanggal Reservasi?</label>
-                                <input type="date" class="form-control" id="date" name="date" required>
+                                <input type="date" class="form-control" id="date" name="date" onchange="validateDate(this)" required>
                             </div>
                             <div>
                                 <label for="time">Waktu Reservasi?</label>
-                                <input type="time" class="form-control" id="time" name="time" required>
+                                <input type="time" class="form-control" id="time" name="time" onchange="validateTime(this)" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Reservasi Sekarang
+                            <button type="submit" class="btn btn-primary" id="pesan_sekarang">Reservasi Sekarang
                             </button>
                         </form>
                         <form action="controller/reservasi_controller.php?action=cancel" method="POST">
-                            <input type="text" class="form-control" name="kd_cart" value="<?= $_GET['kd_cart'] ?>"
-                                hidden />
+                            <input type="text" class="form-control" name="kd_cart" value="<?= $_GET['kd_cart'] ?>" hidden />
                             <div class="btn-red">
                                 <button type="submit">Tidak Jadi Reservasi</button>
                             </div>
@@ -96,8 +92,7 @@ if (isset($_SESSION['C_ID'])) ?>
                     </Center>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%"
-                                cellspacing="0">
+                            <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
                                 <thead class="table-primary">
                                     <tr>
                                         <th>No</th>
@@ -109,19 +104,32 @@ if (isset($_SESSION['C_ID'])) ?>
                                 </thead>
                                 <tbody>
                                     <?php
-                                $query = 'SELECT * FROM `tblcartdetail` a inner join `tblproducts` b on a.`kd_menu` = b.`product_id` inner join `tblsaus` c on a.`kd_saus` = c.`id_saus` WHERE a.`kd_cart` = "' . $_GET['kd_cart'] . '"';
-                                $result = mysqli_query($db, $query) or die(mysqli_error($db));
-                                // membuat nomer otomatis untuk di tabel
-                                $no = 1;
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                    // cek Status Pending atau disetujui
-                                    if ($row['status'] == "0") {
-                                        $status = "Pending";
-                                    } elseif ($row['status'] == "1") {
-                                        $status = "Disetujui";
-                                    } else {
-                                        $status = "Dibatalkan";
+                                    $query = 'SELECT * FROM `tblcartdetail` a inner join `tblproducts` b on a.`kd_menu` = b.`product_id` inner join `tblsaus` c on a.`kd_saus` = c.`id_saus` WHERE a.`kd_cart` = "' . $_GET['kd_cart'] . '"';
+                                    $result = mysqli_query($db, $query) or die(mysqli_error($db));
+                                    // membuat nomer otomatis untuk di tabel
+                                    $no = 1;
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        // cek Status Pending atau disetujui
+                                        if ($row['status'] == "0") {
+                                            $status = "Pending";
+                                        } elseif ($row['status'] == "1") {
+                                            $status = "Disetujui";
+                                        } else {
+                                            $status = "Dibatalkan";
+                                        }
+                                        echo '<tr>';
+                                        echo '<td>' . $no++ . '</td>';
+                                        if ($row['id_saus'] == 'S100') {
+                                            echo '<td>' . $row['product_name'] . '</td>';
+                                        } else {
+                                            echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . '</td>';
+                                        }
+                                        echo '<td>' . $row['qty'] . '</td>';
+                                        echo '<td>' . $row['type'] . '</td>';
+                                        echo '<td>Rp. ' . number_format($row['harga'], 0, ',', '.') . '</td>';
+                                        echo '</tr> ';
                                     }
+                                    ?>
                                     echo '<tr>';
                                     echo '<td>' . $no++ . '</td>';
                                     if (!empty($row['kematangan'])) {
@@ -153,8 +161,7 @@ if (isset($_SESSION['C_ID'])) ?>
         </div>
     </section>
 
-    <div class="modal fade" id="cartReservasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="cartReservasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -185,3 +192,46 @@ if (isset($_SESSION['C_ID'])) ?>
 
     <!--footer area-->
     <?php include 'includes/footer.php'; ?>
+
+    <script>
+        function validateDate(date) {
+            var selectedDate = date.value;
+            var parseDate = new Date(selectedDate)
+            var today = new Date();
+            let timeDifference = parseDate.getTime() - today.getTime();
+            let dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+            var cek = true;
+            if (dayDifference < 0) {
+                alert("Tidak bisa memilih tanggal yang sudah lewat")
+                document.getElementById("pesan_sekarang").disabled = true;
+                cek = false
+            } else {
+                document.getElementById("pesan_sekarang").disabled = false;
+                cek = true
+            }
+
+            // if (cek == true) {
+            //     if (parseDate.getHours() < 11 || parseDate.getHours() > 21) {
+            //         alert("Jam yang anda pilih berada di luar jam operasional kami, silahkan pilih jam diantar 11.00-21.00 WIB")
+            //         document.getElementById("pesan_sekarang").disabled = true;
+            //     } else {
+            //         document.getElementById("pesan_sekarang").disabled = false;
+            //     }
+            // }
+
+        }
+
+        function validateTime(time) {
+            var hours = time.value.slice(0, 2)
+
+
+            if (hours < 11 || hours > 21) {
+                alert("Jam yang anda pilih berada di luar jam operasional kami, silahkan pilih jam diantar 11.00-21.00 WIB")
+                document.getElementById("pesan_sekarang").disabled = true;
+            } else {
+                document.getElementById("pesan_sekarang").disabled = false;
+            }
+
+
+        }
+    </script>
