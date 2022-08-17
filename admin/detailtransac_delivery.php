@@ -150,7 +150,20 @@ if (!isset($_SESSION["userid"])) {
 
               while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td>' . $row['product_name'] .  "+" . $row["nama_saus"] . '</td>';
+                if (!empty($row['kematangan'])) {
+                  if ($row['id_saus'] == 'S100') {
+                  echo '<td>' . $row['product_name'] . '</td>';
+                  } else {
+                  echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . ' ('.$row['kematangan'].')</td>';
+                  }
+                  }
+                  else {
+                  if ($row['id_saus'] == 'S100') {
+                  echo '<td>' . $row['product_name'] . '</td>';
+                  } else {
+                  echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . '</td>';
+                  }
+                }
                 echo '<td>' . $row['date'] . '</td>';
                 echo '<td>' . $row['qty'] . '</td>';
                 echo '<td>' . number_format($row['price']) . '</td>';
@@ -274,6 +287,8 @@ if (!isset($_SESSION["userid"])) {
           class="btn btn-xs btn-primary btn-kirim disabled"><i class="fas fa-sign-out-alt"></i>Kirimkan Pesanan</a>
         <a href="print/receipt_delivery.php?no_transaksi=<?php echo $_GET['id']; ?>"
           class="btn btn-xs btn-success print-struk" target="_blank"><i class="fas fa-sign-out-alt"></i>Cetak Struk</a>
+        <a href="print/tag_order.php?no_transaksi=<?php echo $_GET['id']; ?>" target="_blank"
+          class="btn btn-xs btn-success"><i class="fas fa-sign-out-alt"></i>Cetak Tag Order</a>
         <button class="btn btn-xs btn-warning" onclick="history.back()"><i
             class="fas fa-sign-out-alt"></i>Kembali</button>
         <?php } ?>

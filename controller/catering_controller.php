@@ -71,8 +71,9 @@ if ($_GET['action'] == 'save') {
     a.kd_menu = c.product_id JOIN tblsaus d ON
     a.kd_saus = d.id_saus WHERE b.kd_cart = "' . $kd_cart . '"');
     while ($row = mysqli_fetch_array($query_select)) {
-      $query2 = "INSERT INTO tbltransacdetail (product_code, kd_saus, qty, transac_code, harga)
-      VALUES ('" . $row['kd_menu'] . "', '" . $row['kd_saus'] . "', '" . $row['qty'] . "', '$no_transac' ,
+      $query2 = "INSERT INTO tbltransacdetail (product_code, kd_saus, kematangan, qty, transac_code, harga)
+      VALUES ('" . $row['kd_menu'] . "', '" . $row['kd_saus'] . "', '" . $row['kematangan'] . "', '" . $row['qty'] . "',
+      '$no_transac' ,
       '" . $row['harga'] . "')";
       mysqli_query($db, $query2) or die('Error, gagal menyimpan data catering');
     }

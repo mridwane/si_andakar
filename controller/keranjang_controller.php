@@ -13,6 +13,7 @@ $kd_saus = $_POST['kd_saus'];
 $id = $_POST['id'];
 $fungsi = $_POST['fungsi'];
 $qty = $_POST['qty'];
+$kematangan = $_POST['kematangan'];
 $jenis_cart = $_POST['jenis_cart'];
 $harga = $_POST['harga'];
 $cid = $_SESSION["cid"];
@@ -51,8 +52,8 @@ if ($fungsi == 'Delete'){
         '".$jenis_cart."', '".$harga."', '".$date."', '".$cid."')";
         $result1 = mysqli_query($db, $query1) or die(mysqli_error($db));
 
-        $query2 = "INSERT INTO tblcartdetail (kd_cart, kd_menu, kd_saus, qty, harga) VALUES ('".$kd_cart."', '".$kd_menu."',
-        '".$kd_saus."', '".$qty."', '".$harga."')";
+        $query2 = "INSERT INTO tblcartdetail (kd_cart, kd_menu, kd_saus, kematangan, qty, harga) VALUES ('".$kd_cart."', '".$kd_menu."',
+        '".$kd_saus."','".$kematangan."', '".$qty."', '".$harga."')";
         $result2 = mysqli_query($db, $query2) or die(mysqli_error($db));        
     }
     else {
@@ -72,9 +73,9 @@ if ($fungsi == 'Delete'){
            $result2 = mysqli_query($db, $query2) or die(mysqli_error($db));
         }
         else {
-            $query2 = "INSERT INTO tblcartdetail (kd_cart, kd_menu, kd_saus, qty, harga) VALUES ('".$kd_cart."',
+            $query2 = "INSERT INTO tblcartdetail (kd_cart, kd_menu, kd_saus, kematangan, qty, harga) VALUES ('".$kd_cart."',
             '".$kd_menu."',
-            '".$kd_saus."', '".$qty."', '".$harga."')";
+            '".$kd_saus."', '".$kematangan."', '".$qty."', '".$harga."')";
             $result2 = mysqli_query($db, $query2) or die(mysqli_error($db));
 
             $query = mysqli_query($db, "SELECT SUM(harga) as total FROM tblcartdetail WHERE kd_cart = '".$kd_cart."'");

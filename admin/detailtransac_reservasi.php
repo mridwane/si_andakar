@@ -149,7 +149,20 @@ if (!isset($_SESSION["userid"])) {
 
               while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td>' . $row['product_name'] .  "+" . $row["nama_saus"] . '</td>';
+                if (!empty($row['kematangan'])) {
+                  if ($row['id_saus'] == 'S100') {
+                  echo '<td>' . $row['product_name'] . '</td>';
+                  } else {
+                  echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . ' ('.$row['kematangan'].')</td>';
+                  }
+                  }
+                  else {
+                  if ($row['id_saus'] == 'S100') {
+                  echo '<td>' . $row['product_name'] . '</td>';
+                  } else {
+                  echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . '</td>';
+                  }
+                }
                 echo '<td>' . $row['date'] . '</td>';
                 echo '<td>' . $row['qty'] . '</td>';
                 echo '<td>' . number_format($row['harga']) . '</td>';
