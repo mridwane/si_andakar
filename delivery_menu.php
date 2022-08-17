@@ -152,7 +152,7 @@
                                             <h6><b>Pilih Saus</b></h6>
                                         </div>
                                         <div class="col-12">
-                                            <select class="form-control nice-select wide">
+                                            <select class="form-control nice-select wide pilih-saus">
                                                 <option value="" selected disabled>Pilih Menu</option>
                                                 <?php 
                                                     $query2 = "SELECT * FROM tblsaus WHERE NOT id_saus = 'S100'";
@@ -168,6 +168,18 @@
                                                 <?php } ?>
                                             </select>
                                         </div>
+                                        <?php if ($row['category'] == "Steak") {?>
+                                        <div class="col-12">
+                                            <select class="form-control nice-select kematangan">
+                                                <option value="" selected disabled>Pilih Tingkat Kematangan</option>
+                                                <option value="" data-tingkat="Rare">Rare</option>
+                                                <option value="" data-tingkat="Medium Rare">Medium Rare</option>
+                                                <option value="" data-tingkat="Medium">Medium</option>
+                                                <option value="" data-tingkat="Medium Well">Medium Well</option>
+                                                <option value="" data-tingkat="Well Done">Well Done</option>
+                                            </select>
+                                        </div>
+                                        <?php }else {} ?>
                                         <div class="col-12">
                                             <br>
                                             <div class="float-right">
@@ -182,6 +194,7 @@
                                     <button type="button" class="btn btn-primary addCart"
                                         data-kd-menu="<?= $row['product_id']; ?>" data-kd-saus="S100"
                                         data-price="<?= $row['price']; ?>" data-jenis="<?= $page ?>"
+                                        data-kematangan=""
                                         data-fungsi="addMenu" data-qty="1" disabled>Masukan keranjang</button>
                                 </div>
                                 <?php }else {?>

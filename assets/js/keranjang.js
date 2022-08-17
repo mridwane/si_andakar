@@ -130,7 +130,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.nice-select').on('click', function () {
+    $('.pilih-saus').on('click', function () {
         const priceSaus = $(this).find(':selected').data('prices');
         $('[id=hargaSaus]').text(priceSaus);
         var priceMenu = $(this).find(':selected').data('pricem');
@@ -138,6 +138,12 @@ $(document).ready(function () {
         let total = priceSaus + priceMenu;
         $('.addCart').attr("data-price", total);
         $('.addCart').attr("data-kd-saus", id);
+        $('.addCart').removeAttr('disabled');
+    });
+
+    $('.kematangan').on('click', function () {
+        const kematangan = $(this).find(':selected').data('tingkat');;
+        $('.addCart').attr("data-kematangan", kematangan);
         $('.addCart').removeAttr('disabled');
     });
 
@@ -162,6 +168,7 @@ $(document).ready(function () {
         let kodeSaus = $(this).data('kd-saus');
         let jenisCart = $(this).data('jenis');
         let fungsi = $(this).data('fungsi');
+        let kematangan = $(this).data('kematangan');
         // var qty = $(this).data('qty');
         var qty = $(this).data('qty');
         let priceMenu = $(this).data('price');
@@ -173,6 +180,7 @@ $(document).ready(function () {
                 kd_saus: kodeSaus,
                 qty: qty,
                 jenis_cart: jenisCart,
+                kematangan: kematangan,
                 harga: totalPrice,
                 fungsi: fungsi,
             },

@@ -150,7 +150,20 @@ if (!isset($_SESSION["userid"])) {
 
               while ($row = mysqli_fetch_assoc($result)) {
                 echo '<tr>';
-                echo '<td>' . $row['product_name'] .  "+" . $row["nama_saus"] . '</td>';
+                if (!empty($row['kematangan'])) {
+                  if ($row['id_saus'] == 'S100') {
+                  echo '<td>' . $row['product_name'] . '</td>';
+                  } else {
+                  echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . ' ('.$row['kematangan'].')</td>';
+                  }
+                  }
+                  else {
+                  if ($row['id_saus'] == 'S100') {
+                  echo '<td>' . $row['product_name'] . '</td>';
+                  } else {
+                  echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . '</td>';
+                  }
+                }
                 echo '<td>' . $row['date'] . '</td>';
                 echo '<td>' . $row['qty'] . '</td>';
                 echo '<td>' . number_format($row['harga']) . '</td>';
@@ -358,7 +371,7 @@ if (!isset($_SESSION["userid"])) {
           <?php } elseif (strtoupper($row["status"]) == strtoupper('confirmed') && strtoupper($row["transac_type"]) == strtoupper("catering")) { ?>
             <span>Menunggu Customer Melakukan Pelunasan</span>
 
-          <?php } elseif (strtoupper($row["status"]) == strtoupper('lunas') && strtoupper($row["transac_type"]) == strtoupper("catering")) { ?>
+          <?php } elseif (strtoupper($row["status"]) == strtoupper('done') && strtoupper($row["transac_type"]) == strtoupper("catering")) { ?>
             <span></span><br>
 
             <a href="print/invoice_catering.php?no_transaksi=<?php echo $_GET['id']; ?>" target="_blank" class="btn btn-xs btn-primary"><i class="fas fa-sign-out-alt"></i>Cetak Invoice</a>

@@ -130,6 +130,28 @@ if (isset($_SESSION['C_ID'])) ?>
                                         echo '</tr> ';
                                     }
                                     ?>
+                                    echo '<tr>';
+                                    echo '<td>' . $no++ . '</td>';
+                                    if (!empty($row['kematangan'])) {
+                                        if ($row['id_saus'] == 'S100') {
+                                        echo '<td>' . $row['product_name'] . '</td>';
+                                        } else {
+                                        echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . ' ('.$row['kematangan'].')</td>';
+                                        }
+                                    }
+                                    else {
+                                        if ($row['id_saus'] == 'S100') {
+                                        echo '<td>' . $row['product_name'] . '</td>';
+                                        } else {
+                                        echo '<td>' . $row['product_name'] . ' + ' . $row['nama_saus'] . '</td>';
+                                        }
+                                    }
+                                    echo '<td>' . $row['qty'] . '</td>';
+                                    echo '<td>' . $row['type'] . '</td>';
+                                    echo '<td>Rp. ' . number_format($row['harga'] ,0,',','.'). '</td>';
+                                    echo '</tr> ';
+                                }
+                                ?>
                                 </tbody>
                             </table>
                         </div>

@@ -63,13 +63,25 @@ $amount = 0; //total amount
 
 //display the items
 while ($item = mysqli_fetch_assoc($result2)) {
-    if($item['nama_saus'] == "Tanpa Saus"){
-        $pdf->SetFont('Arial', 'B', 8);
-        $pdf->Cell(75, 5, $item['product_name'], $border, 0);
-    }else{
-        $pdf->SetFont('Arial', 'B', 8);
-        $pdf->Cell(75, 5, $item['product_name'] . " + " . $item['nama_saus'], $border, 0);
-    } 
+    if (!empty($item['kematangan'])) {
+        if ($item['nama_saus'] == 'Tanpa Saus') {
+            $pdf->SetFont('Arial', 'B', 8);
+            $pdf->Cell(75, 5, $item['product_name'], $border, 0);
+        } else {
+            $pdf->SetFont('Arial', 'B', 8);
+            $pdf->Cell(75, 5, $item['product_name'] . " + " . $item['nama_saus']. "(". $item['kematangan'].")", $border, 0);
+        }
+    }
+    else {
+        if($item['nama_saus'] == "Tanpa Saus"){
+            $pdf->SetFont('Arial', 'B', 8);
+            $pdf->Cell(75, 5, $item['product_name'], $border, 0);
+        }else{
+            $pdf->SetFont('Arial', 'B', 8);
+            $pdf->Cell(75, 5, $item['product_name'] . " + " . $item['nama_saus'], $border, 0);
+        }
+    }
+     
     $pdf->SetFont('Arial', '', 8);
     $pdf->Cell(5, 5, number_format($item['qty']), $border, 1,'C');
     //accumulate tax and amount
