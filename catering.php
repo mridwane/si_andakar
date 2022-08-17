@@ -67,7 +67,7 @@ if (isset($_SESSION['C_ID'])) ?>
                         </div>
                         <div>
                             <label for="date">Tanggal Catering?</label>
-                            <input type="datetime-local" class="form-control" id="date" name="date" required>
+                            <input type="datetime-local" class="form-control" id="date" name="date" onchange="validateDate(this)" required>
                         </div>
                         <div class="btn-box">
                             <button type="submit" id="pesan_catering" name="pesan_catering" class="btn btn-primary">Pesan Sekarang</button>
@@ -192,8 +192,30 @@ if (isset($_SESSION['C_ID'])) ?>
             alert(selected_dat)
         });
 
-        function validationDate() {
-            alert("test")
-            // document.getElementById("date").style.color = "red";
+        function validateDate(date) {
+            var selectedDate = date.value;
+            var parseDate = new Date(selectedDate)
+            var today = new Date();
+            let timeDifference = parseDate.getTime() - today.getTime();
+            let dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+            var cek = true;
+            if (dayDifference < 2) {
+                alert("Minimal Tanggal Catering H+2 dari tanggal saat ini")
+                document.getElementById("pesan_catering").disabled = true;
+                cek = false
+            } else {
+                document.getElementById("pesan_catering").disabled = false;
+                cek = true
+            }
+
+            if (cek == true) {
+                if (parseDate.getHours() < 11 || parseDate.getHours() > 21) {
+                    alert("Jam yang anda pilih berada di luar jam operasional kami, silahkan pilih jam diantar 11.00-21.00 WIB")
+                    document.getElementById("pesan_catering").disabled = true;
+                } else {
+                    document.getElementById("pesan_catering").disabled = false;
+                }
+            }
+
         }
     </script>
