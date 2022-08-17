@@ -208,7 +208,7 @@ if (isset($_SESSION['C_ID'])) ?>
 
             if (cek == true) {
                 if (parseDate.getHours() < 11 || parseDate.getHours() > 21) {
-                    alert("Jam yang anda pilih berada di luar jam operasional kami, silahkan pilih jam diantar 11.00-21.00")
+                    alert("Jam yang anda pilih berada di luar jam operasional kami, silahkan pilih jam diantar 11.00-21.00 WIB")
                     document.getElementById("pesan_catering").disabled = true;
                 } else {
                     document.getElementById("pesan_catering").disabled = false;
