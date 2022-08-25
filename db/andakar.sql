@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 17 Agu 2022 pada 06.11
--- Versi server: 10.4.24-MariaDB
--- Versi PHP: 7.4.29
+-- Host: sql112.epizy.com
+-- Waktu pembuatan: 25 Agu 2022 pada 10.02
+-- Versi server: 10.3.27-MariaDB
+-- Versi PHP: 7.2.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `andakar`
+-- Database: `epiz_32136448_andakar`
 --
 
 -- --------------------------------------------------------
@@ -44,7 +45,7 @@ INSERT INTO `tblalamat` (`id_alamat`, `alamat`, `c_id`) VALUES
 (13, 'Jl Jend Sudirman Kav 52-53 Ged Artha Graha, Dki Jakarta', 4),
 (14, 'Mandiri Building 5th Floor, JL. Imam Bonjol No. 16D, Medan', 4),
 (25, 'alamat 2', 5),
-(27, 'jalan kampung', 11),
+(27, 'Jalan Gatot Subroto RT01/RW02 Kota Jakarta Barat', 11),
 (28, 'Bandung', 13),
 (29, 'Jalanudin', 12),
 (31, 'Jl. Rawa Domba No.1A, RW.7, Duren Sawit, Kec. Duren Sawit, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13440.', 2),
@@ -110,12 +111,8 @@ INSERT INTO `tblbuktitransfer` (`id`, `date`, `file_name`, `status`, `nominal_tr
 (12, '0000-00-00 00:00:00', 'BTDPRES1608202212382219.jpeg', 'deny_adm_dp', 55550, 'admin', '', '', 'RES1608202212382219'),
 (13, '2022-08-16 00:44:07', 'BTCAT1608202212415734.jpeg', 'dp', 0, 'customer', '', '', 'CAT1608202212415734'),
 (14, '2022-08-16 00:45:11', 'BTLNSCAT1608202212415734.jpeg', 'lunas', 0, 'customer', '', '', 'CAT1608202212415734'),
-(15, '2022-08-17 04:28:17', 'BTDEL1708202204274860.png', 'paid', 0, 'customer', '', '', 'DEL1708202204274860'),
-(16, '2022-08-17 04:53:07', 'BTRES1708202204525123.png', 'dp', 0, 'customer', '', '', 'RES1708202204525123'),
-(17, '2022-08-17 04:57:25', 'BTRES1708202204571790.png', 'dp', 0, 'customer', '', '', 'RES1708202204571790'),
-(18, '2022-08-17 04:58:38', 'BTLNSRES1708202204571790.jpeg', 'lunas', 0, 'customer', '', '', 'RES1708202204571790'),
-(19, '2022-08-17 05:04:37', 'BTCAT1708202205042258.png', 'dp', 0, 'customer', '', '', 'CAT1708202205042258'),
-(20, '2022-08-17 05:06:19', 'BTLNSCAT1708202205042258.png', 'lunas', 0, 'customer', '', '', 'CAT1708202205042258');
+(15, '2022-08-17 21:41:34', 'BTDEL1708202209410794.jpeg', 'paid', 0, 'customer', '', '', 'DEL1708202209410794'),
+(16, '2022-08-19 04:00:30', 'BTMTRMIT1608202203551455.jpg', 'diterima', 0, 'admin', '', '', 'MIT1608202203551455');
 
 -- --------------------------------------------------------
 
@@ -136,7 +133,10 @@ CREATE TABLE `tblcart` (
 --
 
 INSERT INTO `tblcart` (`kd_cart`, `jenis_cart`, `total`, `date`, `c_id`) VALUES
-('Reservasi2', 'Reservasi', 101000, '2022-08-16', 2);
+('Catering2', 'Catering', 7560000, '2022-08-17', 2),
+('Delivery2', 'Delivery', 202000, '2022-08-17', 2),
+('Delivery4', 'Delivery', 96000, '2022-08-17', 4),
+('Reservasi2', 'Reservasi', 198000, '2022-08-16', 2);
 
 -- --------------------------------------------------------
 
@@ -159,7 +159,11 @@ CREATE TABLE `tblcartdetail` (
 --
 
 INSERT INTO `tblcartdetail` (`id`, `kd_cart`, `kd_menu`, `kd_saus`, `kematangan`, `qty`, `harga`) VALUES
-(22, 'Reservasi2', 2, 'S1117', '', 1, 101000);
+(27, 'Catering2', 7, 'S1117', '', 42, 7560000),
+(40, 'Delivery2', 2, 'S1117', 'Medium Rare', 2, 202000),
+(41, 'Delivery4', 2, 'S1116', 'Medium Well', 1, 96000),
+(42, 'Reservasi2', 4, 'S1117', 'Medium Rare', 1, 97000),
+(43, 'Reservasi2', 2, 'S1117', 'Medium Rare', 1, 101000);
 
 -- --------------------------------------------------------
 
@@ -225,7 +229,8 @@ INSERT INTO `tblcustomer` (`C_ID`, `C_FNAME`, `C_LNAME`, `C_AGE`, `C_ADRESSID`, 
 (7, 'Muhammad ', 'Suherman', 33, 0, '081978899076', 'Laki-Laki', 'Mitra', 'suherman@gmail.com', '4321', 'suherman', '$2y$10$RvQDDK8366H4aqHg4wRxROJLqhQns30C5hqMruU9vWIMoCCkk9Jbu'),
 (8, 'lala', 'pohh', 22, 0, '081987890167', 'Laki-Laki', 'Mitra', 'lala@gmail.com', '4321', 'lala', '$2y$10$bTAtkies2xmB2fc6vHgyG.Rm25NpOaIfSrTQDO1hWe86LoOR9pqb2'),
 (9, 'Sacharissa', 'Gunawan', 21, 0, '85759082279', 'Perempuan', 'Mitra', 'regi@gmail.com', '4321', 'regisg', '$2y$10$9FdFAQeMJjgy46XZ4hyj8.f1bIRojBT/g38Zn3e3VX.mClsk4e4lq'),
-(10, 'rissa', 'gunawan', 21, 0, '0879646567', 'Perempuan', 'Mitra', 'regigunawan730@gmail.com', '4321', 'rissa', '$2y$10$m7bbyjhm4z45ScFGrp9gFeccn1CV53nPrtc.MLasGlW.yFNO5Jdyy');
+(10, 'rissa', 'gunawan', 21, 0, '0879646567', 'Perempuan', 'Mitra', 'regigunawan730@gmail.com', '4321', 'rissa', '$2y$10$m7bbyjhm4z45ScFGrp9gFeccn1CV53nPrtc.MLasGlW.yFNO5Jdyy'),
+(11, 'Nadya', 'Gunawan', 25, 27, '85759082279', 'Perempuan', 'Mitra', 'nadya@gmail.com', '4321', 'nadya', '$2y$10$6pk8GnA9bWU..4iqRR/vIO5OqgJy1L9hpXXx15GxsMTgLvV9Y/DUK');
 
 -- --------------------------------------------------------
 
@@ -401,7 +406,8 @@ CREATE TABLE `tblrequestmitra` (
 INSERT INTO `tblrequestmitra` (`id`, `regis_no`, `date_req`, `file`, `status`, `note`, `C_ID`) VALUES
 (1, 'MIT1508202208372851', '2022-08-15', 'MIT1508202208372851_6_kemitraan.pdf', 'active', 'selamat telah menjadi mitra kami', 6),
 (2, 'MIT1608202212494696', '2022-08-16', 'MIT1608202212494696_9_kemitraan.pdf', 'active', 'Selamat anda diterima', 9),
-(3, 'MIT1608202203551455', '2022-08-16', 'MIT1608202203551455_10_kemitraan.pdf', 'interview', 'Selamat anda kami undang untuk Interview di perusahaan kami pada tanggal 2022-08-17 Pukul 12:09 Catatan: gmeet', 10);
+(3, 'MIT1608202203551455', '2022-08-16', 'MIT1608202203551455_10_kemitraan.pdf', 'active', 'Selamat Anda Sekarang Menjadi Mitra Kami', 10),
+(4, 'MIT1708202209452278', '2022-08-17', 'MIT1708202209452278_11_kemitraan.pdf', 'active', 'Selamat telah menjadi mitra kami', 11);
 
 -- --------------------------------------------------------
 
@@ -497,14 +503,10 @@ INSERT INTO `tbltransac` (`id`, `transac_code`, `date`, `transac_type`, `status`
 (7, 'DEL1508202210583916', '2022/08/15', 'Delivery', 'done', 214000, 21400, 0, 10000, 0, 0, 245400, '2022-08-16 00:02:46', 0, 2, 'Jumlah Pembayaran Kurang -RpÂ 5.400,00'),
 (8, 'CAT1508202211093376', '2022/08/15', 'Catering', 'done', 6120000, 612000, 306000, 0, 3500000, 3538000, 7038000, '2022-08-19 10:09:00', 0, 2, 'transfer Sesuai.'),
 (9, 'DEL1608202212341512', '2022/08/16', 'Delivery', 'done', 214000, 21400, 0, 10000, 0, 0, 245400, '2022-08-16 01:38:21', 0, 2, 'Jumlah Pembayaran Kurang -RpÂ 5.400,00'),
-(10, 'RES1608202212382219', '2022/08/16', 'Reservasi', 'deny_adm_dp', 101000, 10100, 0, 0, 0, 0, 111100, '2022-08-17 11:38:00', 1, 2, ''),
+(10, 'RES1608202212382219', '2022/08/16', 'Reservasi', 'cancel', 101000, 10100, 0, 0, 0, 0, 111100, '2022-08-17 11:38:00', 1, 2, ''),
 (11, 'CAT1608202212415734', '2022/08/16', 'Catering', 'done', 5400000, 540000, 270000, 0, 3000000, 3210000, 6210000, '2022-08-20 11:42:00', 0, 2, 'transfer Sesuai.'),
 (12, 'DIN1608202212460167', '2022/08/16', 'Dinein', 'done', 0, 0, 0, 0, 0, 0, 101000, '2022-08-16 01:50:07', 0, 11, ''),
-(13, 'DEL1708202203194474', '2022/08/17', 'Delivery', 'pending', 245000, 24500, 0, 10000, 0, 0, 279500, '2022-08-17 08:19:44', 0, 4, ''),
-(14, 'DEL1708202204274860', '2022/08/17', 'Delivery', 'done', 146000, 14600, 0, 10000, 0, 0, 170600, '2022-08-17 09:27:48', 0, 4, 'Jumlah Pembayaran Kurang -Rp 600,00'),
-(15, 'RES1708202204525123', '2022/08/17', 'Reservasi', 'dp', 311000, 31100, 0, 0, 0, 0, 342100, '2022-08-19 11:54:00', 3, 4, ''),
-(16, 'RES1708202204571790', '2022/08/17', 'Reservasi', 'done', 313000, 31300, 0, 0, 172150, 172150, 344300, '2022-08-19 10:00:00', 2, 4, 'transfer Sesuai.'),
-(17, 'CAT1708202205042258', '2022/08/17', 'Catering', 'done', 6392000, 639200, 319600, 0, 2500000, 4850000, 7350800, '2022-08-27 10:04:00', 0, 4, 'Jumlah Pembayaran Kurang -Rp 800,00');
+(13, 'DEL1708202209410794', '2022/08/17', 'Delivery', 'done', 90000, 9000, 0, 10000, 0, 0, 109000, '2022-08-17 22:45:08', 0, 2, 'Jumlah Pembayaran Kurang -RpÂ 9.000,00');
 
 -- --------------------------------------------------------
 
@@ -546,27 +548,7 @@ INSERT INTO `tbltransacdetail` (`id`, `product_code`, `kd_saus`, `kematangan`, `
 (17, '9', 'S1117', '', 4, 'CAT1608202212415734', 180000),
 (18, '7', 'S1117', '', 29, 'CAT1608202212415734', 5220000),
 (19, '2', 'S1118', '', 1, 'DIN1608202212460167', 101000),
-(20, '2', 'S1116', '', 1, 'DEL1708202203194474', 96000),
-(21, '14', 'S100', '', 1, 'DEL1708202203194474', 25000),
-(22, '15', 'S100', '', 1, 'DEL1708202203194474', 23000),
-(23, '2', 'S1117', '', 1, 'DEL1708202203194474', 101000),
-(24, '2', 'S1117', 'Medium Rare', 1, 'DEL1708202204274860', 101000),
-(25, '9', 'S1117', '', 1, 'DEL1708202204274860', 45000),
-(26, '9', 'S1117', '', 1, 'RES1708202204525123', 45000),
-(27, '4', 'S1119', '', 2, 'RES1708202204525123', 204000),
-(28, '17', 'S100', '', 1, 'RES1708202204525123', 37000),
-(29, '14', 'S100', '', 1, 'RES1708202204525123', 25000),
-(30, '2', 'S1116', 'Medium Well', 1, 'RES1708202204571790', 96000),
-(31, '14', 'S100', '', 1, 'RES1708202204571790', 25000),
-(32, '7', 'S1117', '', 1, 'RES1708202204571790', 180000),
-(33, '18', 'S100', '', 1, 'RES1708202204571790', 12000),
-(34, '13', 'S100', '', 2, 'CAT1708202205042258', 40000),
-(35, '17', 'S100', '', 1, 'CAT1708202205042258', 37000),
-(36, '9', 'S1117', '', 1, 'CAT1708202205042258', 45000),
-(37, '2', 'S1117', 'Medium', 58, 'CAT1708202205042258', 5858000),
-(38, '7', 'S1118', '', 1, 'CAT1708202205042258', 180000),
-(39, '4', 'S1118', 'Well Done', 1, 'CAT1708202205042258', 97000),
-(40, '5', 'S1119', 'Rare', 1, 'CAT1708202205042258', 135000);
+(20, '6', 'S1117', '', 1, 'DEL1708202209410794', 90000);
 
 -- --------------------------------------------------------
 
@@ -732,13 +714,13 @@ ALTER TABLE `tblautonumber`
 -- AUTO_INCREMENT untuk tabel `tblbuktitransfer`
 --
 ALTER TABLE `tblbuktitransfer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcartdetail`
 --
 ALTER TABLE `tblcartdetail`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblcategory`
@@ -750,7 +732,7 @@ ALTER TABLE `tblcategory`
 -- AUTO_INCREMENT untuk tabel `tblcustomer`
 --
 ALTER TABLE `tblcustomer`
-  MODIFY `C_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `C_ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbldelivery`
@@ -780,7 +762,7 @@ ALTER TABLE `tblreqdetail`
 -- AUTO_INCREMENT untuk tabel `tblrequestmitra`
 --
 ALTER TABLE `tblrequestmitra`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblstockhistory`
@@ -792,13 +774,13 @@ ALTER TABLE `tblstockhistory`
 -- AUTO_INCREMENT untuk tabel `tbltransac`
 --
 ALTER TABLE `tbltransac`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `tbltransacdetail`
 --
 ALTER TABLE `tbltransacdetail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `tblusers`
